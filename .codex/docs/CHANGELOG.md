@@ -41,4 +41,4 @@
 - Result: exit 0 in about 40 seconds; request/reply packet counts both 29,005.
 - Evidence: verified software trace replay only; source trace is V100 and the
   selected config uses the existing GPU memory interconnect, not NVLink/NVLS.
-- Commit: pending.
+- Commit: `12005db` (`test(trace): record baseline v100 replay`).
