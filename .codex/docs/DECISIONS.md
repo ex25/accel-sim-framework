@@ -22,13 +22,18 @@
   repository discovery scans `.agents/skills` and each skill requires
   `SKILL.md` with `name` and `description`.
 
-## D003 — BookSim remains an external analysis target for M0/M1
+## D003 — Reuse the existing BookSim-derived intersim2 boundary first
 
 - Date: 2026-09-18
-- Context: `booksim2` is a separate checkout at `28f4329` and no adapter exists.
-- Decision: do not vendor/copy it during repository reconnaissance. Decide
-  submodule/external checkout/adapter after reading its build and API.
-- Why: preserves upstream history and prevents premature coupling.
+- Context: `booksim2` is a separate checkout at `28f4329`, while nested
+  GPGPU-Sim already contains `src/intersim2` plus a GPU adapter.
+- Decision: do not vendor/copy the reference checkout. First understand and
+  reuse the existing `InterconnectInterface`/`GPUTrafficManager` boundary, then
+  decide whether a logical GPU/NVSwitch layer belongs above it.
+- Why: preserves existing Accel-Sim build/history and avoids a second generic
+  network implementation. The existing path is memory traffic, not NVLS.
+- Validation: source audit complete for the API; provenance and standalone
+  smoke-build comparison remain open.
 
 ## D004 — Separate compute traces from communication events
 

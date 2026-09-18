@@ -15,8 +15,11 @@ already models NVSwitch or NVLS.
 - Working tree was clean before this documentation phase.
 - Nested GPGPU-Sim is a separate ignored Git checkout at `91880c53`; it is not
   a tracked submodule in the Accel-Sim repository.
-- BookSim is a separate checkout at `../booksim2`, `28f4329`; it is not yet a
-  dependency or source change in this branch.
+- Accel-Sim already contains a BookSim2-derived `gpu-simulator/gpgpu-sim/src/intersim2`
+  implementation, selected through `-network_mode 1`; it models the existing
+  GPU-to-memory interconnect. The separate `../booksim2` checkout at `28f4329`
+  is an upstream/reference checkout, not yet a dependency or source change in
+  this branch.
 - The release build already exists and rebuilt successfully with the activated
   `in-switch` environment. CTest currently discovers no tests.
 - One physical NVIDIA A800 80GB PCIe is present. It is Ampere/sm_80 in the
@@ -54,8 +57,10 @@ current-code capability audit before any simulator-core feature work.
 
 1. Keep compute traces and future communication events conceptually separate;
    do not replicate one single-GPU trace and call it a multi-GPU execution.
-2. Treat BookSim as a generic network timing backend. NVSwitch topology,
-   multicast, reduction, and NVLS completion semantics remain a separate layer.
+2. Reuse/analyse the existing BookSim-derived `intersim2` boundary before
+   introducing another copy. Treat it as a generic network timing backend;
+   NVSwitch topology, multicast, reduction, and NVLS completion semantics
+   remain a separate layer.
 3. Preserve the existing Accel-Sim trace/frontend path until evidence shows
    that a new event format is necessary.
 

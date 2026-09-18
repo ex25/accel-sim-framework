@@ -9,8 +9,9 @@ Updated: 2026-09-18
   `research/nvls-accelsim-study`.
 - Main baseline SHA: `d930ad6` (`Revert slurm.sim to the pre-2.0 template`).
 - Nested GPGPU-Sim: separate ignored checkout, `91880c53`, branch `dev`.
-- BookSim checkout: `/home/wangjz/in-switch/booksim2`, `28f4329`, branch
-  `master`; not integrated.
+- BookSim reference checkout: `/home/wangjz/in-switch/booksim2`, `28f4329`,
+  branch `master`; not integrated. The nested GPGPU-Sim checkout already has a
+  BookSim2-derived `src/intersim2` with a GPU-specific adapter.
 
 ## Environment
 
@@ -50,7 +51,8 @@ Updated: 2026-09-18
 - [ ] single-vs-multi-GPU answer backed by source
 - [ ] current multi-GPU/NVLink/NVSwitch/NVLS capability matrix
 - [ ] NCCL NVLS source study
-- [ ] BookSim architecture and dependency decision
+- [x] Existing BookSim-derived `intersim2` boundary identified
+- [ ] BookSim architecture and dependency/provenance decision
 - [ ] clock/data coupling decision
 - [ ] Multi-GPU architecture design
 - [ ] synthetic transport prototype

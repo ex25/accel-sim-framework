@@ -12,3 +12,17 @@
 - Not done: no core simulator change, no trace generation, no H100/NVSwitch
   validation, no BookSim integration.
 - Commit: `4421d43` (`docs(codex): establish project memory and research rules`).
+
+## 2026-09-18 — Existing BookSim-derived interconnect discovered
+
+- Source evidence: nested GPGPU-Sim `src/intersim2`,
+  `gpgpu-sim/src/gpgpu-sim/icnt_wrapper.cc`,
+  `InterconnectInterface`, and `GPUTrafficManager`.
+- Result: BookSim-derived timing already exists for shader↔memory traffic and
+  is selected by `-network_mode 1`; no evidence yet of GPU↔GPU/NVLink/NVSwitch/
+  NVLS semantics.
+- Impact: future work should extend/reuse this boundary rather than blindly
+  introduce a second BookSim copy.
+- Standalone reference smoke: `make -C src -j8` and `src/booksim
+  src/examples/singleconfig` completed; output was recorded as transport-only.
+- Commit: pending.
