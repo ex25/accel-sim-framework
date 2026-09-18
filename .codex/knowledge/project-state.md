@@ -27,6 +27,9 @@ Updated: 2026-09-18
 - `cmake --build gpu-simulator/build/release -j8`: PASS on 2026-09-18.
 - `ctest --test-dir gpu-simulator/build/release --output-on-failure`: no tests
   found (not a pass/fail regression result).
+- Fresh replay of the existing V100 `hotspot` trace via its `justrun.sh`:
+  PASS/exit 0 in about 40 seconds; output included 29,005 request and 29,005
+  reply network packets. This is a V100 trace replay, not A800/H100 evidence.
 - Optional `stubgen` step was missing but is explicitly tolerated by the build.
 - Existing `sim_run_12.8/` outputs and `IN-SWITCH-ENV.md` report a prior full
   10/10 V100 trace replay; this session has not rerun that matrix. Treat it as
@@ -42,6 +45,7 @@ Updated: 2026-09-18
 - [x] `.codex/` infrastructure established
 - [x] A800 environment capture
 - [x] baseline build attempt
+- [x] one pre-generated trace replay (V100 source)
 - [ ] baseline test with registered test cases
 - [ ] A800 real trace smoke test
 - [ ] trace pipeline/source mapping

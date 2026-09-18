@@ -38,5 +38,8 @@ actual A800 artifact.
 ## Reproduction status
 
 No new A800 trace was generated in this phase: the NVBit binary/SDK was not
-present and the only GPU was busy. The next run must use a tiny benchmark and
+present and the only GPU was busy. A fresh replay of the existing V100
+`hotspot` trace passed in about 40 seconds and emitted request/reply network
+statistics. This validates the software replay path only; it does not validate
+A800/H100 SASS or NVLink. The next run must use a tiny real A800 benchmark and
 record every command and artifact. A real-instruction autopsy is still open.

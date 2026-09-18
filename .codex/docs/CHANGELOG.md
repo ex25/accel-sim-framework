@@ -33,3 +33,12 @@
   helpers, not GPU-to-GPU simulator timing. Per-context trace files are not rank
   or fabric events.
 - Commit: `40ede7c` (`docs(accelsim): clarify gpu trace and nvlink gaps`).
+
+## 2026-09-18 — Baseline V100 trace replay
+
+- Command: existing `sim_run_12.8/.../QV100-SASS/justrun.sh`, with output
+  captured as `baseline-replay-20260918.log` in the ignored run directory.
+- Result: exit 0 in about 40 seconds; request/reply packet counts both 29,005.
+- Evidence: verified software trace replay only; source trace is V100 and the
+  selected config uses the existing GPU memory interconnect, not NVLink/NVLS.
+- Commit: pending.
