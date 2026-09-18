@@ -40,5 +40,7 @@ not for GPU-to-GPU NVLink or NVSwitch.
 
 The current record does not contain rank, NCCL collective lifecycle, peer GPU,
 NVSwitch queue state, switch reduction timing, or physical fabric contention as
-ordinary per-instruction fields. Whether any separate multi-GPU event path
-exists must be verified by source search before design decisions.
+ordinary per-instruction fields. The source search found no `multimem` symbols;
+NVLink references are in hardware-monitoring helpers rather than a GPU-to-GPU
+simulator transport. Whether any separate multi-GPU event path exists must be
+verified by source search before design decisions.
