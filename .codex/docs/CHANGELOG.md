@@ -11,4 +11,4 @@
   NVBit SDK/tracer binary is absent; GPU is busy.
 - Not done: no core simulator change, no trace generation, no H100/NVSwitch
   validation, no BookSim integration.
-- Commit: pending after diff and validation.
+- Commit: `4421d43` (`docs(codex): establish project memory and research rules`).
