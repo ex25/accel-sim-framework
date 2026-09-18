@@ -26,3 +26,10 @@
 - Standalone reference smoke: `make -C src -j8` and `src/booksim
   src/examples/singleconfig` completed; output was recorded as transport-only.
 - Commit: `99189a8` (`docs(accelsim): document existing booksim interconnect boundary`).
+
+## 2026-09-18 — Clarify trace/NVLink gap evidence
+
+- Source search found no `multimem` symbols; NVLink references are monitoring
+  helpers, not GPU-to-GPU simulator timing. Per-context trace files are not rank
+  or fabric events.
+- Commit: `40ede7c` (`docs(accelsim): clarify gpu trace and nvlink gaps`).
