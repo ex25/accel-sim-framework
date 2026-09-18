@@ -25,4 +25,4 @@
   introduce a second BookSim copy.
 - Standalone reference smoke: `make -C src -j8` and `src/booksim
   src/examples/singleconfig` completed; output was recorded as transport-only.
-- Commit: pending.
+- Commit: `99189a8` (`docs(accelsim): document existing booksim interconnect boundary`).
