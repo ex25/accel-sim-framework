@@ -2,7 +2,7 @@
 
 ## 2026-09-19 — Strengthen persistent rules and reusable skills
 
-- Commit: `0310a06` (`docs(codex): strengthen research rules and reusable skills`).
+- Commit: `edf95cf` (`docs(codex): strengthen research rules and reusable skills`).
 - Completed: expand `.codex/rules/` using the checked-in `.claude/rules/`
   source map; replace short skill stubs with executable workflows; add the
   existing `add-counter` workflow; keep `.agents/skills/` as symlinks to the
