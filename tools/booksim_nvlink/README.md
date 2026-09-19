@@ -38,8 +38,29 @@ BOOKSIM_ROOT=/home/wangjz/in-switch/booksim2 \
 
 The sweep varies router-link latency 1/4/8 cycles and packet size 1/4/16
 flits. It emits a CSV containing final latency, accepted packet rate, and
-simulation cycles. Monotonic trends are a model sanity check, not calibration
-against physical NVLink bandwidth.
+simulation cycles. Run the analytical accounting check against that CSV:
+
+```bash
+python3 tools/booksim_nvlink/check_nvlink2_analytical.py \
+  /tmp/accelsim-booksim-nvlink2-sweep/nvlink2_sweep.csv \
+  --flit-bytes 32 --link-flits-per-cycle 1
+```
+
+The checker verifies `message_bytes = packet_flits * flit_bytes`, a
+serialization lower bound, and monotonic latency trends as packet size or
+configured link latency increases. These are model sanity checks, not
+calibration against physical NVLink bandwidth.
+
+Before embedding BookSim, run the dependency-free endpoint contract tests:
+
+```bash
+cd tools/booksim_nvlink
+python3 -m unittest test_transport_contract.py
+```
+
+They validate packetization, exact rational clock conversion, and completion
+ordering. `transport_contract.py` is a reference specification only; its fixed
+latency is not a BookSim or hardware result.
 
 ## Interpretation
 

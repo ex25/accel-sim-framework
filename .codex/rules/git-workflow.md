@@ -24,12 +24,21 @@ Preserve user modifications. Do not use `reset --hard`, `clean`, `checkout`,
 `restore`, or `stash` to hide them, and never force-push, unless the user gives
 explicit authorization for the exact target.
 
-## One logical commit
+## Commit cadence and logical scope
 
-One commit should answer one review question. Keep source, tests, and the
-closely related documentation in the same commit when they describe one
-change; split unrelated cleanup, formatting, and research phases. Do not use
-vague subjects such as `update`, `changes`, `work`, `misc`, or bare `fix`.
+Commit once per completed logical phase, not once per file, command, or small
+follow-up edit. A phase normally includes the implementation, focused tests,
+closely related documentation, state/checklist updates, and its changelog
+entry. For example, the A800 trace smoke test, its reproducibility notes, and
+the corresponding environment update belong to one phase commit. A typo or a
+single generated-SHA correction should normally be folded into the phase
+commit rather than creating a new history entry.
+
+One phase commit should answer one review question. Split only genuinely
+independent work, such as an unrelated experiment or a separate simulator
+feature. Before committing, batch all edits belonging to the phase and inspect
+the complete diff. Do not use vague subjects such as `update`, `changes`,
+`work`, `misc`, or bare `fix`.
 
 Use an imperative subject with a useful scope, normally no more than 72
 characters:
@@ -51,8 +60,9 @@ Prefer the same specificity for this project.
 ## Commit body: what changed, where, and how
 
 For every feature, bug fix, model change, or non-trivial documentation phase,
-the commit body must briefly include the following. A one-line typo-only
-commit may omit the body, but its subject still has to be specific.
+the commit body must briefly include the following. A one-line typo-only edit
+should be folded into the surrounding phase; standalone typo commits are
+discouraged.
 
 ```text
 What:
@@ -86,10 +96,21 @@ Before committing:
 3. Run the focused test, then the smallest relevant regression. Record a
    pre-existing failure as `BASELINE FAILURE`, not as a regression.
 4. Update the source-of-truth documentation, `.codex/knowledge/project-state.md`
-   if the milestone changed, and `.codex/docs/CHANGELOG.md` with a pending
-   commit entry if the SHA is not known yet.
-5. Commit, record the resulting SHA and test result in `CHANGELOG.md`, and
-   verify `git status` is clean (apart from intentionally preserved user work).
+   if the milestone changed, and `.codex/docs/CHANGELOG.md` in the same phase
+   change. Do not create a second commit merely to replace a pending SHA; when
+   the branch is private, amend the phase commit or record the SHA in the next
+   phase entry.
+5. Commit the complete phase once, record its SHA and test result, and verify
+   `git status` is clean (apart from intentionally preserved user work).
+
+## History maintenance
+
+Research branches are expected to be readable six months later. If a phase was
+accidentally split into several local commits and has not been pushed or used
+as another branch's base, squash those commits before handoff. Preserve the
+logical phase boundary and rewrite only the project branch; never rewrite
+`main`, `dev`, or a shared remote branch. The final squashed commit must retain
+the detailed body above and the changelog must list the final SHA.
 
 Never commit traces, build trees, binaries, simulator output, or large logs
 unless a small fixture is explicitly required for reproducibility.

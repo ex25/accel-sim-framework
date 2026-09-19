@@ -74,7 +74,7 @@ success convention normalized by the wrapper.
 
 ## Commit
 
-- Implementation: `4cad91d` (`feat(transport): verify A800 trace and add
+- Implementation: `dc7ffa9` (`feat(transport): verify A800 trace and add
   two-GPU BookSim model`).
 - Documentation record: the follow-up commit is listed in the research
   changelog.

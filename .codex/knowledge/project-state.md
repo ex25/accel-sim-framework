@@ -54,33 +54,33 @@ Updated: 2026-09-19
 - [x] one pre-generated trace replay (V100 source)
 - [ ] baseline test with registered test cases
 - [x] A800 real trace smoke test
-- [ ] trace pipeline/source mapping
+- [x] trace pipeline/source mapping (one real A800 `LDG.E.64` autopsy)
 - [ ] Accel-Sim architecture audit
 - [ ] Hopper/H100 support audit
-- [ ] trace-format audit
+- [x] trace-format audit (version-6 record and parser fields)
 - [ ] single-vs-multi-GPU answer backed by source
 - [ ] current multi-GPU/NVLink/NVSwitch/NVLS capability matrix
 - [ ] NCCL NVLS source study
 - [x] Existing BookSim-derived `intersim2` boundary identified
 - [x] BookSim architecture and dependency/provenance decision
-- [ ] clock/data coupling decision
-- [ ] Multi-GPU architecture design
+- [x] clock/data coupling decision (timestamped endpoint adapter design)
+- [x] Multi-GPU architecture design (transport/semantic-layer boundary)
 - [x] synthetic transport prototype
 - [ ] Ring baseline
 - [ ] NVSwitch model
 - [ ] NVLS semantics prototype
 - [ ] compute + communication integration
 - [ ] statistics/experiment automation
-- [ ] analytical/public-data validation
+- [x] analytical/public-data validation (synthetic BookSim accounting only)
 - [ ] real H100 validation
 
 ## Active blockers and next action
 
-1. Autopsy one instruction from the new A800 trace through parser, warp,
-   shader/memory, and completion.
-2. Define a small embedded endpoint adapter and Accel-Sim/BookSim clock
-   conversion; do not equate the current standalone prototype with NVLink.
-3. Add analytical byte/flit/bandwidth checks before any Ring implementation.
+1. Implement the narrow BookSim endpoint facade over a tracked per-cycle API;
+   the dependency-free packet/clock/completion contract is now tested.
+2. Connect one timestamped logical GPU-to-GPU event and validate completion and
+   byte/flit accounting against both the facade and analytical checker.
+3. Only after that, define a Ring baseline; NVSwitch/NVLS remain later layers.
 
 ## Evidence rule
 

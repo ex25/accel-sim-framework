@@ -3,7 +3,7 @@
 ## Identity
 
 - Date: 2026-09-19
-- Branch/base: feat/nvbit-a800-booksim-nvlink / 85cccb1
+- Branch/base: feat/nvbit-a800-booksim-nvlink / upstream d930ad6
 - Accel-Sim baseline: d930ad6; working branch documentation/code pending commit
 - Nested GPGPU-Sim: 91880c53
 - BookSim: external checkout 28f4329

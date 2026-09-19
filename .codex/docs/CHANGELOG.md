@@ -1,75 +1,60 @@
 # Research changelog
 
-## 2026-09-19 — A800 trace and BookSim two-endpoint transport
+## 2026-09-19 — Trace/transport analysis and project history
 
-- Branch: `feat/nvbit-a800-booksim-nvlink`, base `85cccb1`.
-- Installed NVBit 1.8 under the `in-switch` conda environment and made the
-  tracer SDK path overridable instead of copying the SDK into the repository.
-- Verified A800 SDK vectoradd -> NVBit -> post-process -> `.tracez` ->
-  Accel-Sim SM80 replay. Replay exit 0, 6,824 cycles, 98 CTAs, and 75,000
-  request/reply packets.
-- Added a standalone BookSim two-node AnyNet prototype plus a nine-case link
-  latency/packet-size sweep. Smoke and sweep pass against BookSim `28f4329`.
-- Validation boundary: real A800 software pipeline plus synthetic BookSim
-  transport only; no physical NVLink, NVSwitch, NVLS, or H100 validation.
-- Commit: `4cad91d` (`feat(transport): verify A800 trace and add two-GPU BookSim model`).
+- Branch: `feat/nvbit-a800-booksim-nvlink`, based on upstream `d930ad6`.
+- Commit: current phase (`docs(analysis): audit trace and define transport contract`;
+  see the branch `HEAD`, because recording a commit's own SHA would change that
+  SHA).
+- Added the real A800 `LDG.E.64` source-level autopsy from NVBit emission
+  through `.tracez`, parser, warp instruction, memory coalescing, GPU memory
+  interconnect, and completion gating.
+- Defined the timestamped BookSim endpoint API and rational global-picosecond
+  clock contract without modifying Accel-Sim or BookSim core code.
+- Added analytical bytes/flits checks, the dependency-free endpoint contract
+  and its unit tests, revised phase-oriented commit policy, and the Chinese
+  project history document.
+- Validation: analytical checker passed 9 synthetic sweep rows; endpoint
+  contract tests passed 3 tests; BookSim two-node smoke passed.
+- Limits: all network values remain synthetic; no embedded BookSim facade,
+  H100, NVSwitch, NCCL, or NVLS validation.
 
-## 2026-09-19 — Strengthen persistent rules and reusable skills
+## 2026-09-19 — A800 trace and two-endpoint BookSim transport
 
-- Commit: `edf95cf` (`docs(codex): strengthen research rules and reusable skills`).
-- Completed: expand `.codex/rules/` using the checked-in `.claude/rules/`
-  source map; replace short skill stubs with executable workflows; add the
-  existing `add-counter` workflow; keep `.agents/skills/` as symlinks to the
-  canonical `.codex/skills/` directories.
-- Commit policy now requires a specific subject plus a short body describing
-  what functionality changed, why, files/classes/functions, how the before/
-  after behaviour differs, tests/results, and limitations. The examples were
-  checked against representative upstream history (`0db0445`, `9be0e3c`,
-  `d7f397a`).
-- Validation: all nine skills pass
-  `skill-creator/scripts/quick_validate.py`; no simulator core was modified.
-- Evidence: `Verified` for file/link structure and skill validation;
-  `Observed` for the upstream commit style examples.
+- Commit: `dc7ffa9` (`feat(transport): verify A800 trace and add two-GPU BookSim model`).
+- Installed NVBit 1.8 inside the `in-switch` conda environment and made the
+  tracer SDK path configurable through `NVBIT_PATH`.
+- Verified A800 SDK vectoradd → NVBit → post-process → `.tracez` → Accel-Sim
+  SM80 replay: exit 0, 6,824 simulated cycles, 98 CTAs, and 75,000 request /
+  reply packets.
+- Added the standalone BookSim AnyNet two-logical-GPU topology and nine-case
+  link-latency/packet-size sweep against external BookSim SHA `28f4329`.
+- Limits: generic transport only; no physical NVLink, NVSwitch, NVLS, NCCL, or
+  H100 validation.
 
-## 2026-09-18 — M0/M1 context and baseline audit
+## 2026-09-18 — Repository memory, baseline, and capability audit
 
-- Branch: `research/nvls-accelsim-study`, base `d930ad6`.
-- Added: `AGENTS.md`, `.codex/` rules/skills/knowledge/docs skeleton, and
-  `.agents/skills` symlinks.
-- Verified: main and BookSim repository boundaries; A800/driver/CUDA/topology;
-  activated toolchain; release build succeeds.
-- Observed: CTest has no registered tests; prior simulation artifacts exist;
-  NVBit SDK/tracer binary is absent; GPU is busy.
-- Not done: no core simulator change, no trace generation, no H100/NVSwitch
-  validation, no BookSim integration.
-- Commit: `4421d43` (`docs(codex): establish project memory and research rules`).
+- Commit: `b659f94` (`docs(codex): establish research memory and baseline audit`).
+- Audited repository boundaries, `.claude/`, `AGENTS.md`, nested GPGPU-Sim,
+  external BookSim, build dependencies, and local A800/CUDA/toolchain state.
+- Established `.codex/` rules, skills, knowledge, docs, experiment metadata,
+  `.agents/skills` symlinks, and persistent evidence labels.
+- Documented the existing GPGPU-Sim `src/intersim2` BookSim-derived
+  shader↔memory path and separated it from future GPU↔GPU/NVLink work.
+- Recorded release build success, the existing V100 trace replay, and the
+  absence of registered CTest cases.
+- Limits: this audit predates the real A800 trace and does not establish
+  Hopper/NVSwitch/NVLS behavior.
 
-## 2026-09-18 — Existing BookSim-derived interconnect discovered
+## Upstream base
 
-- Source evidence: nested GPGPU-Sim `src/intersim2`,
-  `gpgpu-sim/src/gpgpu-sim/icnt_wrapper.cc`,
-  `InterconnectInterface`, and `GPUTrafficManager`.
-- Result: BookSim-derived timing already exists for shader↔memory traffic and
-  is selected by `-network_mode 1`; no evidence yet of GPU↔GPU/NVLink/NVSwitch/
-  NVLS semantics.
-- Impact: future work should extend/reuse this boundary rather than blindly
-  introduce a second BookSim copy.
-- Standalone reference smoke: `make -C src -j8` and `src/booksim
-  src/examples/singleconfig` completed; output was recorded as transport-only.
-- Commit: `99189a8` (`docs(accelsim): document existing booksim interconnect boundary`).
+- Accel-Sim base: `d930ad6` (`Revert slurm.sim to the pre-2.0 template`).
+- Hopper support reference in the checkout: upstream commit `0db0445`.
+- External BookSim reference: `/home/wangjz/in-switch/booksim2`, SHA `28f4329`.
+- Nested GPGPU-Sim reference: separate checkout, SHA `91880c53` at the time of
+  the audit; it is not a tracked submodule of this repository.
 
-## 2026-09-18 — Clarify trace/NVLink gap evidence
-
-- Source search found no `multimem` symbols; NVLink references are monitoring
-  helpers, not GPU-to-GPU simulator timing. Per-context trace files are not rank
-  or fabric events.
-- Commit: `40ede7c` (`docs(accelsim): clarify gpu trace and nvlink gaps`).
-
-## 2026-09-18 — Baseline V100 trace replay
-
-- Command: existing `sim_run_12.8/.../QV100-SASS/justrun.sh`, with output
-  captured as `baseline-replay-20260918.log` in the ignored run directory.
-- Result: exit 0 in about 40 seconds; request/reply packet counts both 29,005.
-- Evidence: verified software trace replay only; source trace is V100 and the
-  selected config uses the existing GPU memory interconnect, not NVLink/NVLS.
-- Commit: `12005db` (`test(trace): record baseline v100 replay`).
+The three project commits above intentionally replace the earlier fine-grained
+changelog/state/SHA follow-up commits. Future work should add one commit per
+completed logical phase, with implementation, tests, documentation, state, and
+changelog together.

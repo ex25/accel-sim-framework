@@ -1,6 +1,6 @@
-# Trace-format facts (initial audit)
+# Trace-format facts
 
-Status: partial source audit, 2026-09-18.
+Status: source-audited for one real A800 trace record, 2026-09-19.
 
 ## Producer
 
@@ -18,14 +18,26 @@ cluster headers, instruction opcode/operand data, and address compression. The
 binary `.tracez` path is described by `tracez_format.h` and streamed by
 `warp_trace_stream.h`.
 
-## Simulator consumer path (source names, not yet a complete autopsy)
+## Simulator consumer path (one real instruction audited)
 
-`gpu-simulator/accel-sim.cc` / `gpu-simulator/main.cc` create the trace framework; trace classes in
-`trace-driven/trace_driven.{h,cc}` create `trace_kernel_info_t`,
-`trace_shader_core_ctx`, `trace_shd_warp_t`, and `trace_warp_inst_t`. The trace
-instruction becomes a `warp_inst_t`-derived object and follows the ordinary
-shader, cache, interconnect, and memory timing paths. Exact file/line/function
-mapping for one real instruction remains a next milestone.
+`gpu-simulator/accel-sim.cc` / `gpu-simulator/main.cc` create the trace framework;
+trace classes in `trace-driven/trace_driven.{h,cc}` create
+`trace_kernel_info_t`, `trace_shader_core_ctx`, `trace_shd_warp_t`, and
+`trace_warp_inst_t`. For the verified A800 `LDG.E.64` record, the call path is
+`TracezReader::open/get` -> `inst_trace_t::parse_from_string()` ->
+`trace_shd_warp_t::get_next_trace_inst()` ->
+`trace_warp_inst_t::parse_from_trace_struct()` -> `func_exec_inst()` ->
+`warp_inst_t::generate_mem_accesses()` ->
+`simt_core_cluster::icnt_inject_request_packet()` -> `icnt_push` and ordinary
+cache/L2/DRAM timing. A warp completes only after stream exhaustion and the
+pipeline/barrier/store/scoreboard checks in `get_next_inst()`.
+
+Representative raw record:
+`48 0 0 17 0 0 0 0 0 0 0 00a0 ffffffff 1 R4 LDG.E.64 1 R4 8 1
+0x7f7490524700 8 0 0 0 NoVal`. It is trace version 6, lineinfo disabled,
+all 32 lanes active, an 8-byte global load, base+stride addresses, and no
+recorded register values. Full source mapping is in
+`.codex/docs/02-trace-pipeline.md`.
 
 ## Existing network boundary
 

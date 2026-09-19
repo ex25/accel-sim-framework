@@ -61,3 +61,22 @@
   coupling; BookSim synthetic traffic is not a communication event trace.
 - Validation: topology/delivery/latency tests passed. Hardware bandwidth and
   protocol calibration require a future physical multi-GPU system.
+
+## D006 — Use a timestamped endpoint adapter for future BookSim embedding
+
+- Date: 2026-09-19
+- Context: the standalone BookSim prototype cannot inject and complete a
+  message from an Accel-Sim event at an arbitrary cycle; `TrafficManager::Run`
+  hides `_Step` and packet queues behind protected methods.
+- Options: equate GPU and network cycles, batch the standalone executable,
+  patch a narrow BookSim facade, or use an event-driven adapter with explicit
+  clock conversion.
+- Decision: keep BookSim as a transport backend behind an endpoint adapter with
+  `create/inject/advance_to/poll_completed/stats`; use rational timestamp
+  conversion and an integer picosecond global clock. Add a minimal, tracked
+  BookSim facade only when the transport API is implemented.
+- Why: preserves event ordering across unequal clock domains and keeps
+  transport, NVSwitch semantics, and NVLS reduction independently testable.
+- Validation requirement: adapter unit tests must prove packetization,
+  completion ordering, clock-ratio conversion, and byte/flit accounting before
+  Ring or NVLS work.

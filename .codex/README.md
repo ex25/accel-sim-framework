@@ -11,7 +11,7 @@ already models NVSwitch or NVLS.
 ## Current state
 
 - Main repository: `accel-sim-framework`, branch
-  `feat/nvbit-a800-booksim-nvlink`, base research state `85cccb1`.
+  `feat/nvbit-a800-booksim-nvlink`, based on upstream `d930ad6`.
 - Working tree was clean before this documentation phase.
 - Nested GPGPU-Sim is a separate ignored Git checkout at `91880c53`; it is not
   a tracked submodule in the Accel-Sim repository.
@@ -54,10 +54,10 @@ or synthetic BookSim results.
 
 ## Current milestone
 
-M2 A800 trace pipeline is complete and the first standalone two-endpoint
-BookSim transport prototype passes. The next exit criteria are a real trace
-instruction autopsy plus a documented endpoint/clock adapter design before any
-simulator-core integration.
+M2 A800 trace pipeline, standalone two-endpoint BookSim transport, real trace
+instruction autopsy, analytical checks, and the endpoint/clock reference
+contract are complete. The next milestone is a tracked per-cycle BookSim
+facade; no simulator-core integration has started.
 
 ## Important decisions
 
@@ -82,13 +82,14 @@ is available locally.
 
 ## Next task
 
-Autopsy one instruction from the real A800 trace and design an explicit
-BookSim endpoint/clock adapter with analytical byte/flit checks. Do not
-implement Ring, NVSwitch, or NVLS before that boundary is validated.
+Implement and test the smallest upstream-tracked BookSim per-cycle facade, then
+connect one timestamped two-logical-GPU communication event. Do not implement
+Ring, NVSwitch, or NVLS before that boundary is validated.
 
 ## Detailed entry points
 
 - Research index: `.codex/docs/README.md`
+- Chinese project history: `.codex/docs/项目进展总览.md`
 - State/checklist: `.codex/knowledge/project-state.md`
 - Local machine: `.codex/knowledge/local-environment.md`
 - Accel-Sim trace facts: `.codex/knowledge/trace-format.md`

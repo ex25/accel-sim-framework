@@ -23,10 +23,37 @@ mask. The Hopper config declares separate core/interconnect/L2/DRAM
 frequencies. This is a clock-domain hook, not yet a multi-GPU global-time
 contract.
 
-Clock coupling between a future collective layer and Accel-Sim is unresolved.
-The existing `intersim2` `Advance()` is called from the GPU timing loop, but the
-research must verify the exact cycle order and clock-domain conversion before
-reusing it for a second endpoint domain. Options are lockstep cycles, explicit rational
-clock ratios, event-driven global time, or batched advancement. The choice must
-be justified from event ordering and performance needs; never silently equate
-one Accel-Sim cycle with one BookSim cycle.
+Clock coupling between a future collective layer and Accel-Sim is now a design
+decision, not an implementation claim. A future adapter should expose a narrow
+transport API:
+
+```text
+create_network(config, endpoint_count)
+inject_message(src, dst, bytes, tag, ready_time_ps) -> injection_status
+advance_to(time_ps)
+poll_completed() -> {tag, src, dst, bytes, completion_time_ps}
+read_stats() -> transport_stats
+```
+
+The adapter owns packetization (`ceil((bytes + protocol_overhead) /
+flit_bytes)`), endpoint tags, and completion at tail-flit ejection. BookSim
+owns topology, routing, virtual channels, buffering, arbitration, and transport
+latency only. Rank/collective lifecycle, multicast groups, reduction operands,
+and NVSwitch/NVLS semantics remain above this boundary.
+
+The recommended clock contract is event-driven with an integer global time in
+picoseconds. Given GPU and network periods as rational values, `advance_to(t)`
+advances BookSim while the next network edge is `<= t`; a rational accumulator
+avoids floating-point drift. GPU callbacks enqueue communication events at their
+GPU-domain timestamp and consume completions at the corresponding global time.
+This supports unequal GPU/interconnect clocks and preserves ordering at equal
+timestamps. A lockstep or fixed batch can be added as an optimization only if it
+uses the same conversion contract. One Accel-Sim cycle must never be silently
+treated as one BookSim cycle.
+
+The external BookSim `TrafficManager` currently exposes `Run()` but keeps
+per-cycle `_Step`, injection, and completion queues protected. Therefore a
+packet-granular embedded adapter requires a small upstream-tracked facade (or a
+subclass exposing these operations); invoking the standalone executable is not a
+valid substitute for clock-coupled injection. This phase intentionally documents
+the boundary without modifying BookSim or Accel-Sim core code.

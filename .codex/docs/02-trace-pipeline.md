@@ -56,5 +56,66 @@ Hopper/NVLink/NVSwitch/NVLS validation.
   and about 16 seconds CPU simulation time.
 
 The producer-to-disk and replay path is now verified on a real A800 artifact.
-A source-level single-instruction autopsy remains a separate task, and the
-trace contains no proof of multi-GPU communication semantics.
+The trace contains no proof of multi-GPU communication semantics.
+
+## One real instruction: `LDG.E.64` autopsy
+
+Evidence level: `Verified` for the A800 artifact and the current checkout.
+The following record is an actual line from
+`/tmp/in-switch-a800-trace-20260919/traces/kernel-1-ctx_0x55fde6cbb7c0.trace.xz`:
+
+```text
+48 0 0 17 0 0 0 0 0 0 0 00a0 ffffffff 1 R4 LDG.E.64 1 R4 8 1 0x7f7490524700 8 0 0 0 NoVal
+```
+
+The kernel header says `binary version = 80`, `grid dim = (98,1,1)`,
+`block dim = (1024,1,1)`, `cuda stream id = 0`, and `enable lineinfo = 0`.
+The first eleven decimal fields in this trace-version-6 record are CTA x/y/z,
+thread-block warp id, cluster id x/y/z, cluster CTA id x/y/z, and cluster rank.
+Thus this instruction is CTA `(48,0,0)`, warp `17`, with pre-SM90 cluster
+fields all zero. `00a0` is the virtual PC, `ffffffff` is the intersection of
+the active and predicate masks (all 32 lanes), `R4` is the destination, and
+`LDG.E.64` has one source register (`R4`). The memory width is 8 bytes, address
+format `1` is base+stride, and the base/stride pair expands to lane addresses
+`0x7f7490524700 + lane*8`. After the stride, the two immediate values are
+`0` and `0`, followed by the trace-v6 `NoVal` register-value marker; no register
+values were recorded.
+
+The exact source path is:
+
+```mermaid
+flowchart TD
+  A[CUDA vecAdd on A800] --> B[inject_funcs.cu:53-155\nNVBit ballot, CTA/warp/PC/opcode/address]
+  B --> C[tracer_tool.cu:1345-1481\ntext record and base+stride compression]
+  C --> D[post-traces-processing.cpp:661-893\ngroup per block and write tracez]
+  D --> E[trace_parser.cc:495-531\nTracezReader header/index]
+  E --> F[warp_trace_stream.h:317-324\nparse_from_string]
+  F --> G[trace_shd_warp_t::get_next_trace_inst\ntrace_driven.cc:84-148]
+  G --> H[trace_warp_inst_t::parse_from_trace_struct\ntrace_driven.cc:253-421]
+  H --> I[func_exec_inst\ntrace_driven.cc:1142-1155]
+  I --> J[warp_inst_t::generate_mem_accesses\nabstract_hardware_model.cc:287-485]
+  J --> K[simt_core_cluster::icnt_inject_request_packet\nshader.cc:5596-5618]
+  K --> L[icnt_push -> cache/L2/DRAM and icnt_transfer\ngpu-sim.cc:2234-2355]
+  L --> M[icnt_pop -> response FIFO\nshader.cc:5702-5741]
+  M --> N[get_next_inst completion gate\ntrace_driven.cc:1034-1058]
+```
+
+The parser copies the CTA/cluster fields from the `.tracez` thread-block index,
+then `inst_trace_t::parse_from_string()` decodes PC, mask, registers, opcode,
+memory width, compressed addresses, and the trace-v6 `NoVal` marker
+(`trace_parser.cc:152-327`). `parse_from_trace_struct()` maps `LDG` to a global
+load, preserves the 8-byte lane addresses, and maps SASS `R4` to the simulator's
+register index `R5` because GPGPU-Sim reserves register zero
+(`trace_driven.cc:253-373`). `func_exec_inst()` calls
+`generate_mem_accesses()`, which coalesces the 32 contiguous 8-byte accesses
+into cache-line requests according to the selected SM80 cache configuration
+(`trace_driven.cc:1142-1155`; `abstract_hardware_model.cc:287-485`). The request
+is injected through the existing GPU memory interconnect, not an NVLink path.
+Completion is not a trace timestamp: the warp is retired only after its stream
+is exhausted and pipeline, barrier, store, and scoreboard conditions are clear
+(`trace_driven.cc:1034-1058`).
+
+This autopsy proves the compute-trace-to-GPU-memory-timing path. It does not
+prove rank identity, NCCL, peer traffic, NVSwitch routing, multicast, or NVLS
+reduction; those must remain independent communication events until a separate
+model is introduced.
