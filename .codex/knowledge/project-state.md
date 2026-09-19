@@ -56,11 +56,11 @@ Updated: 2026-09-19
 - [x] A800 real trace smoke test
 - [x] trace pipeline/source mapping (one real A800 `LDG.E.64` autopsy)
 - [ ] Accel-Sim architecture audit
-- [ ] Hopper/H100 support audit
+- [x] Hopper/H100 support audit (initial source audit; hardware correlation pending)
 - [x] trace-format audit (version-6 record and parser fields)
-- [ ] single-vs-multi-GPU answer backed by source
-- [ ] current multi-GPU/NVLink/NVSwitch/NVLS capability matrix
-- [ ] NCCL NVLS source study
+- [x] single-vs-multi-GPU answer backed by source
+- [x] current multi-GPU/NVLink/NVSwitch/NVLS capability matrix (conservative unknowns recorded)
+- [x] NCCL NVLS source study (primary-source review; pinned local NCCL checkout pending)
 - [x] Existing BookSim-derived `intersim2` boundary identified
 - [x] BookSim architecture and dependency/provenance decision
 - [x] clock/data coupling decision (timestamped endpoint adapter design)
@@ -78,9 +78,10 @@ Updated: 2026-09-19
 
 1. Implement the narrow BookSim endpoint facade over a tracked per-cycle API;
    the dependency-free packet/clock/completion contract is now tested.
-2. Connect one timestamped logical GPU-to-GPU event and validate completion and
-   byte/flit accounting against both the facade and analytical checker.
-3. Only after that, define a Ring baseline; NVSwitch/NVLS remain later layers.
+2. Define the independent communication-event schema and logical rank/stream
+   orchestrator before any Ring implementation.
+3. Obtain H100/H200 NVSwitch access for SM90/NVLS trace and hardware calibration;
+   the A800 cannot establish those results.
 
 ## Evidence rule
 
