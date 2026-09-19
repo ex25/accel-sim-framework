@@ -1,5 +1,22 @@
 # Research changelog
 
+## 2026-09-19 — Strengthen persistent rules and reusable skills
+
+- Commit: `0310a06` (`docs(codex): strengthen research rules and reusable skills`).
+- Completed: expand `.codex/rules/` using the checked-in `.claude/rules/`
+  source map; replace short skill stubs with executable workflows; add the
+  existing `add-counter` workflow; keep `.agents/skills/` as symlinks to the
+  canonical `.codex/skills/` directories.
+- Commit policy now requires a specific subject plus a short body describing
+  what functionality changed, why, files/classes/functions, how the before/
+  after behaviour differs, tests/results, and limitations. The examples were
+  checked against representative upstream history (`0db0445`, `9be0e3c`,
+  `d7f397a`).
+- Validation: all nine skills pass
+  `skill-creator/scripts/quick_validate.py`; no simulator core was modified.
+- Evidence: `Verified` for file/link structure and skill validation;
+  `Observed` for the upstream commit style examples.
+
 ## 2026-09-18 — M0/M1 context and baseline audit
 
 - Branch: `research/nvls-accelsim-study`, base `d930ad6`.

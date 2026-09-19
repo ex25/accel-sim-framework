@@ -38,9 +38,12 @@ or synthetic BookSim results.
 ## Directory guide
 
 - `rules/`: persistent policy and evidence labels.
-- `skills/`: reusable project workflows. `.agents/skills/` contains symlinks so
-  Codex's repository skill discovery can find the canonical `.codex/skills/`
-  content without duplicating it.
+- `skills/`: reusable project workflows. `.codex/skills/` is the canonical
+  editing location; `.agents/skills/` contains only symlinks so Codex skill
+  discovery sees the same files without creating a second copy. Current
+  workflows include bootstrap, reconnaissance, A800 trace, trace autopsy,
+  BookSim analysis, feature implementation, documentation, experiments, and
+  counter addition.
 - `knowledge/`: compact, high-signal current facts.
 - `docs/`: human-readable architecture, research, decisions, and changelog.
 - `experiments/`: experiment specifications and reproducibility metadata only;

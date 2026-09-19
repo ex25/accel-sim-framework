@@ -49,3 +49,11 @@ full reading path.
 | Design decisions | `.codex/docs/DECISIONS.md` |
 | Phase history | `.codex/docs/CHANGELOG.md` |
 | Experiment metadata | `.codex/experiments/` |
+
+## Skill ownership
+
+Skills are edited only under `.codex/skills/`. Every entry under
+`.agents/skills/` must be a symlink to the matching canonical directory; do
+not maintain two independent copies. The skill definitions include their
+inputs, commands, artifacts, validation, and completion criteria, while the
+rules define the stable policy they must follow.
