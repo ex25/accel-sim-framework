@@ -21,3 +21,24 @@ The existing GPU adapter already has the desired conceptual surface:
 `Busy`, and stats calls). The open question is whether to extend this boundary
 for logical GPU endpoints or add a separate orchestrator rather than overload
 memory-node assumptions.
+
+## Two-GPU NVLink transport prototype
+
+The first prototype uses the standalone reference checkout, not a copied
+source tree. At BookSim `28f4329`, `AnyNet` creates two routers, one endpoint
+per router, and one bidirectional router link. Files live under
+`tools/booksim_nvlink/`; `bitcomp` with two nodes maps node 0 to node 1 and
+node 1 to node 0 deterministically.
+
+The smoke test passed with BookSim's historical success status 255 (its
+`main()` returns `-1` when `TrafficManager::Run()` returns true; the wrapper
+normalizes it). It verified both node listings, finite packet latency, two
+hops, and matching injected/accepted rates. The one-flit, one-cycle-link case
+reported 12 network cycles.
+
+The sweep varied link latency 1/4/8 cycles and packet size 1/4/16 flits.
+Latency increased monotonically: 12/13.4118/15.2941 cycles for one flit and
+27/30.2941/35.9412 cycles for 16 flits. This is a generic transport sanity and
+sensitivity result, not physical NVLink calibration. It does not yet provide
+an embedded Accel-Sim API, clock coupling, protocol overhead, or bandwidth
+mapping.

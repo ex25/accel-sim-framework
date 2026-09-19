@@ -1,0 +1,31 @@
+// Minimal two-endpoint transport model for the first NVLink study.
+// Node 0 and node 1 represent two logical GPUs. The topology is in
+// nvlink2_network; the anynet router link latency is intentionally explicit.
+
+topology = anynet;
+routing_function = min;
+network_file = tools/booksim_nvlink/nvlink2_network;
+
+// bitcomp on two nodes deterministically maps GPU0 -> GPU1 and GPU1 -> GPU0.
+traffic = bitcomp;
+injection_rate = 0.001;
+packet_size = 1;
+classes = 1;
+use_read_write = 0;
+
+num_vcs = 2;
+vc_buf_size = 8;
+vc_allocator = islip;
+sw_allocator = islip;
+alloc_iters = 1;
+credit_delay = 1;
+routing_delay = 1;
+vc_alloc_delay = 1;
+sw_alloc_delay = 1;
+st_final_delay = 1;
+
+sim_type = latency;
+warmup_periods = 1;
+sample_period = 1000;
+sim_count = 1;
+latency_thres = 1000000.0;

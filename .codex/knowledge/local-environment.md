@@ -1,6 +1,6 @@
 # Local environment
 
-Updated: 2026-09-18. Commands were run on this host unless marked otherwise.
+Updated: 2026-09-19. Commands were run on this host unless marked otherwise.
 
 | Item | Value | Evidence/status |
 |---|---|---|
@@ -15,8 +15,10 @@ Updated: 2026-09-18. Commands were run on this host unless marked otherwise.
 | Activated compiler | GCC/G++ 13.4.0 | `activate-accel-sim.sh`, Verified |
 | Activated CMake | 3.31.8 | `activate-accel-sim.sh`, Verified |
 | Conda env | `/home/wangjz/miniconda3/envs/in-switch` | activation output, Verified |
-| NVBit | SDK/tracer artifact not found under `util/tracer_nvbit` | Unknown/blocker |
+| NVBit | 1.8 at `/home/wangjz/miniconda3/envs/in-switch/opt/nvbit-1.8`; tracer built with explicit `NVBIT_PATH` | Verified |
 
-The GPU reported active external Python processes during capture. No process
-was stopped. A800 is suitable for validating the software trace pipeline, but
-cannot validate SM90, H100 NVLink4, NVSwitch, or NVLS hardware semantics.
+The first unprivileged container query could not access the driver; the same
+host query with GPU access reported the A800 idle with 4 MiB used and no
+running processes. No process was stopped. A800 is suitable for validating
+the software trace pipeline, but cannot validate SM90, H100 NVLink4, NVSwitch,
+or NVLS hardware semantics.

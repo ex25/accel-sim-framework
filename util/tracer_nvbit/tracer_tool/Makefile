@@ -19,7 +19,10 @@ else
 MAXRREGCOUNT_FLAG=
 endif
 
-NVBIT_PATH=../nvbit_release/core
+# Keep the repository independent from the SDK install location. The default
+# preserves the historical checkout-local layout; callers may point this at a
+# conda-environment SDK with `make NVBIT_PATH=/path/to/nvbit/core`.
+NVBIT_PATH ?= ../nvbit_release/core
 ACCEL_SIM_TRACER_PATH=../
 INCLUDES=-I$(NVBIT_PATH) -I$(ACCEL_SIM_TRACER_PATH)/include
 

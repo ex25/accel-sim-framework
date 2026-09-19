@@ -44,3 +44,20 @@
   source evidence proves a compatible extension is necessary.
 - Validation: trace autopsy and multi-GPU capability audit are required before
   implementation.
+
+## D005 — Prototype two-GPU transport against external BookSim first
+
+- Date: 2026-09-19
+- Context: the project needs evidence that BookSim can represent two logical
+  GPU endpoints before changing Accel-Sim or the nested `intersim2` path.
+- Options: vendor BookSim, immediately extend `intersim2`, or use a pinned
+  external BookSim executable with a reproducible topology/config wrapper.
+- Decision: use the external checkout at `28f4329` for the first AnyNet smoke
+  and parameter sweep; keep only configuration, wrappers, metadata, and
+  conclusions in Accel-Sim.
+- Why: minimal source intrusion, explicit provenance, and easy separation of
+  generic transport timing from future NVLink/NVSwitch/NVLS semantics.
+- Trade-offs: this phase has no embedded injection API or Accel-Sim clock
+  coupling; BookSim synthetic traffic is not a communication event trace.
+- Validation: topology/delivery/latency tests passed. Hardware bandwidth and
+  protocol calibration require a future physical multi-GPU system.

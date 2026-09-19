@@ -1,12 +1,12 @@
 # Project state (reload first)
 
-Updated: 2026-09-18
+Updated: 2026-09-19
 
 ## Identity
 
 - Goal: Accel-Sim + BookSim research platform for H100 NVLink/NVSwitch/NVLS.
 - Main repo/branch: `accel-sim-framework`,
-  `research/nvls-accelsim-study`.
+  `feat/nvbit-a800-booksim-nvlink`.
 - Main baseline SHA: `d930ad6` (`Revert slurm.sim to the pre-2.0 template`).
 - Nested GPGPU-Sim: separate ignored checkout, `91880c53`, branch `dev`.
 - BookSim reference checkout: `/home/wangjz/in-switch/booksim2`, `28f4329`,
@@ -20,7 +20,11 @@ Updated: 2026-09-18
 - Driver 570.133.20; driver-reported CUDA 12.8; toolkit `/usr/local/cuda`,
   `nvcc` 12.8.61.
 - Activated `in-switch`: Python 3.11.16, GCC/G++ 13.4.0, CMake 3.31.8.
-- GPU was busy during the audit. Do not kill or interfere with other processes.
+- NVBit 1.8 is installed inside the `in-switch` environment at
+  `$CONDA_PREFIX/opt/nvbit-1.8`; the tracer accepts this path through the
+  overridable `NVBIT_PATH` Make variable.
+- GPU was idle for the 2026-09-19 smoke test. Do not kill or interfere with
+  other processes if occupancy changes.
 
 ## Baseline evidence
 
@@ -34,8 +38,10 @@ Updated: 2026-09-18
 - Existing `sim_run_12.8/` outputs and `IN-SWITCH-ENV.md` report a prior full
   10/10 V100 trace replay; this session has not rerun that matrix. Treat it as
   `Observed`, not new regression evidence.
-- NVBit SDK/tracer binary was not found. A800 trace smoke test: `Unknown`,
-  blocked by SDK/artifact setup and GPU availability.
+- Real A800 NVBit vectoradd trace, post-processing, and SM80 replay: PASS.
+  Replay completed in 6,824 simulated cycles and about 16 seconds CPU time.
+- Standalone BookSim two-endpoint smoke/sweep: PASS at reference SHA `28f4329`.
+  This validates generic transport only, not physical NVLink.
 
 ## Status checklist
 
@@ -47,7 +53,7 @@ Updated: 2026-09-18
 - [x] baseline build attempt
 - [x] one pre-generated trace replay (V100 source)
 - [ ] baseline test with registered test cases
-- [ ] A800 real trace smoke test
+- [x] A800 real trace smoke test
 - [ ] trace pipeline/source mapping
 - [ ] Accel-Sim architecture audit
 - [ ] Hopper/H100 support audit
@@ -56,10 +62,10 @@ Updated: 2026-09-18
 - [ ] current multi-GPU/NVLink/NVSwitch/NVLS capability matrix
 - [ ] NCCL NVLS source study
 - [x] Existing BookSim-derived `intersim2` boundary identified
-- [ ] BookSim architecture and dependency/provenance decision
+- [x] BookSim architecture and dependency/provenance decision
 - [ ] clock/data coupling decision
 - [ ] Multi-GPU architecture design
-- [ ] synthetic transport prototype
+- [x] synthetic transport prototype
 - [ ] Ring baseline
 - [ ] NVSwitch model
 - [ ] NVLS semantics prototype
@@ -70,11 +76,11 @@ Updated: 2026-09-18
 
 ## Active blockers and next action
 
-1. Reserve/confirm GPU access before running CUDA/NVBit workloads.
-2. Install or locate a compatible NVBit release and build the tracer without
-   changing simulator core code.
-3. Finish source-grounded audits and document the one-instruction trace
-   autopsy before designing the adapter.
+1. Autopsy one instruction from the new A800 trace through parser, warp,
+   shader/memory, and completion.
+2. Define a small embedded endpoint adapter and Accel-Sim/BookSim clock
+   conversion; do not equate the current standalone prototype with NVLink.
+3. Add analytical byte/flit/bandwidth checks before any Ring implementation.
 
 ## Evidence rule
 

@@ -28,14 +28,15 @@ full reading path.
 
 ## Current navigation state
 
-- Milestone: M0/M1, repository and baseline audit.
-- Branch/base: `research/nvls-accelsim-study` / `d930ad6`.
-- Baseline: release build succeeds; CTest has no registered tests; prior local
-  end-to-end V100 trace outputs exist but are not a newly rerun regression.
-- Blockers: GPU is busy; NVBit SDK/tracer artifact is absent; no H100/NVSwitch.
-- BookSim: separate `28f4329` checkout, analysis only.
-- Next: source-grounded capability and trace autopsy, then minimal synthetic
-  transport design.
+- Milestone: M2 A800 trace pipeline plus standalone two-endpoint transport.
+- Branch/base: `feat/nvbit-a800-booksim-nvlink` / `85cccb1`.
+- Baseline: release build and real A800 vectoradd trace/replay pass; CTest still
+  has no registered tests.
+- Blockers: no physical second GPU/NVLink peer and no H100/NVSwitch system.
+- BookSim: separate `28f4329` checkout; standalone two-node AnyNet smoke/sweep
+  passes, but no Accel-Sim adapter or clock coupling exists.
+- Next: real-instruction trace autopsy, endpoint adapter, clock conversion, and
+  analytical byte/flit checks.
 
 ## Source-of-truth map
 

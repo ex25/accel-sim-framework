@@ -11,7 +11,7 @@ already models NVSwitch or NVLS.
 ## Current state
 
 - Main repository: `accel-sim-framework`, branch
-  `research/nvls-accelsim-study`, base `d930ad6`.
+  `feat/nvbit-a800-booksim-nvlink`, base research state `85cccb1`.
 - Working tree was clean before this documentation phase.
 - Nested GPGPU-Sim is a separate ignored Git checkout at `91880c53`; it is not
   a tracked submodule in the Accel-Sim repository.
@@ -24,8 +24,11 @@ already models NVSwitch or NVLS.
   `in-switch` environment. CTest currently discovers no tests.
 - One physical NVIDIA A800 80GB PCIe is present. It is Ampere/sm_80 in the
   current hardware record, and has no NVLink peer on this host.
-- NVBit SDK/tracer artifacts were not found during this audit; real A800 trace
-  generation is therefore pending environment preparation and GPU availability.
+- NVBit 1.8 is installed inside the `in-switch` conda environment. A real A800
+  vectoradd trace, post-processing, and SM80 replay passed on 2026-09-19.
+- A standalone two-endpoint BookSim AnyNet prototype and 1/4/8-cycle link,
+  1/4/16-flit sensitivity sweep passed. It is generic transport, not calibrated
+  physical NVLink or an embedded Accel-Sim integration.
 
 ## How a new session starts
 
@@ -51,10 +54,10 @@ or synthetic BookSim results.
 
 ## Current milestone
 
-M0 repository/context infrastructure plus M1 baseline audit. The next exit
-criteria are: capture a reproducible A800 trace smoke test if the GPU can be
-reserved, map one real trace instruction through source code, and complete the
-current-code capability audit before any simulator-core feature work.
+M2 A800 trace pipeline is complete and the first standalone two-endpoint
+BookSim transport prototype passes. The next exit criteria are a real trace
+instruction autopsy plus a documented endpoint/clock adapter design before any
+simulator-core integration.
 
 ## Important decisions
 
@@ -79,9 +82,9 @@ is available locally.
 
 ## Next task
 
-Finish source-grounded audits of trace format, Hopper support, multi-GPU/NVLink
-search results, and the BookSim architecture. Then record a minimal adapter
-design and a synthetic transport validation plan. Do not implement NVLS first.
+Autopsy one instruction from the real A800 trace and design an explicit
+BookSim endpoint/clock adapter with analytical byte/flit checks. Do not
+implement Ring, NVSwitch, or NVLS before that boundary is validated.
 
 ## Detailed entry points
 

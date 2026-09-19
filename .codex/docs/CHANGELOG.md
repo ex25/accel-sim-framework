@@ -1,5 +1,19 @@
 # Research changelog
 
+## 2026-09-19 — A800 trace and BookSim two-endpoint transport
+
+- Branch: `feat/nvbit-a800-booksim-nvlink`, base `85cccb1`.
+- Installed NVBit 1.8 under the `in-switch` conda environment and made the
+  tracer SDK path overridable instead of copying the SDK into the repository.
+- Verified A800 SDK vectoradd -> NVBit -> post-process -> `.tracez` ->
+  Accel-Sim SM80 replay. Replay exit 0, 6,824 cycles, 98 CTAs, and 75,000
+  request/reply packets.
+- Added a standalone BookSim two-node AnyNet prototype plus a nine-case link
+  latency/packet-size sweep. Smoke and sweep pass against BookSim `28f4329`.
+- Validation boundary: real A800 software pipeline plus synthetic BookSim
+  transport only; no physical NVLink, NVSwitch, NVLS, or H100 validation.
+- Commit: `4cad91d` (`feat(transport): verify A800 trace and add two-GPU BookSim model`).
+
 ## 2026-09-19 — Strengthen persistent rules and reusable skills
 
 - Commit: `edf95cf` (`docs(codex): strengthen research rules and reusable skills`).
