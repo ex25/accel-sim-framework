@@ -1,5 +1,24 @@
 # Research changelog
 
+## 2026-09-19 — Complete P2 audit and add reader-facing concepts guide
+
+- Commit: current phase; the SHA is recorded by the following Git history after
+  this phase is committed.
+- Completed the source audit of the current SM90/H100 path: binary-version
+  dispatch, Hopper opcode map, GMMA latency mapping, TMA metadata/handling,
+  mbarrier/SYNCS requirements, cluster fields, explicit TODOs, unsupported
+  paths, and the absence of `multimem`/GPU↔GPU/NVSwitch/NVLS semantics.
+- Added `.codex/docs/15-concepts-for-readers.md`, a Chinese tutorial that
+  introduces GPU execution, trace fields, the real A800 call path, CTest,
+  hotspot, request/reply packets, NCCL collective terms, AnyNet, endpoint
+  clocks, and NVLS before using those terms in the research plan.
+- Updated the documentation index, project state, and H100 capability audit.
+- Validation: release build completed; the existing missing `stubgen` helper is
+  tolerated by the build; endpoint unit tests passed 3 tests; analytical checker
+  passed 9 rows.
+- Limits: this remains source-level P2 evidence; real H100 trace replay and
+  hardware correlation still require H100/H200 NVSwitch access.
+
 ## 2026-09-19 — Trace/transport analysis and project history
 
 - Branch: `feat/nvbit-a800-booksim-nvlink`, based on upstream `d930ad6`.

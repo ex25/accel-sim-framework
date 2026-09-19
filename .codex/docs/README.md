@@ -11,22 +11,23 @@ full reading path.
 
 1. `项目进展总览.md` — 中文历史总览、当前证据边界和下一步路线。
 2. `14-final-goal-gap-plan.md` — 最终目标差距、环境上限和分阶段退出条件。
-3. `00-project-overview.md` — scope, terminology, and staged strategy.
-4. `01-accelsim-architecture.md` — current simulator layers and call paths.
-5. `02-trace-pipeline.md` — NVBit → trace → frontend → timing model.
-6. `03-hardware-capability-matrix.md` — A800/H100/NVSwitch validation boundary.
-7. `04-single-vs-multi-gpu-trace.md` — why compute traces do not encode a
+3. `15-concepts-for-readers.md` — 面向人的中文概念、trace 调用路径和术语解释。
+4. `00-project-overview.md` — scope, terminology, and staged strategy.
+5. `01-accelsim-architecture.md` — current simulator layers and call paths.
+6. `02-trace-pipeline.md` — NVBit → trace → frontend → timing model.
+7. `03-hardware-capability-matrix.md` — A800/H100/NVSwitch validation boundary.
+8. `04-single-vs-multi-gpu-trace.md` — why compute traces do not encode a
    collective execution by themselves.
-8. `05-h100-architecture-support.md` — source audit of SM90 support.
-9. `06-nvlink-nvswitch-nvls.md` — hardware/model concepts (to be expanded with
+9. `05-h100-architecture-support.md` — source audit of SM90 support.
+10. `06-nvlink-nvswitch-nvls.md` — hardware/model concepts (to be expanded with
    primary sources).
-10. `07-current-support-gap-analysis.md` — capability matrix and evidence.
-11. `08-booksim-architecture.md` — BookSim components and embedding options.
-12. `09-accelsim-booksim-integration.md` — clock/data-boundary alternatives.
-13. `10-design-options.md` — compute/communication architecture comparison.
-14. `11-implementation-roadmap.md` — milestone exit criteria.
-15. `12-experiment-plan.md` — synthetic and future hardware experiments.
-16. `13-validation-plan.md` — evidence ladder and H100/NVSwitch plan.
+11. `07-current-support-gap-analysis.md` — capability matrix and evidence.
+12. `08-booksim-architecture.md` — BookSim components and embedding options.
+13. `09-accelsim-booksim-integration.md` — clock/data-boundary alternatives.
+14. `10-design-options.md` — compute/communication architecture comparison.
+15. `11-implementation-roadmap.md` — milestone exit criteria.
+16. `12-experiment-plan.md` — synthetic and future hardware experiments.
+17. `13-validation-plan.md` — evidence ladder and H100/NVSwitch plan.
 
 ## Current navigation state
 
