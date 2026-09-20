@@ -18,36 +18,39 @@ full reading path.
    milestone 顺序。
 6. `18-sass-ptx-a800-gap.md` — A800 单卡 SASS/PTX 差距实验证据和限制。
 7. `00-project-overview.md` — scope, terminology, and staged strategy.
-7. `01-accelsim-architecture.md` — current simulator layers and call paths.
-8. `02-trace-pipeline.md` — NVBit → trace → frontend → timing model, including
+8. `01-accelsim-architecture.md` — current simulator layers and call paths.
+9. `02-trace-pipeline.md` — NVBit → trace → frontend → timing model, including
    the exact external vectoradd source and reproduction recipe.
-9. `03-hardware-capability-matrix.md` — A800/H100/NVSwitch validation boundary.
-10. `04-single-vs-multi-gpu-trace.md` — why compute traces do not encode a
+10. `03-hardware-capability-matrix.md` — A800/H100/NVSwitch validation boundary.
+11. `04-single-vs-multi-gpu-trace.md` — why compute traces do not encode a
    collective execution by themselves.
-11. `05-h100-architecture-support.md` — source audit of SM90 support.
-12. `06-nvlink-nvswitch-nvls.md` — hardware/model concepts (to be expanded with
+12. `05-h100-architecture-support.md` — source audit of SM90 support.
+13. `06-nvlink-nvswitch-nvls.md` — hardware/model concepts (to be expanded with
    primary sources).
-13. `07-current-support-gap-analysis.md` — capability matrix and evidence.
-14. `08-booksim-architecture.md` — BookSim components and embedding options.
-15. `09-accelsim-booksim-integration.md` — clock/data-boundary alternatives.
-16. `10-design-options.md` — PTX-primary compute/communication architecture choice.
-17. `11-implementation-roadmap.md` — PTX-first milestone exit criteria.
-18. `12-experiment-plan.md` — PTX design experiments and SASS validation experiments.
-19. `13-validation-plan.md` — separate design and hardware evidence ladders.
+14. `07-current-support-gap-analysis.md` — capability matrix and evidence.
+15. `08-booksim-architecture.md` — BookSim components and embedding options.
+16. `09-accelsim-booksim-integration.md` — clock/data-boundary alternatives.
+17. `10-design-options.md` — PTX-primary compute/communication architecture choice.
+18. `11-implementation-roadmap.md` — PTX-first milestone exit criteria.
+19. `12-experiment-plan.md` — PTX design experiments and SASS validation experiments.
+20. `13-validation-plan.md` — separate design and hardware evidence ladders.
+
+Implementation records are under `implementation/`; the current SM90 PTX
+baseline is `implementation/009-sm90-ptx-baseline.md`.
 
 ## Current navigation state
 
-- Milestone: M2 A800 trace pipeline plus the completed single-A800 SASS/PTX gap
-  matrix; next is M3 PTX baseline.
+- Milestone: M3 SM90 PTX execution-driven baseline is complete; next is the
+  minimal single-GPU custom PTX instruction.
 - Branch/base: `feat/nvbit-a800-booksim-nvlink` / upstream `d930ad6`.
 - Baseline: release build and real A800 vectoradd trace/replay pass; CTest still
   has no registered tests.
 - Blockers: no physical second GPU/NVLink peer and no H100/NVSwitch system.
 - BookSim: separate `28f4329` checkout; standalone two-node AnyNet smoke/sweep
   passes, but no Accel-Sim adapter or clock coupling exists.
-- Next: use the SASS/PTX gap evidence to document the SM90 PTX baseline, then
-  define one custom PTX instruction and connect its synthetic event to the
-  existing transport prototype.
+- Next: define one custom PTX instruction without network side effects, add
+  focused parser/functional/dependency/timing/completion tests, and only then
+  define the communication-event boundary.
 
 ## Source-of-truth map
 

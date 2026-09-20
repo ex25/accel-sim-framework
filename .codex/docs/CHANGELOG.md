@@ -1,5 +1,19 @@
 # Research changelog
 
+## 2026-09-20 — Complete SM90 PTX execution-driven baseline
+
+- Added a bounded CUDA 12.8 `compute_90` PTX-only workload and launcher using
+  `H100-PTX` with `SM90_H100/gpgpusim.config`.
+- Verified the unmodified nested GPGPU-Sim PTX path: parser acceptance,
+  functional checksum, issue/timing, and simulator completion. Result: 5,501
+  cycles, 1,654,784 simulated instructions, IPC 300.8151, max error
+  `3.5762786865234375e-07`.
+- Added the source-level call-path record from `ptx_loader`/lexer/parser to
+  `ptx_instruction`, functional opcode dispatch, shader issue, and the timing
+  pipeline. No nested simulator source was modified.
+- Limits: this is SM90 simulator evidence only; native A800 execution is not
+  applicable, and H100/H200/Hopper/NVSwitch/NVLS validation remains pending.
+
 ## 2026-09-20 — Complete single-A800 SASS/PTX gap matrix
 
 - Added `experiments/sass_ptx_gap/`: a dual-code-object SM80 CUDA workload

@@ -64,9 +64,10 @@ or synthetic BookSim results.
 
 M2 A800 trace pipeline, standalone two-endpoint BookSim transport, real trace
 instruction autopsy, analytical checks, and the endpoint/clock reference
-contract are complete. The next milestone is a PTX execution-driven baseline
-and a minimal custom-instruction experiment; BookSim integration remains a
-separate transport milestone. No simulator-core integration has started.
+contract are complete. M3's SM90 PTX execution-driven baseline is now complete;
+the next milestone is a minimal single-GPU custom-instruction experiment.
+BookSim integration remains a separate transport milestone. No simulator-core
+integration has started.
 
 ## Important decisions
 
@@ -97,11 +98,12 @@ is available locally.
 
 ## Next task
 
-First run a PTX-mode baseline on the SM90 configuration, document the PTX
-execution path, and define the smallest custom instruction that can emit a
-communication event. Then connect that event to the existing two-endpoint
-BookSim prototype. Do not implement Ring, NVSwitch, or NVLS before both the PTX
-instruction boundary and the transport boundary have focused tests.
+Define and test the smallest single-GPU custom PTX instruction without a
+network side effect. Specify operands, result, ordering, latency, issue
+resource, register dependency, and completion. Only after those focused tests
+pass should the instruction emit a separate communication event and connect to
+the existing two-endpoint BookSim prototype. Do not implement Ring, NVSwitch,
+or NVLS before both boundaries have focused tests.
 
 ## Detailed entry points
 

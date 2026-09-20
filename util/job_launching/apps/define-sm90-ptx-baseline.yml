@@ -1,0 +1,7 @@
+SM90_PTX_BASELINE:
+    exec_dir: "$SM90_PTX_BASELINE_ROOT/build/"
+    data_dirs: ""
+    execs:
+        - sm90_ptx_baseline:
+            - args: 4096 32
+              accel-sim-mem: 1G

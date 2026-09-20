@@ -46,6 +46,12 @@ Updated: 2026-09-20
   delta was −2.6% to +19.0%; GEMV instruction/IPC deltas were about −36% to
   −42%, and GEMM deltas about −20% to −29%. Full evidence:
   `.codex/experiments/2026-09-20-sass-ptx-a800-gap.md`.
+- SM90 PTX baseline: a CUDA 12.8 `compute_90` PTX-only kernel passed the
+  unmodified `H100-PTX` / `SM90_H100` path with 5,501 cycles, 1,654,784
+  simulated instructions, IPC 300.8151, and functional max error
+  `3.5762786865234375e-07`. This is **Verified** simulator software evidence,
+  not H100 hardware validation. Full record:
+  `.codex/experiments/2026-09-20-sm90-ptx-baseline.md`.
 - Standalone BookSim two-endpoint smoke/sweep: PASS at reference SHA `28f4329`.
   This validates generic transport only, not physical NVLink.
 
@@ -93,7 +99,7 @@ Updated: 2026-09-20
 - [x] analytical/public-data validation (synthetic BookSim accounting only)
 - [x] PTX-primary/SASS-validation strategy confirmed
 - [x] single-A800 SASS/PTX frontend gap matrix (bounded GEMV/GEMM)
-- [ ] SM90 PTX execution-driven baseline
+- [x] SM90 PTX execution-driven baseline
 - [ ] minimal custom PTX instruction
 - [ ] PTX instruction-to-communication-event boundary
 - [ ] real H100 validation
@@ -109,8 +115,9 @@ Updated: 2026-09-20
 3. Read `15-concepts-for-readers.md`, `16-simulating-custom-multigpu-isa.md`,
    and `17-ptx-primary-strategy.md` before changing trace format, PTX ISA, or
    network semantics.
-4. Run the SM90 PTX baseline and map its parser→functional execution→timing
-   call path before implementing a custom instruction.
+4. Define one single-GPU custom PTX instruction and map its parser,
+   functional, dependency, timing, and completion tests before adding network
+   side effects.
 5. Define the independent communication-event schema and logical rank/stream
    orchestrator before any Ring implementation.
 6. Implement the narrow BookSim endpoint facade, then obtain H100/H200

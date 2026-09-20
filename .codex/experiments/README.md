@@ -13,3 +13,5 @@ Completed entries:
 - `2026-09-20-sass-ptx-a800-gap.md`: single-A800 dual-code-object matrix
   comparing SASS trace replay and PTX execution-driven replay, including
   bounded GEMV/GEMM sizes and the CUDA 12.8 lineinfo parser failure.
+- `2026-09-20-sm90-ptx-baseline.md`: CUDA 12.8 `compute_90` PTX-only kernel
+  accepted by the unmodified `H100-PTX`/`SM90_H100` execution-driven path.
