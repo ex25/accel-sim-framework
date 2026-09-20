@@ -14,8 +14,10 @@ exists. Do not start full NVSwitch/NVLS implementation with this workflow.
    clock/ownership assumptions, and before/after call path.
 2. Define the smallest edit and focused test, including baseline and regression
    commands, before editing.
-3. Change only named files/classes/functions. Preserve PTX, trace, and memory
-   paths unless the design explicitly changes them.
+3. Change only named files/classes/functions. Preserve unrelated PTX, SASS
+   trace, and memory paths. When the feature is explicitly a proposed PTX ISA
+   or microarchitecture change, modify the PTX path deliberately and document
+   the SASS validation boundary.
 4. Run focused tests, then the relevant regression. Classify failures as
    BASELINE FAILURE, environment/dependency failure, or branch regression.
 5. Update implementation note, project-state, DECISIONS, CHANGELOG, and compact

@@ -20,7 +20,12 @@ Run at the start of every new Codex session or after a context compaction.
 4. Check for user modifications. Preserve them; never reset, clean, or stash.
 5. Report before editing: goal, branch, baseline SHA, hardware, milestone,
    completed work, blockers, evidence level, and next step.
-6. When state changes, update project-state.md, relevant docs, and CHANGELOG.md.
+6. If the task concerns a proposed ISA or microarchitecture, read
+   `.codex/skills/ptx-design-baseline/` and
+   `.codex/docs/17-ptx-primary-strategy.md` before selecting a SASS-oriented
+   workflow.
+7. When state changes, update project-state.md, relevant docs, and
+   CHANGELOG.md.
 
 ## Artifacts and completion
 

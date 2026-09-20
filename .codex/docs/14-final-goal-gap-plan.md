@@ -42,8 +42,10 @@ InfiniBand、完整 DGX 集群和所有 NCCL collective 暂不属于第一目标
   9 组 packet/link-latency sweep。
 - bytes/flits、rational clock、completion ordering 的 reference contract
   tests 通过。
-- 当前项目已经明确保留 compute trace，并将未来 communication event、
-  collective semantics 与 BookSim transport 分层。
+- 当前项目已经明确以 PTX execution-driven workload 作为新 ISA/新微架构/
+  新调度的主输入，以真实 SASS trace 作为已有 A800/H100 行为的验证输入；
+  两条路径都与 communication event、collective semantics 和 BookSim
+  transport 分层。
 
 ### Source-audited but incomplete
 
@@ -179,10 +181,10 @@ NVLS semantic model 和硬件 counters 补充。
 
 ## 6. 推荐的数据模型
 
-不要把所有通信语义硬塞进普通 SASS trace。推荐 hybrid model：
+不要把所有通信语义硬塞进普通 SASS trace。推荐 PTX-primary hybrid model：
 
 ```text
-per-rank compute trace
+per-rank PTX workload（设计主线）或 SASS compute trace（验证线）
         +
 communication event trace
         +
@@ -365,7 +367,7 @@ bytes/flits 和 two-endpoint delivery tests；与现有 analytical checker 对�
 当前最合理的路线不是“先把单卡 SASS trace 扩展成八卡 trace”，而是：
 
 ```text
-H100/可复用 compute trace
+PTX workload（设计主线）或 H100/可复用 SASS compute trace（验证线）
         +
 独立 communication event trace
         +

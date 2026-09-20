@@ -43,6 +43,19 @@ Updated: 2026-09-20
 - Standalone BookSim two-endpoint smoke/sweep: PASS at reference SHA `28f4329`.
   This validates generic transport only, not physical NVLink.
 
+## Confirmed execution strategy
+
+- PTX execution-driven mode is the primary path for proposed ISA,
+  microarchitecture, scheduler, and in-switch-computing experiments.
+- SASS/NVBit traces are the validation path for existing A800/H100 behaviour,
+  compiler effects, and hardware calibration.
+- PTX does not by itself provide multi-GPU rank/collective/NVSwitch semantics;
+  those still require an event schema, orchestrator, semantic layer, and
+  BookSim transport.
+- A custom instruction that does not exist in hardware must enter through PTX or
+  a clearly labelled synthetic instruction/event generator, not an imagined
+  “real” SASS trace.
+
 ## Status checklist
 
 - [x] repository audit and research branch
@@ -55,7 +68,7 @@ Updated: 2026-09-20
 - [ ] baseline test with registered test cases
 - [x] A800 real trace smoke test
 - [x] trace pipeline/source mapping (one real A800 `LDG.E.64` autopsy)
-- [ ] Accel-Sim architecture audit
+- [x] Accel-Sim architecture audit (PTX/SASS boundary documented)
 - [x] Hopper/H100 support audit (P2 source audit complete; hardware correlation pending)
 - [x] trace-format audit (version-6 record and parser fields)
 - [x] single-vs-multi-GPU answer backed by source (compute trace is not distributed execution)
@@ -72,6 +85,10 @@ Updated: 2026-09-20
 - [ ] compute + communication integration
 - [ ] statistics/experiment automation
 - [x] analytical/public-data validation (synthetic BookSim accounting only)
+- [x] PTX-primary/SASS-validation strategy confirmed
+- [ ] SM90 PTX execution-driven baseline
+- [ ] minimal custom PTX instruction
+- [ ] PTX instruction-to-communication-event boundary
 - [ ] real H100 validation
 
 ## Active blockers and next action
@@ -79,12 +96,15 @@ Updated: 2026-09-20
 1. The A800 vectoradd source is external to this repository at
    `$CONDA_PREFIX/opt/nvbit-1.8/test-apps/vectoradd/vectoradd.cu`; the historical
    replay command was not preserved and must be captured in future runs.
-2. Read `15-concepts-for-readers.md` and
-   `16-simulating-custom-multigpu-isa.md` before changing trace format or ISA.
-3. Define the independent communication-event schema and logical rank/stream
+2. Read `15-concepts-for-readers.md`, `16-simulating-custom-multigpu-isa.md`,
+   and `17-ptx-primary-strategy.md` before changing trace format, PTX ISA, or
+   network semantics.
+3. Run the SM90 PTX baseline and map its parser→functional execution→timing
+   call path before implementing a custom instruction.
+4. Define the independent communication-event schema and logical rank/stream
    orchestrator before any Ring implementation.
-4. Implement the narrow BookSim endpoint facade, then obtain H100/H200 NVSwitch
-   access for SM90/NVLS trace and hardware calibration.
+5. Implement the narrow BookSim endpoint facade, then obtain H100/H200
+   NVSwitch access for SM90/NVLS trace and hardware calibration.
 
 ## Evidence rule
 

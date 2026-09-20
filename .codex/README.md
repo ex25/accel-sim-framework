@@ -5,8 +5,16 @@
 Extend Accel-Sim with a research-grade GPU interconnect model backed by
 BookSim, then study single-node H100/H200 NVLink + NVSwitch + NVLS collective
 behaviour. The intended first target is 2/4/8-GPU AllReduce, comparing Ring and
-NVLS. This is a staged research project, not a claim that the current checkout
-already models NVSwitch or NVLS.
+NVLS. The project has two deliberately different input paths:
+
+1. **PTX-first design path** — the main path for new ISA, new GPU
+   microarchitecture, custom scheduling, and in-switch computing designs that
+   do not exist in current NVIDIA hardware.
+2. **SASS validation path** — real NVBit traces from A800/H100 used to check
+   existing GPU behaviour, compiler effects, and calibration assumptions.
+
+This is a staged research project, not a claim that the current checkout already
+models NVSwitch or NVLS.
 
 ## Current state
 
@@ -45,8 +53,8 @@ or synthetic BookSim results.
   editing location; `.agents/skills/` contains only symlinks so Codex skill
   discovery sees the same files without creating a second copy. Current
   workflows include bootstrap, reconnaissance, A800 trace, trace autopsy,
-  BookSim analysis, feature implementation, documentation, experiments, and
-  counter addition.
+  PTX design baseline, BookSim analysis, feature implementation, documentation,
+  experiments, and counter addition.
 - `knowledge/`: compact, high-signal current facts.
 - `docs/`: human-readable architecture, research, decisions, and changelog.
 - `experiments/`: experiment specifications and reproducibility metadata only;
@@ -56,19 +64,26 @@ or synthetic BookSim results.
 
 M2 A800 trace pipeline, standalone two-endpoint BookSim transport, real trace
 instruction autopsy, analytical checks, and the endpoint/clock reference
-contract are complete. The next milestone is a tracked per-cycle BookSim
-facade; no simulator-core integration has started.
+contract are complete. The next milestone is a PTX execution-driven baseline
+and a minimal custom-instruction experiment; BookSim integration remains a
+separate transport milestone. No simulator-core integration has started.
 
 ## Important decisions
 
-1. Keep compute traces and future communication events conceptually separate;
+1. Use PTX execution-driven mode as the primary path for proposed ISA and
+   microarchitecture changes. Do not wait for unavailable hardware traces for
+   instructions that do not exist in hardware.
+2. Keep real SASS traces as a validation/calibration path, not as the primary
+   input format for a hypothetical GPU.
+3. Keep compute traces and future communication events conceptually separate;
    do not replicate one single-GPU trace and call it a multi-GPU execution.
-2. Reuse/analyse the existing BookSim-derived `intersim2` boundary before
+4. Reuse/analyse the existing BookSim-derived `intersim2` boundary before
    introducing another copy. Treat it as a generic network timing backend;
    NVSwitch topology, multicast, reduction, and NVLS completion semantics
    remain a separate layer.
-3. Preserve the existing Accel-Sim trace/frontend path until evidence shows
-   that a new event format is necessary.
+5. Preserve the existing Accel-Sim trace/frontend path for SASS validation;
+   extend the PTX frontend or add a synthetic instruction/event input only when
+   the research design requires it.
 
 See `.codex/docs/DECISIONS.md` for rationale and status.
 
@@ -82,9 +97,11 @@ is available locally.
 
 ## Next task
 
-Implement and test the smallest upstream-tracked BookSim per-cycle facade, then
-connect one timestamped two-logical-GPU communication event. Do not implement
-Ring, NVSwitch, or NVLS before that boundary is validated.
+First run a PTX-mode baseline on the SM90 configuration, document the PTX
+execution path, and define the smallest custom instruction that can emit a
+communication event. Then connect that event to the existing two-endpoint
+BookSim prototype. Do not implement Ring, NVSwitch, or NVLS before both the PTX
+instruction boundary and the transport boundary have focused tests.
 
 ## Detailed entry points
 

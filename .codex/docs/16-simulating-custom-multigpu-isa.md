@@ -12,10 +12,10 @@ H100 + NVSwitch + NVLS，甚至要修改 ISA、GPU 微架构和交换机，那�
 > 但通常不能告诉我们 NVSwitch 内部队列、credit、multicast/reduction 状态，
 > 也不能在硬件已经不存在新指令时凭空产生新 ISA 的执行。
 
-因此，研究型模拟器通常采用混合方法：
+因此，本项目采用“PTX 主线 + SASS 验证线”的分层方法：
 
 \`\`\`text
-真实或合成的 GPU compute trace
+PTX execution-driven GPU design input
         +
 独立的多 GPU communication / collective event trace
         +
@@ -24,6 +24,8 @@ H100 + NVSwitch + NVLS，甚至要修改 ISA、GPU 微架构和交换机，那�
 NVSwitch / NVLS semantic model
         +
 BookSim cycle-level transport model
+        +
+真实 A800/H100 SASS trace（仅用于验证已有硬件行为）
 \`\`\`
 
 这不是降低研究严谨性，而是把“硬件能够直接观察的事实”和“新硬件设计
@@ -36,7 +38,7 @@ BookSim cycle-level transport model
 很多论文只写“we use Accel-Sim to simulate multi-GPU”，但这里的 trace
 可能指完全不同的东西。
 
-### 1.1 真实 GPU 指令 trace
+### 1.1 真实 GPU 指令 trace（验证线）
 
 这是我们目前在 A800 上做的事情：
 
@@ -69,15 +71,23 @@ bytes = 4096
 它描述“哪个 GPU 在什么时候发起了什么通信”，然后由 NVSwitch/NVLS
 模型和 BookSim 决定具体经过哪些端口、队列和 flit。
 
-### 1.3 为新硬件设计生成的 synthetic workload
+### 1.3 PTX execution-driven design input（主线）
+
+PTX 模式不需要真实 GPU 产生新指令。我们可以在模拟器中定义一个新的
+PTX-level opcode，让 PTX parser、功能执行、依赖和 timing model 直接执行它。
+它适合研究还不存在的 GPU/ISA，但不能自动代表真实 H100 的 SASS 调度。
+
+### 1.4 为新硬件设计生成的 synthetic workload
 
 如果我们提出了真实 GPU 不存在的 \`dymultimem.ld_reduce\` 或新的 CAIS
 指令，就不能等待 A800/H100 产生真实 trace。此时需要：
 
-1. 修改 PTX/SASS parser，使模拟器认识新 opcode；
-2. 修改 trace record 或建立 synthetic instruction stream；
+1. 优先修改 PTX parser、PTX IR 和功能执行路径，使模拟器认识新 opcode；
+2. 修改 GPU timing/resource/dependency model；
 3. 明确定义新指令的操作数、延迟、依赖、内存语义和网络副作用；
-4. 由 workload generator 或修改后的 compiler/runtime 产生这些事件。
+4. 由 workload generator、修改后的 compiler/runtime 或 synthetic event
+   generator 产生这些事件；
+5. 只有在实验明确需要时，才为新指令建立 synthetic SASS trace。
 
 这类输入必须标记为 \`Synthetic\` 或 \`Hypothesis\`，不能称为真实硬件 trace。
 
@@ -382,7 +392,8 @@ Layer 1: Workload / runtime
   rank、stream、collective、dependency、completion
 
 Layer 2: GPU compute model
-  CTA、warp、SASS、LSU、cache、HBM、SM scheduler
+  PTX instruction、CTA、warp、LSU、cache、HBM、SM scheduler
+  （SASS trace 作为已有硬件验证输入）
 
 Layer 3: GPU endpoint / protocol adapter
   local memory request → NVLink packet
@@ -406,7 +417,8 @@ Layer 5: BookSim transport
 推荐的输入形式是：
 
 \`\`\`text
-ComputeTrace(rank, CTA, warp, instruction, local memory behavior)
+PTXWorkload(rank, CTA, warp, instruction, local memory behavior)
+或 SASSComputeTrace(rank, CTA, warp, instruction, local memory behavior)
 CommunicationEvent(rank, peer/group, collective, chunk, bytes, ready_time)
 \`\`\`
 
@@ -451,17 +463,17 @@ CommunicationEvent(rank, peer/group, collective, chunk, bytes, ready_time)
 ## 8. 对我们下一阶段的直接决定
 
 下一阶段不要先复制 8 份 \`vectoradd\` trace，也不要先修改一大批 SASS
-opcode。应该按以下顺序：
+opcode。应该先跑通 SM90 PTX baseline，再实现一条最小 custom PTX instruction：
 
-1. 明确定义 \`CommunicationEvent\`，包括 rank、collective、chunk、bytes、
+1. 先定义一条 custom PTX instruction 的语义、依赖和完成条件；
+2. 明确定义 \`CommunicationEvent\`，包括 rank、collective、chunk、bytes、
    ready/completion；
-2. 建立 2 个 logical GPU 的 orchestrator；
-3. 用 synthetic compute duration + communication event 驱动 BookSim；
-4. 验证 point-to-point 和 Ring 的 bytes、ordering、completion；
-5. 再把真实单卡 compute trace 接到 logical rank；
+3. 建立 2 个 logical GPU 的 orchestrator；
+4. 用 synthetic compute duration + communication event 驱动 BookSim；
+5. 验证 point-to-point 和 Ring 的 bytes、ordering、completion；
 6. 再加入 NVSwitch multicast/reduction；
-7. 最后才加入 \`multimem\` 或自定义 ISA；
-8. 有 H100 后，用真实 SM90/NCCL 结果校准模型。
+7. 再把真实单卡/H100 compute trace 接到兼容的 validation boundary；
+8. 最后用真实 SM90/NCCL 结果校准模型。
 
 达到下面条件后，才适合进入自定义 ISA 阶段：
 
@@ -473,4 +485,3 @@ opcode。应该按以下顺序：
 - 新 ISA 的语义、trace 表示、GPU endpoint 和 switch 行为已经写成设计文档。
 
 否则即使模拟器输出了一个数字，也很难说明这个数字来自哪个假设。
-

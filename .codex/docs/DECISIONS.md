@@ -80,3 +80,27 @@
 - Validation requirement: adapter unit tests must prove packetization,
   completion ordering, clock-ratio conversion, and byte/flit accounting before
   Ring or NVLS work.
+
+## D007 — Make PTX the primary design input and SASS the validation input
+
+- Date: 2026-09-20
+- Context: the research target includes ISA and microarchitecture features that
+  do not exist in A800/H100 hardware, while SASS trace replay depends on a real
+  GPU producing the instruction.
+- Options: (a) continue SASS-first and synthesize missing instructions later;
+  (b) use PTX for all work and ignore SASS; (c) use PTX for proposed designs
+  and SASS for existing-hardware validation.
+- Decision: choose (c). PTX execution-driven mode is the primary path for new
+  ISA, GPU timing, scheduler, and in-switch-computing semantics. Real SASS
+  traces remain the validation/calibration path for existing A800/H100
+  behaviour, compiler effects, and hardware measurements.
+- Why: a real GPU cannot produce a trace for an instruction that does not exist;
+  PTX lets the simulator define functional semantics and timing without
+  pretending that a synthetic trace is hardware evidence. SASS retains the
+  compiler and machine-level fidelity needed for correlation.
+- Trade-offs: PTX does not automatically model real SASS register allocation or
+  machine scheduling; SASS still requires H100 access for Hopper validation.
+  Multi-GPU rank/collective/NVSwitch semantics remain separate from both paths.
+- Validation requirement: run a standard SM90 PTX baseline, then a minimal
+  custom PTX instruction test, and keep A800/H100 SASS replay as a separate
+  evidence track.

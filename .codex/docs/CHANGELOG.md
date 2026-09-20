@@ -1,5 +1,26 @@
 # Research changelog
 
+## 2026-09-20 — Confirm PTX-primary design strategy
+
+- Decision: use PTX execution-driven mode as the main path for proposed ISA,
+  GPU microarchitecture, scheduler, and in-switch-computing experiments;
+  retain SASS/NVBit traces as the validation/calibration path for existing
+  A800/H100 behaviour.
+- Updated: `.codex/README.md`, `knowledge/project-state.md`, Accel-Sim and
+  research-scope rules, design options, roadmap, experiment/validation plans,
+  multi-GPU trace guidance, and the Chinese project history.
+- Added: `docs/17-ptx-primary-strategy.md` and the reusable
+  `skills/ptx-design-baseline/` workflow, exposed through the `.agents/skills/`
+  symlink.
+- Rationale: real hardware cannot produce a SASS trace for a proposed
+  instruction such as CAIS/DySHARP-style operations; PTX can define functional
+  semantics and timing, while SASS preserves compiler/machine-level validation.
+- Validation: documentation-only structural checks and `git diff --check`; no
+  simulator core was changed and no hardware claim was added.
+- Evidence: PTX/SASS boundary is source-verified; PTX as the design path is a
+  project decision; CAIS/DySHARP exact private input-generation details remain
+  `Unknown`.
+
 ## 2026-09-20 — Clarify external workload provenance and custom-ISA methodology
 
 - Commit: current phase; the SHA is recorded by the following Git history after
