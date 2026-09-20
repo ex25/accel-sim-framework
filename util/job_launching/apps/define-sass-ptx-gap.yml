@@ -1,0 +1,29 @@
+SASS_PTX_GAP:
+    exec_dir: "$SASS_PTX_GAP_ROOT/build/"
+    data_dirs: ""
+    execs:
+        - sass_ptx_gap:
+            - args: fma_chain 1024 128
+              accel-sim-mem: 1G
+            - args: vec_add 4096 0
+              accel-sim-mem: 1G
+            - args: global_stride 4096 16
+              accel-sim-mem: 1G
+            - args: shared_reduce 256 0
+              accel-sim-mem: 1G
+            - args: branch_diverge 1024 64
+              accel-sim-mem: 1G
+            - args: atomic_hotspot 1024 1
+              accel-sim-mem: 1G
+            - args: gemv 64 0
+              accel-sim-mem: 1G
+            - args: gemv 128 0
+              accel-sim-mem: 1G
+            - args: gemv 256 0
+              accel-sim-mem: 1G
+            - args: gemm 16 0
+              accel-sim-mem: 1G
+            - args: gemm 32 0
+              accel-sim-mem: 1G
+            - args: gemm 64 0
+              accel-sim-mem: 2G

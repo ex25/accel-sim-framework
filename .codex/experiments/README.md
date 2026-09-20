@@ -10,3 +10,6 @@ Completed entries:
 
 - `2026-09-19-a800-nvbit-booksim-nvlink2.md`: real A800 vectoradd trace,
   post-processing/replay, and standalone BookSim two-endpoint smoke/sweep.
+- `2026-09-20-sass-ptx-a800-gap.md`: single-A800 dual-code-object matrix
+  comparing SASS trace replay and PTX execution-driven replay, including
+  bounded GEMV/GEMM sizes and the CUDA 12.8 lineinfo parser failure.

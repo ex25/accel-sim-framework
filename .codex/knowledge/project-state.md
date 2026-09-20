@@ -40,6 +40,12 @@ Updated: 2026-09-20
   `Observed`, not new regression evidence.
 - Real A800 NVBit vectoradd trace, post-processing, and SM80 replay: PASS.
   Replay completed in 6,824 simulated cycles and about 16 seconds CPU time.
+- Single-A800 SASS/PTX gap matrix: 12 bounded CUDA cases (including GEMV 64/128/256
+  and GEMM 16/32/64) all passed native functional checks, A800 tracing, SASS
+  replay, and PTX replay after removing CUDA-12.8 `-lineinfo`. PTX-vs-SASS cycle
+  delta was −2.6% to +19.0%; GEMV instruction/IPC deltas were about −36% to
+  −42%, and GEMM deltas about −20% to −29%. Full evidence:
+  `.codex/experiments/2026-09-20-sass-ptx-a800-gap.md`.
 - Standalone BookSim two-endpoint smoke/sweep: PASS at reference SHA `28f4329`.
   This validates generic transport only, not physical NVLink.
 
@@ -86,6 +92,7 @@ Updated: 2026-09-20
 - [ ] statistics/experiment automation
 - [x] analytical/public-data validation (synthetic BookSim accounting only)
 - [x] PTX-primary/SASS-validation strategy confirmed
+- [x] single-A800 SASS/PTX frontend gap matrix (bounded GEMV/GEMM)
 - [ ] SM90 PTX execution-driven baseline
 - [ ] minimal custom PTX instruction
 - [ ] PTX instruction-to-communication-event boundary
@@ -96,14 +103,17 @@ Updated: 2026-09-20
 1. The A800 vectoradd source is external to this repository at
    `$CONDA_PREFIX/opt/nvbit-1.8/test-apps/vectoradd/vectoradd.cu`; the historical
    replay command was not preserved and must be captured in future runs.
-2. Read `15-concepts-for-readers.md`, `16-simulating-custom-multigpu-isa.md`,
+2. The CUDA 12.8 PTX parser requires the gap experiment's compatibility
+   condition (no compile-time `-lineinfo`, `TRACE_LINEINFO=0`) until the parser
+   is updated; do not classify that failure as a workload gap.
+3. Read `15-concepts-for-readers.md`, `16-simulating-custom-multigpu-isa.md`,
    and `17-ptx-primary-strategy.md` before changing trace format, PTX ISA, or
    network semantics.
-3. Run the SM90 PTX baseline and map its parser→functional execution→timing
+4. Run the SM90 PTX baseline and map its parser→functional execution→timing
    call path before implementing a custom instruction.
-4. Define the independent communication-event schema and logical rank/stream
+5. Define the independent communication-event schema and logical rank/stream
    orchestrator before any Ring implementation.
-5. Implement the narrow BookSim endpoint facade, then obtain H100/H200
+6. Implement the narrow BookSim endpoint facade, then obtain H100/H200
    NVSwitch access for SM90/NVLS trace and hardware calibration.
 
 ## Evidence rule

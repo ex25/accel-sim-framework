@@ -16,7 +16,8 @@ full reading path.
    微架构修改的模拟方法。
 5. `17-ptx-primary-strategy.md` — 当前确认的 PTX 主线、SASS 验证线和新的
    milestone 顺序。
-6. `00-project-overview.md` — scope, terminology, and staged strategy.
+6. `18-sass-ptx-a800-gap.md` — A800 单卡 SASS/PTX 差距实验证据和限制。
+7. `00-project-overview.md` — scope, terminology, and staged strategy.
 7. `01-accelsim-architecture.md` — current simulator layers and call paths.
 8. `02-trace-pipeline.md` — NVBit → trace → frontend → timing model, including
    the exact external vectoradd source and reproduction recipe.
@@ -36,16 +37,17 @@ full reading path.
 
 ## Current navigation state
 
-- Milestone: M2 A800 trace pipeline, two-endpoint transport, trace autopsy, and
-  endpoint/clock reference contract; next is M3 PTX baseline.
+- Milestone: M2 A800 trace pipeline plus the completed single-A800 SASS/PTX gap
+  matrix; next is M3 PTX baseline.
 - Branch/base: `feat/nvbit-a800-booksim-nvlink` / upstream `d930ad6`.
 - Baseline: release build and real A800 vectoradd trace/replay pass; CTest still
   has no registered tests.
 - Blockers: no physical second GPU/NVLink peer and no H100/NVSwitch system.
 - BookSim: separate `28f4329` checkout; standalone two-node AnyNet smoke/sweep
   passes, but no Accel-Sim adapter or clock coupling exists.
-- Next: run/document SM90 PTX baseline, then define one custom PTX instruction
-  and connect its synthetic event to the existing transport prototype.
+- Next: use the SASS/PTX gap evidence to document the SM90 PTX baseline, then
+  define one custom PTX instruction and connect its synthetic event to the
+  existing transport prototype.
 
 ## Source-of-truth map
 

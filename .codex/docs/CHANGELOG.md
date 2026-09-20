@@ -1,5 +1,21 @@
 # Research changelog
 
+## 2026-09-20 — Complete single-A800 SASS/PTX gap matrix
+
+- Added `experiments/sass_ptx_gap/`: a dual-code-object SM80 CUDA workload
+  suite with bounded FMA, memory, control-flow, atomic, GEMV, and GEMM cases;
+  added a reusable metric collector and the `SASS_PTX_GAP` launcher definition.
+- Generated 12 real A800 NVBit traces, replayed all 12 with `A100-SASS`, and
+  ran all 12 with `A100-PTX`. Native checksums and both replay paths passed;
+  the result table is in `.codex/experiments/2026-09-20-sass-ptx-a800-gap.md`.
+- Observed cycle deltas of −2.6% to +19.0%; GEMV/GEMM instruction and IPC
+  deltas remained large despite matching high-level global read/write totals.
+- Classified the initial CUDA 12.8 `-lineinfo` PTX `.loc/inlined_at` abort as a
+  parser compatibility baseline failure. The passing rerun omits compile-time
+  `-lineinfo` and uses `TRACE_LINEINFO=0`.
+- Limits: single A800 only; no multi-GPU, NVLink/NVSwitch/NVLS, H100, or
+  absolute A800 calibration claim.
+
 ## 2026-09-20 — Confirm PTX-primary design strategy
 
 - Decision: use PTX execution-driven mode as the main path for proposed ISA,
