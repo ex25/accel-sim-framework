@@ -40,20 +40,74 @@ Evidence: `Verified` for the software pipeline on one NVIDIA A800; this is not
 Hopper/NVLink/NVSwitch/NVLS validation.
 
 - NVBit 1.8 is installed under the `in-switch` conda environment at
-  `/home/wangjz/miniconda3/envs/in-switch/opt/nvbit-1.8`.
-- Build: `make -C util/tracer_nvbit NVBIT_PATH=$CONDA_PREFIX/opt/nvbit-1.8/core`.
-- Workload: SDK `test-apps/vectoradd/vectoradd.cu`, compiled for `sm_80`.
+  `/home/wangjz/miniconda3/envs/in-switch/opt/nvbit-1.8`. This SDK directory is
+  outside the Accel-Sim Git repository; therefore `vectoradd.cu` cannot be found
+  by searching this repository. The exact source file used was:
+  `/home/wangjz/miniconda3/envs/in-switch/opt/nvbit-1.8/test-apps/vectoradd/vectoradd.cu`
+  (portable form: `$CONDA_PREFIX/opt/nvbit-1.8/test-apps/vectoradd/vectoradd.cu`).
+- Workload Makefile: `$CONDA_PREFIX/opt/nvbit-1.8/test-apps/vectoradd/Makefile`.
+  Its default `ARCH=sm_70` was overridden for this A800 run; the resulting
+  executable contained `sm_80` cubins. This is an NVBit SDK sample, not an
+  Accel-Sim benchmark and not a workload committed under `util/`.
+- Tracer build: `make -C util/tracer_nvbit/tracer_tool
+  NVBIT_PATH=$CONDA_PREFIX/opt/nvbit-1.8/core ARCH=sm_80`. The repository
+  Makefile accepts `NVBIT_PATH` specifically so the SDK remains in the conda
+  environment instead of being copied into the repository.
   The CUDA result was `Final sum = 100000.000000; sum/n = 1.000000`.
 - Trace: `CUDA_VISIBLE_DEVICES=0`, a temporary `TRACES_FOLDER`,
   `CUDA_INJECTION64_PATH=util/tracer_nvbit/tracer_tool/tracer_tool.so`, and
   `SPINLOCK_HANDLING_MODE=0`.
+- The run's generated executable was copied to
+  `/tmp/in-switch-a800-trace-20260919/vectoradd`. The trace directory was
+  `/tmp/in-switch-a800-trace-20260919/traces`. These are temporary artifacts,
+  not repository files and are intentionally not committed.
 - Artifacts: one raw compressed trace (271,492 bytes), one `.tracez`
   (1,083,875 bytes), `kernelslist.g` (146 bytes), and one kernel with 98 CTAs,
   1,024 threads/CTA, and 50,066 reported instructions.
-- Replay: release `accel-sim.out` with the SM80 A100 configuration and trace
-  latency options. Exit 0; 6,824 simulated cycles, 1,502,112 simulated
+- Replay: the release `accel-sim.out` with the SM80 A100 configuration and trace
+  latency options was run against the generated `kernelslist.g`. The exact
+  shell command used for this historical run was not saved as a repository
+  artifact; this is an `Observed` limitation of the 2026-09-19 experiment.
+  A future run must save the generated `run.sh`, replay command, and simulator
+  configuration together with its metadata. The recorded replay exited 0;
+  6,824 simulated cycles, 1,502,112 simulated
   instructions, 98 issued CTAs, 75,000 request packets, 75,000 reply packets,
   and about 16 seconds CPU simulation time.
+
+### Reproduction recipe for a new run
+
+The following commands make the external workload location explicit. They are
+a reproducible recipe, not a claim that the historical run preserved every
+shell line verbatim:
+
+```bash
+conda activate in-switch
+export REPO=/home/wangjz/in-switch/accel-sim-framework
+export NVBIT_ROOT="$CONDA_PREFIX/opt/nvbit-1.8"
+export RUN=/tmp/in-switch-a800-trace-$(date +%Y%m%d-%H%M%S)
+
+make -C "$NVBIT_ROOT/test-apps/vectoradd" clean
+make -C "$NVBIT_ROOT/test-apps/vectoradd" ARCH=sm_80
+make -C "$REPO/util/tracer_nvbit/tracer_tool" \
+  NVBIT_PATH="$NVBIT_ROOT/core" ARCH=sm_80
+
+mkdir -p "$RUN/traces"
+cp "$NVBIT_ROOT/test-apps/vectoradd/vectoradd" "$RUN/vectoradd"
+cd "$RUN"
+export CUDA_VISIBLE_DEVICES=0
+export TRACES_FOLDER="$RUN"
+export SPINLOCK_HANDLING_MODE=0
+export CUDA_INJECTION64_PATH="$REPO/util/tracer_nvbit/tracer_tool/tracer_tool.so"
+./vectoradd
+
+"$REPO/util/tracer_nvbit/tracer_tool/traces-processing/post-traces-processing" \
+  "$RUN/traces"
+```
+
+The post-processor consumes the raw files in `$RUN/traces` and creates the
+`.tracez` and `kernelslist.g` files used by the replay step. For a complete
+replay record, copy the final simulator command and the selected SM80 config
+into a small experiment metadata file; do not commit the raw trace.
 
 The producer-to-disk and replay path is now verified on a real A800 artifact.
 The trace contains no proof of multi-GPU communication semantics.

@@ -1,6 +1,6 @@
 # Project state (reload first)
 
-Updated: 2026-09-19
+Updated: 2026-09-20
 
 ## Identity
 
@@ -76,11 +76,14 @@ Updated: 2026-09-19
 
 ## Active blockers and next action
 
-1. Use the reader-facing concepts document to review the current trace,
-   memory-network, and multi-GPU vocabulary.
-2. Define the independent communication-event schema and logical rank/stream
+1. The A800 vectoradd source is external to this repository at
+   `$CONDA_PREFIX/opt/nvbit-1.8/test-apps/vectoradd/vectoradd.cu`; the historical
+   replay command was not preserved and must be captured in future runs.
+2. Read `15-concepts-for-readers.md` and
+   `16-simulating-custom-multigpu-isa.md` before changing trace format or ISA.
+3. Define the independent communication-event schema and logical rank/stream
    orchestrator before any Ring implementation.
-3. Implement the narrow BookSim endpoint facade, then obtain H100/H200 NVSwitch
+4. Implement the narrow BookSim endpoint facade, then obtain H100/H200 NVSwitch
    access for SM90/NVLS trace and hardware calibration.
 
 ## Evidence rule

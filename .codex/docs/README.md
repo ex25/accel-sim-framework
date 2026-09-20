@@ -12,22 +12,25 @@ full reading path.
 1. `项目进展总览.md` — 中文历史总览、当前证据边界和下一步路线。
 2. `14-final-goal-gap-plan.md` — 最终目标差距、环境上限和分阶段退出条件。
 3. `15-concepts-for-readers.md` — 面向人的中文概念、trace 调用路径和术语解释。
-4. `00-project-overview.md` — scope, terminology, and staged strategy.
-5. `01-accelsim-architecture.md` — current simulator layers and call paths.
-6. `02-trace-pipeline.md` — NVBit → trace → frontend → timing model.
-7. `03-hardware-capability-matrix.md` — A800/H100/NVSwitch validation boundary.
-8. `04-single-vs-multi-gpu-trace.md` — why compute traces do not encode a
+4. `16-simulating-custom-multigpu-isa.md` — 多 GPU 调度、论文方法、定制 ISA 和
+   微架构修改的模拟方法。
+5. `00-project-overview.md` — scope, terminology, and staged strategy.
+6. `01-accelsim-architecture.md` — current simulator layers and call paths.
+7. `02-trace-pipeline.md` — NVBit → trace → frontend → timing model, including
+   the exact external vectoradd source and reproduction recipe.
+8. `03-hardware-capability-matrix.md` — A800/H100/NVSwitch validation boundary.
+9. `04-single-vs-multi-gpu-trace.md` — why compute traces do not encode a
    collective execution by themselves.
-9. `05-h100-architecture-support.md` — source audit of SM90 support.
-10. `06-nvlink-nvswitch-nvls.md` — hardware/model concepts (to be expanded with
+10. `05-h100-architecture-support.md` — source audit of SM90 support.
+11. `06-nvlink-nvswitch-nvls.md` — hardware/model concepts (to be expanded with
    primary sources).
-11. `07-current-support-gap-analysis.md` — capability matrix and evidence.
-12. `08-booksim-architecture.md` — BookSim components and embedding options.
-13. `09-accelsim-booksim-integration.md` — clock/data-boundary alternatives.
-14. `10-design-options.md` — compute/communication architecture comparison.
-15. `11-implementation-roadmap.md` — milestone exit criteria.
-16. `12-experiment-plan.md` — synthetic and future hardware experiments.
-17. `13-validation-plan.md` — evidence ladder and H100/NVSwitch plan.
+12. `07-current-support-gap-analysis.md` — capability matrix and evidence.
+13. `08-booksim-architecture.md` — BookSim components and embedding options.
+14. `09-accelsim-booksim-integration.md` — clock/data-boundary alternatives.
+15. `10-design-options.md` — compute/communication architecture comparison.
+16. `11-implementation-roadmap.md` — milestone exit criteria.
+17. `12-experiment-plan.md` — synthetic and future hardware experiments.
+18. `13-validation-plan.md` — evidence ladder and H100/NVSwitch plan.
 
 ## Current navigation state
 

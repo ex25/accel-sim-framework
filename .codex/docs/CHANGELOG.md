@@ -1,5 +1,26 @@
 # Research changelog
 
+## 2026-09-20 — Clarify external workload provenance and custom-ISA methodology
+
+- Commit: current phase; the SHA is recorded by the following Git history after
+  this phase is committed.
+- Corrected `02-trace-pipeline.md`: the A800 `vectoradd.cu` source is the
+  external NVBit SDK sample at
+  `$CONDA_PREFIX/opt/nvbit-1.8/test-apps/vectoradd/vectoradd.cu`, not a file in
+  the Accel-Sim repository. Added the SDK Makefile, `sm_80` override, artifact
+  paths, historical-command limitation, and a reproducible command recipe.
+- Added `16-simulating-custom-multigpu-isa.md`, a reader-facing explanation of
+  real instruction traces, communication-event traces, synthetic new-ISA
+  workloads, multi-GPU scheduling layers, CAIS/DySHARP methodology evidence,
+  and the required ISA/microarchitecture/NVSwitch validation boundaries.
+- Updated the research index so the new methodology document is part of the
+  six-month recovery path.
+- Evidence labels: the vectoradd source location is `Verified`; the exact
+  historical replay shell command is `Unknown/Observed limitation`; paper
+  details not stated in CAIS or DySHARP remain `Unknown` rather than inferred.
+- Validation: documentation diff/path checks and later phase regression are
+  required before commit. No simulator core was changed.
+
 ## 2026-09-19 — Complete P2 audit and add reader-facing concepts guide
 
 - Commit: current phase; the SHA is recorded by the following Git history after
