@@ -15,3 +15,5 @@ Completed entries:
   bounded GEMV/GEMM sizes and the CUDA 12.8 lineinfo parser failure.
 - `2026-09-20-sm90-ptx-baseline.md`: CUDA 12.8 `compute_90` PTX-only kernel
   accepted by the unmodified `H100-PTX`/`SM90_H100` execution-driven path.
+- `2026-09-21-cais-add-ptx.md`: minimal single-GPU `cais.add.u32` parser,
+  functional, dependency, timing, completion, and SM90 regression evidence.

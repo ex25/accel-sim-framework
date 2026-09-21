@@ -35,22 +35,24 @@ full reading path.
 19. `12-experiment-plan.md` — PTX design experiments and SASS validation experiments.
 20. `13-validation-plan.md` — separate design and hardware evidence ladders.
 
-Implementation records are under `implementation/`; the current SM90 PTX
-baseline is `implementation/009-sm90-ptx-baseline.md`.
+Implementation records are under `implementation/`; the current PTX records
+are `implementation/009-sm90-ptx-baseline.md` and
+`implementation/010-cais-add-ptx.md`.
 
 ## Current navigation state
 
-- Milestone: M3 SM90 PTX execution-driven baseline is complete; next is the
-  minimal single-GPU custom PTX instruction.
+- Milestone: M3 SM90 PTX baseline and minimal single-GPU `cais.add.u32`
+  instruction are complete; next is the instruction-to-communication-event
+  boundary.
 - Branch/base: `feat/nvbit-a800-booksim-nvlink` / upstream `d930ad6`.
 - Baseline: release build and real A800 vectoradd trace/replay pass; CTest still
   has no registered tests.
 - Blockers: no physical second GPU/NVLink peer and no H100/NVSwitch system.
 - BookSim: separate `28f4329` checkout; standalone two-node AnyNet smoke/sweep
   passes, but no Accel-Sim adapter or clock coupling exists.
-- Next: define one custom PTX instruction without network side effects, add
-  focused parser/functional/dependency/timing/completion tests, and only then
-  define the communication-event boundary.
+- Next: define a separate communication-event schema and focused completion
+  tests, then connect it to the two-endpoint BookSim prototype without yet
+  claiming Ring, NVSwitch, or NVLS behavior.
 
 ## Source-of-truth map
 

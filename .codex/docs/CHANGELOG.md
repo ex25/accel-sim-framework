@@ -1,5 +1,22 @@
 # Research changelog
 
+## 2026-09-21 — Complete minimal single-GPU custom PTX instruction
+
+- Added proposed `cais.add.u32 dst, src1, src2` semantics to nested GPGPU-Sim
+  commit `8f3c35fa`: lexer/opcode registration, unsigned modulo-32 functional
+  execution, and integer ADD timing/resource mapping.
+- Added CUDA-6+ external-PTX override support for synthetic proposed opcodes.
+  Stock `ptxas` cannot assemble `cais.add`, so this focused override skips
+  PTXInfo/occupancy assembly; that is an explicit harness limitation.
+- Added the SM90 fixture generator, dependent-chain workload, 1/32-iteration
+  launcher cases, and reusable control/custom result checker.
+- Verified both iteration pairs: control/custom cycles, instructions, IPC,
+  checksum, and zero error matched exactly; the existing SM90 baseline also
+  remained at 5501 cycles, 1654784 instructions, IPC 300.8151, and PASS.
+- Limits: this instruction has no memory/network effect and provides no real
+  GPU, SASS, occupancy, multi-GPU, NVLink, NVSwitch, NVLS, or BookSim evidence.
+  CTest still has no registered tests; existing build warnings remain.
+
 ## 2026-09-20 — Complete SM90 PTX execution-driven baseline
 
 - Added a bounded CUDA 12.8 `compute_90` PTX-only workload and launcher using

@@ -1,6 +1,6 @@
 # Project state (reload first)
 
-Updated: 2026-09-20
+Updated: 2026-09-21
 
 ## Identity
 
@@ -8,7 +8,9 @@ Updated: 2026-09-20
 - Main repo/branch: `accel-sim-framework`,
   `feat/nvbit-a800-booksim-nvlink`.
 - Main baseline SHA: `d930ad6` (`Revert slurm.sim to the pre-2.0 template`).
-- Nested GPGPU-Sim: separate ignored checkout, `91880c53`, branch `dev`.
+- Nested GPGPU-Sim: separate ignored checkout, `8f3c35fa`, branch
+  `feat/cais-add-ptx`; parent before the custom-instruction phase was
+  `91880c53` on `dev`.
 - BookSim reference checkout: `/home/wangjz/in-switch/booksim2`, `28f4329`,
   branch `master`; not integrated. The nested GPGPU-Sim checkout already has a
   BookSim2-derived `src/intersim2` with a GPU-specific adapter.
@@ -52,6 +54,13 @@ Updated: 2026-09-20
   `3.5762786865234375e-07`. This is **Verified** simulator software evidence,
   not H100 hardware validation. Full record:
   `.codex/experiments/2026-09-20-sm90-ptx-baseline.md`.
+- Minimal custom PTX instruction: `cais.add.u32` passed external-PTX parsing,
+  modulo-32 functional checks, dependent register chains, integer ADD timing,
+  and completion for 4096 elements at one and 32 iterations. Control/custom
+  cycles, instructions, IPC, and checksums matched exactly; the unchanged SM90
+  baseline also passed after the change. This is **Verified** simulator
+  software evidence, with no memory/network side effect and no hardware claim.
+  Full record: `.codex/experiments/2026-09-21-cais-add-ptx.md`.
 - Standalone BookSim two-endpoint smoke/sweep: PASS at reference SHA `28f4329`.
   This validates generic transport only, not physical NVLink.
 
@@ -100,7 +109,7 @@ Updated: 2026-09-20
 - [x] PTX-primary/SASS-validation strategy confirmed
 - [x] single-A800 SASS/PTX frontend gap matrix (bounded GEMV/GEMM)
 - [x] SM90 PTX execution-driven baseline
-- [ ] minimal custom PTX instruction
+- [x] minimal custom PTX instruction
 - [ ] PTX instruction-to-communication-event boundary
 - [ ] real H100 validation
 
@@ -115,10 +124,10 @@ Updated: 2026-09-20
 3. Read `15-concepts-for-readers.md`, `16-simulating-custom-multigpu-isa.md`,
    and `17-ptx-primary-strategy.md` before changing trace format, PTX ISA, or
    network semantics.
-4. Define one single-GPU custom PTX instruction and map its parser,
-   functional, dependency, timing, and completion tests before adding network
-   side effects.
-5. Define the independent communication-event schema and logical rank/stream
+4. Define the independent PTX-instruction-to-communication-event schema and
+   test its completion contract before connecting BookSim. Preserve
+   `cais.add.u32` as the no-side-effect control.
+5. Define the logical rank/stream
    orchestrator before any Ring implementation.
 6. Implement the narrow BookSim endpoint facade, then obtain H100/H200
    NVSwitch access for SM90/NVLS trace and hardware calibration.

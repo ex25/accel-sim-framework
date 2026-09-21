@@ -1,0 +1,9 @@
+CAIS_ADD_PTX:
+    exec_dir: "$CAIS_ADD_PTX_ROOT/build/"
+    data_dirs: ""
+    execs:
+        - cais_add_ptx:
+            - args: 4096 1
+              accel-sim-mem: 1G
+            - args: 4096 32
+              accel-sim-mem: 1G
