@@ -1,31 +1,30 @@
-# Research method and evidence labels
+# Research method 与 evidence label
 
-Work in this order unless a documented blocker requires a change:
+除非存在已记录 blocker，否则按以下顺序工作：
 
 ```text
-understand -> inspect history/source -> reproduce baseline -> identify gap
--> design alternatives -> smallest implementation -> focused test
--> regression -> document -> synthetic/analytical calibration
--> hardware validation
+understand → inspect history/source → reproduce baseline → identify gap
+→ design alternatives → smallest implementation → focused test
+→ regression → document → synthetic/analytical calibration
+→ hardware validation
 ```
 
-Read the checked-out source, Git history, build files, README/release notes,
-and executable behaviour before making architectural claims. Treat README,
-comments, issue summaries, and papers as claims to verify against code. For
-external hardware or software facts, prefer NVIDIA official documentation,
-PTX/NVBit/CUDA/NCCL source or documentation, BookSim source, and primary
-papers; record URL/version/date in the research document.
+提出 architecture claim 前，先阅读 checkout source、Git history、build file、
+README/release notes，并观察 executable behaviour。README、comment、issue summary
+与 paper 都是需要对照 code 验证的 claim。外部 hardware/software fact 优先引用
+NVIDIA official documentation、PTX/NVBit/CUDA/NCCL source/documentation、
+BookSim source 与 primary paper，并记录 URL/version/date。
 
-Label every non-trivial conclusion:
+所有非平凡结论必须标注：
 
-* `Verified`: reproduced in this checkout or on the named hardware;
-* `Observed`: recorded from an existing artifact but not independently rerun;
-* `Inferred`: source-based interpretation with no direct runtime proof;
-* `Hypothesis`: proposed design or expected behaviour;
-* `Unknown`: searched but not established;
-* `Needs hardware validation`: only the target H100/NVSwitch system can settle it.
+- `Verified`：已在当前 checkout 或指定 hardware 上复现。
+- `Observed`：来自已有 artifact，但本阶段未独立复跑。
+- `Inferred`：根据 source 推断，没有直接 runtime proof。
+- `Hypothesis`：proposed design 或 expected behaviour。
+- `Unknown`：已搜索但无法确认。
+- `Needs hardware validation`：只有目标 H100/NVSwitch system 才能确认。
 
-Keep four claims separate: software trace-pipeline validation, synthetic
-network/model sanity, public-data trend comparison, and real H100/NVSwitch
-correlation. Capture commands, SHAs, configs, output summaries, assumptions,
-and limitations in the repository; the chat is not evidence storage.
+必须区分 software trace-pipeline validation、synthetic network/model sanity、
+public-data trend comparison 与 real H100/NVSwitch correlation。Command、SHA、
+config、output summary、assumption 与 limitation 必须写入 repository；chat 不是
+evidence storage。

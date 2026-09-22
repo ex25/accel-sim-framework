@@ -1,25 +1,23 @@
-# Single-GPU versus multi-GPU trace
+# Single-GPU 与 multi-GPU trace
 
-## Initial conclusion
+## 初步结论
 
-`Verified source boundary / needs workload validation`: a single-GPU compute SASS trace can be reused
-as a workload template for logical ranks only when the research question
-explicitly permits identical compute. It is not a multi-GPU execution record.
+`Verified source boundary / needs workload validation`：只有当研究问题明确
+允许各 logical rank 使用相同 compute workload 时，single-GPU compute SASS
+trace 才能作为 workload template 复用；它本身不是 multi-GPU execution record。
 
-Replication does not supply rank/device identity, peer addresses, NCCL algorithm,
-collective launch/completion, message partitioning, synchronization, topology,
-routing, contention, switch reduction, multicast, or compute/communication
-overlap. Those belong in independent communication events and an orchestrator
-unless a verified existing trace path provides them. The current tracer's
-apparent multi-context support is per-`CUcontext`: `ctx_kernelid`,
-context-specific files, and context lifecycle callbacks. Its trace records
-include CTA/cluster identity, not an explicit NCCL rank, CUDA device ID, peer
-endpoint, or fabric event. Release-note wording about “multi-GPU trace” must
-therefore not be treated as multi-GPU simulation evidence.
+简单复制 trace 不会产生 rank/device identity、peer address、NCCL algorithm、
+collective launch/completion、message partitioning、synchronization、topology、
+routing、contention、switch reduction、multicast 或 compute/communication
+overlap。除非已有 trace path 经验证能提供这些信息，否则它们必须由独立的
+communication events 和 orchestrator 表达。当前 tracer 的 multi-context
+能力以 `CUcontext` 为单位，包括 `ctx_kernelid`、context-specific files 和
+context lifecycle callbacks；trace record 中有 CTA/cluster identity，但没有
+明确的 NCCL rank、CUDA device ID、peer endpoint 或 fabric event。因此，
+release notes 中的 “multi-GPU trace” 不能直接当作 multi-GPU simulation 证据。
 
-Candidate designs (to be evaluated): (A) extend SASS traces, (B) PTX workload
-+ communication event trace, (C) high-level event orchestrator, (D) PTX-primary
-hybrid with SASS validation. The confirmed choice is D: use PTX for proposed
-ISA/microarchitecture and new GPU behaviour, add explicit communication
-semantics outside ordinary instruction records, and preserve SASS for existing
-hardware validation.
+已评估的方案包括：(A) 扩展 SASS trace；(B) PTX workload + communication
+event trace；(C) high-level event orchestrator；(D) PTX-primary hybrid，并用
+SASS validation。当前选择 D：PTX 用于 proposed ISA/microarchitecture 与新
+GPU behaviour；显式 communication semantics 放在普通 instruction record
+之外；SASS 保留给现有 hardware validation。

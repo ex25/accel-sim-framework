@@ -1,6 +1,6 @@
-# Current support gap analysis
+# 当前 support gap analysis
 
-| Capability | Current evidence | Status |
+| Capability | 当前证据 | Status |
 |---|---|---|
 | Single-GPU SASS trace replay | trace parser/trace-driven code and working release build | implemented/verified build; workload replay needs fresh run |
 | Hopper SM90 trace fields | Hopper opcode map, TMA/cluster/mbarrier code | partial source-verified; H100 correlation pending |
@@ -13,11 +13,10 @@
 | `multimem` semantics | no `multimem` symbol in current source search; PTX requires SM90+ | not implemented/needs explicit support |
 | NCCL collective lifecycle | NCCL `nvls.cc` setup reviewed; no project event schema/orchestrator | source-understood, simulator not implemented |
 
-The conservative `unknown/not implemented` labels mean the project has not
-verified a usable simulator path. NVIDIA's current Fabric Manager documentation
-states that H100-and-later DGX/HGX NVSwitch systems support multicast and
-reduction, with finite multicast resources; that is hardware capability
-evidence, not Accel-Sim implementation evidence.
+保守使用 `unknown/not implemented` 表示项目尚未验证可用 simulator path。
+NVIDIA 当前 Fabric Manager 文档说明 H100 及更新的 DGX/HGX NVSwitch systems
+支持 multicast 与 reduction，且 multicast resources 有限；这是 hardware
+capability evidence，不是 Accel-Sim implementation evidence。
 
-This conservative matrix intentionally does not convert release-note language
-into implementation claims. It will be updated with file/function evidence.
+该矩阵不会把 release-note 描述直接转成 implementation claim，后续只根据
+明确的 file/function evidence 更新。

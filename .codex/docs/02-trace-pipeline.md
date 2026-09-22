@@ -1,8 +1,8 @@
 # Trace pipeline
 
-## Current evidence
+## 当前证据
 
-The intended path is:
+预期路径如下：
 
 ```mermaid
 flowchart LR
@@ -15,11 +15,11 @@ flowchart LR
   G --> H[statistics and completion]
 ```
 
-Source evidence for producer structs and Hopper cluster/TMA fields is in
+producer struct 与 Hopper cluster/TMA fields 的 source evidence 位于
 `util/tracer_nvbit/tracer_tool/{common.h,tracer_tool.cu,tracez_format.h}`;
-consumer evidence is in `gpu-simulator/{trace-parser,trace-driven}`.
+consumer evidence 位于 `gpu-simulator/{trace-parser,trace-driven}`。
 
-The verified simulator-side path is:
+已验证的 simulator-side path 为：
 
 `gpu-simulator/main.cc`
 → `accel_sim_framework::simulation_loop()`
@@ -29,15 +29,14 @@ The verified simulator-side path is:
 → `gpgpu_sim::cycle()`
 → `trace_shader_core_ctx::get_next_inst()`
 → scheduler `issue_warp()`
-→ ordinary shader/cache/interconnect/memory timing. For memory instructions,
-`simt_core_cluster::icnt_inject_request_packet()` calls `icnt_push`, and
-`gpgpu_sim::cycle()` calls `icnt_pop`/`icnt_transfer` in the configured clock
-domain.
+→ 普通 shader/cache/interconnect/memory timing。对于 memory instruction，
+`simt_core_cluster::icnt_inject_request_packet()` 会调用 `icnt_push`，而
+`gpgpu_sim::cycle()` 会在配置的 clock domain 中调用 `icnt_pop`/`icnt_transfer`。
 
-## A800 vectoradd smoke test (2026-09-19)
+## A800 vectoradd smoke test（2026-09-19）
 
-Evidence: `Verified` for the software pipeline on one NVIDIA A800; this is not
-Hopper/NVLink/NVSwitch/NVLS validation.
+Evidence：单张 NVIDIA A800 上的 software pipeline 为 `Verified`；这不是
+Hopper/NVLink/NVSwitch/NVLS validation。
 
 - NVBit 1.8 is installed under the `in-switch` conda environment at
   `/home/wangjz/miniconda3/envs/in-switch/opt/nvbit-1.8`. This SDK directory is

@@ -1,6 +1,12 @@
-# Implementation notes
+# Implementation records
 
-Create one numbered note per substantial feature. Each note must include
-Problem, Design, Alternatives, Files/classes/functions, call graph,
-configuration, before/after behaviour, tests, limitations, validation level,
-commit, and future work. No simulator-core feature has been implemented yet.
+这里按 milestone 保存实现记录。每份记录都应包含问题、设计、修改文件/符号、
+call path、配置、before/after、测试、evidence、限制和下一步。
+
+- `007-nvbit-a800-booksim-nvlink2.md`：A800/NVBit 与 BookSim transport scaffold。
+- `008-trace-autopsy-booksim-clock.md`：trace autopsy 与 endpoint/clock contract。
+- `009-sm90-ptx-baseline.md`：SM90 PTX execution-driven baseline。
+- `010-cais-add-ptx.md`：最小 single-GPU `cais.add.u32` custom PTX instruction。
+
+Raw trace、binary、build tree 和大 log 不放在本目录；只保存可读的 research
+record 与 reproducibility metadata。

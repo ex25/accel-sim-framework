@@ -1,63 +1,47 @@
 ---
 name: ptx-design-baseline
-description: Establish or extend the PTX execution-driven path for a proposed GPU instruction or microarchitecture feature before adding multi-GPU/NVLS semantics.
+description: 在加入 multi-GPU/NVLS semantics 前，为 proposed GPU instruction 或 microarchitecture feature 建立/扩展 PTX execution-driven path。
 ---
 
-## When to use
+## 使用时机
 
-Use this skill for a new PTX instruction, a hypothetical GPU feature, a custom
-GPU scheduler experiment, or any CAIS/DySHARP-like design that cannot be
-captured by a real A800/H100 SASS trace.
+用于 new PTX instruction、hypothetical GPU feature、custom scheduler，或无法由
+真实 A800/H100 SASS trace 捕获的 CAIS/DySHARP-like design。它不能替代 A800
+SASS smoke test 或 H100 hardware correlation。
 
-Do not use it as a replacement for the A800 SASS smoke test or for H100 hardware
-correlation. Those are separate validation workflows.
+## 输入
 
-## Inputs
+- current branch 与 main/nested repository SHA；
+- PTX/CUDA workload 与 target config；
+- semantic note：operands、result、ordering、latency、completion、可能的
+  communication side effect；
+- baseline PTX command 与 expected output；
+- evidence label：`Verified`、`Synthetic`、`Hypothesis` 或
+  `Needs hardware validation`。
 
-- current branch and main/nested repository SHAs;
-- PTX or CUDA workload and target configuration;
-- instruction semantic note: operands, result, ordering, latency, completion,
-  and possible communication side effect;
-- baseline PTX command and expected output;
-- evidence label: `Verified`, `Synthetic`, `Hypothesis`, or `Needs hardware validation`.
+## 步骤
 
-## Steps
-
-1. Read `.codex/rules/accel-sim-policy.md`,
-   `.codex/docs/17-ptx-primary-strategy.md`, and the relevant implementation
-   note before editing.
-2. Run the unmodified PTX baseline and record command, config, exit code,
-   cycle/instruction summary, and any baseline failure.
-3. Map the current path:
-   PTX lexer/parser → PTX IR → functional semantics → warp instruction →
-   shader timing/issue → memory or completion.
-4. Define the smallest instruction syntax and semantic contract. Do not add
-   rank, packet, multicast, or reduction state until the single-GPU instruction
-   path is tested.
-5. Modify only the named parser/opcode/IR/semantics/timing files. Preserve the
-   SASS trace path unless the design explicitly requires a shared interface.
-6. Add focused tests for parser recognition, functional result, register
-   dependency, issue latency, resource selection, and completion.
-7. If the instruction emits a communication event, serialize that event through
-   an explicit schema; never hide collective state in an ordinary memory address.
-8. Run the focused test, the PTX baseline, and the smallest relevant regression.
-9. Update the implementation note, `.codex/knowledge/project-state.md`,
-   `DECISIONS.md` when the boundary changes, and `CHANGELOG.md`.
-10. Run `git diff --check`, inspect both repository statuses, and commit one
-    complete logical phase.
-
-## Artifacts produced
-
-- PTX baseline command and output metadata;
-- semantic contract for the instruction;
-- source call-path note with file/function references;
-- focused parser/functional/timing tests;
-- optional communication-event fixture;
-- implementation note and evidence label.
+1. 编辑前读 `rules/accel-sim-policy.md`、`docs/17-ptx-primary-strategy.md` 与
+   relevant implementation note。
+2. 运行 unmodified PTX baseline，记录 command、config、exit code、cycle/
+   instruction summary 与 baseline failure。
+3. mapping 当前 path：PTX lexer/parser → PTX IR → functional semantics → warp
+   instruction → shader timing/issue → memory 或 completion。
+4. 定义最小 instruction syntax/semantic contract；single-GPU path 测试前不得
+   加 rank、packet、multicast 或 reduction state。
+5. 只修改 named parser/opcode/IR/semantics/timing file；除非 design 明确要求，
+   保留 SASS trace path。
+6. 为 parser recognition、functional result、register dependency、issue latency、
+   resource selection 与 completion 添加 focused test。
+7. instruction 产生 communication event 时，使用 explicit schema 序列化；不要把
+   collective state 隐藏在普通 memory address 中。
+8. 运行 focused test、PTX baseline 与最小相关 regression。
+9. 更新 implementation note、`project-state.md`、边界改变时的 `DECISIONS.md` 与
+   `CHANGELOG.md`。
+10. 执行 `git diff --check`，检查两个 repository status，并提交一个完整 phase。
 
 ## Completion criteria
 
-The instruction is recognized and executed in PTX mode, dependency and timing
-tests pass, baseline behaviour remains classified, and the documentation states
-what PTX proves and what still requires real SASS/H100 validation. A successful
-PTX run alone never proves hardware accuracy.
+PTX mode 能识别并执行 instruction；dependency/timing test 通过；baseline
+behaviour 已分类；文档明确 PTX 能证明什么、仍需真实 SASS/H100 验证什么。
+成功的 PTX run 不能单独证明 hardware accuracy。

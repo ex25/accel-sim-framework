@@ -1,19 +1,18 @@
 # Hardware validation boundary
 
-The local A800 is an Ampere software-pipeline instrument. It can validate
-CUDA/NVBit instrumentation, trace generation/post-processing, parser replay,
-builds, and automation. It cannot validate SM90 instructions (WGMMA/TMA/
-mbarrier/cluster semantics), NVLink 4, H100 NVSwitch, multicast memory,
-`multimem`, or NVLS performance.
+本地 A800 是 Ampere software-pipeline instrument，可以验证 CUDA/NVBit
+instrumentation、trace generation/post-processing、parser replay、build 与
+automation。它不能验证 SM90 instruction（WGMMA/TMA/mbarrier/cluster）、NVLink
+4、H100 NVSwitch、multicast memory、`multimem` 或 NVLS performance。
 
-An H100/H200 can validate Hopper trace production and consumption. A single
-H100 still cannot validate multi-GPU routing, NVSwitch contention, or NVLS
-collectives. Those claims require the stated number of GPUs and topology; a
-BookSim transport model or copied single-GPU trace is not a hardware result.
+H100/H200 可以验证 Hopper trace production/consumption；单张 H100 仍不能验证
+multi-GPU routing、NVSwitch contention 或 NVLS collective。这些 claim 必须使用
+明确数量与 topology 的 GPU；BookSim transport model 或 copied single-GPU trace
+不是 hardware result。
 
-For each hardware run record GPU model/count, compute capability, driver,
-CUDA, NCCL, Fabric Manager, topology (`nvidia-smi topo -m`), NVLink/NVSwitch
-state, benchmark, environment variables, command, and output path. State what
-the run proves and what it does not prove. Never present A800/Ampere results as
-H100/Hopper results, synthetic NVLS as real NVLS execution, or a transport-only
-model as a real NVSwitch implementation.
+每次 hardware run 必须记录 GPU model/count、compute capability、driver、CUDA、
+NCCL、Fabric Manager、topology（`nvidia-smi topo -m`）、NVLink/NVSwitch state、
+benchmark、environment variable、command 与 output path，并明确说明 run 能证明
+和不能证明什么。不得把 A800/Ampere result 当作 H100/Hopper result，不得把
+synthetic NVLS 当作 real NVLS execution，也不得把 transport-only model 当作
+real NVSwitch implementation。

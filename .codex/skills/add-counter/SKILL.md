@@ -1,39 +1,29 @@
 ---
 name: add-counter
-description: Add a simulator statistic or counter end to end, including declaration, initialization, increment sites, registration, tests, and documentation.
+description: 端到端新增 simulator statistic/counter，包括 declaration、initialization、increment、registration、test 与 documentation。
 ---
 
-## When to use
+## 使用时机与输入
 
-Use for a new GPGPU-Sim/Accel-Sim statistic, hardware-like counter, or debug
-metric. First identify whether the owner is a shader core, cluster, memory
-partition, network, kernel, or global object.
-
-## Inputs
-
-Record the counter name, units/type, owner class, increment event, reset/lifetime,
-aggregation semantics, output label, expected baseline, and test workload.
+用于新的 GPGPU-Sim/Accel-Sim statistic、hardware-like counter 或 debug metric。
+先确定 owner 是 shader core、cluster、memory partition、network、kernel 还是
+global object，并记录 counter name、unit/type、owner、increment event、reset/
+lifetime、aggregation、output label、baseline 与 test workload。
 
 ## Workflow
 
-1. Search counters in the same subsystem and follow declaration -> constructor
-   or reset -> increment/read -> registration/reporting. Do not create a
-   parallel statistics path.
-2. Confirm whether the value is integer/float, per object or aggregate, reset
-   per kernel/epoch, and sum/max/average. Define what one increment means.
-3. Modify the smallest owning header/source, stats registration, and reporting
-   files. Preserve existing naming and output conventions.
-4. Add a deterministic focused test or replay that exercises the event and
-   checks label/value. Add a zero-event case when meaningful.
-5. Run the focused test and smallest regression; compare baseline and classify
-   failures.
-6. Document units, scope, reset point, increment call path, files/symbols,
-   commands/results, and limitations in the implementation note and changelog.
-7. Run git diff --check and commit with a specific subject such as
-   feat(stats): count ...; the body must say what/why/files/how/tests/limits.
+1. 在同一 subsystem 搜索现有 counter，跟踪 declaration → constructor/reset →
+   increment/read → registration/reporting；不要建立平行 statistics path。
+2. 确认 integer/float、per-object/aggregate、per-kernel/epoch reset、sum/max/
+   average，并定义一次 increment 的含义。
+3. 只修改 owning header/source、stats registration 与 reporting file，保持命名
+   和 output convention。
+4. 添加 deterministic focused test/replay 检查 label/value；有意义时增加 zero-event case。
+5. 运行 focused test 与最小 regression，比较 baseline 并分类 failure。
+6. 在 implementation note/changelog 记录 unit、scope、reset、increment path、
+   file/symbol、command/result 与 limitation。
+7. 执行 `git diff --check`，使用具体 subject，如 `feat(stats): count ...`，body
+   写 what/why/files/how/tests/limits。
 
-## Completion
-
-The counter initializes safely, increments exactly once per intended event,
-reports defined units and scope, has focused evidence, and is documented for
-future sessions.
+完成条件：counter 安全初始化、每个目标 event 恰好 increment 一次、unit/scope
+明确、focused evidence 充分，并已为后续 session 记录。

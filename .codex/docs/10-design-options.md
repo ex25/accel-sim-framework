@@ -8,12 +8,11 @@
 | High-level orchestrator | clean rank/stream/collective lifecycle | more integration work | required for multi-GPU execution |
 | Hybrid PTX + events + SASS validation | separates proposed design from hardware evidence | multiple input paths must share timing contracts | **chosen overall strategy** |
 
-## Chosen direction
+## 已选择的方向
 
-Use PTX execution-driven mode for proposed ISA, GPU microarchitecture, scheduler,
-and in-switch-computing behaviour. Use an independent communication-event model
-and a multi-GPU orchestrator for rank/stream/collective lifecycle. BookSim handles
-generic packet/flit transport; NVSwitch/NVLS semantics remain above BookSim.
-Use real A800/H100 SASS traces only to validate existing compute behaviour and
-calibrate assumptions. A SASS trace is never treated as a substitute for a PTX
-workload that contains a proposed instruction.
+proposed ISA、GPU microarchitecture、scheduler 和 in-switch-computing behaviour
+使用 PTX execution-driven mode。rank/stream/collective lifecycle 使用独立的
+communication-event model 和 multi-GPU orchestrator。BookSim 只处理 generic
+packet/flit transport；NVSwitch/NVLS semantics 位于 BookSim 之上。真实
+A800/H100 SASS trace 只用于验证已有 compute behaviour 和校准假设。SASS
+trace 永远不能替代包含 proposed instruction 的 PTX workload。

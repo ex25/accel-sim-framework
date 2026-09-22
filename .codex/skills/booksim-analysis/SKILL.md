@@ -1,29 +1,22 @@
 ---
 name: booksim-analysis
-description: Study standalone and embedded BookSim to determine its build boundary, embeddable API, timing loop, and statistics without confusing it with NVSwitch.
+description: 研究 standalone/embedded BookSim 的 build boundary、API、timing loop 与 statistics，同时避免把 BookSim 混同为 NVSwitch。
 ---
 
 ## Workflow
 
-1. Verify external BookSim status, branch, remote, and SHA. Separately inspect
-   gpu-simulator/gpgpu-sim/src/intersim2; do not merge their identities.
-2. Read build files and locate configuration, topology/network, router, channel,
-   virtual channel, packet/flit, routing, traffic manager, injection/ejection,
-   cycle advancement, and statistics symbols.
-3. Trace the actual simulation loop, including input loading, Evaluate,
-   ReadInputs, WriteOutputs, traffic-manager step, and completion.
-4. Build and run the smallest standalone smoke test when possible. Capture
-   config, seed, injected/delivered packets, latency, cycles, and stats.
-5. Compare external checkout, submodule, subtree, and narrowly patched fork.
-   Record reproducibility, upstream tracking, build isolation, and maintenance
-   in DECISIONS.md before copying code.
-6. Design an adapter with create/configure, inject, advance, completion, and
-   stats operations; define packet ownership and clock conversion.
-7. Keep endpoint/collective semantics, NVSwitch topology, multicast/reduction,
-   and BookSim transport timing as separate layers.
+1. 独立确认 external BookSim 与 nested `src/intersim2` 的 status/branch/remote/SHA。
+2. 定位 configuration、topology/network、router、channel、VC、packet/flit、
+   routing、TrafficManager、injection/ejection、cycle advancement 与 stats。
+3. 跟踪真实 simulation loop：input、Evaluate、ReadInputs、WriteOutputs、step、
+   completion。
+4. 运行最小 standalone smoke test，记录 config、seed、packet、latency、cycle、stats。
+5. 在 copy code 前比较 external checkout、submodule、subtree、narrow patch，并
+   将 reproducibility/upstream tracking/maintenance 写入 `DECISIONS.md`。
+6. 设计 create/configure、inject、advance、completion、stats adapter，定义
+   packet ownership 与 clock conversion。
+7. 分离 endpoint/collective semantics、NVSwitch topology、multicast/reduction
+   与 BookSim transport timing。
 
-## Completion
-
-Pin SHA, source symbols, commands, decision, adapter boundary, clock
-assumptions, and the limitation that transport smoke tests are not NVLS
-hardware evidence.
+完成时必须固定 SHA、source symbol、command、decision、adapter boundary、clock
+assumption，并声明 transport smoke test 不是 NVLS hardware evidence。

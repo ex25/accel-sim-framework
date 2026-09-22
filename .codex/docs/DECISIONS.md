@@ -1,106 +1,104 @@
 # Design decisions
 
-## D001 — Keep research memory in `.codex/`
+## D001 — 将 research memory 保存在 `.codex/`
 
-- Date: 2026-09-18
-- Context: future Codex sessions must recover without chat history.
-- Decision: rules, reusable workflows, compact facts, full research, and
-  experiment metadata live under `.codex/`; `AGENTS.md` is a thin loader.
-- Why: one persistent source of truth with progressive disclosure.
-- Validation: perform context-loss reload checks at each milestone.
+- Date：2026-09-18
+- Context：未来 session 必须在没有 chat history 时恢复项目。
+- Decision：rules、reusable workflows、compact facts、full research 和
+  experiment metadata 统一放在 `.codex/`；`AGENTS.md` 只做 thin loader。
+- Why：提供单一 persistent source of truth，并支持 progressive disclosure。
+- Validation：每个 milestone 执行 context-loss reload check。
 
-## D002 — Expose canonical `.codex/skills` through `.agents/skills`
+## D002 — 通过 `.agents/skills` 暴露 canonical `.codex/skills`
 
-- Date: 2026-09-18
-- Context: project requirements name `.codex/skills`, while current Codex
-  discovery scans repository `.agents/skills`.
-- Decision: author skills once under `.codex/skills`; add symlinks under
-  `.agents/skills`.
-- Trade-off: Git records links and some tools may not follow them; duplicated
-  skill copies are forbidden because they can diverge.
-- Evidence: official Codex skills documentation (accessed 2026-09-18) states
-  repository discovery scans `.agents/skills` and each skill requires
-  `SKILL.md` with `name` and `description`.
+- Date：2026-09-18
+- Context：项目要求使用 `.codex/skills`，而 Codex discovery 会扫描
+  `.agents/skills`。
+- Decision：skill 只在 `.codex/skills` 编写，并在 `.agents/skills` 下建立
+  symlink。
+- Trade-off：Git 记录的是 link，部分工具可能不跟随；禁止复制 skill，避免
+  两份内容漂移。
+- Evidence：2026-09-18 查阅的 Codex skills documentation 说明 repository
+  discovery 扫描 `.agents/skills`，且每个 skill 需要带 `name`/`description` 的
+  `SKILL.md`。
 
-## D003 — Reuse the existing BookSim-derived intersim2 boundary first
+## D003 — 优先复用已有 BookSim-derived `intersim2` boundary
 
-- Date: 2026-09-18
-- Context: `booksim2` is a separate checkout at `28f4329`, while nested
-  GPGPU-Sim already contains `src/intersim2` plus a GPU adapter.
-- Decision: do not vendor/copy the reference checkout. First understand and
-  reuse the existing `InterconnectInterface`/`GPUTrafficManager` boundary, then
-  decide whether a logical GPU/NVSwitch layer belongs above it.
-- Why: preserves existing Accel-Sim build/history and avoids a second generic
-  network implementation. The existing path is memory traffic, not NVLS.
-- Validation: source audit complete for the API; provenance and standalone
-  smoke-build comparison remain open.
+- Date：2026-09-18
+- Context：`booksim2` 是 `28f4329` 的独立 checkout，而 nested GPGPU-Sim 已
+  有 `src/intersim2` 与 GPU adapter。
+- Decision：不 vendor/copy reference checkout；先理解并复用现有
+  `InterconnectInterface`/`GPUTrafficManager` boundary，再决定 logical
+  GPU/NVSwitch layer 是否位于其上。
+- Why：保留 Accel-Sim build/history，避免第二套 generic network implementation。
+  现有 path 是 memory traffic，不是 NVLS。
+- Validation：API source audit 已完成；provenance 与 standalone smoke-build
+  comparison 仍开放。
 
-## D004 — Separate compute traces from communication events
+## D004 — 将 compute trace 与 communication event 分离
 
-- Date: 2026-09-18
-- Context: one SASS trace lacks collective rank/topology/transport state.
-- Decision: preserve current compute trace format initially; represent future
-  communication as an independent event model or orchestrated layer unless
-  source evidence proves a compatible extension is necessary.
-- Validation: trace autopsy and multi-GPU capability audit are required before
-  implementation.
+- Date：2026-09-18
+- Context：单条 SASS trace 没有 collective rank、topology 或 transport state。
+- Decision：初期保留现有 compute trace format；future communication 使用独立
+  event model 或 orchestrated layer，除非 source evidence 证明必须扩展现有格式。
+- Validation：实现前必须完成 trace autopsy 与 multi-GPU capability audit。
 
-## D005 — Prototype two-GPU transport against external BookSim first
+## D005 — 先用 external BookSim 做 two-GPU transport prototype
 
-- Date: 2026-09-19
-- Context: the project needs evidence that BookSim can represent two logical
-  GPU endpoints before changing Accel-Sim or the nested `intersim2` path.
-- Options: vendor BookSim, immediately extend `intersim2`, or use a pinned
-  external BookSim executable with a reproducible topology/config wrapper.
-- Decision: use the external checkout at `28f4329` for the first AnyNet smoke
-  and parameter sweep; keep only configuration, wrappers, metadata, and
-  conclusions in Accel-Sim.
-- Why: minimal source intrusion, explicit provenance, and easy separation of
-  generic transport timing from future NVLink/NVSwitch/NVLS semantics.
-- Trade-offs: this phase has no embedded injection API or Accel-Sim clock
-  coupling; BookSim synthetic traffic is not a communication event trace.
-- Validation: topology/delivery/latency tests passed. Hardware bandwidth and
-  protocol calibration require a future physical multi-GPU system.
+- Date：2026-09-19
+- Context：在修改 Accel-Sim 或 nested `intersim2` 前，需要证明 BookSim 能表示
+  两个 logical GPU endpoint。
+- Options：vendor BookSim、立即扩展 `intersim2`，或使用 pinned external
+  BookSim executable 加 reproducible topology/config wrapper。
+- Decision：第一版 AnyNet smoke/sweep 使用 `28f4329` external checkout；Accel-Sim
+  只保存 config、wrapper、metadata 与结论。
+- Why：source intrusion 小、provenance 清晰，并可分离 generic transport timing
+  与未来 NVLink/NVSwitch/NVLS semantics。
+- Trade-off：没有 embedded injection API 或 Accel-Sim clock coupling；synthetic
+  BookSim traffic 不是 communication event trace。
+- Validation：topology/delivery/latency tests 通过；hardware bandwidth/protocol
+  calibration 需要未来 physical multi-GPU system。
 
-## D006 — Use a timestamped endpoint adapter for future BookSim embedding
+## D006 — 用 timestamped endpoint adapter 嵌入未来 BookSim
 
-- Date: 2026-09-19
-- Context: the standalone BookSim prototype cannot inject and complete a
-  message from an Accel-Sim event at an arbitrary cycle; `TrafficManager::Run`
-  hides `_Step` and packet queues behind protected methods.
-- Options: equate GPU and network cycles, batch the standalone executable,
-  patch a narrow BookSim facade, or use an event-driven adapter with explicit
-  clock conversion.
-- Decision: keep BookSim as a transport backend behind an endpoint adapter with
-  `create/inject/advance_to/poll_completed/stats`; use rational timestamp
-  conversion and an integer picosecond global clock. Add a minimal, tracked
-  BookSim facade only when the transport API is implemented.
-- Why: preserves event ordering across unequal clock domains and keeps
-  transport, NVSwitch semantics, and NVLS reduction independently testable.
-- Validation requirement: adapter unit tests must prove packetization,
-  completion ordering, clock-ratio conversion, and byte/flit accounting before
-  Ring or NVLS work.
+- Date：2026-09-19
+- Context：standalone BookSim prototype 无法在任意 Accel-Sim cycle 注入并完成
+  event；`TrafficManager::Run` 将 `_Step` 与 packet queue 隐藏在 protected method
+  后面。
+- Options：等同 GPU/network cycle、batch standalone executable、patch narrow
+  BookSim facade，或使用显式 clock conversion 的 event-driven adapter。
+- Decision：BookSim 作为 transport backend，置于 endpoint adapter 后；接口提供
+  `create/inject/advance_to/poll_completed/stats`，使用 rational timestamp
+  conversion 和 integer picosecond global clock。只有 transport API 确定后才添加
+  tracked BookSim facade。
+- Why：保留 unequal clock domain 下的 event ordering，并让 transport、NVSwitch
+  semantics 与 NVLS reduction 可独立测试。
+- Validation：Ring/NVLS 前必须验证 packetization、completion ordering、clock-ratio
+  conversion 与 byte/flit accounting。
 
-## D007 — Make PTX the primary design input and SASS the validation input
+## D007 — PTX 作为 design input，SASS 作为 validation input
 
-- Date: 2026-09-20
-- Context: the research target includes ISA and microarchitecture features that
-  do not exist in A800/H100 hardware, while SASS trace replay depends on a real
-  GPU producing the instruction.
-- Options: (a) continue SASS-first and synthesize missing instructions later;
-  (b) use PTX for all work and ignore SASS; (c) use PTX for proposed designs
-  and SASS for existing-hardware validation.
-- Decision: choose (c). PTX execution-driven mode is the primary path for new
-  ISA, GPU timing, scheduler, and in-switch-computing semantics. Real SASS
-  traces remain the validation/calibration path for existing A800/H100
-  behaviour, compiler effects, and hardware measurements.
-- Why: a real GPU cannot produce a trace for an instruction that does not exist;
-  PTX lets the simulator define functional semantics and timing without
-  pretending that a synthetic trace is hardware evidence. SASS retains the
-  compiler and machine-level fidelity needed for correlation.
-- Trade-offs: PTX does not automatically model real SASS register allocation or
-  machine scheduling; SASS still requires H100 access for Hopper validation.
-  Multi-GPU rank/collective/NVSwitch semantics remain separate from both paths.
-- Validation requirement: run a standard SM90 PTX baseline, then a minimal
-  custom PTX instruction test, and keep A800/H100 SASS replay as a separate
-  evidence track.
+- Date：2026-09-20
+- Context：研究目标包含 A800/H100 hardware 不存在的 ISA/microarchitecture
+  feature，而 SASS replay 必须依赖真实 GPU 产生对应 instruction。
+- Decision：PTX execution-driven mode 主导新 ISA、GPU timing、scheduler 和
+  in-switch-computing semantics；真实 SASS trace 继续验证已有 A800/H100
+  behaviour、compiler effect 与 hardware measurement。
+- Why：真实 GPU 不可能产生不存在的 instruction trace；PTX 可以定义 functional
+  semantics/timing，同时不把 synthetic trace 伪装成 hardware evidence。SASS
+  保留 compiler/machine-level fidelity。
+- Trade-off：PTX 不会自动模拟真实 SASS register allocation 或 machine scheduling；
+  Hopper validation 仍需 H100。multi-GPU rank/collective/NVSwitch semantics 与
+  两条 compute path 分离。
+- Validation：先运行标准 SM90 PTX baseline，再运行 minimal custom PTX instruction
+  test；A800/H100 SASS replay 作为独立 evidence track。
+
+## D008 — `.codex` 面向人的正文默认使用中文
+
+- Date：2026-09-21
+- Context：历史文档中中英混排过多，影响长期阅读和恢复。
+- Decision：README、docs、experiments、knowledge、rules 与 skills 的解释性
+  正文使用中文；PTX、SASS、opcode、pipeline、BookSim、NVLink、NVSwitch、
+  NVLS、API、symbol、path、metric、evidence label 等专有名词保留英文。
+- Why：中文保证阅读连贯，英文术语保证与 source、command 和论文一致。
+- Validation：后续每次 document-change 检查语言一致性，并避免翻译 code/path。

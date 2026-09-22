@@ -1,13 +1,13 @@
-# Accel-Sim and GPGPU-Sim policy
+# Accel-Sim 与 GPGPU-Sim policy
 
-## Repository and build boundary
+## Repository 与 build boundary
 
-Accel-Sim supplies the launcher, NVBit tracer, trace post-processing, configs,
+Accel-Sim 提供 launcher、NVBit tracer、trace post-processing、configs、
 and trace-driven wrapper. The nested `gpu-simulator/gpgpu-sim` repository owns
 the simulator core and has its own Git history. Do not describe a change in one
 repository as a change in the other; record both SHAs when both are involved.
 
-For a baseline build, use the checkout's documented environment and preserve
+baseline build 使用 checkout 已记录的 environment，并将
 the build directory outside source control:
 
 ```bash
@@ -21,9 +21,9 @@ The expected simulator is
 `gpu-simulator/bin/release/accel-sim.out` (or the equivalent configured build
 path). If the checkout's CMake options differ, record the actual command.
 
-## Two execution paths and their ownership
+## 两条 execution path 及其归属
 
-Keep these paths separate in design and documentation:
+在 design 与 documentation 中保持两条 path 分离：
 
 * PTX/functional execution: CUDA/PTX is parsed and executed functionally by
   GPGPU-Sim (`src/cuda-sim`, `ptx_parser`, `ptx_thread_info`, and
@@ -32,14 +32,14 @@ Keep these paths separate in design and documentation:
   format, and Accel-Sim's trace frontend feeds `trace_shader_core_ctx` and the
   normal shader/memory timing model.
 
-For this research project, PTX execution-driven mode is the primary input path
+本 research project 以 PTX execution-driven mode 作为 proposed ISA、GPU
 for proposed ISA, GPU microarchitecture, scheduler, and in-switch-computing
 features. It lets the simulator execute a design that does not exist on a real
 GPU. SASS remains the validation/calibration path for behaviour that exists on
 A800/H100, including compiler register allocation, machine instruction order,
 and real memory addresses.
 
-Do not infer trace support from PTX support, PTX accuracy from an H100 config,
+不得从 PTX support 推断 trace support，不得从 H100 config 推断 PTX accuracy，
 or multi-GPU support from a single-GPU trace configuration. A PTX instruction
 extension still requires parser, functional semantics, timing/resource,
 dependency, and (when applicable) network side-effect changes. PTX mode alone
@@ -47,7 +47,7 @@ does not provide rank, NCCL, NVSwitch, or NVLS semantics.
 
 ## Core source map
 
-When tracing a change, start with the actual symbols in this checkout:
+追踪 change 时从当前 checkout 的真实 symbol 开始：
 
 * `gpgpu_sim` / `gpgpu_sim::cycle`: global simulation loop and kernel/stream
   scheduling;
@@ -60,20 +60,20 @@ When tracing a change, start with the actual symbols in this checkout:
 * `InterconnectInterface` and `src/intersim2`: the existing GPU-memory
   interconnect boundary, not an NVLink/NVSwitch model.
 
-Use `rg` and source line references in research notes. Do not rely on class
+research note 使用 `rg` 与 source line reference。不要只依赖 class
 names alone: follow one call path from parser to issue, memory completion, and
 statistics.
 
 ## Change discipline
 
-When adding a proposed instruction, define its operands, result, ordering,
+添加 proposed instruction 前先定义 operands、result、ordering、
 latency, completion condition, and network side effects before editing code.
 Prefer a small PTX-mode prototype or synthetic instruction/event generator.
 Only add a SASS trace opcode when a real hardware trace exists or when the
 synthetic trace format is explicitly part of the experiment and is labelled
 `Synthetic`.
 
-Any trace-format or tracer change must update the producer, writer/parser,
+任何 trace-format 或 tracer change 都必须同步更新 producer、writer/parser、
 version/compatibility notes, a small fixture or replay test, and the
 source-to-consumer call-path document. Any timing-model change must state the
 clock domain, queue ownership, and completion condition. Keep NVLink,

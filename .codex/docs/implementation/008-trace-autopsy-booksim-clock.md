@@ -1,53 +1,43 @@
-# 008 — Trace autopsy and BookSim endpoint/clock contract
+# 008 — Trace autopsy 与 BookSim endpoint/clock contract
 
-## Problem
+## 问题与设计
 
-The A800 trace and standalone BookSim prototype were validated, but the
-project still needed (1) a source-level proof of how one real instruction is
-consumed by Accel-Sim and (2) a precise boundary for future timestamped
-GPU-to-GPU transport. Raw BookSim latency also needed a repeatable analytical
-sanity check before Ring work.
+A800 trace 与 standalone BookSim prototype 已通过，但还缺少两类证据：一条
+真实 instruction 如何被 Accel-Sim 消费的 source-level proof，以及 future
+timestamped GPU-to-GPU transport 的精确边界。Ring 工作前还需要可重复的
+BookSim analytical sanity check。
 
-## Design
+Trace autopsy 使用 2026-09-19 A800 vectoradd 中真实 `LDG.E.64` record，跟踪
+NVBit emission、text/address compression、`.tracez` parsing、warp instruction
+construction、memory coalescing、GPU memory interconnect injection 与 completion
+gate。完整 call graph 与 field decoding 在 `.codex/docs/02-trace-pipeline.md`。
 
-The autopsy uses the real `LDG.E.64` line from the 2026-09-19 A800 vectoradd
-trace. It follows NVBit emission, text/address compression, `.tracez` parsing,
-warp instruction construction, memory coalescing, GPU memory interconnect
-injection, and completion gating. The complete call graph and field decoding
-are in `.codex/docs/02-trace-pipeline.md`.
-
-The future communication boundary is a transport-only endpoint adapter:
-`create_network`, `inject_message`, `advance_to`, `poll_completed`, and
-`read_stats`. It packetizes bytes into flits and reports tail-flit delivery;
-collective/rank/multicast/reduction semantics stay above BookSim. The adapter
-uses an integer-picosecond global clock with rational GPU/network period
-conversion. This is a design artifact, not an implemented Accel-Sim hook.
+Future communication boundary 定义为 transport-only endpoint adapter：
+`create_network`、`inject_message`、`advance_to`、`poll_completed`、`read_stats`。
+adapter 把 bytes packetize 为 flits，并以 tail-flit delivery 表示 completion；
+collective/rank/multicast/reduction semantics 位于 BookSim 之上。Clock contract
+使用 integer picosecond global clock 与 rational GPU/network period conversion。
+这只是 design artifact，还不是 Accel-Sim hook。
 
 ## Alternatives
 
-- Reusing `TrafficManager::Run()` cannot provide per-event injection or cycle
-  advancement because the relevant BookSim methods are protected.
-- Treating one GPU cycle as one BookSim cycle is invalid when clock domains
-  differ and would make latency calibration opaque.
-- Patching the full BookSim simulator was deferred; a narrow tracked facade is
-  required only when embedded transport implementation begins.
+- `TrafficManager::Run()` 无法提供 per-event injection/cycle advancement，因为
+  相关 BookSim method 是 protected。
+- 将一个 GPU cycle 等同为一个 BookSim cycle 在 clock domain 不同时无效。
+- 不修改完整 BookSim；只有 embedded transport 开始时才加入 narrow tracked
+  facade。
 
-## Files changed
+## 修改文件
 
-- `.codex/docs/02-trace-pipeline.md`: real record decoding and Mermaid call
-  graph.
-- `.codex/knowledge/trace-format.md`: condensed parser/consumer facts.
-- `.codex/docs/09-accelsim-booksim-integration.md`: adapter API and clock
-  contract.
-- `.codex/docs/DECISIONS.md`: D006 records the clock/adapter decision.
-- `tools/booksim_nvlink/check_nvlink2_analytical.py`: CSV accounting and trend
-  checker.
-- `tools/booksim_nvlink/README.md`: checker reproduction command.
-- `tools/booksim_nvlink/transport_contract.py` and
-  `test_transport_contract.py`: dependency-free packet/clock/completion
-  reference contract and unit tests.
+- `.codex/docs/02-trace-pipeline.md`：真实 record decoding 与 Mermaid call graph。
+- `.codex/knowledge/trace-format.md`：精简 parser/consumer facts。
+- `.codex/docs/09-accelsim-booksim-integration.md`：adapter API 与 clock contract。
+- `.codex/docs/DECISIONS.md`：D006 clock/adapter decision。
+- `tools/booksim_nvlink/check_nvlink2_analytical.py`：CSV accounting/trend checker。
+- `tools/booksim_nvlink/transport_contract.py` 与
+  `test_transport_contract.py`：packet/clock/completion reference contract/tests。
 
-## Tests and results
+## 测试与结果
 
 ```bash
 python3 tools/booksim_nvlink/check_nvlink2_analytical.py \
@@ -55,26 +45,22 @@ python3 tools/booksim_nvlink/check_nvlink2_analytical.py \
   --flit-bytes 32 --link-flits-per-cycle 1
 ```
 
-Result: `ANALYTICAL_CHECK_PASS`, 9 rows. The sweep reports 32/128/512 bytes
-for 1/4/16 flits, all latency values exceed the serialization lower bound, and
-latency increases monotonically with packet size and configured link latency.
+结果为 `ANALYTICAL_CHECK_PASS`（9 rows）。1/4/16 flits 分别对应
+32/128/512 bytes；所有 latency 高于 serialization lower bound，并随 packet
+size 和 configured link latency 单调增加。
 
-The contract unit tests also pass for packetization, a 1.25 GHz exact clock,
-and two-message completion ordering. Their fixed delay is a synthetic
-reference, not a BookSim measurement.
+Contract unit tests 也通过 packetization、1.25 GHz exact clock 与 two-message
+completion ordering。固定 delay 是 synthetic reference，不是 BookSim measurement。
 
-## Limitations and validation status
+## Evidence 与限制
 
-- `Verified`: one actual A800 compute-trace instruction and its current
-  Accel-Sim source path.
-- `Verified`: arithmetic/trend checks on the synthetic BookSim sweep.
-- `Synthetic`: all BookSim network latency and bandwidth values.
-- `Needs hardware validation`: NVLink protocol rate, link clock, NVSwitch
-  topology/queues, NCCL, multicast, and NVLS reduction.
+- **Verified**：一条真实 A800 compute-trace instruction 及其 Accel-Sim source
+  path。
+- **Verified**：synthetic BookSim sweep 的 arithmetic/trend checks。
+- **Synthetic**：所有 BookSim network latency 与 bandwidth value。
+- **Needs hardware validation**：NVLink protocol rate、link clock、NVSwitch
+  topology/queue、NCCL、multicast 与 NVLS reduction。
 
-## Next step
-
-Implement the smallest standalone endpoint facade (without Accel-Sim core
-changes) over BookSim's protected per-cycle API, preserving the tested
-packetization/clock/completion contract. Then connect a two-GPU logical
-communication event and compare its accounting with the analytical checker.
+下一步是在 BookSim protected per-cycle API 上实现最小 standalone endpoint
+facade，保留已测试的 packetization/clock/completion contract，然后连接一个
+two-GPU logical communication event。

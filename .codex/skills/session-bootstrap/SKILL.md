@@ -1,34 +1,25 @@
 ---
 name: session-bootstrap
-description: Restore the Accel-Sim/NVLS research project after context loss, report its evidence-backed state, and select the next safe task.
+description: 在 context loss 后恢复 Accel-Sim/NVLS research project，报告有 evidence 支撑的状态，并选择下一项安全任务。
 ---
 
-## When to use
+## 使用时机
 
-Run at the start of every new Codex session or after a context compaction.
+每个新 session 开始时或 context compaction 后使用。
 
-## Steps
+## 步骤
 
-1. Read AGENTS.md, .codex/README.md, every file in .codex/rules/, and
-   .codex/knowledge/project-state.md before editing. Do not depend on chat
-   memory.
-2. Read only the task-relevant knowledge, docs, and skill. Follow links from
-   the source of truth instead of loading every historical log.
-3. Capture main and nested repository status, branch, HEAD, and remotes with
-   git status --short --branch; git branch --show-current; git log -1
-   --oneline --decorate; and git -C gpu-simulator/gpgpu-sim status.
-4. Check for user modifications. Preserve them; never reset, clean, or stash.
-5. Report before editing: goal, branch, baseline SHA, hardware, milestone,
-   completed work, blockers, evidence level, and next step.
-6. If the task concerns a proposed ISA or microarchitecture, read
-   `.codex/skills/ptx-design-baseline/` and
-   `.codex/docs/17-ptx-primary-strategy.md` before selecting a SASS-oriented
-   workflow.
-7. When state changes, update project-state.md, relevant docs, and
-   CHANGELOG.md.
+1. 编辑前读取 `AGENTS.md`、`.codex/README.md`、全部 `.codex/rules/` 与
+   `.codex/knowledge/project-state.md`，不依赖 chat memory。
+2. 只读取 task-relevant knowledge、docs 与 skill；沿 source-of-truth link
+   查找，不加载所有历史 log。
+3. 记录 main/nested repository 的 status、branch、HEAD 与 remote。
+4. 检查并保留用户修改；不得 reset、clean 或 stash。
+5. 编辑前报告 goal、branch、baseline SHA、hardware、milestone、completed work、
+   blocker、evidence level 与 next step。
+6. proposed ISA/microarchitecture task 必须先读 `ptx-design-baseline` 与
+   `17-ptx-primary-strategy.md`。
+7. state 改变时同步更新 `project-state.md`、相关 docs 与 `CHANGELOG.md`。
 
-## Artifacts and completion
-
-Produce a concise session report and, when needed, updated state/changelog.
-A fresh session must identify repositories, baseline, hardware limits,
-milestone, blockers, and next action without the previous conversation.
+完成时应让新 session 无需之前对话即可识别 repository、baseline、hardware
+limit、milestone、blocker 与 next action。

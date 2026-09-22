@@ -1,10 +1,9 @@
 # PTX-first implementation roadmap
 
-The project now has two tracks. The PTX track is the main design path for
-hypothetical ISA/microarchitecture and in-switch computing. The SASS track is a
-validation path for behaviour that exists on A800/H100. Every milestone below
-has to record the input source and evidence level; a synthetic PTX result is not
-an H100 hardware result.
+项目目前分为两条路线。PTX 路线是 hypothetical ISA/microarchitecture 和
+in-switch computing 的主设计路线；SASS 路线用于验证 A800/H100 已存在的
+behaviour。以下每个 milestone 都必须记录 input source 和 evidence level；
+synthetic PTX result 不是 H100 hardware result。
 
 | Milestone | Work | Exit criterion | Hardware |
 |---|---|---|---|
@@ -36,6 +35,5 @@ Before advancing, record:
 - Codex execution time and user review time;
 - commit SHA and next decision.
 
-The first implementation milestone after this planning change is M3, not a
-full BookSim/NVSwitch rewrite: run and document the PTX baseline, then design a
-single custom communication instruction without network semantics.
+当前已完成 M3 与 M4。下一阶段是 M5 communication-event schema，而不是全面
+重写 BookSim/NVSwitch：先定义 event contract，再逐步接入 transport。

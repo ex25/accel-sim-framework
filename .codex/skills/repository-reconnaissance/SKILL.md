@@ -1,32 +1,25 @@
 ---
 name: repository-reconnaissance
-description: Audit Accel-Sim, nested GPGPU-Sim, BookSim, Git history, dependencies, and local changes before design or implementation.
+description: 在 design/implementation 前 audit Accel-Sim、nested GPGPU-Sim、BookSim、Git history、dependency 与 local change。
 ---
 
-## When to use
+## 使用时机
 
-Use before a new research phase, feature design, dependency decision, or when
-repository state is uncertain. Do not modify simulator core code.
+新 research phase、feature design、dependency decision 或 repository state
+不确定时使用；不修改 simulator core。
 
-## Steps
+## 步骤
 
-1. For every repository capture status, branch, remotes, HEAD, recent history,
-   submodule status, diff stat, ignored build paths, and untracked files.
-2. Locate and read AGENTS.md, .claude, .codex, .agents, build files,
-   gpu-simulator, util/tracer_nvbit, trace parser/frontend, and BookSim.
-3. Verify nested GPGPU-Sim and external BookSim SHA/status independently.
-   Record whether each is a submodule, nested repository, symlink, or checkout.
-4. Build a source map for launcher, NVBit producer, post-processor, parser,
-   trace shader core, shader/memory path, interconnect, configs, tests, and
-   statistics.
-5. Inspect representative original commits with git show --stat --format=fuller
-   and use their concrete scope as the commit-message reference.
-6. Label conclusions Verified, Observed, Inferred, Hypothesis, Unknown, or
-   Needs hardware validation.
-7. Write compact state plus only reusable detailed facts to .codex.
+1. 对每个 repository 记录 status、branch、remote、HEAD、recent history、
+   submodule、diff stat、ignored build path 与 untracked file。
+2. 读取 `AGENTS.md`、`.claude`、`.codex`、`.agents`、build file、
+   `gpu-simulator`、`util/tracer_nvbit`、trace frontend 与 BookSim。
+3. 独立确认 nested GPGPU-Sim 与 external BookSim SHA/status，注明 submodule、
+   nested repository、symlink 或 checkout 类型。
+4. 建立 launcher、NVBit producer、post-processor、parser、trace shader core、
+   shader/memory path、interconnect、config、test 与 statistics source map。
+5. 用 `git show --stat --format=fuller` 阅读代表性 commit，参考其具体 scope。
+6. 使用 evidence label 标注结论，并将 compact state/可复用事实写入 `.codex`。
+7. 运行 `git diff --check`，重新检查所有 repository status。
 
-## Artifacts and validation
-
-Record paths, commands, SHAs, blockers, and a safe next step in the relevant
-knowledge/doc. Run git diff --check and re-check every repository status.
-Never claim a dependency or feature exists from a README alone.
+不得仅根据 README 声称 dependency 或 feature 已存在。

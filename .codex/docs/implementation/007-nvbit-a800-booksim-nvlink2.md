@@ -1,85 +1,62 @@
-# 007 — NVBit A800 trace and BookSim two-GPU transport prototype
+# 007 — NVBit A800 trace 与 BookSim two-GPU transport prototype
 
-## Problem
+## 问题与设计
 
-The software trace pipeline had not been exercised on the available A800, and
-the project needed a minimal network experiment before adding NVSwitch or NVLS.
+当时尚未在本地 A800 上运行 software trace pipeline，也需要在加入 NVSwitch/
+NVLS 前完成最小 network experiment。
 
-## Design
+NVBit 1.8 安装在 `in-switch` conda environment；tracer Makefile 接受显式
+`NVBIT_PATH`，不复制 SDK，也不依赖机器专用 symlink。Workload 使用 SDK
+vectoradd，随后 post-process 并用 Accel-Sim release binary replay。
 
-Install NVBit 1.8 under the in-switch conda environment. Make the tracer
-Makefile accept an explicit SDK core path so the repository needs no SDK copy
-or machine-specific symlink. Use the SDK vectoradd as a real workload, then
-post-process and replay it with the existing Accel-Sim release binary.
-
-For the network, keep BookSim external at SHA 28f4329. Use AnyNet and
-TrafficManager without forking. Model two logical GPUs as node 0/node 1, one
-router per endpoint, and one bidirectional router link. Use bitcomp for
-deterministic bidirectional traffic, plus smoke/sweep scripts.
+Network 部分将 BookSim 固定在 SHA `28f4329`，不 fork source。使用 AnyNet 与
+TrafficManager，把 node 0/1 作为两个 logical GPU，每个 endpoint 一个 router，
+中间一条 bidirectional router link；使用 `bitcomp` 产生 deterministic 双向 traffic。
 
 ## Alternatives
 
-- Copy BookSim into Accel-Sim: rejected; it obscures provenance.
-- Extend Accel-Sim intersim2 immediately: deferred until the endpoint/clock API
-  is designed independently.
-- Use uniform traffic: rejected because it does not guarantee both directions.
+- Copy BookSim 到 Accel-Sim：拒绝，容易遮蔽 provenance。
+- 立即扩展 Accel-Sim `intersim2`：推迟，先独立设计 endpoint/clock API。
+- Uniform traffic：拒绝，无法保证双向 traffic。
 
-## Files changed
+## 修改文件
 
-- util/tracer_nvbit/tracer_tool/Makefile: overridable NVBIT_PATH.
-- tools/booksim_nvlink/nvlink2_config: two-endpoint configuration.
-- tools/booksim_nvlink/nvlink2_network: AnyNet topology.
-- tools/booksim_nvlink/run_nvlink2.sh: smoke test/status normalization.
-- tools/booksim_nvlink/sweep_nvlink2.sh: parameter sweep and CSV.
-- tools/booksim_nvlink/README.md: reproduction and interpretation.
-- .codex trace/BookSim/environment/state documents: evidence and limits.
+- `util/tracer_nvbit/tracer_tool/Makefile`：可覆盖 `NVBIT_PATH`。
+- `tools/booksim_nvlink/nvlink2_config`：two-endpoint configuration。
+- `tools/booksim_nvlink/nvlink2_network`：AnyNet topology。
+- `tools/booksim_nvlink/run_nvlink2.sh`：smoke test/status normalization。
+- `tools/booksim_nvlink/sweep_nvlink2.sh`：parameter sweep 与 CSV。
+- `tools/booksim_nvlink/README.md`：reproduction 与 interpretation。
+- `.codex` trace/BookSim/environment/state documents：evidence 与限制。
 
-## Call paths
+## Call path
 
-Trace:
+```text
+vectoradd → NVBit tracer_tool.so → raw trace.xz
+  → post-traces-processing → tracez/kernelslist.g → accel-sim.out
+  → trace_parser → shader/memory timing → statistics
 
-vectoradd -> NVBit tracer_tool.so -> raw trace.xz ->
-post-traces-processing -> tracez/kernelslist.g -> accel-sim.out ->
-trace_parser -> shader/memory timing -> statistics.
+run_nvlink2.sh → BookSim main → AnyNet → TrafficManager::Run
+  → TrafficManager::_Step → Network ReadInputs/Evaluate/WriteOutputs
+  → packet/flit statistics
+```
 
-BookSim:
+## 结果
 
-run_nvlink2.sh -> BookSim main -> AnyNet -> TrafficManager::Run ->
-TrafficManager::_Step -> Network ReadInputs/Evaluate/WriteOutputs ->
-packet/flit statistics.
+- A800 vectoradd 与 post-processing：pass。
+- Accel-Sim replay：exit 0、6,824 cycles、75,000 request/reply packets。
+- BookSim smoke：`NVLINK2_SMOKE_PASS`；one-flit/link-latency-1 为 12 cycles、
+  two hops。
+- BookSim sweep：`NVLINK2_SWEEP_PASS`；9 个 case 全部写出 CSV。
+- Implementation commit：`dc7ffa9`。
 
-## Before / after
+## 限制与 evidence
 
-Before, NVBit setup was a blocker and no two-endpoint BookSim experiment
-existed. After, the A800 software pipeline is verified and a reproducible
-two-node transport prototype plus sensitivity sweep exists. No Accel-Sim
-multi-GPU or calibrated NVLink model was added.
+- **Verified**：A800 software trace pipeline 与 generic BookSim transport。
+- **Inferred**：two-router topology 是有用的初始 endpoint model。
+- **Needs hardware validation**：physical NVLink latency/bandwidth、H100
+  topology、NVSwitch routing、multicast、NCCL 与 NVLS。BookSim status 255 是
+  wrapper normalize 的 legacy success convention。
 
-## Tests and results
-
-- A800 vectoradd and post-processing: pass.
-- Accel-Sim replay: exit 0; 6,824 cycles; 75,000 request/reply packets.
-- BookSim smoke: NVLINK2_SMOKE_PASS; one-flit/link-latency-1 is 12 cycles and
-  two hops.
-- BookSim sweep: NVLINK2_SWEEP_PASS; all nine cases produced CSV output.
-- git diff --check: required before commit.
-
-## Limitations and validation status
-
-Verified: A800 software trace pipeline and generic BookSim transport.
-Inferred: the two-router topology is a useful first endpoint model.
-Needs hardware validation: physical NVLink latency/bandwidth, H100 topology,
-NVSwitch routing, multicast, NCCL, and NVLS. BookSim status 255 is a legacy
-success convention normalized by the wrapper.
-
-## Commit
-
-- Implementation: `dc7ffa9` (`feat(transport): verify A800 trace and add
-  two-GPU BookSim model`).
-- Documentation record: the follow-up commit is listed in the research
-  changelog.
-
-## Next
-
-Autopsy one real trace instruction, then define an endpoint adapter and clock
-conversion before connecting BookSim transport to Accel-Sim.
+下一步是 autopsy 一条真实 trace instruction，再定义 endpoint adapter 与 clock
+conversion，之后才能将 BookSim transport 接入 Accel-Sim。

@@ -1,76 +1,68 @@
-# Research documentation index
+# Research 文档索引
 
-## Purpose
+## 用途
 
-This directory is the human-readable record of why the simulator is changed,
-what the current checkout actually does, and which claims require hardware
-validation. `.codex/knowledge/` is the compact reload path; this index is the
-full reading path.
+本目录记录 simulator 为什么修改、当前 checkout 实际实现了什么，以及哪些
+结论仍需 hardware validation。`.codex/knowledge/` 是快速 reload 入口；本索引
+是完整阅读路径。文档默认使用中文，专业术语、symbol、API、config 与 metric
+保留英文原文。
 
-## Recommended reading order
+## 推荐阅读顺序
 
-1. `项目进展总览.md` — 中文历史总览、当前证据边界和下一步路线。
-2. `14-final-goal-gap-plan.md` — 最终目标差距、环境上限和分阶段退出条件。
-3. `15-concepts-for-readers.md` — 面向人的中文概念、trace 调用路径和术语解释。
-4. `16-simulating-custom-multigpu-isa.md` — 多 GPU 调度、论文方法、定制 ISA 和
-   微架构修改的模拟方法。
-5. `17-ptx-primary-strategy.md` — 当前确认的 PTX 主线、SASS 验证线和新的
-   milestone 顺序。
-6. `18-sass-ptx-a800-gap.md` — A800 单卡 SASS/PTX 差距实验证据和限制。
-7. `00-project-overview.md` — scope, terminology, and staged strategy.
-8. `01-accelsim-architecture.md` — current simulator layers and call paths.
-9. `02-trace-pipeline.md` — NVBit → trace → frontend → timing model, including
-   the exact external vectoradd source and reproduction recipe.
-10. `03-hardware-capability-matrix.md` — A800/H100/NVSwitch validation boundary.
-11. `04-single-vs-multi-gpu-trace.md` — why compute traces do not encode a
-   collective execution by themselves.
-12. `05-h100-architecture-support.md` — source audit of SM90 support.
-13. `06-nvlink-nvswitch-nvls.md` — hardware/model concepts (to be expanded with
-   primary sources).
-14. `07-current-support-gap-analysis.md` — capability matrix and evidence.
-15. `08-booksim-architecture.md` — BookSim components and embedding options.
-16. `09-accelsim-booksim-integration.md` — clock/data-boundary alternatives.
-17. `10-design-options.md` — PTX-primary compute/communication architecture choice.
-18. `11-implementation-roadmap.md` — PTX-first milestone exit criteria.
-19. `12-experiment-plan.md` — PTX design experiments and SASS validation experiments.
-20. `13-validation-plan.md` — separate design and hardware evidence ladders.
+1. `项目进展总览.md` — 中文历史总览、当前 evidence boundary 和路线。
+2. `14-final-goal-gap-plan.md` — 最终目标差距、环境上限与分阶段 exit criteria。
+3. `15-concepts-for-readers.md` — GPU、trace、BookSim、NCCL、NVLS 基础概念。
+4. `16-simulating-custom-multigpu-isa.md` — multi-GPU scheduling、custom ISA 与
+   microarchitecture 修改的模拟方法。
+5. `17-ptx-primary-strategy.md` — PTX 主线、SASS validation line 与 milestone。
+6. `18-sass-ptx-a800-gap.md` — A800 single-GPU SASS/PTX gap 实验证据与限制。
+7. `00-project-overview.md` — scope、terminology 与 staged strategy。
+8. `01-accelsim-architecture.md` — 当前 simulator layer 与 call path。
+9. `02-trace-pipeline.md` — NVBit → trace → frontend → timing model。
+10. `03-hardware-capability-matrix.md` — A800/H100/NVSwitch validation boundary。
+11. `04-single-vs-multi-gpu-trace.md` — 为什么 compute trace 不等于 distributed
+    execution。
+12. `05-h100-architecture-support.md` — SM90 support 的 source audit。
+13. `06-nvlink-nvswitch-nvls.md` — NVLink、NVSwitch 与 NVLS 概念。
+14. `07-current-support-gap-analysis.md` — capability matrix 与 evidence。
+15. `08-booksim-architecture.md` — BookSim component 与 embedding options。
+16. `09-accelsim-booksim-integration.md` — clock/data boundary alternatives。
+17. `10-design-options.md` — PTX-primary architecture choice。
+18. `11-implementation-roadmap.md` — PTX-first milestone exit criteria。
+19. `12-experiment-plan.md` — PTX design 与 SASS validation experiment。
+20. `13-validation-plan.md` — design evidence 与 hardware evidence ladders。
 
-Implementation records are under `implementation/`; the current PTX records
-are `implementation/009-sm90-ptx-baseline.md` and
-`implementation/010-cais-add-ptx.md`.
+Implementation record 位于 `implementation/`；当前 PTX 相关记录是
+`009-sm90-ptx-baseline.md` 与 `010-cais-add-ptx.md`。
 
-## Current navigation state
+## 当前导航状态
 
-- Milestone: M3 SM90 PTX baseline and minimal single-GPU `cais.add.u32`
-  instruction are complete; next is the instruction-to-communication-event
-  boundary.
-- Branch/base: `feat/nvbit-a800-booksim-nvlink` / upstream `d930ad6`.
-- Baseline: release build and real A800 vectoradd trace/replay pass; CTest still
-  has no registered tests.
-- Blockers: no physical second GPU/NVLink peer and no H100/NVSwitch system.
-- BookSim: separate `28f4329` checkout; standalone two-node AnyNet smoke/sweep
-  passes, but no Accel-Sim adapter or clock coupling exists.
-- Next: define a separate communication-event schema and focused completion
-  tests, then connect it to the two-endpoint BookSim prototype without yet
-  claiming Ring, NVSwitch, or NVLS behavior.
+- Milestone：M3 SM90 PTX baseline 与 M4 `cais.add.u32` 已完成；下一步是
+  instruction-to-communication-event boundary。
+- Branch/base：`feat/nvbit-a800-booksim-nvlink` / upstream `d930ad6`。
+- Baseline：release build 与真实 A800 vectoradd trace/replay 通过；CTest 仍无
+  registered tests。
+- Blocker：没有第二张 GPU/NVLink peer，也没有 H100/NVSwitch system。
+- BookSim：外部 `28f4329` checkout 的 two-node AnyNet smoke/sweep 通过，但还
+  没有 Accel-Sim adapter 或 clock coupling。
+- Next：定义独立 communication-event schema 与 focused completion tests，
+  再连接 two-endpoint BookSim prototype；暂不声称 Ring/NVSwitch/NVLS behaviour。
 
-## Source-of-truth map
+## Source-of-truth 映射
 
-| Information | Primary location |
+| 信息 | Primary location |
 |---|---|
-| Persistent rules | `.codex/rules/` |
-| Current state/checklist | `.codex/knowledge/project-state.md` |
-| Local environment | `.codex/knowledge/local-environment.md` |
+| 持久规则 | `.codex/rules/` |
+| 当前 state/checklist | `.codex/knowledge/project-state.md` |
+| 本机环境 | `.codex/knowledge/local-environment.md` |
 | Trace facts | `.codex/knowledge/trace-format.md` |
-| Full architecture/research | `.codex/docs/` |
+| Architecture/research | `.codex/docs/` |
 | Design decisions | `.codex/docs/DECISIONS.md` |
 | Phase history | `.codex/docs/CHANGELOG.md` |
 | Experiment metadata | `.codex/experiments/` |
 
-## Skill ownership
+## Skill 管理
 
-Skills are edited only under `.codex/skills/`. Every entry under
-`.agents/skills/` must be a symlink to the matching canonical directory; do
-not maintain two independent copies. The skill definitions include their
-inputs, commands, artifacts, validation, and completion criteria, while the
-rules define the stable policy they must follow.
+Skill 只在 `.codex/skills/` 下编辑；`.agents/skills/` 必须是指向 canonical
+directory 的 symlink，不维护两份内容。skill 定义 input、step、command、
+artifact、validation 与 completion criteria；rules 定义稳定 policy。

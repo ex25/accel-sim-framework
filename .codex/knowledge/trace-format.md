@@ -1,58 +1,62 @@
 # Trace-format facts
 
-Status: source-audited for one real A800 trace record, 2026-09-19.
+Status：2026-09-19 对一条真实 A800 trace record 完成 source audit。
 
 ## Producer
 
-`util/tracer_nvbit/tracer_tool/tracer_tool.cu` uses NVBit callbacks for CUDA
-initialization/events/function loading and writes per-context instruction
-records. `common.h` contains active/predicate masks, virtual PC, opcode ID,
-CTA/cluster IDs and either regular addresses or TMA metadata. The producer also
-serializes Hopper cluster fields and TMA multicast metadata.
+`util/tracer_nvbit/tracer_tool/tracer_tool.cu` 使用 NVBit callback 处理 CUDA
+initialization/event/function loading，并写出 per-context instruction record。
+`common.h` 包含 active/predicate mask、virtual PC、opcode ID、CTA/cluster ID，
+以及普通 address 或 TMA metadata。Producer 还会 serialize Hopper cluster
+fields 与 TMA multicast metadata。
 
-## On-disk and parser path
+## On-disk 与 parser path
 
-The text path is organized around `kernelslist.g`, kernel trace files, and
-`trace_parser.{h,cc}`. `trace_parser.cc` parses kernel/grid/block/stream and
-cluster headers, instruction opcode/operand data, and address compression. The
-binary `.tracez` path is described by `tracez_format.h` and streamed by
-`warp_trace_stream.h`.
+Text path 由 `kernelslist.g`、kernel trace file 和 `trace_parser.{h,cc}` 组成。
+`trace_parser.cc` 解析 kernel/grid/block/stream 与 cluster header、instruction
+opcode/operand 和 address compression。Binary `.tracez` path 由
+`tracez_format.h` 描述，并通过 `warp_trace_stream.h` stream。
 
-## Simulator consumer path (one real instruction audited)
+## Simulator consumer path（已 audit 一条真实 instruction）
 
-`gpu-simulator/accel-sim.cc` / `gpu-simulator/main.cc` create the trace framework;
-trace classes in `trace-driven/trace_driven.{h,cc}` create
-`trace_kernel_info_t`, `trace_shader_core_ctx`, `trace_shd_warp_t`, and
-`trace_warp_inst_t`. For the verified A800 `LDG.E.64` record, the call path is
-`TracezReader::open/get` -> `inst_trace_t::parse_from_string()` ->
-`trace_shd_warp_t::get_next_trace_inst()` ->
-`trace_warp_inst_t::parse_from_trace_struct()` -> `func_exec_inst()` ->
-`warp_inst_t::generate_mem_accesses()` ->
-`simt_core_cluster::icnt_inject_request_packet()` -> `icnt_push` and ordinary
-cache/L2/DRAM timing. A warp completes only after stream exhaustion and the
-pipeline/barrier/store/scoreboard checks in `get_next_inst()`.
+`gpu-simulator/accel-sim.cc` / `gpu-simulator/main.cc` 创建 trace framework；
+`trace-driven/trace_driven.{h,cc}` 创建 `trace_kernel_info_t`、
+`trace_shader_core_ctx`、`trace_shd_warp_t` 和 `trace_warp_inst_t`。已验证的
+A800 `LDG.E.64` path 为：
 
-Representative raw record:
+```text
+TracezReader::open/get
+  → inst_trace_t::parse_from_string()
+  → trace_shd_warp_t::get_next_trace_inst()
+  → trace_warp_inst_t::parse_from_trace_struct()
+  → func_exec_inst()
+  → warp_inst_t::generate_mem_accesses()
+  → simt_core_cluster::icnt_inject_request_packet()
+  → icnt_push → cache/L2/DRAM timing
+```
+
+Warp 只有在 stream exhausted，且 `get_next_inst()` 中 pipeline/barrier/store/
+scoreboard checks 清空后才完成。
+
+代表性 raw record：
 `48 0 0 17 0 0 0 0 0 0 0 00a0 ffffffff 1 R4 LDG.E.64 1 R4 8 1
-0x7f7490524700 8 0 0 0 NoVal`. It is trace version 6, lineinfo disabled,
-all 32 lanes active, an 8-byte global load, base+stride addresses, and no
-recorded register values. Full source mapping is in
-`.codex/docs/02-trace-pipeline.md`.
+0x7f7490524700 8 0 0 0 NoVal`。这是 trace version 6、lineinfo disabled、
+32 lanes 全 active、8-byte global load、base+stride address，且没有 recorded
+register value。完整 source mapping 见 `.codex/docs/02-trace-pipeline.md`。
 
 ## Existing network boundary
 
-`gpu-simulator/gpgpu-sim/src/gpgpu-sim/icnt_wrapper.cc` selects either the
-local crossbar (`network_mode 2`) or the BookSim-derived `intersim2` interface
-(`network_mode 1`). `InterconnectInterface::Push/Pop/Advance/Busy` and
-`GPUTrafficManager` packetize `mem_fetch` traffic between shader and memory
-nodes. This is verified source evidence for a GPU-internal memory interconnect,
-not for GPU-to-GPU NVLink or NVSwitch.
+`gpu-simulator/gpgpu-sim/src/gpgpu-sim/icnt_wrapper.cc` 选择 local crossbar
+（`network_mode 2`）或 BookSim-derived `intersim2`（`network_mode 1`）。
+`InterconnectInterface::Push/Pop/Advance/Busy` 与 `GPUTrafficManager` 将
+shader/memory node 之间的 `mem_fetch` traffic packetize。这是 GPU-internal
+memory interconnect 的 verified source evidence，不是 GPU-to-GPU NVLink 或
+NVSwitch evidence。
 
-## What is not established
+## 尚未建立的内容
 
-The current record does not contain rank, NCCL collective lifecycle, peer GPU,
-NVSwitch queue state, switch reduction timing, or physical fabric contention as
-ordinary per-instruction fields. The source search found no `multimem` symbols;
-NVLink references are in hardware-monitoring helpers rather than a GPU-to-GPU
-simulator transport. Whether any separate multi-GPU event path exists must be
-verified by source search before design decisions.
+当前 record 不包含 rank、NCCL collective lifecycle、peer GPU、NVSwitch queue
+state、switch reduction timing 或 physical fabric contention。源码搜索未找到
+`multimem` symbol；NVLink references 位于 hardware-monitoring helper，而不是
+GPU-to-GPU simulator transport。是否存在独立 multi-GPU event path，必须在
+设计前继续进行 source search。

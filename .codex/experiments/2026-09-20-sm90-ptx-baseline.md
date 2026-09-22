@@ -1,34 +1,34 @@
 # SM90 PTX execution-driven baseline
 
-Date: 2026-09-20
-Evidence level: **Verified** for the local unmodified GPGPU-Sim software path;
-**Needs hardware validation** for real SM90/H100 behaviour.
+日期：2026-09-20
 
-## Objective
+Evidence level：本地未修改 GPGPU-Sim software path 为 **Verified**；真实
+SM90/H100 behaviour 为 **Needs hardware validation**。
 
-Establish the smallest reproducible PTX execution-driven baseline on the
-repository's SM90/H100 configuration before adding a proposed instruction or a
-communication side effect. This is a simulator baseline, not a claim that the
-local A800 executes SM90 code.
+## 目标
 
-## Pinned inputs
+在加入 proposed instruction 或 communication side effect 前，先在仓库的
+SM90/H100 configuration 上建立最小可复现 PTX execution-driven baseline。
+这是 simulator baseline，不表示本地 A800 可以执行 SM90 code。
 
-| Item | Value |
+## 固定输入
+
+| 项目 | 值 |
 |---|---|
-| Accel-Sim checkout | `6732dae12d5749b8342a4608aea825896a262a42` before this phase commit |
-| Nested GPGPU-Sim | `91880c53383d5a6a6742bfb1be2c5f34e39c7871`, branch `dev` |
+| Accel-Sim checkout | `6732dae12d5749b8342a4608aea825896a262a42` |
+| Nested GPGPU-Sim | `91880c53383d5a6a6742bfb1be2c5f34e39c7871`，branch `dev` |
 | Config | `gpu-simulator/gpgpu-sim/configs/tested-cfgs/SM90_H100/gpgpusim.config` |
-| Launcher config | `H100-PTX` = `SM90_H100` + `PTX` |
-| PTX toolchain | CUDA 12.8.61, PTX `.version 8.7`, `.target sm_90` |
-| Local hardware | one A800 SM80; not used to execute the SM90 binary |
+| Launcher | `H100-PTX` = `SM90_H100` + `PTX` |
+| PTX toolchain | CUDA 12.8.61，PTX `.version 8.7`，`.target sm_90` |
+| Local hardware | 一张 A800 SM80；不执行该 SM90 binary |
 | Raw output | `/tmp/accelsim-sm90-ptx-baseline/` |
 
-## Workload and commands
+## Workload 与命令
 
-The workload is `experiments/sm90_ptx_baseline/sm90_ptx_baseline.cu`: one
-deterministic FP32 kernel with global load/store, predicated branch, dependent
-`fma`, and a fixed 4096-element/32-iteration launch. It is compiled as PTX
-only for SM90, with no compile-time `-lineinfo`:
+`experiments/sm90_ptx_baseline/sm90_ptx_baseline.cu` 是 deterministic FP32
+kernel，包含 global load/store、predicated branch、dependent `fma`，固定为
+4096 elements/32 iterations。编译为 SM90 PTX-only，并省略 compile-time
+`-lineinfo`：
 
 ```bash
 source /home/wangjz/in-switch/activate-accel-sim.sh
@@ -39,83 +39,55 @@ python3 util/job_launching/run_simulations.py \
   -N sm90-ptx-baseline -r /tmp/accelsim-sm90-ptx-baseline -n
 ```
 
-The generated run directory was executed locally with the generated
-GPGPU-Sim `libcudart.so` on `LD_LIBRARY_PATH`; the final simulator output is
-`/tmp/accelsim-sm90-ptx-baseline/sm90_ptx_baseline/4096_32/H100-PTX/direct-run.log`.
+生成的 run directory 使用 simulator `libcudart.so` 完成执行；最终 output
+在 `/tmp/accelsim-sm90-ptx-baseline/sm90_ptx_baseline/4096_32/H100-PTX/`。
 
-Before adding the SM90-only workload, an unmodified `SM90_H100`/`H100-PTX`
-run of the existing SM80 `vec_add 4096` case also passed: 3,739 cycles,
-86,016 simulated instructions, IPC 23.0051, and `RESULT ... status=PASS`.
-This control is **Observed** and is not the SM90 instruction baseline.
-
-## Result
-
-The SM90 PTX binary was accepted and functionally/timing simulated by the
-unmodified PTX path:
+## 结果
 
 ```text
 gpu_tot_sim_cycle = 5501
 gpu_tot_sim_insn  = 1654784
 gpu_tot_ipc       = 300.8151
 RESULT test=sm90_baseline size=4096 aux=32 checksum=3.708071458181e+02 \
-  max_error=3.576278686523e-07 kernel_ms=3000.000000 status=PASS
-GPGPU-Sim: *** exit detected ***
+  max_error=3.576278686523437e-07 kernel_ms=3000.000000 status=PASS
 ```
 
-The simulator config printed compute capability major/minor `9/0`. This is
-**Verified** parser, functional execution, issue/timing, and completion
-evidence for this checkout. The `kernel_ms` value is simulated event time; it
-must not be compared with A800 native event time.
+SM90 PTX binary 被接受，并完成 functional/timing simulation。Simulator config
+打印 compute capability `9/0`。这证明当前 checkout 的 parser、functional
+execution、issue/timing 和 completion path，不证明 H100 hardware accuracy。
 
-## PTX-to-timing call path
-
-The current path is:
+## PTX 到 timing 的调用路径
 
 ```text
 embedded PTX from CUDA fatbin
-  → ptx_loader.cc:gpgpu_ptx_sim_load_ptx_from_string (169–203)
+  → ptx_loader.cc:gpgpu_ptx_sim_load_ptx_from_string
   → ptx.l lexer / ptx.y grammar
-  → ptx_instruction constructor (ptx_ir.cc:1211–1228)
-  → set_opcode_and_latency (cuda-sim.cc:747–805, FMA at 943–969)
-  → shader_core_ctx::issue_warp (shader.cc:1055–1072)
-  → exec_shader_core_ctx::func_exec_inst / execute_warp_inst
-  → ptx_thread_info::ptx_exec_inst (cuda-sim.cc:1793–1887)
-  → opcodes.def dispatch and instructions.cc implementation
-  → functional memory result / register dependency
-  → shader_core_ctx::execute and pipelined_simd_unit::cycle
-  → gpgpu_sim::cycle (gpu-sim.cc:2234 onward)
+  → ptx_instruction constructor
+  → set_opcode_and_latency
+  → shader_core_ctx::issue_warp
+  → func_exec_inst / execute_warp_inst
+  → opcodes.def dispatch 与 instructions.cc implementation
+  → register/memory result 与 dependency
+  → shader execute / pipelined_simd_unit::cycle
+  → gpgpu_sim::cycle
 ```
 
-Important boundaries:
+`ptx_loader.cc` 负责 parser；`ptx_instruction::set_opcode_and_latency` 根据
+opcode/type 选择 `SP_OP`、`LOAD_OP` 等 resource，并读取 config latency；
+`ptx_thread_info::ptx_exec_inst` 执行 functional semantics；shader pipeline
+负责 issue、dependency、latency 与 completion。
 
-- `ptx_loader.cc` calls the reentrant lexer/parser and aborts on parser errors;
-  parser recognition is not hardware validation.
-- `ptx_instruction::set_opcode_and_latency` maps PTX opcode and type to
-  `SP_OP`, `LOAD_OP`, etc. and reads latency/initiation values from the config.
-- `ptx_thread_info::ptx_exec_inst` executes one lane's functional semantics,
-  tracks memory address/space, updates the PC and PTX instruction statistics,
-  then returns memory metadata to the warp instruction.
-- `shader_core_ctx::issue_warp` stamps dynamic issue state and invokes the
-  functional execution; the timing pipeline later applies result-bus and
-  functional-unit latency. This is why a new instruction needs parser, IR,
-  functional, resource, dependency, and completion work.
+## 失败分类与限制
 
-## Baseline failure classification and limits
-
-- The earlier CUDA 12.8 `-lineinfo` failure (`.loc ... inlined_at`) remains a
-  **BASELINE FAILURE** of parser compatibility and is avoided here by omitting
-  `-lineinfo` and setting `TRACE_LINEINFO=0` for trace workflows.
-- Native execution of the SM90-only binary on the local A800 is intentionally
-  not attempted: the A800 is SM80. H100/H200 hardware correlation is **Needs
-  hardware validation**.
-- No simulator core files or nested GPGPU-Sim files were changed in this
-  phase. No rank, packet, multicast, reduction, NVSwitch, NVLS, or BookSim
-  state is hidden in this single-GPU baseline.
+- CUDA 12.8 `-lineinfo` 产生的 `.loc ... inlined_at` 会触发当前 parser abort，
+  属于 **BASELINE FAILURE**；trace workflow 使用 `TRACE_LINEINFO=0`。
+- 本地 A800 是 SM80，未执行 SM90 binary；H100/H200 correlation 为
+  **Needs hardware validation**。
+- 本阶段没有加入 rank、packet、multicast、reduction、NVSwitch、NVLS 或
+  BookSim state。
 
 ## Exit decision
 
-The SM90 PTX parser→functional→timing baseline is complete. The smallest next
-implementation is a single-GPU custom PTX instruction with explicit operands,
-result, ordering, latency, dependency, and completion semantics; its network
-event must remain a separate schema and must not be added until this focused
-instruction path is tested.
+SM90 PTX parser→functional→timing baseline 已完成。下一步是定义一条有明确
+operands、result、ordering、latency、dependency 和 completion 的 single-GPU
+custom PTX instruction；network event 必须保持独立 schema。

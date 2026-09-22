@@ -1,168 +1,98 @@
-# Research changelog
+# Research 变更日志
 
-## 2026-09-21 — Complete minimal single-GPU custom PTX instruction
+## 2026-09-22 — 统一 `.codex` 文档语言
 
-- Added proposed `cais.add.u32 dst, src1, src2` semantics to nested GPGPU-Sim
-  commit `8f3c35fa`: lexer/opcode registration, unsigned modulo-32 functional
-  execution, and integer ADD timing/resource mapping.
-- Added CUDA-6+ external-PTX override support for synthetic proposed opcodes.
-  Stock `ptxas` cannot assemble `cais.add`, so this focused override skips
-  PTXInfo/occupancy assembly; that is an explicit harness limitation.
-- Added the SM90 fixture generator, dependent-chain workload, 1/32-iteration
-  launcher cases, and reusable control/custom result checker.
-- Verified both iteration pairs: control/custom cycles, instructions, IPC,
-  checksum, and zero error matched exactly; the existing SM90 baseline also
-  remained at 5501 cycles, 1654784 instructions, IPC 300.8151, and PASS.
-- Limits: this instruction has no memory/network effect and provides no real
-  GPU, SASS, occupancy, multi-GPU, NVLink, NVSwitch, NVLS, or BookSim evidence.
-  CTest still has no registered tests; existing build warnings remain.
+- 将 README、docs、experiments、knowledge、rules 与 skills 中的解释性正文统一
+  为中文；PTX、SASS、BookSim、NVLink、NVSwitch、NVLS、API、symbol、路径、
+  command、metric 和 evidence label 保留英文。
+- 重写长期入口、project state、experiment index、implementation index、
+  DECISIONS、CHANGELOG、trace facts 与主要 experiment/implementation records，
+  删除重复的英文摘要并保留 SHA、command、result、evidence 与 limitation。
+- 增加 D008 与 documentation policy 的语言规范，后续 document-change 默认使用
+  中文，不翻译 code/path/raw output。
+- Validation：`git diff --check` 通过；本阶段没有修改 simulator code，也没有
+  产生新的 hardware/accuracy claim。
 
-## 2026-09-20 — Complete SM90 PTX execution-driven baseline
+## 2026-09-21 — 完成最小 single-GPU custom PTX instruction
 
-- Added a bounded CUDA 12.8 `compute_90` PTX-only workload and launcher using
-  `H100-PTX` with `SM90_H100/gpgpusim.config`.
-- Verified the unmodified nested GPGPU-Sim PTX path: parser acceptance,
-  functional checksum, issue/timing, and simulator completion. Result: 5,501
-  cycles, 1,654,784 simulated instructions, IPC 300.8151, max error
-  `3.5762786865234375e-07`.
-- Added the source-level call-path record from `ptx_loader`/lexer/parser to
-  `ptx_instruction`, functional opcode dispatch, shader issue, and the timing
-  pipeline. No nested simulator source was modified.
-- Limits: this is SM90 simulator evidence only; native A800 execution is not
-  applicable, and H100/H200/Hopper/NVSwitch/NVLS validation remains pending.
+- Nested GPGPU-Sim commit `8f3c35fa` 新增 `cais.add.u32`：lexer/opcode
+  registration、unsigned modulo-32 functional execution，以及 integer ADD
+  timing/resource mapping。
+- 修复 CUDA 6+ external-PTX loader，使 `PTX_SIM_USE_PTX_FILE` 真正选择
+  synthetic proposed opcode。stock `ptxas` 无法 assemble `cais.add`，因此
+  focused override 暂时跳过 PTXInfo/occupancy assembly；这是明确的 harness
+  limitation。
+- Main repository 新增 dependent-chain workload、control/custom PTX fixture
+  generator、1/32-iteration launcher case 和 reusable result checker。
+- Control/custom 两组结果的 cycles、instructions、IPC、checksum 和 zero
+  error 完全一致；修改后 SM90 baseline 仍为 5501 cycles、1654784
+  instructions、IPC 300.8151、PASS。
+- 限制：无 memory/network effect、无真实 GPU/SASS/occupancy/multi-GPU/
+  NVLink/NVSwitch/NVLS/BookSim evidence；CTest 仍没有 registered tests。
 
-## 2026-09-20 — Complete single-A800 SASS/PTX gap matrix
+## 2026-09-20 — 完成 SM90 PTX execution-driven baseline
 
-- Added `experiments/sass_ptx_gap/`: a dual-code-object SM80 CUDA workload
-  suite with bounded FMA, memory, control-flow, atomic, GEMV, and GEMM cases;
-  added a reusable metric collector and the `SASS_PTX_GAP` launcher definition.
-- Generated 12 real A800 NVBit traces, replayed all 12 with `A100-SASS`, and
-  ran all 12 with `A100-PTX`. Native checksums and both replay paths passed;
-  the result table is in `.codex/experiments/2026-09-20-sass-ptx-a800-gap.md`.
-- Observed cycle deltas of −2.6% to +19.0%; GEMV/GEMM instruction and IPC
-  deltas remained large despite matching high-level global read/write totals.
-- Classified the initial CUDA 12.8 `-lineinfo` PTX `.loc/inlined_at` abort as a
-  parser compatibility baseline failure. The passing rerun omits compile-time
-  `-lineinfo` and uses `TRACE_LINEINFO=0`.
-- Limits: single A800 only; no multi-GPU, NVLink/NVSwitch/NVLS, H100, or
-  absolute A800 calibration claim.
+- 新增有界 CUDA 12.8 `compute_90` PTX-only workload，并使用 `H100-PTX` /
+  `SM90_H100/gpgpusim.config`。
+- 未修改的 nested GPGPU-Sim PTX path 通过 parser、functional checksum、
+  issue/timing 与 simulator completion：5501 cycles、1654784 instructions、
+  IPC 300.8151、max error `3.5762786865234375e-07`。
+- 记录 `ptx_loader`/lexer/parser、PTX IR、functional dispatch、shader issue
+  和 timing pipeline 的 source call path。
+- 限制：这是 SM90 simulator evidence，不是 H100/H200 hardware validation。
 
-## 2026-09-20 — Confirm PTX-primary design strategy
+## 2026-09-20 — 完成 single-A800 SASS/PTX gap matrix
 
-- Decision: use PTX execution-driven mode as the main path for proposed ISA,
-  GPU microarchitecture, scheduler, and in-switch-computing experiments;
-  retain SASS/NVBit traces as the validation/calibration path for existing
-  A800/H100 behaviour.
-- Updated: `.codex/README.md`, `knowledge/project-state.md`, Accel-Sim and
-  research-scope rules, design options, roadmap, experiment/validation plans,
-  multi-GPU trace guidance, and the Chinese project history.
-- Added: `docs/17-ptx-primary-strategy.md` and the reusable
-  `skills/ptx-design-baseline/` workflow, exposed through the `.agents/skills/`
-  symlink.
-- Rationale: real hardware cannot produce a SASS trace for a proposed
-  instruction such as CAIS/DySHARP-style operations; PTX can define functional
-  semantics and timing, while SASS preserves compiler/machine-level validation.
-- Validation: documentation-only structural checks and `git diff --check`; no
-  simulator core was changed and no hardware claim was added.
-- Evidence: PTX/SASS boundary is source-verified; PTX as the design path is a
-  project decision; CAIS/DySHARP exact private input-generation details remain
-  `Unknown`.
+- 新增 dual-code-object SM80 CUDA workload suite，覆盖 FMA、memory、control
+  flow、atomic、GEMV 和 GEMM；新增 metric collector 与 `SASS_PTX_GAP` launcher。
+- 12 个真实 A800 NVBit trace、SASS replay 与 PTX replay 全部通过 functional
+  check。周期差 −2.6% 至 +19.0%；GEMV/GEMM 的 instruction/IPC delta 仍明显。
+- 记录 CUDA 12.8 `-lineinfo` 导致 PTX `.loc/inlined_at` abort 的 parser
+  compatibility baseline failure；通过移除 compile-time `-lineinfo` 与设置
+  `TRACE_LINEINFO=0` 复跑成功。
+- 限制：仅 single A800；不涉及 multi-GPU、NVLink/NVSwitch/NVLS、H100 或
+  absolute calibration。
 
-## 2026-09-20 — Clarify external workload provenance and custom-ISA methodology
+## 2026-09-20 — 确认 PTX-primary design strategy
 
-- Commit: current phase; the SHA is recorded by the following Git history after
-  this phase is committed.
-- Corrected `02-trace-pipeline.md`: the A800 `vectoradd.cu` source is the
-  external NVBit SDK sample at
-  `$CONDA_PREFIX/opt/nvbit-1.8/test-apps/vectoradd/vectoradd.cu`, not a file in
-  the Accel-Sim repository. Added the SDK Makefile, `sm_80` override, artifact
-  paths, historical-command limitation, and a reproducible command recipe.
-- Added `16-simulating-custom-multigpu-isa.md`, a reader-facing explanation of
-  real instruction traces, communication-event traces, synthetic new-ISA
-  workloads, multi-GPU scheduling layers, CAIS/DySHARP methodology evidence,
-  and the required ISA/microarchitecture/NVSwitch validation boundaries.
-- Updated the research index so the new methodology document is part of the
-  six-month recovery path.
-- Evidence labels: the vectoradd source location is `Verified`; the exact
-  historical replay shell command is `Unknown/Observed limitation`; paper
-  details not stated in CAIS or DySHARP remain `Unknown` rather than inferred.
-- Validation: documentation diff/path checks and later phase regression are
-  required before commit. No simulator core was changed.
+- 决定 proposed ISA、GPU microarchitecture、scheduler 和 in-switch-computing
+  使用 PTX execution-driven mode；SASS/NVBit trace 作为已有 hardware 的
+  validation/calibration path。
+- 更新 design option、roadmap、experiment/validation plan、project state 和
+  research scope。
+- 原因：真实 hardware 无法产生 proposed instruction 的 SASS trace；PTX 可
+  直接表达 functional semantics 与 timing，SASS 保留 compiler/machine-level
+  validation。
 
-## 2026-09-19 — Complete P2 audit and add reader-facing concepts guide
+## 2026-09-19 — 完成 trace/transport analysis 与 project history
 
-- Commit: current phase; the SHA is recorded by the following Git history after
-  this phase is committed.
-- Completed the source audit of the current SM90/H100 path: binary-version
-  dispatch, Hopper opcode map, GMMA latency mapping, TMA metadata/handling,
-  mbarrier/SYNCS requirements, cluster fields, explicit TODOs, unsupported
-  paths, and the absence of `multimem`/GPU↔GPU/NVSwitch/NVLS semantics.
-- Added `.codex/docs/15-concepts-for-readers.md`, a Chinese tutorial that
-  introduces GPU execution, trace fields, the real A800 call path, CTest,
-  hotspot, request/reply packets, NCCL collective terms, AnyNet, endpoint
-  clocks, and NVLS before using those terms in the research plan.
-- Updated the documentation index, project state, and H100 capability audit.
-- Validation: release build completed; the existing missing `stubgen` helper is
-  tolerated by the build; endpoint unit tests passed 3 tests; analytical checker
-  passed 9 rows.
-- Limits: this remains source-level P2 evidence; real H100 trace replay and
-  hardware correlation still require H100/H200 NVSwitch access.
+- 完成真实 A800 `LDG.E.64` 的 producer→parser→warp→memory coalescing→GPU
+  memory interconnect→completion source mapping。
+- 确认 nested GPGPU-Sim 现有 `intersim2` 是 GPU-to-memory transport，而不是
+  GPU-to-GPU NVLink/NVSwitch model。
+- 完成 BookSim AnyNet two-endpoint smoke/sweep 与 endpoint/clock reference
+  contract；这些是 generic/synthetic transport evidence。
+- 建立 `.codex` rules、skills、knowledge、docs 与 experiments 的 source-of-
+  truth 结构。
 
-## 2026-09-19 — Trace/transport analysis and project history
+## 2026-09-19 — 完成 H100/Hopper P2 source audit
 
-- Branch: `feat/nvbit-a800-booksim-nvlink`, based on upstream `d930ad6`.
-- Commit: current phase (`docs(analysis): audit trace and define transport contract`;
-  see the branch `HEAD`, because recording a commit's own SHA would change that
-  SHA).
-- Added the real A800 `LDG.E.64` source-level autopsy from NVBit emission
-  through `.tracez`, parser, warp instruction, memory coalescing, GPU memory
-  interconnect, and completion gating.
-- Defined the timestamped BookSim endpoint API and rational global-picosecond
-  clock contract without modifying Accel-Sim or BookSim core code.
-- Added analytical bytes/flits checks, the dependency-free endpoint contract
-  and its unit tests, revised phase-oriented commit policy, and the Chinese
-  project history document.
-- Validation: analytical checker passed 9 synthetic sweep rows; endpoint
-  contract tests passed 3 tests; BookSim two-node smoke passed.
-- Limits: all network values remain synthetic; no embedded BookSim facade,
-  H100, NVSwitch, NCCL, or NVLS validation.
+- 审计 binary-version dispatch、Hopper opcode map、GMMA latency mapping、TMA
+  metadata、mbarrier/SYNCS、cluster fields 与明确的 TODO/unsupported path。
+- 结论保持保守：SM90 source support 不等于 multi-GPU、NVSwitch、NVLS 或
+  `multimem` timing support。
 
-## 2026-09-19 — A800 trace and two-endpoint BookSim transport
+## 2026-09-19 — 完成 A800/NVBit trace pipeline
 
-- Commit: `dc7ffa9` (`feat(transport): verify A800 trace and add two-GPU BookSim model`).
-- Installed NVBit 1.8 inside the `in-switch` conda environment and made the
-  tracer SDK path configurable through `NVBIT_PATH`.
-- Verified A800 SDK vectoradd → NVBit → post-process → `.tracez` → Accel-Sim
-  SM80 replay: exit 0, 6,824 simulated cycles, 98 CTAs, and 75,000 request /
-  reply packets.
-- Added the standalone BookSim AnyNet two-logical-GPU topology and nine-case
-  link-latency/packet-size sweep against external BookSim SHA `28f4329`.
-- Limits: generic transport only; no physical NVLink, NVSwitch, NVLS, NCCL, or
-  H100 validation.
+- 在单张 A800 上完成 CUDA → NVBit → raw trace → `.tracez` → Accel-Sim SM80
+  replay；software pipeline 通过。
+- 外部 BookSim checkout 完成 standalone two-node transport smoke/sweep。
+- 限制：本地没有第二张 GPU/NVLink peer；没有 H100/NVSwitch hardware
+  correlation。
 
-## 2026-09-18 — Repository memory, baseline, and capability audit
+## 语言与记录约定
 
-- Commit: `b659f94` (`docs(codex): establish research memory and baseline audit`).
-- Audited repository boundaries, `.claude/`, `AGENTS.md`, nested GPGPU-Sim,
-  external BookSim, build dependencies, and local A800/CUDA/toolchain state.
-- Established `.codex/` rules, skills, knowledge, docs, experiment metadata,
-  `.agents/skills` symlinks, and persistent evidence labels.
-- Documented the existing GPGPU-Sim `src/intersim2` BookSim-derived
-  shader↔memory path and separated it from future GPU↔GPU/NVLink work.
-- Recorded release build success, the existing V100 trace replay, and the
-  absence of registered CTest cases.
-- Limits: this audit predates the real A800 trace and does not establish
-  Hopper/NVSwitch/NVLS behavior.
-
-## Upstream base
-
-- Accel-Sim base: `d930ad6` (`Revert slurm.sim to the pre-2.0 template`).
-- Hopper support reference in the checkout: upstream commit `0db0445`.
-- External BookSim reference: `/home/wangjz/in-switch/booksim2`, SHA `28f4329`.
-- Nested GPGPU-Sim reference: separate checkout, SHA `91880c53` at the time of
-  the audit; it is not a tracked submodule of this repository.
-
-The three project commits above intentionally replace the earlier fine-grained
-changelog/state/SHA follow-up commits. Future work should add one commit per
-completed logical phase, with implementation, tests, documentation, state, and
-changelog together.
+后续 `.codex` 文档默认使用中文；PTX、SASS、BookSim、NVLink、NVSwitch、NVLS、
+API、symbol、路径、命令、metric 和 evidence label 保留英文，以避免术语含义
+漂移。每个 phase 应将代码、测试、state、implementation note 与本日志一起
+提交。

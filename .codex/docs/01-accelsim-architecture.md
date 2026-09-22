@@ -1,16 +1,15 @@
-# Accel-Sim architecture (initial map)
+# Accel-Sim architecture（初始映射）
 
-This is an initial source map, not a completed audit. The repository contains
-an Accel-Sim trace-driven wrapper over the nested GPGPU-Sim timing/functional
-model. `main.cc`/`accel-sim.cc` provide the trace-mode entry and orchestration;
-`trace_parser` and `warp_trace_stream` load command/kernel/warp records;
-`trace_shader_core_ctx` feeds `trace_warp_inst_t` into the shader pipeline.
+这是初始 source map，不是完整 audit。仓库通过 Accel-Sim trace-driven wrapper
+调用 nested GPGPU-Sim 的 timing/functional model。`main.cc`/`accel-sim.cc`
+提供 trace mode 入口和 orchestration；`trace_parser` 与 `warp_trace_stream`
+加载 command、kernel 和 warp records；`trace_shader_core_ctx` 将
+`trace_warp_inst_t` 送入 shader pipeline。
 
-The timing path then uses GPGPU-Sim shader core, cache, interconnect, memory
-partition, and DRAM components. `icnt_wrapper.cc` selects a local xbar or the
-BookSim-derived `intersim2` implementation. Its
-`InterconnectInterface::Push/Pop/Advance` boundary and `GPUTrafficManager`
-packetize `mem_fetch` requests between shader and memory nodes. This is a
-verified GPU-internal memory-system path, not evidence of GPU-to-GPU
-NVLink/NVSwitch support. The exact instruction-to-memory completion path will
-be expanded after the trace autopsy.
+后续 timing path 使用 GPGPU-Sim 的 shader core、cache、interconnect、memory
+partition 和 DRAM components。`icnt_wrapper.cc` 在 local xbar 与
+BookSim-derived `intersim2` 之间选择；
+`InterconnectInterface::Push/Pop/Advance` 和 `GPUTrafficManager` 将 shader 与
+memory node 之间的 `mem_fetch` request packetize。该路径已验证为 GPU 内部
+memory-system path，不能作为 GPU-to-GPU NVLink/NVSwitch support 的证据。
+完整 instruction-to-memory completion path 由后续 trace autopsy 文档补充。
