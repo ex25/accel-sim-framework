@@ -15,6 +15,7 @@ call path、配置、before/after、测试、evidence、限制和下一步。
   reference transport adapter。
 - `014-ring-collective.md`：P3 NCCL-style Ring all-reduce schedule。
 - `015-nvswitch-topology.md`：P4 configurable NVSwitch topology/route facade。
+- `016-nvls-reference.md`：P5 NVLS multicast/reduction completion reference。
 
 Raw trace、binary、build tree 和大 log 不放在本目录；只保存可读的 research
 record 与 reproducibility metadata。

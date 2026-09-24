@@ -1,5 +1,13 @@
 # Research 变更日志
 
+## 2026-09-24 — 完成 NVLS multicast/reduction completion reference（P5）
+
+- 新增 `NVLSReducePlan` 与 `NVLSReferenceEngine`：每个 source 产生一次
+  multicast ingress，所有 ingress complete 后才释放 abstract switch-reduce
+  completion。
+- 3 个 focused tests 通过；8-rank example 的 ingress bytes 为 `8B`，Ring
+  reference 为 `14B`。这不是 NVLS hardware arithmetic、protocol 或性能验证。
+
 ## 2026-09-24 — 完成 NVSwitch topology/transport facade（P4 reference）
 
 - 新增可配置 GPU→NVSwitch graph；默认显式表示 8 logical GPUs 与 4 logical

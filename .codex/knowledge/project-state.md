@@ -76,7 +76,7 @@
 - [x] point-to-point communication completion（P2 reference adapter）
 - [x] NCCL Ring collective（P3 reference schedule）
 - [x] NVSwitch topology/transport semantics（P4 reference facade）
-- [ ] NVLS multicast/reduction/completion semantics（P5）
+- [x] NVLS multicast/reduction/completion semantics（P5 reference engine）
 - [ ] compute + communication integration
 - [ ] statistics/experiment automation
 - [ ] real H100 validation
@@ -91,9 +91,10 @@
    `sim_cycle`，不是已校准的 global ps。
 4. 保留 `cais.add.u32` 作为无副作用 control；communication side effect 必须
    通过独立 event boundary。
-5. P2/P3 与 P4 reference layers 已通过 focused tests；online GPU-to-network
-   coupling、BookSim link timing、queueing 和 calibrated DGX H100 topology
-   仍未实现。下一步 P5 NVLS multicast/reduction completion semantics。
+5. P2/P3/P4/P5 reference layers 已通过 focused tests；online GPU-to-network
+   coupling、BookSim link timing、queueing、NVLS arithmetic 和 calibrated DGX
+   H100 topology 仍未实现。P0-P5 reference milestone 已完成，下一步应先
+   做全链路 GPU event stream→collective engine 集成，再接入真实 BookSim。
 
 ## Evidence 规则
 
