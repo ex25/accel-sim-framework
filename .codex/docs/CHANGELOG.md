@@ -1,5 +1,12 @@
 # Research 变更日志
 
+## 2026-09-24 — 完成 NCCL-style Ring reference schedule（P3）
+
+- 新增 `RingAllReducePlan`，生成 reduce-scatter + all-gather 两阶段事件，
+  维护 chunk、step、channel 与 predecessor completion dependencies。
+- 4 个 focused tests 通过；4-rank plan 经 P2 bridge 完成并统计 1,536 bytes /
+  48 flits。该阶段仍不是 NCCL kernel 或真实 NVLink timing。
+
 ## 2026-09-24 — 完成 point-to-point event bridge（P2 reference）
 
 - 将 P0 `COMM_SUBMIT` lifecycle 接入既有 deterministic transport contract，
