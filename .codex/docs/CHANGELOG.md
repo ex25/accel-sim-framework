@@ -1,5 +1,15 @@
 # Research 变更日志
 
+## 2026-09-24 — 完成 PTX-to-communication event schema（P0）
+
+- 新增 `CommunicationEvent`、`EventCompletion`、`LogicalGPUContext` 与
+  `CommunicationEventOrchestrator`，定义 GPU event 的 identity、dependency、
+  ready/inject/complete lifecycle 和 global picosecond timestamp。
+- 新增 4 个 P0 focused unit tests；既有 3 个 transport contract tests 继续通过。
+- 本阶段没有修改 PTX parser、nested GPGPU-Sim、SASS trace format、BookSim 或
+  GPU-memory `intersim2`。这是 **Verified / unit** schema evidence，不是
+  NCCL/NVSwitch/NVLS 或真实 H100 evidence。
+
 ## 2026-09-22 — 统一 `.codex` 文档语言
 
 - 将 README、docs、experiments、knowledge、rules 与 skills 中的解释性正文统一

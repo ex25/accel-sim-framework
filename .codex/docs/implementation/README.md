@@ -7,6 +7,8 @@ call path、配置、before/after、测试、evidence、限制和下一步。
 - `008-trace-autopsy-booksim-clock.md`：trace autopsy 与 endpoint/clock contract。
 - `009-sm90-ptx-baseline.md`：SM90 PTX execution-driven baseline。
 - `010-cais-add-ptx.md`：最小 single-GPU `cais.add.u32` custom PTX instruction。
+- `011-ptx-event-schema.md`：PTX-to-communication event schema 与 P0 reference
+  orchestrator。
 
 Raw trace、binary、build tree 和大 log 不放在本目录；只保存可读的 research
 record 与 reproducibility metadata。

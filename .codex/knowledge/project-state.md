@@ -1,6 +1,6 @@
 # 项目状态（重新进入 session 时先读）
 
-更新时间：2026-09-22
+更新时间：2026-09-24
 
 ## 项目身份
 
@@ -71,10 +71,12 @@
 - [x] single-A800 SASS/PTX frontend gap matrix（GEMV/GEMM）
 - [x] SM90 PTX execution-driven baseline
 - [x] minimal custom PTX instruction
-- [ ] PTX instruction-to-communication-event boundary
-- [ ] Ring baseline
-- [ ] NVSwitch model
-- [ ] NVLS semantics prototype
+- [x] PTX instruction-to-communication-event schema（P0 reference contract）
+- [ ] GPU-local synchronization event producer/completion（P1）
+- [ ] point-to-point communication completion（P2）
+- [ ] NCCL Ring collective（P3）
+- [ ] NVSwitch topology/transport semantics（P4）
+- [ ] NVLS multicast/reduction/completion semantics（P5）
 - [ ] compute + communication integration
 - [ ] statistics/experiment automation
 - [ ] real H100 validation
@@ -84,12 +86,11 @@
 1. A800 vectoradd source 在外部 NVBit SDK；历史 replay command 未完整保存。
 2. CUDA 12.8 PTX parser 对 `-lineinfo` 生成的 `.loc ... inlined_at` 仍存在兼容
    性限制；trace workflow 使用 `TRACE_LINEINFO=0`。
-3. 先定义独立的 PTX instruction-to-communication-event schema 与 completion
-   contract，并为它添加 focused tests。
-4. 保留 `cais.add.u32` 作为无副作用 control；不要在 event boundary 之前加入
-   network side effect。
-5. event boundary 通过后，再定义 logical rank/stream orchestrator 与
-   BookSim endpoint facade；最后才进入 Ring/NVSwitch/NVLS。
+3. P0 schema 已通过 focused unit tests；下一步实现 GPU-local synchronization
+   event producer/completion contract。
+4. 保留 `cais.add.u32` 作为无副作用 control；communication side effect 必须
+   通过独立 event boundary。
+5. P1/P2 通过后再连接 BookSim endpoint facade，之后才进入 Ring/NVSwitch/NVLS。
 
 ## Evidence 规则
 
