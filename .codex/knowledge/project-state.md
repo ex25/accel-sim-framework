@@ -73,7 +73,7 @@
 - [x] minimal custom PTX instruction
 - [x] PTX instruction-to-communication-event schema（P0 reference contract）
 - [x] GPU-local synchronization event producer/completion（P1）
-- [ ] point-to-point communication completion（P2）
+- [x] point-to-point communication completion（P2 reference adapter）
 - [ ] NCCL Ring collective（P3）
 - [ ] NVSwitch topology/transport semantics（P4）
 - [ ] NVLS multicast/reduction/completion semantics（P5）
@@ -91,7 +91,8 @@
    `sim_cycle`，不是已校准的 global ps。
 4. 保留 `cais.add.u32` 作为无副作用 control；communication side effect 必须
    通过独立 event boundary。
-5. P2 通过后再连接 BookSim endpoint facade，之后才进入 Ring/NVSwitch/NVLS。
+5. P2 reference adapter 已通过测试；online GPU-to-network coupling 与
+   embedded BookSim backend 仍未实现。下一步 P3 Ring reference scheduler。
 
 ## Evidence 规则
 

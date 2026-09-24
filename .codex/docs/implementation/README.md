@@ -11,6 +11,8 @@ call path、配置、before/after、测试、evidence、限制和下一步。
   orchestrator。
 - `012-ptx-sync-event-producer.md`：P1 GPU-local PTX synchronization event
   producer/completion bridge。
+- `013-point-to-point-event-bridge.md`：P2 point-to-point event lifecycle 与
+  reference transport adapter。
 
 Raw trace、binary、build tree 和大 log 不放在本目录；只保存可读的 research
 record 与 reproducibility metadata。

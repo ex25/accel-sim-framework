@@ -1,5 +1,13 @@
 # Research 变更日志
 
+## 2026-09-24 — 完成 point-to-point event bridge（P2 reference）
+
+- 将 P0 `COMM_SUBMIT` lifecycle 接入既有 deterministic transport contract，
+  实现 ready/inject/complete 与 completion metadata。
+- 显式拒绝未经换算的 P1 `sim_cycle` timestamp；尚未接入 online GPGPU-Sim、
+  embedded BookSim 或真实 NVLink。
+- 3 个 focused tests 通过；见 `013-point-to-point-event-bridge.md`。
+
 ## 2026-09-24 — 完成 GPU-local PTX synchronization event producer（P1）
 
 - Nested GPGPU-Sim 在 timing-visible `bar.*`、`membar.*` issue 以及已有
