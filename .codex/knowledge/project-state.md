@@ -75,7 +75,7 @@
 - [x] GPU-local synchronization event producer/completion（P1）
 - [x] point-to-point communication completion（P2 reference adapter）
 - [x] NCCL Ring collective（P3 reference schedule）
-- [ ] NVSwitch topology/transport semantics（P4）
+- [x] NVSwitch topology/transport semantics（P4 reference facade）
 - [ ] NVLS multicast/reduction/completion semantics（P5）
 - [ ] compute + communication integration
 - [ ] statistics/experiment automation
@@ -91,9 +91,9 @@
    `sim_cycle`，不是已校准的 global ps。
 4. 保留 `cais.add.u32` 作为无副作用 control；communication side effect 必须
    通过独立 event boundary。
-5. P2 reference adapter 与 P3 Ring reference scheduler 已通过 focused tests；
-   online GPU-to-network coupling 与 embedded BookSim backend 仍未实现。下一步
-   P4 NVSwitch topology/transport facade。
+5. P2/P3 与 P4 reference layers 已通过 focused tests；online GPU-to-network
+   coupling、BookSim link timing、queueing 和 calibrated DGX H100 topology
+   仍未实现。下一步 P5 NVLS multicast/reduction completion semantics。
 
 ## Evidence 规则
 

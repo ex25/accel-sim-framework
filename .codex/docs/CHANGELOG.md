@@ -1,5 +1,14 @@
 # Research 变更日志
 
+## 2026-09-24 — 完成 NVSwitch topology/transport facade（P4 reference）
+
+- 新增可配置 GPU→NVSwitch graph；默认显式表示 8 logical GPUs 与 4 logical
+  NVSwitches，并在 event registration 前执行 route validation。
+- 8-rank Ring 经 wrapper 完成 112 条 routed transfers；没有把该 reference
+  graph 宣称为已校准的 DGX H100 port topology。
+- 4 个 focused tests 通过；link bandwidth/arbitration/queueing、BookSim 与
+  NVLS 仍待后续阶段。
+
 ## 2026-09-24 — 完成 NCCL-style Ring reference schedule（P3）
 
 - 新增 `RingAllReducePlan`，生成 reduce-scatter + all-gather 两阶段事件，

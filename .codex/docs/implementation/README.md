@@ -14,6 +14,7 @@ call path、配置、before/after、测试、evidence、限制和下一步。
 - `013-point-to-point-event-bridge.md`：P2 point-to-point event lifecycle 与
   reference transport adapter。
 - `014-ring-collective.md`：P3 NCCL-style Ring all-reduce schedule。
+- `015-nvswitch-topology.md`：P4 configurable NVSwitch topology/route facade。
 
 Raw trace、binary、build tree 和大 log 不放在本目录；只保存可读的 research
 record 与 reproducibility metadata。
