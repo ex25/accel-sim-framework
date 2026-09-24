@@ -9,8 +9,8 @@ description: 将 Accel-Sim research change 记录到正确的 source of truth，
 - Repeated workflow → `.codex/skills/`；`.agents/skills/` 只放 symlink
 - Compact current fact/state → `.codex/knowledge/`
 - Architecture、call path、alternative、diagram → `.codex/docs/`
-- Design choice → `.codex/docs/DECISIONS.md`
-- Chronology/commit → `.codex/docs/CHANGELOG.md`
+- Design choice → `.codex/docs/decisions.md`
+- Chronology/commit → `.codex/docs/changelog.md`
 - Experiment metadata/entrypoint → `.codex/experiments/`
 
 ## 语言
@@ -24,7 +24,7 @@ NVSwitch、NVLS、API、symbol、path、config、metric、evidence label 等专�
 1. 每类信息只选择一个 source of truth，不把相同段落复制到多个文件。
 2. 记录 date、branch、relevant SHA、command、test、evidence label、assumption、
    limitation 与 next step。
-3. code/model change 要同步更新 numbered implementation note，包含 problem、
+3. code/model change 要同步更新 `.codex/docs/implementation.md` 对应章节，包含 problem、
    design、alternative、file/class/function、call path、configuration、before/
    after、test、validation、commit 与 future work。
 4. 保持 `.codex` 高信号：不保存 raw trace、binary、build output 或长 log。

@@ -8,7 +8,7 @@ evidence that GPU-GPU NVLink/NVSwitch exists.
 
 固定并记录 inspected upstream SHA。优先使用 submodule 或 external
 checkout plus a narrow adapter; do not copy/vendored-paste BookSim before a
-decision in `DECISIONS.md`. Any local patch must be separately named and
+decision in `.codex/docs/decisions.md`. Any local patch must be separately named and
 upstream-trackable.
 
 研究或嵌入 BookSim 时，必须定位 configuration、topology/network、

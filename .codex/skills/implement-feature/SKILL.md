@@ -17,7 +17,8 @@ workflow 直接开始完整 NVSwitch/NVLS implementation。
    proposed PTX ISA/microarchitecture 要明确记录 SASS validation boundary。
 4. 先跑 focused test，再跑相关 regression；失败分类为 `BASELINE FAILURE`、
    environment/dependency failure 或 branch regression。
-5. 更新 implementation note、project-state、必要时的 DECISIONS、CHANGELOG 与
+5. 更新 `docs/implementation.md`、project-state、必要时的 `docs/decisions.md`、
+   `docs/changelog.md` 与
    compact knowledge。
 6. 检查 `git diff --check`、`git diff --stat`、完整 diff 与全部 repository status。
 7. 提交一个 logical unit，复读最终 diff，并记录 SHA。

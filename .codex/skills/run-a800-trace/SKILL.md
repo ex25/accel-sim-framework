@@ -26,7 +26,8 @@ occupancy 与 fresh output directory。缺 GPU、SDK 或 benchmark 时记录 blo
 5. 运行 post-traces-processing，记录 input/output path。
 6. 用最小兼容 Accel-Sim config replay，记录 command、exit code、runtime、stats、error。
 7. 将 failure 分类为 source/build/NVBit/runtime/parser/simulator/environment。
-8. 更新 trace-pipeline docs、local-environment/trace-format knowledge 与 changelog。
+8. 更新 `docs/gpu-execution.md`、local-environment/trace-format knowledge 与
+   `docs/changelog.md`。
 
 完成条件：exact command、SHA、trace/kernel metadata、output、failure classification、
 evidence label 与 limitation 均已记录。成功只证明指定的 A800

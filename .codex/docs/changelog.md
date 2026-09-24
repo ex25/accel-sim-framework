@@ -1,5 +1,15 @@
 # Research 变更日志
 
+## 2026-09-24 — 按主题重组 research 文档
+
+- 将 GPU/trace、概念、custom ISA、PTX/SASS strategy 和 SASS/PTX gap 合并为
+  `gpu-execution.md`、`concepts.md` 和 `custom-isa.md`，保留长期知识并去掉
+  编号文件名。
+- 将项目目标明确为三层：先完成 DGX-H100 类 8-GPU simulator，再运行
+  prefill/training sanity workload，最后复现/扩展 ACIS/CAIS 与 DySHARP。
+- 保持 `roadmap.md` 为唯一执行计划、`implementation.md` 为唯一实现记录；主题文档
+  不再按时间或 phase 线性新增。
+
 ## 2026-09-24 — 完成 NVLS multicast/reduction completion reference（P5）
 
 - 新增 `NVLSReducePlan` 与 `NVLSReferenceEngine`：每个 source 产生一次
@@ -30,7 +40,7 @@
   实现 ready/inject/complete 与 completion metadata。
 - 显式拒绝未经换算的 P1 `sim_cycle` timestamp；尚未接入 online GPGPU-Sim、
   embedded BookSim 或真实 NVLink。
-- 3 个 focused tests 通过；见 `013-point-to-point-event-bridge.md`。
+- 3 个 focused tests 通过；详细记录见 `implementation.md` 的 P2。
 
 ## 2026-09-24 — 完成 GPU-local PTX synchronization event producer（P1）
 
@@ -42,7 +52,8 @@
   BookSim、NVLink、NVSwitch 或 NVLS side effect。
 - Release build、安装后的外部 PTX `membar.cta + bar.sync` workload 和 P0/
   transport regression tests 通过。具体结果与运行限制见
-  `012-ptx-sync-event-producer.md`。
+  `implementation.md` 的 P1 以及
+  `.codex/experiments/2026-09-24-ptx-sync-events.md`。
 
 ## 2026-09-24 — 完成 PTX-to-communication event schema（P0）
 
@@ -148,5 +159,5 @@
 
 后续 `.codex` 文档默认使用中文；PTX、SASS、BookSim、NVLink、NVSwitch、NVLS、
 API、symbol、路径、命令、metric 和 evidence label 保留英文，以避免术语含义
-漂移。每个 phase 应将代码、测试、state、implementation note 与本日志一起
+漂移。每个 phase 应将代码、测试、state、`implementation.md` 与本日志一起
 提交。

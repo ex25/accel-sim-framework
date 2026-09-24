@@ -12,7 +12,7 @@ description: 研究 standalone/embedded BookSim 的 build boundary、API、timin
    completion。
 4. 运行最小 standalone smoke test，记录 config、seed、packet、latency、cycle、stats。
 5. 在 copy code 前比较 external checkout、submodule、subtree、narrow patch，并
-   将 reproducibility/upstream tracking/maintenance 写入 `DECISIONS.md`。
+   将 reproducibility/upstream tracking/maintenance 写入 `docs/decisions.md`。
 6. 设计 create/configure、inject、advance、completion、stats adapter，定义
    packet ownership 与 clock conversion。
 7. 分离 endpoint/collective semantics、NVSwitch topology、multicast/reduction

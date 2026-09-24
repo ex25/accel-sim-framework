@@ -42,7 +42,7 @@ scoreboard checks 清空后才完成。
 `48 0 0 17 0 0 0 0 0 0 0 00a0 ffffffff 1 R4 LDG.E.64 1 R4 8 1
 0x7f7490524700 8 0 0 0 NoVal`。这是 trace version 6、lineinfo disabled、
 32 lanes 全 active、8-byte global load、base+stride address，且没有 recorded
-register value。完整 source mapping 见 `.codex/docs/02-trace-pipeline.md`。
+register value。完整 source mapping 见 `.codex/docs/gpu-execution.md`。
 
 ## Existing network boundary
 

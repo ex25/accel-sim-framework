@@ -21,7 +21,7 @@ GPGPU-Sim SHA 与 source checkout。
 5. 检查 active mask、predicate、register、control flow、barrier、stream 与
    Hopper-specific fields，并明确缺失字段。
 6. 引用 file/line evidence，绘制 record→parser→warp→issue→completion Mermaid。
-7. 完整 autopsy 写入 `docs/02-trace-pipeline.md`，compact facts 写入
+7. 完整 autopsy 写入 `docs/gpu-execution.md`，compact facts 写入
    `knowledge/trace-format.md`。
 
 优先使用真实 record；区分 verified/unverified edge。Ampere trace 不能证明

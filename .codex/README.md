@@ -2,9 +2,11 @@
 
 ## 项目目标
 
-项目目标是在 Accel-Sim 上加入 research-grade GPU interconnect model，并研究
-single-node H100/H200 NVLink + NVSwitch + NVLS collective behaviour。首个目标
-是 2/4/8-GPU AllReduce，对比 Ring 与 NVLS。项目有两条明确分工的输入路线：
+项目目标分三层：先实现可复现的 DGX-H100 类 8-GPU + 4-NVSwitch + NVLS
+simulator；再在其上运行 prefill/training workload，检查性能趋势和实现一致性；
+最后扩展到 ACIS/CAIS、DySHARP 类 custom ISA 与 in-switch computing 设计复现。
+首个系统目标是 2/4/8-GPU AllReduce，对比 Ring 与 NVLS。项目有两条明确分工的
+输入路线：
 
 1. **PTX-first design path**：用于现实硬件尚不存在的新 ISA、新 GPU
    microarchitecture、custom scheduling 与 in-switch computing design。
@@ -24,9 +26,9 @@ symbol 和原始输出必须保持原样。
 ## 当前状态
 
 - Main repository：`accel-sim-framework`，branch
-  `feat/nvbit-a800-booksim-nvlink`，基于 upstream `d930ad6`。
+  `feat/ptx-sync-events-p0-p5`，基于 upstream `d930ad6`。
 - Nested GPGPU-Sim 是独立 ignored Git checkout，当前在
-  `feat/cais-add-ptx`、commit `8f3c35fa`；它不是 Accel-Sim submodule。
+  `feat/ptx-sync-events-p1-p5`；它不是 Accel-Sim submodule。
 - Nested GPGPU-Sim 已含 BookSim2-derived `src/intersim2`，由
   `-network_mode 1` 选择，用于 GPU-to-memory interconnect。外部
   `../booksim2` checkout `28f4329` 只是 upstream/reference checkout。
@@ -53,18 +55,17 @@ validation。
 - `skills/`：可复用 workflow；`.agents/skills/` 只保存指向 canonical skill
   的 symlink。
 - `knowledge/`：高密度、快速加载的当前事实。
-- `docs/`：architecture、research、decision、implementation 与 changelog。
+- `docs/`：按主题维护的 `roadmap.md`、`implementation.md`、概念/架构文档、
+  `decisions.md` 与 `changelog.md`；不按 phase 自动新增文件。
 - `experiments/`：实验 specification 和 reproducibility metadata；raw trace、
   log、checkpoint 与大结果保存在 `.codex/` 之外。
 
 ## 当前 milestone
 
-M2 A800 trace pipeline、trace autopsy、standalone two-endpoint BookSim transport、
-analytical check 与 endpoint/clock reference contract 已完成。M3 SM90 PTX
-baseline 与 M4 `cais.add.u32` custom instruction 已完成。下一阶段是独立的
-instruction-to-communication-event boundary。BookSim integration 仍是单独的
-transport milestone；custom instruction 当前没有 multi-GPU/network side
-effect。
+M2 A800 trace pipeline、M3 SM90 PTX baseline、M4 `cais.add.u32` 和 P0–P5
+communication/collective reference layers 已完成。下一阶段按
+`.codex/docs/roadmap.md` 的 P6 开始 online event/collective integration；BookSim
+integration、real H100 calibration 和 hardware validation 仍未完成。
 
 ## 关键决定
 
@@ -76,7 +77,7 @@ effect。
 5. 保留 Accel-Sim 现有 SASS validation path；只有 research design 需要时才
    扩展 PTX frontend 或增加 synthetic instruction/event input。
 
-详细 rationale 见 `.codex/docs/DECISIONS.md`。
+详细 rationale 见 `.codex/docs/decisions.md`。
 
 ## 当前限制
 
@@ -87,17 +88,19 @@ NVLS 或 `multimem` timing semantics。README/release-note claim 不能替代源
 
 ## 下一项任务
 
-定义并测试 PTX instruction-to-communication-event schema 与 single-GPU
-completion contract。保留 `cais.add.u32` 作为无副作用 control。只有 event
-boundary 的 focused tests 通过后，才能连接 two-endpoint BookSim prototype；
-此前不得直接实现 Ring、NVSwitch 或 NVLS。
+执行 `.codex/docs/roadmap.md` 的 P6 online event/collective integration。P0–P5
+reference layers 已有 focused tests，但不能替代真实 BookSim 或 H100/NVSwitch
+validation。
 
 ## 详细入口
 
 - Research index：`.codex/docs/README.md`
-- 中文项目历史：`.codex/docs/项目进展总览.md`
+- 唯一计划：`.codex/docs/roadmap.md`
+- 实现记录：`.codex/docs/implementation.md`
 - 当前 state/checklist：`.codex/knowledge/project-state.md`
 - 本机环境：`.codex/knowledge/local-environment.md`
 - Trace facts：`.codex/knowledge/trace-format.md`
-- Capability matrix：`.codex/docs/03-hardware-capability-matrix.md`
-- Decision/history：`.codex/docs/DECISIONS.md`、`.codex/docs/CHANGELOG.md`
+- GPU/trace：`.codex/docs/gpu-execution.md`
+- Network/BookSim：`.codex/docs/network-model.md`
+- Concepts/custom ISA：`.codex/docs/concepts.md`、`.codex/docs/custom-isa.md`
+- Decision/history：`.codex/docs/decisions.md`、`.codex/docs/changelog.md`

@@ -20,7 +20,7 @@ lifetime、aggregation、output label、baseline 与 test workload。
    和 output convention。
 4. 添加 deterministic focused test/replay 检查 label/value；有意义时增加 zero-event case。
 5. 运行 focused test 与最小 regression，比较 baseline 并分类 failure。
-6. 在 implementation note/changelog 记录 unit、scope、reset、increment path、
+6. 在 `docs/implementation.md` 与 `docs/changelog.md` 记录 unit、scope、reset、increment path、
    file/symbol、command/result 与 limitation。
 7. 执行 `git diff --check`，使用具体 subject，如 `feat(stats): count ...`，body
    写 what/why/files/how/tests/limits。

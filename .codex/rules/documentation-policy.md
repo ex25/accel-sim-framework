@@ -23,8 +23,9 @@ label、branch、commit 等专有名词保留英文；代码块、命令、路�
 | `AGENTS.md` | thin bootstrap pointer | 不复制 rules |
 
 改变未来工作的 implementation 必须在同一 logical phase 更新相关 knowledge 与
-implementation note。重要 architecture choice 写入 `DECISIONS.md`，chronology
-写入 `CHANGELOG.md`。优先链接 source of truth，避免复制出多份漂移 summary。
+`implementation.md` 对应章节。重要 architecture choice 写入
+`docs/decisions.md`，chronology 写入 `docs/changelog.md`。优先链接 source of
+truth，避免复制出多份漂移 summary。
 
 所有 claim 旁应使用 `Verified`、`Observed`、`Inferred`、`Hypothesis`、
 `Unknown`、`Needs hardware validation` 等 evidence label。复现需要时必须记录

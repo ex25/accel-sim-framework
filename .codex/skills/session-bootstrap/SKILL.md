@@ -18,8 +18,9 @@ description: 在 context loss 后恢复 Accel-Sim/NVLS research project，报告
 5. 编辑前报告 goal、branch、baseline SHA、hardware、milestone、completed work、
    blocker、evidence level 与 next step。
 6. proposed ISA/microarchitecture task 必须先读 `ptx-design-baseline` 与
-   `17-ptx-primary-strategy.md`。
-7. state 改变时同步更新 `project-state.md`、相关 docs 与 `CHANGELOG.md`。
+   `docs/roadmap.md`、`docs/implementation.md`。
+7. state 改变时同步更新 `project-state.md`、相关主题 docs 与
+   `docs/changelog.md`。
 
 完成时应让新 session 无需之前对话即可识别 repository、baseline、hardware
 limit、milestone、blocker 与 next action。

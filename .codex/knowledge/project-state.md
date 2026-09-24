@@ -4,11 +4,13 @@
 
 ## 项目身份
 
-- 目标：以 Accel-Sim + BookSim 构建 H100 NVLink/NVSwitch/NVLS research platform。
+- 目标：先以 Accel-Sim + BookSim 构建可复现的 DGX-H100 类 8-GPU/NVSwitch/NVLS
+  simulator，再运行 prefill/training sanity workload，最后扩展到 ACIS/CAIS 与
+  DySHARP 类 custom ISA/in-switch computing 复现。
 - Main repository/branch：`accel-sim-framework` /
-  `feat/nvbit-a800-booksim-nvlink`。
-- Nested GPGPU-Sim：独立 ignored checkout，branch `feat/cais-add-ptx`，commit
-  `8f3c35fa`；不是 tracked submodule。
+  `feat/ptx-sync-events-p0-p5`，HEAD 以当前 Git checkout 为准。
+- Nested GPGPU-Sim：独立 ignored checkout，branch `feat/ptx-sync-events-p1-p5`，
+  commit `ef16060b`；不是 tracked submodule。
 - BookSim reference checkout：`/home/wangjz/in-switch/booksim2`，`28f4329`，
   branch `master`；未集成。
 
@@ -93,8 +95,15 @@
    通过独立 event boundary。
 5. P2/P3/P4/P5 reference layers 已通过 focused tests；online GPU-to-network
    coupling、BookSim link timing、queueing、NVLS arithmetic 和 calibrated DGX
-   H100 topology 仍未实现。P0-P5 reference milestone 已完成，下一步应先
-   做全链路 GPU event stream→collective engine 集成，再接入真实 BookSim。
+   H100 topology 仍未实现。P0-P5 reference milestone 已完成，下一步按
+   `.codex/docs/roadmap.md` 执行 P6。
+
+唯一计划和实现入口：`.codex/docs/roadmap.md`、`.codex/docs/implementation.md`；
+GPU/trace 与网络模型入口：`.codex/docs/gpu-execution.md`、
+`.codex/docs/network-model.md`；概念和 custom ISA 入口：
+`.codex/docs/concepts.md`、`.codex/docs/custom-isa.md`。
+最近实验入口：`.codex/experiments/2026-09-24-ptx-sync-events.md` 和
+`.codex/experiments/2026-09-24-reference-collectives.md`。
 
 ## Evidence 规则
 

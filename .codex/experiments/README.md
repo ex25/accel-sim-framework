@@ -17,3 +17,8 @@ hardware/model evidence level。
   被未修改的 `H100-PTX`/`SM90_H100` execution-driven path 接受。
 - `2026-09-21-cais-add-ptx.md`：最小 single-GPU `cais.add.u32` 的 parser、
   functional、dependency、timing、completion 与 SM90 regression evidence。
+- `2026-09-24-ptx-sync-events.md`：P1 `membar.cta + bar.sync` JSONL event
+  producer smoke；脚本位于 `experiments/ptx_sync_events/run_smoke.py`。
+- `2026-09-24-reference-collectives.md`：P2–P5 point-to-point、Ring、8×4
+  NVSwitch facade 与 NVLS reference completion；脚本位于
+  `experiments/event_collectives_reference/run_reference.py`。

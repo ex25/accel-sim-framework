@@ -1,4 +1,4 @@
-# Trace pipeline
+# GPU 执行、trace 与 Hopper 源码审计
 
 ## 当前证据
 
@@ -172,3 +172,80 @@ This autopsy proves the compute-trace-to-GPU-memory-timing path. It does not
 prove rank identity, NCCL, peer traffic, NVSwitch routing, multicast, or NVLS
 reduction; those must remain independent communication events until a separate
 model is introduced.
+
+## H100/Hopper 支持边界
+
+当前 checkout 的 README/release notes 声称 Accel-Sim 2.0 支持 H100/H200 的
+TMA、WGMMA、`mbarrier`、threadblock clusters/DSM、chiplet 或 uGPU memory
+partitioning，以及 SM90 configs。源码搜索确认了 Hopper opcode maps、cluster
+ID/rank trace fields、TMA multicast metadata，以及 trace-driven layer 中的
+mbarrier/WGMMA handling。
+
+源码 audit 已确认：`SM90_H100` 设置 compute capability 9.0 与 Hopper-specific
+pipeline/memory parameters；`hopper_opcode.h` 映射 Hopper opcodes；tracer/parser
+struct 携带 cluster ID/rank 与 TMA multicast fields；`trace_driven.cc` 包含
+TMA、mbarrier、spinloop、cluster 与 GMMA handling。在 Accel-Sim、GPGPU-Sim
+和 tracer 源码中未找到 `multimem` symbol。
+
+## P2 source audit 结果
+
+| Feature | Configuration / producer | Consumer path | 当前证据 |
+|---|---|---|---|
+| SM90/H100 | `SM90_H100/gpgpusim.config`、binary version 90 | `trace_driven.cc:198-200` 选择 `Hopper_OpcodeMap` | source verified；无 H100 replay |
+| GMMA | `OP_QGMMA/HGMMA/IGMMA`、Hopper opcode map | `parseSASSInstruction`，`trace_driven.cc:634-673` 的 latency/initiation mapping | partial model；需要 H100 trace |
+| TMA | `UTMALDG/UTMASTG/UTMAREDG/UBLK*` 与 TMA trace metadata | `trace_parser.cc:227-275`、`trace_driven.cc:345-368,560-605` | partial model；TMA prefetch prints 未实现 |
+| mbarrier/SYNCS | register-value trace 与 address metadata | `trace_driven.cc:722-858`、shader TMA/mbarrier state | partial model；unsupported variants 会 abort 或 warn |
+| cluster/DSM fields | NVBit record 中的 CTA/cluster ID 与 cluster rank | `TracezReader`、`trace_warp_inst_t`、shader state | fields 存在；不是 NCCL rank |
+| `multimem` | 未找到 producer/parser/opcode symbol | 无 consumer path | 未实现 |
+| NVLink/NVSwitch/NVLS | 未找到 GPU↔GPU event 或 fabric path | 无 consumer path | 未实现 |
+
+当前代码明确存在 source-level limitations：TMA prefetch 被当作 no-op
+（`trace_driven.cc:585-589`）；GMMA model 拒绝未知 tile size（`:651-663`）；
+cluster fence handling 仍标记为 TODO（`:715-719`）；未知 opcode string 会在
+`parse_from_trace_struct()`（`:298-313`）中触发 assert。因此，在声称完整
+Hopper support 前必须取得真实 H100 trace fixture。
+
+面向读者的当前实现边界见 `.codex/docs/implementation.md`；架构事实以本文件和源码为准。结论保持保守：
+SM90 support 不代表 multi-GPU NVLink/NVSwitch/NVLS support；当前没有
+`multimem` path 也不妨碍未来实现。
+
+## A800 单卡 SASS/PTX gap
+
+本实验的完整元数据、命令、固定版本、失败分类和逐例数据见
+`.codex/experiments/2026-09-20-sass-ptx-a800-gap.md`。这里保留面向后续设计的结论。
+
+## 结论（Observed）
+
+在同一个 `sm_80` CUDA 程序、同一个 `SM80_A100/gpgpusim.config` 基线下，
+SASS trace replay 与 PTX execution-driven replay 的周期通常接近，但退休指令数和
+IPC 并不接近：
+
+- GEMV 64/128/256 的 PTX 指令数比 SASS 少 36.5%–38.2%，IPC 少 39.5%–41.6%，
+  但周期只多 3.5%–5.9%。
+- GEMM 16/32/64 的 PTX 指令数少 20.0%–25.3%，IPC 少 22.7%–29.0%，周期多
+  3.4%–5.2%。
+- 全部 12 个样例中周期差范围为 −2.6% 到 +19.0%；说明不能用一个固定比例把
+  PTX 结果换算成 SASS 结果。
+
+这些数字是本地 A800 上的 Accel-Sim 相对证据，不是 A800 的绝对性能校准，也不是
+A100/H100/NVLink/NVSwitch 结论（Needs hardware validation）。
+
+## 设计含义
+
+PTX 适合作为新 ISA、调度器和微架构实验的主线；SASS trace 仍然需要保留，用来检查
+真实编译器形状、指令展开、访存行为和硬件 trace 一致性。GEMV/GEMM 结果尤其说明，
+即使高层内存读写计数相同，前端产生的动态指令/IPC 仍会显著不同。
+
+## 可复现性与限制
+
+- 12 个 CUDA 原生样例、12 条 A800 trace、12 个 SASS replay、12 个 PTX replay
+  均通过功能检查。
+- CUDA 12.8 `-lineinfo` 触发 PTX `.loc ... inlined_at` 解析失败；去掉编译期
+  `-lineinfo`，并设置 `TRACE_LINEINFO=0` 后通过。这是 parser compatibility
+  baseline failure，不应误报成模式差距。
+- PTX 直接执行 Slurm wrapper 时末尾 `mv` 缺少错误文件会返回 1，但模拟器已经
+  输出正常退出和 `RESULT ... status=PASS`；这是 harness artifact。
+- trace metadata 的 `total_insts` 与 `gpu_tot_sim_insn` 属于不同计数口径，不能直接
+  相除得出“模式膨胀倍数”。
+- 规模控制在 GEMV/GEMM 64 以内是为了避免模拟时间失控；没有多卡、cuBLAS、真实
+  H100 或 NVSwitch 验证。

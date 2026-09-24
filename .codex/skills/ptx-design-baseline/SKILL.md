@@ -21,8 +21,8 @@ SASS smoke test 或 H100 hardware correlation。
 
 ## 步骤
 
-1. 编辑前读 `rules/accel-sim-policy.md`、`docs/17-ptx-primary-strategy.md` 与
-   relevant implementation note。
+1. 编辑前读 `rules/accel-sim-policy.md`、`docs/roadmap.md`、
+   `docs/implementation.md` 与 relevant topic note。
 2. 运行 unmodified PTX baseline，记录 command、config、exit code、cycle/
    instruction summary 与 baseline failure。
 3. mapping 当前 path：PTX lexer/parser → PTX IR → functional semantics → warp
@@ -36,8 +36,8 @@ SASS smoke test 或 H100 hardware correlation。
 7. instruction 产生 communication event 时，使用 explicit schema 序列化；不要把
    collective state 隐藏在普通 memory address 中。
 8. 运行 focused test、PTX baseline 与最小相关 regression。
-9. 更新 implementation note、`project-state.md`、边界改变时的 `DECISIONS.md` 与
-   `CHANGELOG.md`。
+9. 更新 `docs/implementation.md`、`project-state.md`、边界改变时的
+   `docs/decisions.md` 与 `docs/changelog.md`。
 10. 执行 `git diff --check`，检查两个 repository status，并提交一个完整 phase。
 
 ## Completion criteria

@@ -26,7 +26,7 @@ git -C gpu-simulator/gpgpu-sim status --short --branch
 
 每个完成的 logical phase 提交一次，不按文件、command 或小修复拆分。一个
 phase 通常包含 implementation、focused tests、相关 documentation、state/
-checklist 和 changelog。独立 typo 或 generated-SHA 修正应 fold 到 phase commit。
+checklist 和 `docs/changelog.md`。独立 typo 或 generated-SHA 修正应 fold 到 phase commit。
 
 一个 phase commit 应回答一个 review question。只有真正独立的 experiment 或
 simulator feature 才拆分。Commit 前批量检查完整 diff。禁止 `update`、
@@ -55,7 +55,7 @@ Limits: unsupported hardware、synthetic assumption、follow-up
 ```
 
 读者不打开 chat transcript 也应能回答“改了哪些文件、增加了什么、如何实现”。
-重大 feature 的相同信息还要进入 `.codex/docs/implementation/NNN-*.md`。
+重大 feature 的相同信息还要进入 `.codex/docs/implementation.md` 对应章节。
 
 ## Commit gate
 
@@ -65,7 +65,7 @@ Limits: unsupported hardware、synthetic assumption、follow-up
 3. 运行 focused test 与最小 regression；pre-existing failure 标为
    `BASELINE FAILURE`。
 4. 同一 phase 更新 source-of-truth、`project-state.md`（milestone 改变时）与
-   `CHANGELOG.md`。不要为了 pending SHA 创建第二个 commit；private branch 可
+   `docs/changelog.md`。不要为了 pending SHA 创建第二个 commit；private branch 可
    amend phase commit，或在下一 phase 记录。
 5. 提交完整 phase，记录 SHA/test result，并确认 working tree clean（明确保留的
    用户修改除外）。
