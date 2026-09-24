@@ -1,5 +1,17 @@
 # Research 变更日志
 
+## 2026-09-24 — 完成 GPU-local PTX synchronization event producer（P1）
+
+- Nested GPGPU-Sim 在 timing-visible `bar.*`、`membar.*` issue 以及已有
+  barrier/membar release path 上增加 opt-in JSONL producer，使用
+  `PTX_SIM_EVENT_FILE` 开启，并允许 `PTX_SIM_RANK` 指定 logical rank。
+- 事件可直接由 P0 `CommunicationEvent` schema 解析；当前时间戳保持
+  `sim_cycle`，尚未做 global picosecond clock conversion，也没有 NCCL、
+  BookSim、NVLink、NVSwitch 或 NVLS side effect。
+- Release build、安装后的外部 PTX `membar.cta + bar.sync` workload 和 P0/
+  transport regression tests 通过。具体结果与运行限制见
+  `012-ptx-sync-event-producer.md`。
+
 ## 2026-09-24 — 完成 PTX-to-communication event schema（P0）
 
 - 新增 `CommunicationEvent`、`EventCompletion`、`LogicalGPUContext` 与

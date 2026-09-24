@@ -72,7 +72,7 @@
 - [x] SM90 PTX execution-driven baseline
 - [x] minimal custom PTX instruction
 - [x] PTX instruction-to-communication-event schema（P0 reference contract）
-- [ ] GPU-local synchronization event producer/completion（P1）
+- [x] GPU-local synchronization event producer/completion（P1）
 - [ ] point-to-point communication completion（P2）
 - [ ] NCCL Ring collective（P3）
 - [ ] NVSwitch topology/transport semantics（P4）
@@ -86,11 +86,12 @@
 1. A800 vectoradd source 在外部 NVBit SDK；历史 replay command 未完整保存。
 2. CUDA 12.8 PTX parser 对 `-lineinfo` 生成的 `.loc ... inlined_at` 仍存在兼容
    性限制；trace workflow 使用 `TRACE_LINEINFO=0`。
-3. P0 schema 已通过 focused unit tests；下一步实现 GPU-local synchronization
-   event producer/completion contract。
+3. P0 schema 与 P1 GPU-local producer/completion contract 已通过 focused
+   tests/build 以及外部 PTX event-stream smoke；P1 event timestamp 仍是
+   `sim_cycle`，不是已校准的 global ps。
 4. 保留 `cais.add.u32` 作为无副作用 control；communication side effect 必须
    通过独立 event boundary。
-5. P1/P2 通过后再连接 BookSim endpoint facade，之后才进入 Ring/NVSwitch/NVLS。
+5. P2 通过后再连接 BookSim endpoint facade，之后才进入 Ring/NVSwitch/NVLS。
 
 ## Evidence 规则
 
