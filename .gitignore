@@ -20,3 +20,7 @@ compile_commands.json
 .claude
 CLAUDE.md
 .cursor
+
+
+.serena/
+.serena/*
