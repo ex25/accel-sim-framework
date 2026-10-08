@@ -1,0 +1,48 @@
+{
+  "formula": "((i * 73 + offset) % 257 - 128) / 128",
+  "encoding": "IEEE754 binary16 little-endian, contiguous BSHD",
+  "inputs": {
+    "q": {
+      "file": "q.f16le",
+      "shape": [
+        1,
+        128,
+        8,
+        128
+      ],
+      "dtype": "float16",
+      "layout": "BSHD",
+      "bytes": 262144,
+      "offset": 17,
+      "sha256": "0b2b5855ce740e21ae738db3d4e65e9e484b3c0ce0f609ca2ea3ae1f002a8802"
+    },
+    "k": {
+      "file": "k.f16le",
+      "shape": [
+        1,
+        128,
+        8,
+        128
+      ],
+      "dtype": "float16",
+      "layout": "BSHD",
+      "bytes": 262144,
+      "offset": 53,
+      "sha256": "34ad68b6385b7ff707837a8501da665cad18362ec6a846fadf858b97f229f630"
+    },
+    "v": {
+      "file": "v.f16le",
+      "shape": [
+        1,
+        128,
+        8,
+        128
+      ],
+      "dtype": "float16",
+      "layout": "BSHD",
+      "bytes": 262144,
+      "offset": 101,
+      "sha256": "bed69ed7b44d86b4595df72fbf019aecdaab87e6b680262b34f1e1faf396fb3b"
+    }
+  }
+}
