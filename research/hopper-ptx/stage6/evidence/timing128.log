@@ -1,0 +1,54 @@
+WGMMA_DETAIL event=issue warp=1 cycle=10779 uid=1173 n=128 latency=64 ii=64
+WGMMA_DETAIL event=issue warp=3 cycle=10780 uid=1174 n=128 latency=64 ii=64
+WGMMA_DETAIL event=issue warp=0 cycle=10780 uid=1175 n=128 latency=64 ii=64
+WGMMA_DETAIL event=issue warp=2 cycle=10780 uid=1176 n=128 latency=64 ii=64
+WGMMA_DETAIL event=unit warp=1 cycle=10781 uid=1173 scheduler=1
+WGMMA_DETAIL event=unit warp=0 cycle=10782 uid=1175 scheduler=0
+WGMMA_DETAIL event=unit warp=2 cycle=10782 uid=1176 scheduler=2
+WGMMA_DETAIL event=unit warp=3 cycle=10782 uid=1174 scheduler=3
+WGMMA_DETAIL event=issue warp=1 cycle=10782 uid=1181 n=128 latency=64 ii=64
+WGMMA_DETAIL event=issue warp=2 cycle=10782 uid=1182 n=128 latency=64 ii=64
+WGMMA_DETAIL event=issue warp=3 cycle=10782 uid=1183 n=128 latency=64 ii=64
+WGMMA_DETAIL event=issue warp=0 cycle=10783 uid=1184 n=128 latency=64 ii=64
+WGMMA_DETAIL event=issue warp=0 cycle=10785 uid=1189 n=128 latency=64 ii=64
+WGMMA_DETAIL event=issue warp=1 cycle=10785 uid=1190 n=128 latency=64 ii=64
+WGMMA_DETAIL event=issue warp=2 cycle=10785 uid=1191 n=128 latency=64 ii=64
+WGMMA_DETAIL event=issue warp=3 cycle=10785 uid=1192 n=128 latency=64 ii=64
+WGMMA_DETAIL event=wait warp=2 cycle=10787 limit=1
+WGMMA_DETAIL event=wait warp=3 cycle=10787 limit=1
+WGMMA_DETAIL event=wait warp=1 cycle=10787 limit=1
+WGMMA_DETAIL event=wait warp=0 cycle=10788 limit=1
+WGMMA_DETAIL event=unit warp=1 cycle=10845 uid=1181 scheduler=1
+WGMMA_DETAIL event=unit warp=0 cycle=10846 uid=1184 scheduler=0
+WGMMA_DETAIL event=unit warp=2 cycle=10846 uid=1182 scheduler=2
+WGMMA_DETAIL event=unit warp=3 cycle=10846 uid=1183 scheduler=3
+WGMMA_DETAIL event=complete warp=1 cycle=10847 uid=1173
+WGMMA_DETAIL event=complete warp=3 cycle=10848 uid=1174
+WGMMA_DETAIL event=complete warp=0 cycle=10848 uid=1175
+WGMMA_DETAIL event=complete warp=2 cycle=10848 uid=1176
+WGMMA_DETAIL event=unit warp=1 cycle=10909 uid=1190 scheduler=1
+WGMMA_DETAIL event=unit warp=0 cycle=10910 uid=1189 scheduler=0
+WGMMA_DETAIL event=unit warp=2 cycle=10910 uid=1191 scheduler=2
+WGMMA_DETAIL event=unit warp=3 cycle=10910 uid=1192 scheduler=3
+WGMMA_DETAIL event=complete warp=1 cycle=10911 uid=1181
+WGMMA_DETAIL event=complete warp=2 cycle=10912 uid=1182
+WGMMA_DETAIL event=complete warp=3 cycle=10912 uid=1183
+WGMMA_DETAIL event=complete warp=0 cycle=10912 uid=1184
+WGMMA_DETAIL event=release warp=3 cycle=10912 limit=1
+WGMMA_DETAIL event=wait warp=3 cycle=10912 limit=0
+WGMMA_DETAIL event=release warp=0 cycle=10912 limit=1
+WGMMA_DETAIL event=wait warp=0 cycle=10912 limit=0
+WGMMA_DETAIL event=release warp=1 cycle=10912 limit=1
+WGMMA_DETAIL event=wait warp=1 cycle=10912 limit=0
+WGMMA_DETAIL event=release warp=2 cycle=10912 limit=1
+WGMMA_DETAIL event=wait warp=2 cycle=10912 limit=0
+WGMMA_DETAIL event=complete warp=1 cycle=10975 uid=1190
+WGMMA_DETAIL event=complete warp=0 cycle=10976 uid=1189
+WGMMA_DETAIL event=complete warp=2 cycle=10976 uid=1191
+WGMMA_DETAIL event=complete warp=3 cycle=10976 uid=1192
+WGMMA_DETAIL event=release warp=3 cycle=10976 limit=0
+WGMMA_DETAIL event=release warp=0 cycle=10976 limit=0
+WGMMA_DETAIL event=release warp=1 cycle=10976 limit=0
+WGMMA_DETAIL event=release warp=2 cycle=10976 limit=0
+MATRIX_RESULT status=PASS case=timing128 mode=detailed elements=8192 max_error=0 source=shared/shared
+TIMING_RESULT status=PASS case=timing128 cycles=88923 mma=3 commit=3 wait=2 completion=12 blocked_checks=1494

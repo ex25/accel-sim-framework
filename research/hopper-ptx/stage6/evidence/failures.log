@@ -1,0 +1,74 @@
+CASE mode=functional file=negative-after_fence-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/after_fence.ptx:99: WGMMA accumulator modified after fence
+CASE mode=functional file=negative-bad_descriptor_width-128.log
+/tmp/hopper-stage6-acceptance/ptx/bad_descriptor_width.ptx:97: Parse error: matrix register width mismatch (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:933)
+CASE mode=functional file=negative-bad_modifier-128.log
+/tmp/hopper-stage6-acceptance/ptx/bad_modifier.ptx:97: Parse error: unsupported matrix opcode/modifier: wgmma.mma_async.sync.aligned.m64n128k16.satfinite.f32.f16.f16 (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:817)
+CASE mode=functional file=negative-bad_scale-128.log
+/tmp/hopper-stage6-acceptance/ptx/bad_scale.ptx:97: Parse error: wgmma scale/transpose immediate out of range (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:965)
+CASE mode=functional file=negative-bad_scale64-128.log
+/tmp/hopper-stage6-acceptance/ptx/bad_scale64.ptx:97: Parse error: wgmma scale/transpose immediate out of range (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:965)
+CASE mode=functional file=negative-bad_tuple-128.log
+/tmp/hopper-stage6-acceptance/ptx/bad_tuple.ptx:97: Parse error: matrix register tuple length mismatch (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:919)
+CASE mode=functional file=negative-bad_type-128.log
+/tmp/hopper-stage6-acceptance/ptx/bad_type.ptx:97: Parse error: matrix tuple requires registers of the specified bit width/type (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:924)
+CASE mode=functional file=negative-bad_wait-128.log
+/tmp/hopper-stage6-acceptance/ptx/bad_wait.ptx:99: Parse error: wgmma.wait_group immediate must be 0..7 (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:971)
+CASE mode=functional file=negative-bad_wait64-128.log
+/tmp/hopper-stage6-acceptance/ptx/bad_wait64.ptx:99: Parse error: wgmma.wait_group immediate must be 0..7 (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:971)
+CASE mode=functional file=negative-divergent-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/divergent.ptx:98: incomplete WGMMA warpgroup: missing/live thread
+CASE mode=functional file=negative-duplicate_tuple-128.log
+/tmp/hopper-stage6-acceptance/ptx/duplicate_tuple.ptx:97: Parse error: duplicate register in matrix tuple (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:926)
+CASE mode=functional file=negative-float_scale-128.log
+/tmp/hopper-stage6-acceptance/ptx/float_scale.ptx:97: Parse error: wgmma scale/transpose requires an immediate (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:963)
+CASE mode=functional file=negative-hex_overflow-128.log
+integer literal exceeds 64 bits: 0x10000000000000000
+/tmp/hopper-stage6-acceptance/ptx/hex_overflow.ptx:29 Syntax error:
+CASE mode=functional file=negative-literal_overflow-128.log
+integer literal exceeds 64 bits: 18446744073709551616
+/tmp/hopper-stage6-acceptance/ptx/literal_overflow.ptx:29 Syntax error:
+CASE mode=functional file=negative-no_fence-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/no_fence.ptx:97: WGMMA MMA requires wgmma.fence
+CASE mode=functional file=negative-no_wait-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/no_wait.ptx:101: WGMMA accumulator access before wait_group: %d0
+CASE mode=functional file=negative-nonuniform-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/nonuniform.ptx:100: nonuniform WGMMA descriptor/scale-d in warpgroup
+CASE mode=functional file=negative-oob-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/oob.ptx:99: WGMMA descriptor overlaps or exceeds declared shared memory
+CASE mode=functional file=negative-partial-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/partial.ptx:98: incomplete WGMMA active warp
+CASE mode=functional file=negative-predicated-128.log
+/tmp/hopper-stage6-acceptance/ptx/predicated.ptx:96: Parse error: predicated wgmma is unsupported: full warpgroup required (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:917)
+CASE mode=functional file=negative-source_overwrite-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/source_overwrite.ptx:106: WGMMA source overwrite before wait_group: %a0
+CASE mode=functional file=negative-ss128-64.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/ss128.ptx:96: incomplete WGMMA warpgroup: requires 128 threads
+CASE mode=functional file=negative-swizzle-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/swizzle.ptx:99: unsupported WGMMA descriptor swizzle/reserved bits
+CASE mode=functional file=negative-wait1_access-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/wait1_access.ptx:106: WGMMA accumulator access before wait_group: %d0
+CASE mode=detailed file=negative-after_fence-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/after_fence.ptx:99: WGMMA accumulator modified after fence
+CASE mode=detailed file=negative-divergent-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/divergent.ptx:98: incomplete WGMMA warpgroup: missing/live thread
+CASE mode=detailed file=negative-no_fence-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/no_fence.ptx:97: WGMMA MMA requires wgmma.fence
+CASE mode=detailed file=negative-no_wait-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/no_wait.ptx:101: WGMMA accumulator access before wait_group: %d0
+CASE mode=detailed file=negative-nonuniform-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/nonuniform.ptx:100: nonuniform WGMMA descriptor/scale-d in warpgroup
+CASE mode=detailed file=negative-oob-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/oob.ptx:99: WGMMA descriptor overlaps or exceeds declared shared memory
+CASE mode=detailed file=negative-partial-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/partial.ptx:98: incomplete WGMMA active warp
+CASE mode=detailed file=negative-source_overwrite-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/source_overwrite.ptx:106: WGMMA source overwrite before wait_group: %a0
+CASE mode=detailed file=negative-ss128-64.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/ss128.ptx:96: incomplete WGMMA warpgroup: requires 128 threads
+CASE mode=detailed file=negative-swizzle-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/swizzle.ptx:99: unsupported WGMMA descriptor swizzle/reserved bits
+CASE mode=detailed file=negative-wait1_access-128.log
+WGMMA_NEGATIVE diagnostic=/tmp/hopper-stage6-acceptance/ptx/wait1_access.ptx:106: WGMMA accumulator access before wait_group: %d0
+CASE mode=no_gmma file=negative-ss128-128.log
+WGMMA_NEGATIVE diagnostic=PTX WGMMA requires enabled specialized_unit_1..5 (GMMA)

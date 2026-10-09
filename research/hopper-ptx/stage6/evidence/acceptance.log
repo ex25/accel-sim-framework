@@ -1,0 +1,84 @@
+FRONTEND_RESULT status=PASS n=128 mma=1 latency=64 ii=64
+MATRIX_RESULT status=PASS case=ss128 mode=functional elements=8192 max_error=0 source=shared/shared
+TIMING_RESULT status=PASS case=ss128 cycles=0 mma=1 commit=1 wait=1 completion=0 blocked_checks=0
+FRONTEND_RESULT status=PASS n=128 mma=1 latency=64 ii=64
+MATRIX_RESULT status=PASS case=ss128 mode=detailed elements=8192 max_error=0 source=shared/shared
+TIMING_RESULT status=PASS case=ss128 cycles=88338 mma=1 commit=1 wait=1 completion=4 blocked_checks=515
+FRONTEND_RESULT status=PASS n=128 mma=1 latency=64 ii=64
+MATRIX_RESULT status=PASS case=ss128_hex mode=functional elements=8192 max_error=0 source=shared/shared
+TIMING_RESULT status=PASS case=ss128_hex cycles=0 mma=1 commit=1 wait=1 completion=0 blocked_checks=0
+FRONTEND_RESULT status=PASS n=128 mma=1 latency=64 ii=64
+MATRIX_RESULT status=PASS case=ss128_hex mode=detailed elements=8192 max_error=0 source=shared/shared
+TIMING_RESULT status=PASS case=ss128_hex cycles=88338 mma=1 commit=1 wait=1 completion=4 blocked_checks=515
+FRONTEND_RESULT status=PASS n=176 mma=2 latency=88 ii=88
+MATRIX_RESULT status=PASS case=ss176 mode=functional elements=11264 max_error=0 source=shared/shared
+TIMING_RESULT status=PASS case=ss176 cycles=0 mma=2 commit=1 wait=1 completion=0 blocked_checks=0
+FRONTEND_RESULT status=PASS n=176 mma=2 latency=88 ii=88
+MATRIX_RESULT status=PASS case=ss176 mode=detailed elements=11264 max_error=0 source=shared/shared
+TIMING_RESULT status=PASS case=ss176 cycles=111766 mma=2 commit=1 wait=1 completion=8 blocked_checks=1401
+FRONTEND_RESULT status=PASS n=128 mma=2 latency=64 ii=64
+MATRIX_RESULT status=PASS case=rs128 mode=functional elements=8192 max_error=0 source=register/shared
+TIMING_RESULT status=PASS case=rs128 cycles=0 mma=2 commit=1 wait=1 completion=0 blocked_checks=0
+FRONTEND_RESULT status=PASS n=128 mma=2 latency=64 ii=64
+MATRIX_RESULT status=PASS case=rs128 mode=detailed elements=8192 max_error=0 source=register/shared
+TIMING_RESULT status=PASS case=rs128 cycles=90906 mma=2 commit=1 wait=1 completion=8 blocked_checks=1019
+FRONTEND_RESULT status=PASS n=176 mma=1 latency=88 ii=88
+MATRIX_RESULT status=PASS case=rs176 mode=functional elements=11264 max_error=0 source=register/shared
+TIMING_RESULT status=PASS case=rs176 cycles=0 mma=1 commit=1 wait=1 completion=0 blocked_checks=0
+FRONTEND_RESULT status=PASS n=176 mma=1 latency=88 ii=88
+MATRIX_RESULT status=PASS case=rs176 mode=detailed elements=11264 max_error=0 source=register/shared
+TIMING_RESULT status=PASS case=rs176 cycles=113530 mma=1 commit=1 wait=1 completion=4 blocked_checks=713
+FRONTEND_RESULT status=PASS n=176 mma=1 latency=88 ii=88
+MATRIX_RESULT status=PASS case=rs176_zero mode=functional elements=11264 max_error=0 source=register/shared
+TIMING_RESULT status=PASS case=rs176_zero cycles=0 mma=1 commit=1 wait=1 completion=0 blocked_checks=0
+FRONTEND_RESULT status=PASS n=176 mma=1 latency=88 ii=88
+MATRIX_RESULT status=PASS case=rs176_zero mode=detailed elements=11264 max_error=0 source=register/shared
+TIMING_RESULT status=PASS case=rs176_zero cycles=113530 mma=1 commit=1 wait=1 completion=4 blocked_checks=713
+FRONTEND_RESULT status=PASS n=128 mma=0 latency=64 ii=64
+MATRIX_RESULT status=PASS case=empty mode=functional elements=8192 max_error=0 source=shared/shared
+TIMING_RESULT status=PASS case=empty cycles=0 mma=0 commit=1 wait=2 completion=0 blocked_checks=0
+FRONTEND_RESULT status=PASS n=128 mma=0 latency=64 ii=64
+MATRIX_RESULT status=PASS case=empty mode=detailed elements=8192 max_error=0 source=shared/shared
+TIMING_RESULT status=PASS case=empty cycles=88027 mma=0 commit=1 wait=2 completion=0 blocked_checks=0
+MATRIX_RESULT status=PASS case=timing128 mode=detailed elements=8192 max_error=0 source=shared/shared
+TIMING_RESULT status=PASS case=timing128 cycles=88923 mma=3 commit=3 wait=2 completion=12 blocked_checks=1494
+MATRIX_RESULT status=PASS case=timing176 mode=detailed elements=11264 max_error=0 source=shared/shared
+TIMING_RESULT status=PASS case=timing176 cycles=112168 mma=3 commit=3 wait=2 completion=12 blocked_checks=2070
+WAIT_ORDER_RESULT status=PASS file=timing128.log completions=12 releases=8 unit_latency_min=66 unit_latency_max=66 per_warp_ii_min=64
+WAIT_ORDER_RESULT status=PASS file=timing176.log completions=12 releases=8 unit_latency_min=90 unit_latency_max=90 per_warp_ii_min=88
+NEGATIVE_RESULT status=PASS case=bad_tuple mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=duplicate_tuple mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=bad_type mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=bad_descriptor_width mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=bad_modifier mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=bad_scale mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=float_scale mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=bad_scale64 mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=bad_wait mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=bad_wait64 mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=predicated mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=literal_overflow mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=hex_overflow mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=ss128 mode=functional threads=64
+NEGATIVE_RESULT status=PASS case=no_fence mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=after_fence mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=source_overwrite mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=wait1_access mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=no_wait mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=swizzle mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=oob mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=nonuniform mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=divergent mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=partial mode=functional threads=128
+NEGATIVE_RESULT status=PASS case=ss128 mode=detailed threads=64
+NEGATIVE_RESULT status=PASS case=no_fence mode=detailed threads=128
+NEGATIVE_RESULT status=PASS case=after_fence mode=detailed threads=128
+NEGATIVE_RESULT status=PASS case=source_overwrite mode=detailed threads=128
+NEGATIVE_RESULT status=PASS case=wait1_access mode=detailed threads=128
+NEGATIVE_RESULT status=PASS case=no_wait mode=detailed threads=128
+NEGATIVE_RESULT status=PASS case=swizzle mode=detailed threads=128
+NEGATIVE_RESULT status=PASS case=oob mode=detailed threads=128
+NEGATIVE_RESULT status=PASS case=nonuniform mode=detailed threads=128
+NEGATIVE_RESULT status=PASS case=divergent mode=detailed threads=128
+NEGATIVE_RESULT status=PASS case=partial mode=detailed threads=128
+NEGATIVE_RESULT status=PASS case=ss128 mode=no_gmma threads=128

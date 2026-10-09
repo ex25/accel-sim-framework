@@ -1,0 +1,60 @@
+REGRESSION suite=stage2
+RESULT status=PASS n=128 checksum=161408 first=1007 last=1515
+REGRESSION suite=stage3
+REGRESSION_RESULT status=PASS fixture=frontend_bad_modifier.ptx negative=1
+REGRESSION_RESULT status=PASS fixture=frontend_bad_operand.ptx negative=1
+REGRESSION_RESULT status=PASS fixture=frontend_ldmatrix.ptx negative=0
+REGRESSION_RESULT status=PASS fixture=frontend_types.ptx negative=0
+REGRESSION_RESULT status=PASS fixture=frontend_wgmma.ptx negative=0
+REGRESSION suite=stage4
+SYNC_RESULT status=PASS n=32 first=10 last=10
+FRONTEND_RESULT status=PASS mbarrier_instructions=9
+STATE_RESULT status=PASS phase=2 pending=0 tx=0 expected=0
+NEGATIVE_RESULT status=PASS file=mbarrier_bad_modifier.ptx
+NEGATIVE_RESULT status=PASS file=mbarrier_bad_operands.ptx
+NEGATIVE_RESULT status=PASS file=mbarrier_cluster_wait.ptx
+REGRESSION suite=stage5
+FRONTEND_RESULT status=PASS tma_instructions=4
+TMA_RESULT status=PASS tile=13,0,23,0 bytes=16 oob=8 wait_before=0 wait_after=1
+PTX_EVENT_RESULT status=PASS issue=1 completion=1 global_reads=2 shared_writes=1 wait_failure=32 wait_success=32 metadata=PASS
+REFERENCE_RESULT status=PASS one_d=1 two_d=1 padded=1 negative_oob=1 all_oob=1 multicast_mask=5
+EVENT_RESULT issue=1 global_reads=2 shared_writes=2 completion=2 wait_before=0 wait_after=1
+NEGATIVE_RESULT status=PASS file=tma_bad_rank.ptx
+NEGATIVE_RESULT status=PASS file=tma_bad_store.ptx
+NEGATIVE_RESULT status=PASS file=tma_bad_rank_operands.ptx
+NEGATIVE_RESULT status=PASS file=unregistered
+REGRESSION suite=stage5-detailed
+CTA_RESULT status=PASS rank=0 selected=1 phase=1 tx=0 pending=1
+VISIBILITY_RESULT status=PASS before=cccccccc wait_before=0 wait_after=1
+METADATA_RESULT status=PASS tile_bytes=16 in_bounds=8 oob=8 barrier=10 mask=1
+DETAILED_RESULT status=PASS scenario=single mask=1 cycles=22467 issue=1 requests=2 responses=2 writes=1 completions=1 waits_failed=7 waits_success=1
+CTA_RESULT status=PASS rank=0 selected=1 phase=1 tx=0 pending=1
+VISIBILITY_RESULT status=PASS before=cccccccc wait_before=0 wait_after=1
+METADATA_RESULT status=PASS tile_bytes=16 in_bounds=8 oob=8 barrier=10 mask=1
+DETAILED_RESULT status=PASS scenario=local mask=1 cycles=22467 issue=1 requests=2 responses=2 writes=1 completions=1 waits_failed=7 waits_success=1
+CTA_RESULT status=PASS rank=0 selected=1 phase=1 tx=0 pending=1
+VISIBILITY_RESULT status=PASS before=cccccccc wait_before=0 wait_after=1
+METADATA_RESULT status=PASS tile_bytes=16 in_bounds=4 oob=12 barrier=10 mask=1
+DETAILED_RESULT status=PASS scenario=one_d mask=1 cycles=22467 issue=1 requests=1 responses=1 writes=1 completions=1 waits_failed=7 waits_success=1
+CTA_RESULT status=PASS rank=0 selected=1 phase=1 tx=0 pending=1
+VISIBILITY_RESULT status=PASS before=0 wait_before=1 wait_after=1
+METADATA_RESULT status=PASS tile_bytes=16 in_bounds=0 oob=16 barrier=10 mask=1
+DETAILED_RESULT status=PASS scenario=all_oob mask=1 cycles=21667 issue=1 requests=0 responses=0 writes=1 completions=1 waits_failed=1 waits_success=2
+REGRESSION suite=stage5-multicast
+CTA_RESULT status=PASS rank=0 selected=1 phase=1 tx=0 pending=1
+CTA_RESULT status=PASS rank=1 selected=0 phase=0 tx=16 pending=0
+CTA_RESULT status=PASS rank=2 selected=1 phase=1 tx=0 pending=1
+CTA_RESULT status=PASS rank=3 selected=0 phase=0 tx=16 pending=0
+VISIBILITY_RESULT status=PASS before=cccccccc wait_before=0 wait_after=1
+METADATA_RESULT status=PASS tile_bytes=16 in_bounds=8 oob=8 barrier=10 mask=5
+DETAILED_RESULT status=PASS scenario=multicast mask=5 cycles=22467 issue=1 requests=2 responses=2 writes=2 completions=2 waits_failed=47 waits_success=2
+NEGATIVE_RESULT status=PASS scenario=empty
+NEGATIVE_RESULT status=PASS scenario=unknown
+NEGATIVE_RESULT status=PASS scenario=not_started
+NEGATIVE_RESULT status=PASS scenario=offset
+NEGATIVE_RESULT status=PASS scenario=duplicate
+NEGATIVE_RESULT status=PASS scenario=unregistered
+NEGATIVE_RESULT status=PASS scenario=bad_descriptor
+NEGATIVE_RESULT status=PASS scenario=overlap
+NEGATIVE_RESULT status=PASS scenario=high_rank
+NEGATIVE_RESULT status=PASS scenario=prefetch
