@@ -1,0 +1,9 @@
+.version 8.7
+.target sm_90
+.address_size 64
+.visible .entry bad_modifier() {
+    .reg .b64 %rd<2>;
+    .shared .align 8 .b8 stage4_bar[8];
+    mbarrier.wait.shared::cta.b64 %rd0, [stage4_bar], %rd1;
+    ret;
+}

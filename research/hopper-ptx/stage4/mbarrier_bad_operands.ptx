@@ -1,0 +1,9 @@
+.version 8.7
+.target sm_90
+.address_size 64
+.visible .entry bad_operands() {
+    .reg .b64 %rd<2>;
+    .shared .align 8 .b8 stage4_bar[8];
+    mbarrier.init.shared::cta.b64 [stage4_bar];
+    ret;
+}
