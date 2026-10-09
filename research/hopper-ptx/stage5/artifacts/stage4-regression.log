@@ -1,0 +1,6 @@
+SYNC_RESULT status=PASS n=32 first=10 last=10
+FRONTEND_RESULT status=PASS mbarrier_instructions=9
+STATE_RESULT status=PASS phase=2 pending=0 tx=0 expected=0
+NEGATIVE_RESULT status=PASS file=mbarrier_bad_modifier.ptx
+NEGATIVE_RESULT status=PASS file=mbarrier_bad_operands.ptx
+NEGATIVE_RESULT status=PASS file=mbarrier_cluster_wait.ptx

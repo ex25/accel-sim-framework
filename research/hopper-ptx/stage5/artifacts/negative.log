@@ -1,0 +1,10 @@
+empty: /home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage5/tma_detailed.ptx:36: CTA=(0,0,0) PTX TMA empty or invalid multicast mask
+unknown: /home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage5/tma_detailed.ptx:36: CTA=(0,0,0) PTX TMA unknown multicast rank/target
+not_started: /home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage5/tma_detailed.ptx:36: CTA=(0,0,0) PTX TMA target CTA has not started/initialized
+offset: TMA_NEGATIVE scenario=offset issue=0 reads=0 writes=0 diagnostic=PTX TMA barrier offset mismatch at initialization
+duplicate: TMA_NEGATIVE scenario=duplicate issue=0 reads=0 writes=0 diagnostic=duplicate PTX TMA target registration
+unregistered: /home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage5/tma_detailed.ptx:36: CTA=(0,0,0) TMA descriptor address is not registered
+bad_descriptor: /home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage5/tma_detailed.ptx:36: CTA=(0,0,0) unsupported TMA descriptor rank/element size
+overlap: /home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage5/tma_detailed.ptx:36: CTA=(0,0,0) PTX detailed TMA overlapping descriptor strides
+high_rank: /home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage5/tma_detailed_3d.ptx:36: CTA=(0,0,0) PTX detailed TMA supports only 1D/2D tiled loads
+prefetch: /home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage5/tma_detailed_prefetch.ptx:36: CTA=(0,0,0) PTX detailed TMA prefetch timing is not implemented

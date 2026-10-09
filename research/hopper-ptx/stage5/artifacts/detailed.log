@@ -1,0 +1,71 @@
+make: Entering directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage5'
+make: 'tma_detailed' is up to date.
+make: Leaving directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage5'
+TMA_DETAIL event=wait cycle=4252 cta=0 rank=0 barrier=10 success=0 tx=16 phase=0
+TMA_DETAIL event=issue cycle=4286 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=16
+TMA_DETAIL event=oob_complete cycle=4286 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=8
+TMA_DETAIL event=global_request cycle=4287 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=4
+TMA_DETAIL event=global_request cycle=4287 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=4
+TMA_DETAIL event=wait cycle=4293 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4381 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4416 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4451 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4486 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4521 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=global_response cycle=4532 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=4
+TMA_DETAIL event=global_response cycle=4533 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=4
+TMA_DETAIL event=shared_write cycle=4533 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=16
+TMA_DETAIL event=completion cycle=4533 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=8
+TMA_DETAIL event=wait cycle=4556 cta=0 rank=0 barrier=10 success=1 tx=0 phase=1
+CTA_RESULT status=PASS rank=0 selected=1 phase=1 tx=0 pending=1
+VISIBILITY_RESULT status=PASS before=cccccccc wait_before=0 wait_after=1
+METADATA_RESULT status=PASS tile_bytes=16 in_bounds=8 oob=8 barrier=10 mask=1
+DETAILED_RESULT status=PASS scenario=single mask=1 cycles=22467 issue=1 requests=2 responses=2 writes=1 completions=1 waits_failed=7 waits_success=1
+TMA_DETAIL event=wait cycle=4252 cta=0 rank=0 barrier=10 success=0 tx=16 phase=0
+TMA_DETAIL event=issue cycle=4286 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=16
+TMA_DETAIL event=oob_complete cycle=4286 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=8
+TMA_DETAIL event=global_request cycle=4287 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=4
+TMA_DETAIL event=global_request cycle=4287 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=4
+TMA_DETAIL event=wait cycle=4293 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4381 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4416 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4451 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4486 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4521 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=global_response cycle=4532 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=4
+TMA_DETAIL event=global_response cycle=4533 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=4
+TMA_DETAIL event=shared_write cycle=4533 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=16
+TMA_DETAIL event=completion cycle=4533 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=8
+TMA_DETAIL event=wait cycle=4556 cta=0 rank=0 barrier=10 success=1 tx=0 phase=1
+CTA_RESULT status=PASS rank=0 selected=1 phase=1 tx=0 pending=1
+VISIBILITY_RESULT status=PASS before=cccccccc wait_before=0 wait_after=1
+METADATA_RESULT status=PASS tile_bytes=16 in_bounds=8 oob=8 barrier=10 mask=1
+DETAILED_RESULT status=PASS scenario=local mask=1 cycles=22467 issue=1 requests=2 responses=2 writes=1 completions=1 waits_failed=7 waits_success=1
+TMA_DETAIL event=wait cycle=4252 cta=0 rank=0 barrier=10 success=0 tx=16 phase=0
+TMA_DETAIL event=issue cycle=4286 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=16
+TMA_DETAIL event=oob_complete cycle=4286 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=12
+TMA_DETAIL event=global_request cycle=4287 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=4
+TMA_DETAIL event=wait cycle=4293 cta=0 rank=0 barrier=10 success=0 tx=4 phase=0
+TMA_DETAIL event=wait cycle=4381 cta=0 rank=0 barrier=10 success=0 tx=4 phase=0
+TMA_DETAIL event=wait cycle=4416 cta=0 rank=0 barrier=10 success=0 tx=4 phase=0
+TMA_DETAIL event=wait cycle=4451 cta=0 rank=0 barrier=10 success=0 tx=4 phase=0
+TMA_DETAIL event=wait cycle=4486 cta=0 rank=0 barrier=10 success=0 tx=4 phase=0
+TMA_DETAIL event=wait cycle=4521 cta=0 rank=0 barrier=10 success=0 tx=4 phase=0
+TMA_DETAIL event=global_response cycle=4532 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=4
+TMA_DETAIL event=shared_write cycle=4532 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=16
+TMA_DETAIL event=completion cycle=4532 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=4
+TMA_DETAIL event=wait cycle=4556 cta=0 rank=0 barrier=10 success=1 tx=0 phase=1
+CTA_RESULT status=PASS rank=0 selected=1 phase=1 tx=0 pending=1
+VISIBILITY_RESULT status=PASS before=cccccccc wait_before=0 wait_after=1
+METADATA_RESULT status=PASS tile_bytes=16 in_bounds=4 oob=12 barrier=10 mask=1
+DETAILED_RESULT status=PASS scenario=one_d mask=1 cycles=22467 issue=1 requests=1 responses=1 writes=1 completions=1 waits_failed=7 waits_success=1
+TMA_DETAIL event=wait cycle=4252 cta=0 rank=0 barrier=10 success=0 tx=16 phase=0
+TMA_DETAIL event=issue cycle=4286 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=16
+TMA_DETAIL event=shared_write cycle=4286 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=16
+TMA_DETAIL event=completion cycle=4286 cta=0 rank=0 source_rank=0 barrier=10 mask=1 bytes=16
+TMA_DETAIL event=wait cycle=4293 cta=0 rank=0 barrier=10 success=1 tx=0 phase=1
+TMA_DETAIL event=wait cycle=4381 cta=0 rank=0 barrier=10 success=1 tx=0 phase=1
+CTA_RESULT status=PASS rank=0 selected=1 phase=1 tx=0 pending=1
+VISIBILITY_RESULT status=PASS before=0 wait_before=1 wait_after=1
+METADATA_RESULT status=PASS tile_bytes=16 in_bounds=0 oob=16 barrier=10 mask=1
+DETAILED_RESULT status=PASS scenario=all_oob mask=1 cycles=21667 issue=1 requests=0 responses=0 writes=1 completions=1 waits_failed=1 waits_success=2

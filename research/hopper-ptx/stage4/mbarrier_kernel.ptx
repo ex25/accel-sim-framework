@@ -19,12 +19,12 @@
     @%p0 mbarrier.expect_tx.shared::cta.b64 [stage4_bar], 4;
     mbarrier.arrive.shared::cta.b64 %rd0, [stage4_bar];
     mbarrier.test_wait.shared::cta.b64 %p1, [stage4_bar], %rd0;
-    selp.u32 %r1, 0, 1, %p1;
+    selp.u32 %r1, 1, 0, %p1;
 
     @%p0 mbarrier.complete_tx.shared::cta.b64 [stage4_bar], 4;
     bar.sync 0;
     mbarrier.try_wait.parity.shared::cta.b64 %p2, [stage4_bar], 0;
-    selp.u32 %r2, 0, 10, %p2;
+    selp.u32 %r2, 10, 0, %p2;
     add.u32 %r3, %r1, %r2;
 
     ld.param.u64 %rd1, [out];

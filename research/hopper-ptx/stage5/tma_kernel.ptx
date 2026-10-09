@@ -1,0 +1,40 @@
+.version 8.7
+.target sm_90
+.address_size 64
+.visible .entry tma_kernel(
+ .param .u64 out, .param .u64 descriptor
+)
+{
+ .reg .pred %p<4>;
+ .reg .b32 %r<10>;
+ .reg .b64 %rd<8>;
+ .shared .align 16 .b8 tile[16];
+ .shared .align 8 .b8 stage5_bar[8];
+ mov.u32 %r0, %tid.x;
+ setp.eq.u32 %p0, %r0, 0;
+ @%p0 mbarrier.init.shared::cta.b64 [stage5_bar], 32;
+ bar.sync 0;
+ @%p0 mbarrier.expect_tx.shared::cta.b64 [stage5_bar], 16;
+ mbarrier.arrive.shared::cta.b64 %rd0, [stage5_bar];
+ ld.param.u64 %rd1, [descriptor];
+ mov.u32 %r1, 2;
+ mov.u32 %r2, 0;
+ mbarrier.test_wait.shared::cta.b64 %p1, [stage5_bar], %rd0;
+ selp.u32 %r3, 1000, 0, %p1;
+ @%p0 cp.async.bulk.tensor.2d.shared::cluster.global.mbarrier::complete_tx::bytes [tile], [%rd1, {%r1, %r2}], [stage5_bar];
+ mbarrier.try_wait.parity.shared::cta.b64 %p2, [stage5_bar], 0;
+ selp.u32 %r4, 0, 10000, %p2;
+ bar.sync 0;
+ and.b32 %r5, %r0, 3;
+ mul.wide.u32 %rd2, %r5, 4;
+ mov.u64 %rd3, tile;
+ add.u64 %rd3, %rd3, %rd2;
+ ld.shared.u32 %r6, [%rd3];
+ add.u32 %r6, %r6, %r3;
+ add.u32 %r6, %r6, %r4;
+ ld.param.u64 %rd4, [out];
+ mul.wide.u32 %rd5, %r0, 4;
+ add.u64 %rd6, %rd4, %rd5;
+ st.global.u32 [%rd6], %r6;
+ ret;
+}

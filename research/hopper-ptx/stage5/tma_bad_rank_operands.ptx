@@ -1,0 +1,5 @@
+.version 8.7
+.target sm_90
+.address_size 64
+.visible .entry tma_frontend() { .reg .b32 %r<2>; .reg .b64 %rd<4>;
+ cp.async.bulk.tensor.2d.shared::cluster.global.mbarrier::complete_tx::bytes [%rd0], [%rd1, {%r0}], [%rd2]; ret; }

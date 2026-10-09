@@ -1,0 +1,80 @@
+make: Entering directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage5'
+make: 'tma_detailed' is up to date.
+make: Leaving directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage5'
+TMA_DETAIL event=wait cycle=3148 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3183 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3218 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3253 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3288 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3323 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3358 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3393 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3428 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3463 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3498 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3533 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3568 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3603 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3638 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3673 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3708 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3743 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3778 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3813 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3848 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3883 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3918 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3953 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=3988 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=4023 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=4058 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=4093 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=4128 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=4163 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=4198 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=4233 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=4252 cta=0 rank=0 barrier=10 success=0 tx=16 phase=0
+TMA_DETAIL event=wait cycle=4268 cta=2 rank=2 barrier=2000010 success=0 tx=16 phase=0
+TMA_DETAIL event=issue cycle=4286 cta=0 rank=0 source_rank=0 barrier=10 mask=5 bytes=16
+TMA_DETAIL event=oob_complete cycle=4286 cta=0 rank=0 source_rank=0 barrier=10 mask=5 bytes=8
+TMA_DETAIL event=oob_complete cycle=4286 cta=2 rank=2 source_rank=0 barrier=10 mask=5 bytes=8
+TMA_DETAIL event=global_request cycle=4287 cta=0 rank=0 source_rank=0 barrier=10 mask=5 bytes=4
+TMA_DETAIL event=global_request cycle=4287 cta=0 rank=0 source_rank=0 barrier=10 mask=5 bytes=4
+TMA_DETAIL event=wait cycle=4293 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4303 cta=2 rank=2 barrier=2000010 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4338 cta=2 rank=2 barrier=2000010 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4373 cta=2 rank=2 barrier=2000010 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4381 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4408 cta=2 rank=2 barrier=2000010 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4416 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4443 cta=2 rank=2 barrier=2000010 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4451 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4478 cta=2 rank=2 barrier=2000010 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4486 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4513 cta=2 rank=2 barrier=2000010 success=0 tx=8 phase=0
+TMA_DETAIL event=wait cycle=4521 cta=0 rank=0 barrier=10 success=0 tx=8 phase=0
+TMA_DETAIL event=global_response cycle=4532 cta=0 rank=0 source_rank=0 barrier=10 mask=5 bytes=4
+TMA_DETAIL event=global_response cycle=4533 cta=0 rank=0 source_rank=0 barrier=10 mask=5 bytes=4
+TMA_DETAIL event=shared_write cycle=4533 cta=0 rank=0 source_rank=0 barrier=10 mask=5 bytes=16
+TMA_DETAIL event=shared_write cycle=4533 cta=2 rank=2 source_rank=0 barrier=10 mask=5 bytes=16
+TMA_DETAIL event=completion cycle=4533 cta=0 rank=0 source_rank=0 barrier=10 mask=5 bytes=8
+TMA_DETAIL event=completion cycle=4533 cta=2 rank=2 source_rank=0 barrier=10 mask=5 bytes=8
+TMA_DETAIL event=wait cycle=4548 cta=2 rank=2 barrier=2000010 success=1 tx=0 phase=1
+TMA_DETAIL event=wait cycle=4556 cta=0 rank=0 barrier=10 success=1 tx=0 phase=1
+CTA_RESULT status=PASS rank=0 selected=1 phase=1 tx=0 pending=1
+CTA_RESULT status=PASS rank=1 selected=0 phase=0 tx=16 pending=0
+CTA_RESULT status=PASS rank=2 selected=1 phase=1 tx=0 pending=1
+CTA_RESULT status=PASS rank=3 selected=0 phase=0 tx=16 pending=0
+VISIBILITY_RESULT status=PASS before=cccccccc wait_before=0 wait_after=1
+METADATA_RESULT status=PASS tile_bytes=16 in_bounds=8 oob=8 barrier=10 mask=5
+DETAILED_RESULT status=PASS scenario=multicast mask=5 cycles=22467 issue=1 requests=2 responses=2 writes=2 completions=2 waits_failed=47 waits_success=2
+NEGATIVE_RESULT status=PASS scenario=empty
+NEGATIVE_RESULT status=PASS scenario=unknown
+NEGATIVE_RESULT status=PASS scenario=not_started
+NEGATIVE_RESULT status=PASS scenario=offset
+NEGATIVE_RESULT status=PASS scenario=duplicate
+NEGATIVE_RESULT status=PASS scenario=unregistered
+NEGATIVE_RESULT status=PASS scenario=bad_descriptor
+NEGATIVE_RESULT status=PASS scenario=overlap
+NEGATIVE_RESULT status=PASS scenario=high_rank
+NEGATIVE_RESULT status=PASS scenario=prefetch

@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
                 static_cast<unsigned>(insn->ptx_mbarrier.kind),
                 static_cast<int>(insn->get_syncs_op()));
   }
-  if (found != 8) return 1;
+  if (found != 9) return 1;
   std::printf("FRONTEND_RESULT status=PASS mbarrier_instructions=%u\n", found);
   return 0;
 }
