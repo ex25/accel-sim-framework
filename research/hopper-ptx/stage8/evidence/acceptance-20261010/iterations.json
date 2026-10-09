@@ -1,0 +1,116 @@
+{
+  "baseline_inner": "318094db33dbd1528a40452de5819984004b6a08",
+  "order": [
+    {
+      "status": "BLOCKED",
+      "exit": 1,
+      "scope": "frozen_fa3_parser",
+      "kernel": "_ZN7cutlass13device_kernelIN5flash11enable_sm90INS1_16FlashAttnFwdSm90INS1_25CollectiveMainloopFwdSm90ILi2EN4cute5tupleIJNS5_1CILi1EEES8_S8_EEENS6_IJNS7_ILi128EEENS7_ILi176EEESA_EEELi128ENS_6half_tEfNS_4arch4Sm90ELb0ELb0ELb0ELb0ELb0ELb0ELb0ELb1ELb1ELb0ELb0ELb0EEENS1_21CollectiveEpilogueFwdINS6_IJSA_SA_SB_EEES9_SD_SF_Li256ELb0ELb0ELb0ELb0EEENS1_29StaticPersistentTileSchedulerILb0EEEEEEEEEvNT_6ParamsE",
+      "ptx_sha256": "0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76",
+      "first_failure": "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage1/artifacts/frozen_fwd.ptx:46 Syntax error: elect.sync %rx|%px, %r324;",
+      "failure_category": "lexer/parser syntax",
+      "log": "/tmp/hopper-stage8-unblock-PRlrUlTr/model-final/frozen-fa3-parser.log",
+      "iteration": "00-baseline"
+    },
+    {
+      "status": "BLOCKED",
+      "exit": 1,
+      "scope": "frozen_fa3_parser",
+      "kernel": "_ZN7cutlass13device_kernelIN5flash11enable_sm90INS1_16FlashAttnFwdSm90INS1_25CollectiveMainloopFwdSm90ILi2EN4cute5tupleIJNS5_1CILi1EEES8_S8_EEENS6_IJNS7_ILi128EEENS7_ILi176EEESA_EEELi128ENS_6half_tEfNS_4arch4Sm90ELb0ELb0ELb0ELb0ELb0ELb0ELb0ELb1ELb1ELb0ELb0ELb0EEENS1_21CollectiveEpilogueFwdINS6_IJSA_SA_SB_EEES9_SD_SF_Li256ELb0ELb0ELb0ELb0EEENS1_29StaticPersistentTileSchedulerILb0EEEEEEEEEvNT_6ParamsE",
+      "ptx_sha256": "0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76",
+      "first_failure": "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage1/artifacts/frozen_fwd.ptx:65 Syntax error: prefetch.tensormap [%rd14];",
+      "failure_category": "lexer/parser syntax",
+      "log": "/tmp/hopper-stage8-readiness-20261010/iterations/01-elect/frozen-fa3-parser.log",
+      "iteration": "01-elect"
+    },
+    {
+      "status": "BLOCKED",
+      "exit": 1,
+      "scope": "frozen_fa3_parser",
+      "kernel": "_ZN7cutlass13device_kernelIN5flash11enable_sm90INS1_16FlashAttnFwdSm90INS1_25CollectiveMainloopFwdSm90ILi2EN4cute5tupleIJNS5_1CILi1EEES8_S8_EEENS6_IJNS7_ILi128EEENS7_ILi176EEESA_EEELi128ENS_6half_tEfNS_4arch4Sm90ELb0ELb0ELb0ELb0ELb0ELb0ELb0ELb1ELb1ELb0ELb0ELb0EEENS1_21CollectiveEpilogueFwdINS6_IJSA_SA_SB_EEES9_SD_SF_Li256ELb0ELb0ELb0ELb0EEENS1_29StaticPersistentTileSchedulerILb0EEEEEEEEEvNT_6ParamsE",
+      "ptx_sha256": "0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76",
+      "first_failure": "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage1/artifacts/frozen_fwd.ptx:184 Syntax error: fence.mbarrier_init.release.cluster;",
+      "failure_category": "lexer/parser syntax",
+      "log": "/tmp/hopper-stage8-readiness-20261010/iterations/02-prefetch/frozen-fa3-parser.log",
+      "iteration": "02-prefetch"
+    },
+    {
+      "status": "BLOCKED",
+      "exit": 1,
+      "scope": "frozen_fa3_parser",
+      "kernel": "_ZN7cutlass13device_kernelIN5flash11enable_sm90INS1_16FlashAttnFwdSm90INS1_25CollectiveMainloopFwdSm90ILi2EN4cute5tupleIJNS5_1CILi1EEES8_S8_EEENS6_IJNS7_ILi128EEENS7_ILi176EEESA_EEELi128ENS_6half_tEfNS_4arch4Sm90ELb0ELb0ELb0ELb0ELb0ELb0ELb0ELb1ELb1ELb0ELb0ELb0EEENS1_21CollectiveEpilogueFwdINS6_IJSA_SA_SB_EEES9_SD_SF_Li256ELb0ELb0ELb0ELb0EEENS1_29StaticPersistentTileSchedulerILb0EEEEEEEEEvNT_6ParamsE",
+      "ptx_sha256": "0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76",
+      "first_failure": "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage1/artifacts/frozen_fwd.ptx:4996 Syntax error: stmatrix.sync.aligned.x4.m8n8.shared.b16 [%r1355], {%r1321, %r1322, %r1323, %r1324};",
+      "failure_category": "lexer/parser syntax",
+      "log": "/tmp/hopper-stage8-readiness-20261010/iterations/03-fence/frozen-fa3-parser.log",
+      "iteration": "03-fence"
+    },
+    {
+      "status": "BLOCKED",
+      "exit": 1,
+      "scope": "frozen_fa3_parser",
+      "kernel": "_ZN7cutlass13device_kernelIN5flash11enable_sm90INS1_16FlashAttnFwdSm90INS1_25CollectiveMainloopFwdSm90ILi2EN4cute5tupleIJNS5_1CILi1EEES8_S8_EEENS6_IJNS7_ILi128EEENS7_ILi176EEESA_EEELi128ENS_6half_tEfNS_4arch4Sm90ELb0ELb0ELb0ELb0ELb0ELb0ELb0ELb1ELb1ELb0ELb0ELb0EEENS1_21CollectiveEpilogueFwdINS6_IJSA_SA_SB_EEES9_SD_SF_Li256ELb0ELb0ELb0ELb0EEENS1_29StaticPersistentTileSchedulerILb0EEEEEEEEEvNT_6ParamsE",
+      "ptx_sha256": "0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76",
+      "first_failure": "strict frontend failure; see complete log",
+      "failure_category": "frontend",
+      "log": "/tmp/hopper-stage8-readiness-20261010/iterations/04-stmatrix/frozen-fa3-parser.log",
+      "iteration": "04-stmatrix",
+      "first_failure_from_raw_log": "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage1/artifacts/frozen_fwd.ptx:5105: Parse error: unsupported TMA opcode/modifier: cp.async.bulk.tensor.5d.global.shared::cta.bulk_group (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:974)"
+    },
+    {
+      "status": "BLOCKED",
+      "exit": 1,
+      "scope": "frozen_fa3_parser",
+      "kernel": "_ZN7cutlass13device_kernelIN5flash11enable_sm90INS1_16FlashAttnFwdSm90INS1_25CollectiveMainloopFwdSm90ILi2EN4cute5tupleIJNS5_1CILi1EEES8_S8_EEENS6_IJNS7_ILi128EEENS7_ILi176EEESA_EEELi128ENS_6half_tEfNS_4arch4Sm90ELb0ELb0ELb0ELb0ELb0ELb0ELb0ELb1ELb1ELb0ELb0ELb0EEENS1_21CollectiveEpilogueFwdINS6_IJSA_SA_SB_EEES9_SD_SF_Li256ELb0ELb0ELb0ELb0EEENS1_29StaticPersistentTileSchedulerILb0EEEEEEEEEvNT_6ParamsE",
+      "ptx_sha256": "0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76",
+      "first_failure": "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage1/artifacts/frozen_fwd.ptx:5113: Parse error: unsupported TMA opcode/modifier: cp.async.bulk.commit_group (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:999)",
+      "failure_category": "operand/type/modifier",
+      "log": "/tmp/hopper-stage8-readiness-20261010/iterations/05-tma-store/frozen-fa3-parser.log",
+      "iteration": "05-tma-store",
+      "first_failure_from_raw_log": "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage1/artifacts/frozen_fwd.ptx:5113: Parse error: unsupported TMA opcode/modifier: cp.async.bulk.commit_group (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:999)"
+    },
+    {
+      "status": "BLOCKED",
+      "exit": 1,
+      "scope": "frozen_fa3_parser",
+      "kernel": "_ZN7cutlass13device_kernelIN5flash11enable_sm90INS1_16FlashAttnFwdSm90INS1_25CollectiveMainloopFwdSm90ILi2EN4cute5tupleIJNS5_1CILi1EEES8_S8_EEENS6_IJNS7_ILi128EEENS7_ILi176EEESA_EEELi128ENS_6half_tEfNS_4arch4Sm90ELb0ELb0ELb0ELb0ELb0ELb0ELb0ELb1ELb1ELb0ELb0ELb0EEENS1_21CollectiveEpilogueFwdINS6_IJSA_SA_SB_EEES9_SD_SF_Li256ELb0ELb0ELb0ELb0EEENS1_29StaticPersistentTileSchedulerILb0EEEEEEEEEvNT_6ParamsE",
+      "ptx_sha256": "0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76",
+      "first_failure": "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage1/artifacts/frozen_fwd.ptx:5154 Syntax error: griddepcontrol.wait;",
+      "failure_category": "lexer/parser syntax",
+      "log": "/tmp/hopper-stage8-readiness-20261010/iterations/06-bulk-groups/frozen-fa3-parser.log",
+      "iteration": "06-bulk-groups"
+    },
+    {
+      "status": "BLOCKED",
+      "exit": 1,
+      "scope": "frozen_fa3_parser",
+      "kernel": "_ZN7cutlass13device_kernelIN5flash11enable_sm90INS1_16FlashAttnFwdSm90INS1_25CollectiveMainloopFwdSm90ILi2EN4cute5tupleIJNS5_1CILi1EEES8_S8_EEENS6_IJNS7_ILi128EEENS7_ILi176EEESA_EEELi128ENS_6half_tEfNS_4arch4Sm90ELb0ELb0ELb0ELb0ELb0ELb0ELb0ELb1ELb1ELb0ELb0ELb0EEENS1_21CollectiveEpilogueFwdINS6_IJSA_SA_SB_EEES9_SD_SF_Li256ELb0ELb0ELb0ELb0EEENS1_29StaticPersistentTileSchedulerILb0EEEEEEEEEvNT_6ParamsE",
+      "ptx_sha256": "0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76",
+      "first_failure": "strict frontend failure; see complete log",
+      "failure_category": "frontend",
+      "log": "/tmp/hopper-stage8-readiness-20261010/iterations/07-griddep/frozen-fa3-parser.log",
+      "iteration": "07-griddep",
+      "first_failure_from_raw_log": "symbol_table::set_label_address: scoped label missing in function table"
+    },
+    {
+      "status": "PASS",
+      "exit": 0,
+      "scope": "frozen_fa3_parser",
+      "kernel": "_ZN7cutlass13device_kernelIN5flash11enable_sm90INS1_16FlashAttnFwdSm90INS1_25CollectiveMainloopFwdSm90ILi2EN4cute5tupleIJNS5_1CILi1EEES8_S8_EEENS6_IJNS7_ILi128EEENS7_ILi176EEESA_EEELi128ENS_6half_tEfNS_4arch4Sm90ELb0ELb0ELb0ELb0ELb0ELb0ELb0ELb1ELb1ELb0ELb0ELb0EEENS1_21CollectiveEpilogueFwdINS6_IJSA_SA_SB_EEES9_SD_SF_Li256ELb0ELb0ELb0ELb0EEENS1_29StaticPersistentTileSchedulerILb0EEEEEEEEEvNT_6ParamsE",
+      "ptx_sha256": "0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76",
+      "runtime_sha256": "b05eb677f6927a090cc7e313b63050aff7db7b8b0e01057219378cdc86b5e947",
+      "parser_only": true,
+      "instructions_including_labels": 3025,
+      "first_failure": null,
+      "failure_category": null,
+      "log": "/tmp/hopper-stage8-readiness-20261010/iterations/08-scoped-labels/frozen-fa3-parser.log",
+      "iteration": "08-scoped-labels"
+    }
+  ],
+  "build_versions": [
+    "compiler-version.log",
+    "ptxas-version.log",
+    "environment.log"
+  ],
+  "scope": "one first-failure category per iteration; original PTX unchanged"
+}

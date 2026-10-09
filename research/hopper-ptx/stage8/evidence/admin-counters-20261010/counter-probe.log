@@ -1,0 +1,32 @@
+workspace=/home/wangjz/in-switch/accel-sim-framework
+run_dir=/tmp/hopper-stage8-admin-counters
+timestamp=2026-10-10T02:20:56+00:00
+user=0:0
+host=root
+python=/home/wangjz/miniconda3/envs/in-switch/bin/python3
+CapInh:	0000000000000000
+CapPrm:	0000003fffffffff
+CapEff:	0000003fffffffff
+CapBnd:	0000003fffffffff
+CapAmb:	0000000000000000
+Python 3.11.16
+name, uuid, driver_version, memory.total [MiB], compute_cap
+NVIDIA A800 80GB PCIe, GPU-32ca4776-99e3-43b4-2f9d-fd4f90a01a3d, 570.133.20, 81920 MiB, 8.0
+NVIDIA (R) Nsight Compute Command Line Profiler
+Copyright (c) 2018-2024 NVIDIA Corporation
+Version 2025.1.0.0 (build 35237751) (public-release)
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2025 NVIDIA Corporation
+Built on Wed_Jan_15_19:20:09_PST_2025
+Cuda compilation tools, release 12.8, V12.8.61
+Build cuda_12.8.r12.8/compiler.35404655_0
+RmProfilingAdminOnly: 1
+executable=/home/wangjz/miniconda3/envs/in-switch/bin/python3
+version=3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]
+numpy=2.4.6
+make: Entering directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage8'
+make: 'attention' is up to date.
+make: Leaving directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage8'
+ncu_exit=0
+PROFILER_RESULT status=PASS metrics=7 errors=0
+PROFILER_RESULT status=PASS csv=/tmp/hopper-stage8-admin-counters/ncu128.csv

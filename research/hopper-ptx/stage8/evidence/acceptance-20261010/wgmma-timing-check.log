@@ -1,0 +1,2 @@
+WAIT_ORDER_RESULT status=PASS file=timing128.log completions=12 releases=8 unit_latency_min=66 unit_latency_max=66 per_warp_ii_min=64
+WAIT_ORDER_RESULT status=PASS file=timing176.log completions=12 releases=8 unit_latency_min=90 unit_latency_max=90 per_warp_ii_min=88

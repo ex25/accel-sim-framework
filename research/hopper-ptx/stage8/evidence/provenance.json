@@ -1,0 +1,84 @@
+{
+  "outer_baseline": "509a1442e29ff9aae88d4c30cf7267cf9d734613",
+  "paired_inner": "a7d9951175826c586f6d9f7d67380beac5468ec2",
+  "commands": {
+    "model": "bash research/hopper-ptx/stage8/run_model.sh /tmp/hopper-stage8-final-model",
+    "a800": "bash research/hopper-ptx/stage8/run_a800.sh /tmp/hopper-stage8-acceptance-a800"
+  },
+  "origin": {
+    "a800-one-cta.traceg.gz": "A800 NVBit 1.8 hardware capture, tracer v5; gzip mtime=0",
+    "frozen-sass.json": "CUDA 12.8.61 compiler static sm_90a SASS",
+    "sass-oracle*.log": "synthetic decoder fields; not Hopper hardware capture"
+  },
+  "raw_trace_sha256": "5eebf19b7d2096ca61f6a4334885b0f2c3e011736daa9ed5a136cfeb80159b67",
+  "runtime_sha256": "1b411f7f5a8c38d86f1cba45e636b0a567808c68c9a14d041dc9a50ab99d3052",
+  "input_manifests": {
+    "64": {
+      "shape": [
+        1,
+        64,
+        8,
+        128
+      ],
+      "input_dtype": "float16",
+      "output_dtype": "float16",
+      "layout": "BSHD",
+      "causal": false,
+      "reference_dtype": "float64",
+      "scale": 0.08838834764831843,
+      "atol": 0.002,
+      "rtol": 0.002,
+      "inputs": {
+        "q": "49ed8ace9f18c64589d48c921b7070eed5487c37e222c9f3427a33fd2dc526d2",
+        "k": "008f2bc4f41337951497aa4a2b8e43a0662091ed01ff0141bbf9dd8837a6c2f8",
+        "v": "02738f28d19240f85f11888bc6cf5c20bd68618ff753be08f445ef39e65d297c"
+      },
+      "reference_sha256": "c456fb723c34b26627062ce6e426d8c0904a2c41f4d5a2c305333224ff12d3fd"
+    },
+    "128": {
+      "shape": [
+        1,
+        128,
+        8,
+        128
+      ],
+      "input_dtype": "float16",
+      "output_dtype": "float16",
+      "layout": "BSHD",
+      "causal": false,
+      "reference_dtype": "float64",
+      "scale": 0.08838834764831843,
+      "atol": 0.002,
+      "rtol": 0.002,
+      "inputs": {
+        "q": "0b2b5855ce740e21ae738db3d4e65e9e484b3c0ce0f609ca2ea3ae1f002a8802",
+        "k": "34ad68b6385b7ff707837a8501da665cad18362ec6a846fadf858b97f229f630",
+        "v": "bed69ed7b44d86b4595df72fbf019aecdaab87e6b680262b34f1e1faf396fb3b"
+      },
+      "reference_sha256": "a60f7898e6cadef2c145389af8bc36327f77141f9033fd361aa28afb045fbd5a"
+    },
+    "256": {
+      "shape": [
+        1,
+        256,
+        8,
+        128
+      ],
+      "input_dtype": "float16",
+      "output_dtype": "float16",
+      "layout": "BSHD",
+      "causal": false,
+      "reference_dtype": "float64",
+      "scale": 0.08838834764831843,
+      "atol": 0.002,
+      "rtol": 0.002,
+      "inputs": {
+        "q": "e6a4fb3bf2280661a1d312edcff4e33a8b76cd0a9dae70396be02e661e02e6ea",
+        "k": "b7844bcbef08d5784c5b86e131ff4ea5a6bac26f3af1c7b0f829fdb2c012d3e3",
+        "v": "bdc25dc5dd1d6c78579641c36c942ee295af8ae4186145e7d9c78029300a8c34"
+      },
+      "reference_sha256": "9cfb06ffe591282a0a2d00daddaf7910d5879d2650055fd063a951e2c15492b8"
+    }
+  },
+  "log_normalization": "Text log line endings/trailing whitespace normalized; full raw logs remain under the recorded /tmp directories."
+}

@@ -1,0 +1,14 @@
+{
+  "outer_commit": "this report-containing stage8 commit",
+  "previous_outer": "b8c9367eed88cd80eab6a1778aefad4060eebd36",
+  "paired_inner": "318094db33dbd1528a40452de5819984004b6a08",
+  "script_sha256": "bbe4b05b134612413c8eb313aa999a0b898d873de5ac8725d251c9d041db60e1",
+  "path": "/usr/bin:/bin",
+  "rg_available": false,
+  "probe_directory": "/tmp/hopper-stage8-user-counters/attempt-20261010T020206Z-4116313",
+  "probe_exit": 3,
+  "ncu_exit": 1,
+  "command": "PATH=/usr/bin:/bin PYTHON_BIN=/home/wangjz/miniconda3/envs/in-switch/bin/python3 bash research/hopper-ptx/stage8/run_a800_counter_probe.sh /tmp/hopper-stage8-user-counters",
+  "result": "rg dependency fixed; current hardware profiling remains permission-blocked",
+  "origin": "actual unprivileged A800 execution outside sandbox; no driver changes"
+}

@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "exit": 0,
+  "scope": "frozen_fa3_parser",
+  "kernel": "_ZN7cutlass13device_kernelIN5flash11enable_sm90INS1_16FlashAttnFwdSm90INS1_25CollectiveMainloopFwdSm90ILi2EN4cute5tupleIJNS5_1CILi1EEES8_S8_EEENS6_IJNS7_ILi128EEENS7_ILi176EEESA_EEELi128ENS_6half_tEfNS_4arch4Sm90ELb0ELb0ELb0ELb0ELb0ELb0ELb0ELb1ELb1ELb0ELb0ELb0EEENS1_21CollectiveEpilogueFwdINS6_IJSA_SA_SB_EEES9_SD_SF_Li256ELb0ELb0ELb0ELb0EEENS1_29StaticPersistentTileSchedulerILb0EEEEEEEEEvNT_6ParamsE",
+  "ptx_sha256": "0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76",
+  "runtime_sha256": "d75cc6330e416dad3e041834171e6586fcae18fc09bc774c12bed613f93944da",
+  "parser_only": true,
+  "instructions_including_labels": 3025,
+  "first_failure": null,
+  "failure_category": null,
+  "log": "/tmp/hopper-stage8-readiness-20261010/model-final/frozen-fa3-parser.log"
+}

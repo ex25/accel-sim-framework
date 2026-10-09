@@ -1,0 +1,9 @@
+FRONTEND status=PASS target=sm_90a target_number=90 instructions=2
+FRONTEND status=PASS target=sm_90a target_number=90 instructions=2
+FRONTEND status=PASS target=sm_90a target_number=90 instructions=5
+STAGE_REGRESSION status=PASS stage=4
+STAGE_REGRESSION status=PASS stage=5
+STAGE_REGRESSION status=PASS stage=6
+STAGE_REGRESSION status=PASS stage=7
+PARAM_LAYOUT_RESULT status=PASS positive=4 negatives=5 copy_guard=PASS
+PARAM_REGRESSIONS status=PASS stages=3,4,5,6,7

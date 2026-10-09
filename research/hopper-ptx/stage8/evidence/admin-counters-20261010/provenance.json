@@ -1,0 +1,133 @@
+{
+  "admin_directory": "/tmp/hopper-stage8-admin-counters",
+  "admin_raw_file_sha256": {
+    "a800-128-comparison.log": "911a72d5aafbd74c44388750b8b21b23c12dfa0625449ccdccae01befb33b79e",
+    "a800-128.comparison.json": "7375ff28c843c2d18fee58da949253388625931c3750eb1684354844facf7a22",
+    "a800-128.f16le": "b6c362968f4561c8d42869ca1e85c7c7e8b0c0f4d06766f4f4c4a6ddb8b7e05f",
+    "a800-128.log": "fa212bc9c2eacbfe2a4807f523effb5f2e362703fc0368abaa7e6133bff6ea95",
+    "a800-256-comparison.log": "f970feda82ecd6c1ce5f80d244af08038de6e9aab6a20b4dc8b55e6f11752d5d",
+    "a800-256.comparison.json": "5917ef24ab2d5e164faac000c6fddadf9ad558829dc37934538a48c42002b80c",
+    "a800-256.f16le": "c811dbfb0c34d922053d38edbaaaf35fd8e3d3d28730a00b845ea8e288b985d6",
+    "a800-256.log": "10c193c8f7d04bbe9b438614aba2b28f937ea4fe4de0937c3877cca5ca78120b",
+    "a800-64-comparison.log": "0cf384d84250c2bbc081a3269a8991b1d6d1372e51a0028870dc588b9d573f5d",
+    "a800-64.comparison.json": "4889e6968239229d232f6a496e8ebd78085690aac1df285b9c59099b1ed0363c",
+    "a800-64.f16le": "63515a344de55e04cfa356e0b082a00796f5a3c3c35cb20c78e0a58de533ba85",
+    "a800-64.log": "38376e9b8f6cc7ad7bdbf9e4f872614e7d2e4f4abc36e97b7137c51a687d4aca",
+    "a800-profile-128.comparison.json": "2f23472b044bf67c0b247f033ea82366a90976e8bba43391b4982ea4e6bc40fc",
+    "a800-profile-128.f16le": "b6c362968f4561c8d42869ca1e85c7c7e8b0c0f4d06766f4f4c4a6ddb8b7e05f",
+    "counter-probe.log": "36c7995af26d996aa0c754bc8f8b2d213ec54a8ec6005461d9711ac4a085d511",
+    "inputs/128/k.f16le": "34ad68b6385b7ff707837a8501da665cad18362ec6a846fadf858b97f229f630",
+    "inputs/128/manifest.json": "065f20553d2f12ecfd628f5c78fccce1a8ac0f0daa89dbc300a797ebc5485127",
+    "inputs/128/q.f16le": "0b2b5855ce740e21ae738db3d4e65e9e484b3c0ce0f609ca2ea3ae1f002a8802",
+    "inputs/128/reference.f64le": "a60f7898e6cadef2c145389af8bc36327f77141f9033fd361aa28afb045fbd5a",
+    "inputs/128/v.f16le": "bed69ed7b44d86b4595df72fbf019aecdaab87e6b680262b34f1e1faf396fb3b",
+    "inputs/256/k.f16le": "b7844bcbef08d5784c5b86e131ff4ea5a6bac26f3af1c7b0f829fdb2c012d3e3",
+    "inputs/256/manifest.json": "e15f0379cc6c5907fbb3c34ef407b360d280da570443d21052a5b550322f8a5a",
+    "inputs/256/q.f16le": "e6a4fb3bf2280661a1d312edcff4e33a8b76cd0a9dae70396be02e661e02e6ea",
+    "inputs/256/reference.f64le": "9cfb06ffe591282a0a2d00daddaf7910d5879d2650055fd063a951e2c15492b8",
+    "inputs/256/v.f16le": "bdc25dc5dd1d6c78579641c36c942ee295af8ae4186145e7d9c78029300a8c34",
+    "inputs/64/k.f16le": "008f2bc4f41337951497aa4a2b8e43a0662091ed01ff0141bbf9dd8837a6c2f8",
+    "inputs/64/manifest.json": "589bdf1aebeb41448219ab11410baeac9a49519446b56457722f46ca03a5a07f",
+    "inputs/64/q.f16le": "49ed8ace9f18c64589d48c921b7070eed5487c37e222c9f3427a33fd2dc526d2",
+    "inputs/64/reference.f64le": "c456fb723c34b26627062ce6e426d8c0904a2c41f4d5a2c305333224ff12d3fd",
+    "inputs/64/v.f16le": "02738f28d19240f85f11888bc6cf5c20bd68618ff753be08f445ef39e65d297c",
+    "ncu128.csv": "8d4a89709ee2076a93f009374598733ec53da6e0eed4f66749ef2fd9a2c0d98b",
+    "ncu128.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ncu128.stdout": "2dca6dc46fa2babb086260613e72b95b642fea679d2b1bee219a9568dc306eb0",
+    "permission-check/capabilities.txt": "95a59b5127e36aa7b4aa6a3ad3d30939d3c2cf539ee71c578011b57a30c50b95",
+    "permission-check/device.csv": "61740b7dba4ad570228ebb8e16603fdef703dd7a1b2cb073d69fe63a849591de",
+    "permission-check/ncu-version.txt": "02b24976379c594eb2d7d1135918a0af9ee9770dae4ab42e18824e19210b1eb6",
+    "permission-check/nvcc-version.txt": "fc8ae1e160e2c922233faf6c9c15d04074acc08e24a94f8ec9b057ceaf3d2381",
+    "permission-check/nvidia-params.txt": "c82dbb97fbc8843a13273f548b170686fe5cf4f2edf83b4f022a7230c3dc421a",
+    "permission-check/python-environment.txt": "c1819f924b08c27fc51450990be2d1c7d896acd9b72a6b2fd9b21f077522eb94",
+    "profile-numerical.log": "469763f413bed8d2d980dd54c576e6ebffd6e04d508dd959d9535dffbc6f934c",
+    "profiler-readiness.json": "f60196340c82a1037a3a0bc94b180cdcca0dd3f4073ed2af6e23b7aca3bbfda0",
+    "reference.log": "7418266fb4b03ecd665fda33df89d47dced378ac912aee724e80ea142b38ddc2"
+  },
+  "current_source_sha256": {
+    "research/hopper-ptx/stage8/run_a800_counter_probe.sh": "4bc459dfe821c47c74a4cac610ac6f3402cc65ff0af29e56322f052dea3ee9bd",
+    "research/hopper-ptx/stage8/verify_results.py": "e1674e96939975c2fd43d567c3a070497634343c7e13c33bf2911c5eb223c158"
+  },
+  "input_manifests": {
+    "128": {
+      "atol": 0.002,
+      "causal": false,
+      "input_dtype": "float16",
+      "inputs": {
+        "k": "34ad68b6385b7ff707837a8501da665cad18362ec6a846fadf858b97f229f630",
+        "q": "0b2b5855ce740e21ae738db3d4e65e9e484b3c0ce0f609ca2ea3ae1f002a8802",
+        "v": "bed69ed7b44d86b4595df72fbf019aecdaab87e6b680262b34f1e1faf396fb3b"
+      },
+      "layout": "BSHD",
+      "output_dtype": "float16",
+      "reference_dtype": "float64",
+      "reference_sha256": "a60f7898e6cadef2c145389af8bc36327f77141f9033fd361aa28afb045fbd5a",
+      "rtol": 0.002,
+      "scale": 0.08838834764831843,
+      "shape": [
+        1,
+        128,
+        8,
+        128
+      ]
+    },
+    "256": {
+      "atol": 0.002,
+      "causal": false,
+      "input_dtype": "float16",
+      "inputs": {
+        "k": "b7844bcbef08d5784c5b86e131ff4ea5a6bac26f3af1c7b0f829fdb2c012d3e3",
+        "q": "e6a4fb3bf2280661a1d312edcff4e33a8b76cd0a9dae70396be02e661e02e6ea",
+        "v": "bdc25dc5dd1d6c78579641c36c942ee295af8ae4186145e7d9c78029300a8c34"
+      },
+      "layout": "BSHD",
+      "output_dtype": "float16",
+      "reference_dtype": "float64",
+      "reference_sha256": "9cfb06ffe591282a0a2d00daddaf7910d5879d2650055fd063a951e2c15492b8",
+      "rtol": 0.002,
+      "scale": 0.08838834764831843,
+      "shape": [
+        1,
+        256,
+        8,
+        128
+      ]
+    },
+    "64": {
+      "atol": 0.002,
+      "causal": false,
+      "input_dtype": "float16",
+      "inputs": {
+        "k": "008f2bc4f41337951497aa4a2b8e43a0662091ed01ff0141bbf9dd8837a6c2f8",
+        "q": "49ed8ace9f18c64589d48c921b7070eed5487c37e222c9f3427a33fd2dc526d2",
+        "v": "02738f28d19240f85f11888bc6cf5c20bd68618ff753be08f445ef39e65d297c"
+      },
+      "layout": "BSHD",
+      "output_dtype": "float16",
+      "reference_dtype": "float64",
+      "reference_sha256": "c456fb723c34b26627062ce6e426d8c0904a2c41f4d5a2c305333224ff12d3fd",
+      "rtol": 0.002,
+      "scale": 0.08838834764831843,
+      "shape": [
+        1,
+        64,
+        8,
+        128
+      ]
+    }
+  },
+  "origin": {
+    "counters_and_post_profile_sweep": "user-run sudo script; real A800 hardware, 2026-10-10",
+    "model_and_trace": "reused unchanged 2026-10-09 model-final and a800 trace/replay evidence; trace not captured during admin run"
+  },
+  "outer_commit": "this report-containing stage8 commit",
+  "paired_inner": "318094db33dbd1528a40452de5819984004b6a08",
+  "previous_outer": "63339feacf50cf41e632176281720eab8e0fdfb8",
+  "readiness_exit_normalization": {
+    "evidence": "/tmp/hopper-stage8-admin-counters/counter-probe.log",
+    "reason": "original success path omitted exit; original file preserved; validation copy annotated from ncu_exit=0",
+    "value": 0
+  },
+  "script_at_capture_sha256": "bbe4b05b134612413c8eb313aa999a0b898d873de5ac8725d251c9d041db60e1",
+  "validation_directory": "/tmp/hopper-stage8-admin-validation-VMalMyxr"
+}

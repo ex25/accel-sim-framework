@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "case": "finite",
+      "status": "PASS",
+      "validator_exit": 0
+    },
+    {
+      "case": "empty",
+      "status": "PASS",
+      "validator_exit": 3
+    },
+    {
+      "case": "nan",
+      "status": "PASS",
+      "validator_exit": 3
+    },
+    {
+      "case": "inf",
+      "status": "PASS",
+      "validator_exit": 3
+    },
+    {
+      "case": "negative",
+      "status": "PASS",
+      "validator_exit": 3
+    },
+    {
+      "case": "missing",
+      "status": "PASS",
+      "validator_exit": 3
+    },
+    {
+      "case": "ncu_error",
+      "status": "PASS",
+      "validator_exit": 3
+    },
+    {
+      "case": "invalid_second_launch",
+      "status": "PASS",
+      "validator_exit": 3
+    }
+  ]
+}

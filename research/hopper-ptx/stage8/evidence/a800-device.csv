@@ -1,0 +1,2 @@
+name, uuid, driver_version, memory.total [MiB], compute_cap
+NVIDIA A800 80GB PCIe, GPU-32ca4776-99e3-43b4-2f9d-fd4f90a01a3d, 570.133.20, 81920 MiB, 8.0

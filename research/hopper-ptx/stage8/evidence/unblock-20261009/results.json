@@ -1,0 +1,260 @@
+{
+  "scope": "stage8",
+  "numerical": [
+    {
+      "status": "PASS",
+      "output": "ptx-functional-128.f16le",
+      "seq": 128,
+      "rows": 128,
+      "heads": 8,
+      "elements": 131072,
+      "max_abs_error": 0.00024430074510806143,
+      "max_scaled_error": 0.0810326048271401,
+      "rms_error": 9.66031577048298e-05,
+      "sha256": "ee8f76676c366e9009b5eafeb3725905f4290812ec2d62a416322999d833c550",
+      "atol": 0.002,
+      "rtol": 0.002
+    },
+    {
+      "status": "PASS",
+      "output": "ptx-detailed-64.f16le",
+      "seq": 64,
+      "rows": 1,
+      "heads": 1,
+      "elements": 128,
+      "max_abs_error": 0.00023796303984324751,
+      "max_scaled_error": 0.07683276836329521,
+      "rms_error": 0.00010617166976776281,
+      "sha256": "468defcb4d4679bcdb3da5b3e30b02c4a21a21b4bf499a0257750ebc336d4020",
+      "atol": 0.002,
+      "rtol": 0.002
+    },
+    {
+      "status": "PASS",
+      "output": "ptx-detailed-128.f16le",
+      "seq": 128,
+      "rows": 1,
+      "heads": 1,
+      "elements": 128,
+      "max_abs_error": 0.0002421818408877563,
+      "max_scaled_error": 0.07698087730974872,
+      "rms_error": 0.00010922087653044262,
+      "sha256": "b2523339914f6178c7842dcbecbe68742dda7d5066cf1eb60d591c23f1b48bdf",
+      "atol": 0.002,
+      "rtol": 0.002
+    },
+    {
+      "status": "PASS",
+      "output": "ptx-detailed-256.f16le",
+      "seq": 256,
+      "rows": 1,
+      "heads": 1,
+      "elements": 128,
+      "max_abs_error": 0.000228678062510701,
+      "max_scaled_error": 0.07390373857567603,
+      "rms_error": 9.141818118318759e-05,
+      "sha256": "9fec5420b9eba59c18ce3cdc139552d04a2b2c4990b82a32485bd93bb70b6334",
+      "atol": 0.002,
+      "rtol": 0.002
+    },
+    {
+      "status": "PASS",
+      "output": "a800-64.f16le",
+      "seq": 64,
+      "rows": 64,
+      "heads": 8,
+      "elements": 65536,
+      "max_abs_error": 0.0002441411761958667,
+      "max_scaled_error": 0.08116113993597195,
+      "rms_error": 9.646676174641468e-05,
+      "sha256": "63515a344de55e04cfa356e0b082a00796f5a3c3c35cb20c78e0a58de533ba85",
+      "atol": 0.002,
+      "rtol": 0.002
+    },
+    {
+      "status": "PASS",
+      "output": "a800-128.f16le",
+      "seq": 128,
+      "rows": 128,
+      "heads": 8,
+      "elements": 131072,
+      "max_abs_error": 0.00024440458503072193,
+      "max_scaled_error": 0.0810326048271401,
+      "rms_error": 9.66031794725977e-05,
+      "sha256": "b6c362968f4561c8d42869ca1e85c7c7e8b0c0f4d06766f4f4c4a6ddb8b7e05f",
+      "atol": 0.002,
+      "rtol": 0.002
+    },
+    {
+      "status": "PASS",
+      "output": "a800-256.f16le",
+      "seq": 256,
+      "rows": 256,
+      "heads": 8,
+      "elements": 262144,
+      "max_abs_error": 0.0002445432527317104,
+      "max_scaled_error": 0.08118192425400673,
+      "rms_error": 9.605376410392119e-05,
+      "sha256": "c811dbfb0c34d922053d38edbaaaf35fd8e3d3d28730a00b845ea8e288b985d6",
+      "atol": 0.002,
+      "rtol": 0.002
+    },
+    {
+      "status": "PASS",
+      "output": "a800-traced-128.f16le",
+      "seq": 128,
+      "rows": 1,
+      "heads": 1,
+      "elements": 128,
+      "max_abs_error": 0.0002421818408877563,
+      "max_scaled_error": 0.07698087730974872,
+      "rms_error": 0.00010922087653044262,
+      "sha256": "0c8e4388e5317c654f096290340b796cbd21d0ea37cbaafb8f461395aebf61e7",
+      "atol": 0.002,
+      "rtol": 0.002
+    }
+  ],
+  "blockers": [
+    "frozen FA3 PTX parser: /home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage1/artifacts/frozen_fwd.ptx:46 Syntax error: elect.sync %rx|%px, %r324;",
+    "A800 performance counters unavailable; actual DRAM/achieved occupancy unverified"
+  ],
+  "architecture_calibration": false,
+  "parameter_abi": {
+    "status": "PASS",
+    "positive_cases": 4,
+    "negative_cases": 5,
+    "copy_guard": "PASS"
+  },
+  "counter_validator_contracts": {
+    "status": "PASS",
+    "cases": [
+      {
+        "case": "finite",
+        "status": "PASS",
+        "validator_exit": 0
+      },
+      {
+        "case": "empty",
+        "status": "PASS",
+        "validator_exit": 3
+      },
+      {
+        "case": "nan",
+        "status": "PASS",
+        "validator_exit": 3
+      },
+      {
+        "case": "inf",
+        "status": "PASS",
+        "validator_exit": 3
+      },
+      {
+        "case": "negative",
+        "status": "PASS",
+        "validator_exit": 3
+      },
+      {
+        "case": "missing",
+        "status": "PASS",
+        "validator_exit": 3
+      },
+      {
+        "case": "ncu_error",
+        "status": "PASS",
+        "validator_exit": 3
+      },
+      {
+        "case": "invalid_second_launch",
+        "status": "PASS",
+        "validator_exit": 3
+      }
+    ]
+  },
+  "ptx_a800_max_abs_difference": 0.00048828125,
+  "ptx_a800_differing_elements": 26,
+  "a800_full_grid_timings": [
+    {
+      "status": "PASS",
+      "device": "NVIDIA A800 80GB PCIe",
+      "cc": "8.0",
+      "sm_count": 108,
+      "seq": 64,
+      "rows": 64,
+      "heads": 8,
+      "threads": 128,
+      "repetitions": 30,
+      "kernel_us_min": 41.984001,
+      "kernel_us_median": 41.984001,
+      "kernel_us_max": 44.032001,
+      "transfer_kernel_host_us": 252.001,
+      "registers": 34,
+      "static_shared_bytes": 1540,
+      "theoretical_occupancy": 0.75,
+      "logical_global_bytes": 17039360,
+      "io_bytes": 524288,
+      "gemm_flops": 16777216
+    },
+    {
+      "status": "PASS",
+      "device": "NVIDIA A800 80GB PCIe",
+      "cc": "8.0",
+      "sm_count": 108,
+      "seq": 128,
+      "rows": 128,
+      "heads": 8,
+      "threads": 128,
+      "repetitions": 30,
+      "kernel_us_min": 141.311996,
+      "kernel_us_median": 141.311996,
+      "kernel_us_max": 143.360001,
+      "transfer_kernel_host_us": 486.239,
+      "registers": 34,
+      "static_shared_bytes": 1540,
+      "theoretical_occupancy": 0.75,
+      "logical_global_bytes": 67633152,
+      "io_bytes": 1048576,
+      "gemm_flops": 67108864
+    },
+    {
+      "status": "PASS",
+      "device": "NVIDIA A800 80GB PCIe",
+      "cc": "8.0",
+      "sm_count": 108,
+      "seq": 256,
+      "rows": 256,
+      "heads": 8,
+      "threads": 256,
+      "repetitions": 30,
+      "kernel_us_min": 553.984009,
+      "kernel_us_median": 556.031982,
+      "kernel_us_max": 557.05603,
+      "transfer_kernel_host_us": 1233.937,
+      "registers": 34,
+      "static_shared_bytes": 1540,
+      "theoretical_occupancy": 0.75,
+      "logical_global_bytes": 269484032,
+      "io_bytes": 2097152,
+      "gemm_flops": 268435456
+    }
+  ],
+  "ptx_one_cta_cycles": {
+    "64": 218905,
+    "128": 370567,
+    "256": 708229
+  },
+  "a800_trace": {
+    "warp_instructions": 6206,
+    "scalar_instructions": 134375,
+    "global_read_bytes": 65792,
+    "global_write_bytes": 256,
+    "requested_32B_sectors": 17424,
+    "barrier_warp_events": 12
+  },
+  "sass_replay_cycles": 32979,
+  "static_hopper_sass_instructions": 2612,
+  "hopper_dynamic_trace_available": false,
+  "limitations": [
+    "No Hopper hardware dynamic trace; GMMA/TMA decoder fields are explicitly synthetic. This validation does not claim hardware cycle accuracy."
+  ],
+  "status": "BLOCKED"
+}

@@ -1,0 +1,166 @@
+{
+  "status": "PASS",
+  "scope": "parser only; execution unsupported",
+  "positive_cases": 12,
+  "negative_cases": 19,
+  "strict_execution_cases": 24,
+  "scoped_label_modes": 2,
+  "undefined_label_rejected": true,
+  "cases": [
+    {
+      "name": "elect_register",
+      "parser": "accepted",
+      "execution": "strict failure in both modes; guard unchanged"
+    },
+    {
+      "name": "elect_immediate",
+      "parser": "accepted",
+      "execution": "strict failure in both modes; guard unchanged"
+    },
+    {
+      "name": "prefetch_generic",
+      "parser": "accepted",
+      "execution": "strict failure in both modes; guard unchanged"
+    },
+    {
+      "name": "prefetch_param",
+      "parser": "accepted",
+      "execution": "strict failure in both modes; guard unchanged"
+    },
+    {
+      "name": "prefetch_const",
+      "parser": "accepted",
+      "execution": "strict failure in both modes; guard unchanged"
+    },
+    {
+      "name": "init_fence",
+      "parser": "accepted",
+      "execution": "strict failure in both modes; guard unchanged"
+    },
+    {
+      "name": "stmatrix",
+      "parser": "accepted",
+      "execution": "strict failure in both modes; guard unchanged"
+    },
+    {
+      "name": "tma_store",
+      "parser": "accepted",
+      "execution": "strict failure in both modes; guard unchanged"
+    },
+    {
+      "name": "bulk_commit",
+      "parser": "accepted",
+      "execution": "strict failure in both modes; guard unchanged"
+    },
+    {
+      "name": "bulk_wait",
+      "parser": "accepted",
+      "execution": "strict failure in both modes; guard unchanged"
+    },
+    {
+      "name": "grid_wait",
+      "parser": "accepted",
+      "execution": "strict failure in both modes; guard unchanged"
+    },
+    {
+      "name": "setmaxnreg",
+      "parser": "accepted",
+      "execution": "strict failure in both modes; guard unchanged"
+    },
+    {
+      "name": "elect_modifier",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "elect_destination",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "elect_missing_predicate",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "elect_mask_width",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "prefetch_modifier",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "prefetch_unbracketed",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "prefetch_width",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "fence_modifier",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "fence_operand",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "stmatrix_modifier",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "stmatrix_tuple",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "stmatrix_width",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "store_rank",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "store_coords",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "bulk_commit_operand",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "bulk_wait_register",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "bulk_wait_modifier",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "grid_modifier",
+      "parser": "rejected",
+      "execution": "not launched"
+    },
+    {
+      "name": "grid_operand",
+      "parser": "rejected",
+      "execution": "not launched"
+    }
+  ]
+}

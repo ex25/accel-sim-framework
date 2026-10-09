@@ -1,0 +1,10 @@
+{
+  "capabilities.txt": "0863751c75fc25f6171fac4df36acf7a787c6a0fcfafbccbf596977503434d1d",
+  "csv-contracts.json": "d7cce2b0f3ce90e0f9071aed03e96d151a2a56848e3f9e399c8e03fe82762479",
+  "device.txt": "61740b7dba4ad570228ebb8e16603fdef703dd7a1b2cb073d69fe63a849591de",
+  "ncu128.log": "1f08da4cda1424a34e05f687bc3c8f7cc6bb5d2db11a0aa2c38e94165fbb601a",
+  "probe.log": "e278dc3e517253d9f6c9b72d401c21fcca6b867f1323dfb258dfe4c5909d5e14",
+  "profiler-readiness.json": "d71de679d6e1c95d89e2370215815361e49d0c31a464fa9987de5da0500ecae4",
+  "provenance.json": "afd59e3536b21243c5c872327993378c5b7f8c9199b13e18a5e436e1bbde4866",
+  "user-failure.log": "437ce3fd8d2afa90665464d2c939800f88c6d6dd15545cece86a181ae51a7a92"
+}

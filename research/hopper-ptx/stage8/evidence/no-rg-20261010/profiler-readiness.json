@@ -1,0 +1,28 @@
+{
+  "csv": "/tmp/hopper-stage8-user-counters/attempt-20261010T020206Z-4116313/ncu128.csv",
+  "errors": [
+    "ERR_NVGPUCTRPERM",
+    "missing_or_nonfinite:gpu__time_duration.sum",
+    "missing_or_nonfinite:dram__bytes_read.sum",
+    "missing_or_nonfinite:dram__bytes_write.sum",
+    "missing_or_nonfinite:sm__warps_active.avg.pct_of_peak_sustained_active",
+    "missing_or_nonfinite:sm__throughput.avg.pct_of_peak_sustained_elapsed",
+    "missing_or_nonfinite:dram__throughput.avg.pct_of_peak_sustained_elapsed",
+    "missing_or_nonfinite:launch__registers_per_thread"
+  ],
+  "exit": 1,
+  "metrics": {},
+  "next_action": "Ask an administrator to grant profiling capability or run on an authorized A800 host; do not substitute estimates.",
+  "permission_error": true,
+  "required_metrics": [
+    "gpu__time_duration.sum",
+    "dram__bytes_read.sum",
+    "dram__bytes_write.sum",
+    "sm__warps_active.avg.pct_of_peak_sustained_active",
+    "sm__throughput.avg.pct_of_peak_sustained_elapsed",
+    "dram__throughput.avg.pct_of_peak_sustained_elapsed",
+    "launch__registers_per_thread"
+  ],
+  "scope": "hardware_counters",
+  "status": "BLOCKED"
+}

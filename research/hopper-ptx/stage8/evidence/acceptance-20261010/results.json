@@ -1,0 +1,476 @@
+{
+  "scope": "stage8",
+  "numerical": [
+    {
+      "status": "PASS",
+      "output": "ptx-functional-128.f16le",
+      "seq": 128,
+      "rows": 128,
+      "heads": 8,
+      "elements": 131072,
+      "max_abs_error": 0.00024430074510806143,
+      "max_scaled_error": 0.0810326048271401,
+      "rms_error": 9.66031577048298e-05,
+      "sha256": "ee8f76676c366e9009b5eafeb3725905f4290812ec2d62a416322999d833c550",
+      "atol": 0.002,
+      "rtol": 0.002
+    },
+    {
+      "status": "PASS",
+      "output": "ptx-detailed-64.f16le",
+      "seq": 64,
+      "rows": 1,
+      "heads": 1,
+      "elements": 128,
+      "max_abs_error": 0.00023796303984324751,
+      "max_scaled_error": 0.07683276836329521,
+      "rms_error": 0.00010617166976776281,
+      "sha256": "468defcb4d4679bcdb3da5b3e30b02c4a21a21b4bf499a0257750ebc336d4020",
+      "atol": 0.002,
+      "rtol": 0.002
+    },
+    {
+      "status": "PASS",
+      "output": "ptx-detailed-128.f16le",
+      "seq": 128,
+      "rows": 1,
+      "heads": 1,
+      "elements": 128,
+      "max_abs_error": 0.0002421818408877563,
+      "max_scaled_error": 0.07698087730974872,
+      "rms_error": 0.00010922087653044262,
+      "sha256": "b2523339914f6178c7842dcbecbe68742dda7d5066cf1eb60d591c23f1b48bdf",
+      "atol": 0.002,
+      "rtol": 0.002
+    },
+    {
+      "status": "PASS",
+      "output": "ptx-detailed-256.f16le",
+      "seq": 256,
+      "rows": 1,
+      "heads": 1,
+      "elements": 128,
+      "max_abs_error": 0.000228678062510701,
+      "max_scaled_error": 0.07390373857567603,
+      "rms_error": 9.141818118318759e-05,
+      "sha256": "9fec5420b9eba59c18ce3cdc139552d04a2b2c4990b82a32485bd93bb70b6334",
+      "atol": 0.002,
+      "rtol": 0.002
+    },
+    {
+      "status": "PASS",
+      "output": "a800-64.f16le",
+      "seq": 64,
+      "rows": 64,
+      "heads": 8,
+      "elements": 65536,
+      "max_abs_error": 0.0002441411761958667,
+      "max_scaled_error": 0.08116113993597195,
+      "rms_error": 9.646676174641468e-05,
+      "sha256": "63515a344de55e04cfa356e0b082a00796f5a3c3c35cb20c78e0a58de533ba85",
+      "atol": 0.002,
+      "rtol": 0.002
+    },
+    {
+      "status": "PASS",
+      "output": "a800-128.f16le",
+      "seq": 128,
+      "rows": 128,
+      "heads": 8,
+      "elements": 131072,
+      "max_abs_error": 0.00024440458503072193,
+      "max_scaled_error": 0.0810326048271401,
+      "rms_error": 9.66031794725977e-05,
+      "sha256": "b6c362968f4561c8d42869ca1e85c7c7e8b0c0f4d06766f4f4c4a6ddb8b7e05f",
+      "atol": 0.002,
+      "rtol": 0.002
+    },
+    {
+      "status": "PASS",
+      "output": "a800-256.f16le",
+      "seq": 256,
+      "rows": 256,
+      "heads": 8,
+      "elements": 262144,
+      "max_abs_error": 0.0002445432527317104,
+      "max_scaled_error": 0.08118192425400673,
+      "rms_error": 9.605376410392119e-05,
+      "sha256": "c811dbfb0c34d922053d38edbaaaf35fd8e3d3d28730a00b845ea8e288b985d6",
+      "atol": 0.002,
+      "rtol": 0.002
+    },
+    {
+      "status": "PASS",
+      "output": "a800-traced-128.f16le",
+      "seq": 128,
+      "rows": 1,
+      "heads": 1,
+      "elements": 128,
+      "max_abs_error": 0.0002421818408877563,
+      "max_scaled_error": 0.07698087730974872,
+      "rms_error": 0.00010922087653044262,
+      "sha256": "0c8e4388e5317c654f096290340b796cbd21d0ea37cbaafb8f461395aebf61e7",
+      "atol": 0.002,
+      "rtol": 0.002
+    }
+  ],
+  "blockers": [],
+  "architecture_calibration": false,
+  "parameter_abi": {
+    "status": "PASS",
+    "positive_cases": 4,
+    "negative_cases": 5,
+    "copy_guard": "PASS"
+  },
+  "counter_validator_contracts": {
+    "status": "PASS",
+    "cases": [
+      {
+        "case": "finite",
+        "status": "PASS",
+        "validator_exit": 0
+      },
+      {
+        "case": "empty",
+        "status": "PASS",
+        "validator_exit": 3
+      },
+      {
+        "case": "nan",
+        "status": "PASS",
+        "validator_exit": 3
+      },
+      {
+        "case": "inf",
+        "status": "PASS",
+        "validator_exit": 3
+      },
+      {
+        "case": "negative",
+        "status": "PASS",
+        "validator_exit": 3
+      },
+      {
+        "case": "missing",
+        "status": "PASS",
+        "validator_exit": 3
+      },
+      {
+        "case": "ncu_error",
+        "status": "PASS",
+        "validator_exit": 3
+      },
+      {
+        "case": "invalid_second_launch",
+        "status": "PASS",
+        "validator_exit": 3
+      }
+    ]
+  },
+  "frontend_contracts": {
+    "status": "PASS",
+    "scope": "parser only; execution unsupported",
+    "positive_cases": 12,
+    "negative_cases": 19,
+    "strict_execution_cases": 24,
+    "scoped_label_modes": 2,
+    "undefined_label_rejected": true,
+    "cases": [
+      {
+        "name": "elect_register",
+        "parser": "accepted",
+        "execution": "strict failure in both modes; guard unchanged"
+      },
+      {
+        "name": "elect_immediate",
+        "parser": "accepted",
+        "execution": "strict failure in both modes; guard unchanged"
+      },
+      {
+        "name": "prefetch_generic",
+        "parser": "accepted",
+        "execution": "strict failure in both modes; guard unchanged"
+      },
+      {
+        "name": "prefetch_param",
+        "parser": "accepted",
+        "execution": "strict failure in both modes; guard unchanged"
+      },
+      {
+        "name": "prefetch_const",
+        "parser": "accepted",
+        "execution": "strict failure in both modes; guard unchanged"
+      },
+      {
+        "name": "init_fence",
+        "parser": "accepted",
+        "execution": "strict failure in both modes; guard unchanged"
+      },
+      {
+        "name": "stmatrix",
+        "parser": "accepted",
+        "execution": "strict failure in both modes; guard unchanged"
+      },
+      {
+        "name": "tma_store",
+        "parser": "accepted",
+        "execution": "strict failure in both modes; guard unchanged"
+      },
+      {
+        "name": "bulk_commit",
+        "parser": "accepted",
+        "execution": "strict failure in both modes; guard unchanged"
+      },
+      {
+        "name": "bulk_wait",
+        "parser": "accepted",
+        "execution": "strict failure in both modes; guard unchanged"
+      },
+      {
+        "name": "grid_wait",
+        "parser": "accepted",
+        "execution": "strict failure in both modes; guard unchanged"
+      },
+      {
+        "name": "setmaxnreg",
+        "parser": "accepted",
+        "execution": "strict failure in both modes; guard unchanged"
+      },
+      {
+        "name": "elect_modifier",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "elect_destination",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "elect_missing_predicate",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "elect_mask_width",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "prefetch_modifier",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "prefetch_unbracketed",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "prefetch_width",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "fence_modifier",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "fence_operand",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "stmatrix_modifier",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "stmatrix_tuple",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "stmatrix_width",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "store_rank",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "store_coords",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "bulk_commit_operand",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "bulk_wait_register",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "bulk_wait_modifier",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "grid_modifier",
+        "parser": "rejected",
+        "execution": "not launched"
+      },
+      {
+        "name": "grid_operand",
+        "parser": "rejected",
+        "execution": "not launched"
+      }
+    ]
+  },
+  "ptx_a800_max_abs_difference": 0.00048828125,
+  "ptx_a800_differing_elements": 26,
+  "a800_full_grid_timings": [
+    {
+      "status": "PASS",
+      "device": "NVIDIA A800 80GB PCIe",
+      "cc": "8.0",
+      "sm_count": 108,
+      "seq": 64,
+      "rows": 64,
+      "heads": 8,
+      "threads": 128,
+      "repetitions": 30,
+      "kernel_us_min": 41.984001,
+      "kernel_us_median": 41.984001,
+      "kernel_us_max": 44.032001,
+      "transfer_kernel_host_us": 269.235,
+      "registers": 34,
+      "static_shared_bytes": 1540,
+      "theoretical_occupancy": 0.75,
+      "logical_global_bytes": 17039360,
+      "io_bytes": 524288,
+      "gemm_flops": 16777216
+    },
+    {
+      "status": "PASS",
+      "device": "NVIDIA A800 80GB PCIe",
+      "cc": "8.0",
+      "sm_count": 108,
+      "seq": 128,
+      "rows": 128,
+      "heads": 8,
+      "threads": 128,
+      "repetitions": 30,
+      "kernel_us_min": 140.287994,
+      "kernel_us_median": 141.311996,
+      "kernel_us_max": 143.360001,
+      "transfer_kernel_host_us": 569.925,
+      "registers": 34,
+      "static_shared_bytes": 1540,
+      "theoretical_occupancy": 0.75,
+      "logical_global_bytes": 67633152,
+      "io_bytes": 1048576,
+      "gemm_flops": 67108864
+    },
+    {
+      "status": "PASS",
+      "device": "NVIDIA A800 80GB PCIe",
+      "cc": "8.0",
+      "sm_count": 108,
+      "seq": 256,
+      "rows": 256,
+      "heads": 8,
+      "threads": 256,
+      "repetitions": 30,
+      "kernel_us_min": 555.007996,
+      "kernel_us_median": 556.031982,
+      "kernel_us_max": 557.05603,
+      "transfer_kernel_host_us": 1378.301,
+      "registers": 34,
+      "static_shared_bytes": 1540,
+      "theoretical_occupancy": 0.75,
+      "logical_global_bytes": 269484032,
+      "io_bytes": 2097152,
+      "gemm_flops": 268435456
+    }
+  ],
+  "ptx_one_cta_cycles": {
+    "64": 218905,
+    "128": 370567,
+    "256": 708229
+  },
+  "a800_trace": {
+    "warp_instructions": 6206,
+    "scalar_instructions": 134375,
+    "global_read_bytes": 65792,
+    "global_write_bytes": 256,
+    "requested_32B_sectors": 17424,
+    "barrier_warp_events": 12
+  },
+  "sass_replay_cycles": 32979,
+  "static_hopper_sass_instructions": 2612,
+  "frozen_frontend": {
+    "status": "PASS",
+    "exit": 0,
+    "scope": "frozen_fa3_parser",
+    "kernel": "_ZN7cutlass13device_kernelIN5flash11enable_sm90INS1_16FlashAttnFwdSm90INS1_25CollectiveMainloopFwdSm90ILi2EN4cute5tupleIJNS5_1CILi1EEES8_S8_EEENS6_IJNS7_ILi128EEENS7_ILi176EEESA_EEELi128ENS_6half_tEfNS_4arch4Sm90ELb0ELb0ELb0ELb0ELb0ELb0ELb0ELb1ELb1ELb0ELb0ELb0EEENS1_21CollectiveEpilogueFwdINS6_IJSA_SA_SB_EEES9_SD_SF_Li256ELb0ELb0ELb0ELb0EEENS1_29StaticPersistentTileSchedulerILb0EEEEEEEEEvNT_6ParamsE",
+    "ptx_sha256": "0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76",
+    "runtime_sha256": "d75cc6330e416dad3e041834171e6586fcae18fc09bc774c12bed613f93944da",
+    "parser_only": true,
+    "instructions_including_labels": 3025,
+    "first_failure": null,
+    "failure_category": null,
+    "log": "/tmp/hopper-stage8-readiness-20261010/model-final/frozen-fa3-parser.log"
+  },
+  "hardware_counters": {
+    "csv": "/tmp/hopper-stage8-readiness-20261010/hardware/ncu128.csv",
+    "errors": [],
+    "metrics": {
+      "dram__bytes_read.sum": [
+        803712.0
+      ],
+      "dram__bytes_write.sum": [
+        0.0
+      ],
+      "dram__throughput.avg.pct_of_peak_sustained_elapsed": [
+        0.23
+      ],
+      "gpu__time_duration.sum": [
+        183264.0
+      ],
+      "launch__registers_per_thread": [
+        34.0
+      ],
+      "sm__throughput.avg.pct_of_peak_sustained_elapsed": [
+        7.8
+      ],
+      "sm__warps_active.avg.pct_of_peak_sustained_active": [
+        53.91
+      ]
+    },
+    "permission_error": false,
+    "required_metrics": [
+      "gpu__time_duration.sum",
+      "dram__bytes_read.sum",
+      "dram__bytes_write.sum",
+      "sm__warps_active.avg.pct_of_peak_sustained_active",
+      "sm__throughput.avg.pct_of_peak_sustained_elapsed",
+      "dram__throughput.avg.pct_of_peak_sustained_elapsed",
+      "launch__registers_per_thread"
+    ],
+    "scope": "hardware_counters",
+    "status": "PASS"
+  },
+  "hopper_dynamic_trace_available": false,
+  "limitations": [
+    "No Hopper hardware dynamic trace; GMMA/TMA decoder fields are explicitly synthetic. This validation does not claim hardware cycle accuracy.",
+    "Frozen FA3 passed parser readiness only. elect.sync, prefetch.tensormap, init fence, stmatrix, TMA store/bulk groups, grid dependency and setmaxnreg strictly reject execution; complete FA3 functional/detailed execution is outside stage 8."
+  ],
+  "status": "PASS"
+}

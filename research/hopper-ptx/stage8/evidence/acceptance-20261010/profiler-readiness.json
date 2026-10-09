@@ -1,0 +1,42 @@
+{
+  "csv": "/tmp/hopper-stage8-admin-counters/ncu128.csv",
+  "errors": [],
+  "metrics": {
+    "dram__bytes_read.sum": [
+      803712.0
+    ],
+    "dram__bytes_write.sum": [
+      0.0
+    ],
+    "dram__throughput.avg.pct_of_peak_sustained_elapsed": [
+      0.23
+    ],
+    "gpu__time_duration.sum": [
+      183264.0
+    ],
+    "launch__registers_per_thread": [
+      34.0
+    ],
+    "sm__throughput.avg.pct_of_peak_sustained_elapsed": [
+      7.8
+    ],
+    "sm__warps_active.avg.pct_of_peak_sustained_active": [
+      53.91
+    ]
+  },
+  "permission_error": false,
+  "required_metrics": [
+    "gpu__time_duration.sum",
+    "dram__bytes_read.sum",
+    "dram__bytes_write.sum",
+    "sm__warps_active.avg.pct_of_peak_sustained_active",
+    "sm__throughput.avg.pct_of_peak_sustained_elapsed",
+    "dram__throughput.avg.pct_of_peak_sustained_elapsed",
+    "launch__registers_per_thread"
+  ],
+  "scope": "hardware_counters",
+  "status": "PASS",
+  "exit": 0,
+  "exit_evidence": "/tmp/hopper-stage8-admin-counters/counter-probe.log",
+  "evidence_reused_from": "/tmp/hopper-stage8-admin-counters"
+}

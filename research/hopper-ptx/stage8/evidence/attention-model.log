@@ -1,0 +1,5 @@
+GPGPU-Sim: Done functional simulation (311165952 instructions simulated).
+PTX_ATTENTION_RESULT status=PASS mode=functional seq=128 rows=128 heads=8 cycles=0
+PTX_ATTENTION_RESULT status=PASS mode=detailed seq=64 rows=1 heads=1 cycles=218905
+PTX_ATTENTION_RESULT status=PASS mode=detailed seq=128 rows=1 heads=1 cycles=370567
+PTX_ATTENTION_RESULT status=PASS mode=detailed seq=256 rows=1 heads=1 cycles=708229

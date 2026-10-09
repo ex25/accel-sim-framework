@@ -1,0 +1,7 @@
+workspace=/home/wangjz/in-switch/accel-sim-framework
+run_dir=/tmp/hopper-stage8-user-counters
+timestamp=2026-10-10T01:57:30+00:00
+user=1016:1015
+host=root
+python=/home/wangjz/miniconda3/envs/in-switch/bin/python3
+research/hopper-ptx/stage8/run_a800_counter_probe.sh: line 28: rg: command not found

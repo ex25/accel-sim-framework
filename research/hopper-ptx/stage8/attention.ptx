@@ -1,0 +1,119 @@
+.version 8.7
+.target sm_90a
+.address_size 64
+// Plain CUDA-core attention oracle, not the frozen FA3 implementation.
+.visible .entry attention_kernel(
+ .param .u64 out, .param .u64 q, .param .u64 k, .param .u64 v, .param .u32 seq
+) {
+.reg .b32 %r<20>;
+.reg .b64 %rd<16>;
+.reg .f32 %f<16>;
+.reg .b16 %h<4>;
+.reg .pred %p<4>;
+.shared .align 16 .b8 query[512];
+.shared .align 16 .b8 weights[1024];
+.shared .align 4 .b8 denominator[4];
+ld.param.u64 %rd0, [out];
+ld.param.u64 %rd1, [q];
+ld.param.u64 %rd2, [k];
+ld.param.u64 %rd3, [v];
+ld.param.u32 %r0, [seq];
+mov.u32 %r1, %tid.x;
+mov.u32 %r2, %ctaid.x;
+mov.u32 %r3, %ctaid.y;
+mad.lo.u32 %r4, %r2, 8, %r3;
+mul.lo.u32 %r4, %r4, 128;
+mov.u32 %r5, query;
+mov.u32 %r6, weights;
+mov.u32 %r7, denominator;
+setp.ge.u32 %p0, %r1, 128;
+@%p0 bra QUERY_DONE;
+add.u32 %r8, %r4, %r1;
+mul.wide.u32 %rd4, %r8, 2;
+add.u64 %rd5, %rd1, %rd4;
+ld.global.b16 %h0, [%rd5];
+cvt.f32.f16 %f0, %h0;
+mad.lo.u32 %r8, %r1, 4, %r5;
+st.shared.f32 [%r8], %f0;
+QUERY_DONE:
+bar.sync 0;
+setp.ge.u32 %p1, %r1, %r0;
+@%p1 bra SCORE_DONE;
+mad.lo.u32 %r9, %r1, 8, %r3;
+mul.lo.u32 %r9, %r9, 128;
+mul.wide.u32 %rd4, %r9, 2;
+add.u64 %rd5, %rd2, %rd4;
+mov.u32 %r10, %r5;
+mov.u32 %r11, 0;
+mov.f32 %f1, 0f00000000;
+DOT:
+ld.shared.f32 %f0, [%r10];
+ld.global.b16 %h0, [%rd5];
+cvt.f32.f16 %f2, %h0;
+fma.rn.f32 %f1, %f0, %f2, %f1;
+add.u32 %r10, %r10, 4;
+add.u64 %rd5, %rd5, 2;
+add.u32 %r11, %r11, 1;
+setp.lt.u32 %p2, %r11, 128;
+@%p2 bra DOT;
+mul.f32 %f1, %f1, 0f3DB504F3;
+mad.lo.u32 %r8, %r1, 4, %r6;
+st.shared.f32 [%r8], %f1;
+SCORE_DONE:
+bar.sync 0;
+setp.ne.u32 %p1, %r1, 0;
+@%p1 bra NORMALIZED;
+ld.shared.f32 %f3, [%r6];
+mov.u32 %r11, 1;
+add.u32 %r10, %r6, 4;
+MAXIMUM:
+ld.shared.f32 %f4, [%r10];
+max.f32 %f3, %f3, %f4;
+add.u32 %r10, %r10, 4;
+add.u32 %r11, %r11, 1;
+setp.lt.u32 %p2, %r11, %r0;
+@%p2 bra MAXIMUM;
+mov.u32 %r11, 0;
+mov.u32 %r10, %r6;
+mov.f32 %f5, 0f00000000;
+EXPONENT:
+ld.shared.f32 %f4, [%r10];
+sub.f32 %f4, %f4, %f3;
+mul.f32 %f4, %f4, 0f3FB8AA3B;
+ex2.approx.f32 %f4, %f4;
+st.shared.f32 [%r10], %f4;
+add.f32 %f5, %f5, %f4;
+add.u32 %r10, %r10, 4;
+add.u32 %r11, %r11, 1;
+setp.lt.u32 %p2, %r11, %r0;
+@%p2 bra EXPONENT;
+st.shared.f32 [%r7], %f5;
+NORMALIZED:
+bar.sync 0;
+@%p0 bra EXIT;
+mad.lo.u32 %r9, %r3, 128, %r1;
+mul.wide.u32 %rd4, %r9, 2;
+add.u64 %rd5, %rd3, %rd4;
+mov.u32 %r10, %r6;
+mov.u32 %r11, 0;
+mov.f32 %f6, 0f00000000;
+PV:
+ld.shared.f32 %f4, [%r10];
+ld.global.b16 %h0, [%rd5];
+cvt.f32.f16 %f2, %h0;
+fma.rn.f32 %f6, %f4, %f2, %f6;
+add.u32 %r10, %r10, 4;
+add.u64 %rd5, %rd5, 2048;
+add.u32 %r11, %r11, 1;
+setp.lt.u32 %p2, %r11, %r0;
+@%p2 bra PV;
+ld.shared.f32 %f5, [%r7];
+div.rn.f32 %f6, %f6, %f5;
+cvt.rn.f16.f32 %h1, %f6;
+add.u32 %r8, %r4, %r1;
+mul.wide.u32 %rd4, %r8, 2;
+add.u64 %rd5, %rd0, %rd4;
+st.global.b16 [%rd5], %h1;
+EXIT:
+ret;
+}

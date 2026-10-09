@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "output": "a800-64.f16le",
+  "seq": 64,
+  "rows": 64,
+  "heads": 8,
+  "elements": 65536,
+  "max_abs_error": 0.0002441411761958667,
+  "max_scaled_error": 0.08116113993597195,
+  "rms_error": 9.646676174641468e-05,
+  "sha256": "63515a344de55e04cfa356e0b082a00796f5a3c3c35cb20c78e0a58de533ba85",
+  "atol": 0.002,
+  "rtol": 0.002
+}

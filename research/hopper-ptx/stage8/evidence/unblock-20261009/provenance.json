@@ -1,0 +1,120 @@
+{
+  "commands": {
+    "a800": "bash research/hopper-ptx/stage8/run_a800.sh /tmp/hopper-stage8-unblock-PRlrUlTr/a800",
+    "build": "cmake --build /tmp/hopper-stage3-build --target cudart -j2",
+    "counter_probe": "bash research/hopper-ptx/stage8/run_a800_counter_probe.sh /tmp/hopper-stage8-unblock-PRlrUlTr/counter-probe",
+    "model": "bash research/hopper-ptx/stage8/run_model.sh /tmp/hopper-stage8-unblock-PRlrUlTr/model-final",
+    "regressions": "bash research/hopper-ptx/stage8/run_param_regressions.sh /tmp/hopper-stage8-unblock-PRlrUlTr/regressions-final",
+    "verify": "/home/wangjz/miniconda3/envs/in-switch/bin/python3 research/hopper-ptx/stage8/verify_results.py /tmp/hopper-stage8-unblock-PRlrUlTr/model-final /tmp/hopper-stage8-unblock-PRlrUlTr/a800 /tmp/hopper-stage8-unblock-PRlrUlTr/results.json"
+  },
+  "frozen_ptx_sha256": "0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76",
+  "input_manifests": {
+    "128": {
+      "atol": 0.002,
+      "causal": false,
+      "input_dtype": "float16",
+      "inputs": {
+        "k": "34ad68b6385b7ff707837a8501da665cad18362ec6a846fadf858b97f229f630",
+        "q": "0b2b5855ce740e21ae738db3d4e65e9e484b3c0ce0f609ca2ea3ae1f002a8802",
+        "v": "bed69ed7b44d86b4595df72fbf019aecdaab87e6b680262b34f1e1faf396fb3b"
+      },
+      "layout": "BSHD",
+      "output_dtype": "float16",
+      "reference_dtype": "float64",
+      "reference_sha256": "a60f7898e6cadef2c145389af8bc36327f77141f9033fd361aa28afb045fbd5a",
+      "rtol": 0.002,
+      "scale": 0.08838834764831843,
+      "shape": [
+        1,
+        128,
+        8,
+        128
+      ]
+    },
+    "256": {
+      "atol": 0.002,
+      "causal": false,
+      "input_dtype": "float16",
+      "inputs": {
+        "k": "b7844bcbef08d5784c5b86e131ff4ea5a6bac26f3af1c7b0f829fdb2c012d3e3",
+        "q": "e6a4fb3bf2280661a1d312edcff4e33a8b76cd0a9dae70396be02e661e02e6ea",
+        "v": "bdc25dc5dd1d6c78579641c36c942ee295af8ae4186145e7d9c78029300a8c34"
+      },
+      "layout": "BSHD",
+      "output_dtype": "float16",
+      "reference_dtype": "float64",
+      "reference_sha256": "9cfb06ffe591282a0a2d00daddaf7910d5879d2650055fd063a951e2c15492b8",
+      "rtol": 0.002,
+      "scale": 0.08838834764831843,
+      "shape": [
+        1,
+        256,
+        8,
+        128
+      ]
+    },
+    "64": {
+      "atol": 0.002,
+      "causal": false,
+      "input_dtype": "float16",
+      "inputs": {
+        "k": "008f2bc4f41337951497aa4a2b8e43a0662091ed01ff0141bbf9dd8837a6c2f8",
+        "q": "49ed8ace9f18c64589d48c921b7070eed5487c37e222c9f3427a33fd2dc526d2",
+        "v": "02738f28d19240f85f11888bc6cf5c20bd68618ff753be08f445ef39e65d297c"
+      },
+      "layout": "BSHD",
+      "output_dtype": "float16",
+      "reference_dtype": "float64",
+      "reference_sha256": "c456fb723c34b26627062ce6e426d8c0904a2c41f4d5a2c305333224ff12d3fd",
+      "rtol": 0.002,
+      "scale": 0.08838834764831843,
+      "shape": [
+        1,
+        64,
+        8,
+        128
+      ]
+    }
+  },
+  "log_normalization": "Loose text files strip trailing whitespace; raw archive retains original bytes.",
+  "origin": {
+    "frozen_sass": "CUDA compiler static sm90a SASS",
+    "previous_evidence": "parent evidence directory retained unchanged",
+    "regressions": "current source paired inner; all stages3-7 pass",
+    "sass_oracles": "synthetic decoder fields",
+    "trace": "real A800 NVBit capture; no Hopper dynamic trace"
+  },
+  "outer_commit": "this report-containing stage8 commit",
+  "outer_stage_base": "509a1442e29ff9aae88d4c30cf7267cf9d734613",
+  "paired_inner": "318094db33dbd1528a40452de5819984004b6a08",
+  "previous_outer_stage8": "4cc2fa0ef50c271848494cdeed7ef31acb9ea610",
+  "python": "/home/wangjz/miniconda3/envs/in-switch/bin/python3",
+  "raw_logs_archive_files": 370,
+  "raw_trace_sha256": "caeeb078fbfd4f9396559b7db8788533ffddcf1b2b9c60dacb95067e372c6dc5",
+  "run_directory": "/tmp/hopper-stage8-unblock-PRlrUlTr",
+  "runtime_sha256": "17f7fedb756ac2ca4c5d0c92f11133ef5cf59bc2e8618b6720e9b5ee5b2e3efe",
+  "source_sha256": {
+    "gpu-simulator/gpgpu-sim/src/cuda-sim/cuda-sim.cc": "a39a18f0c1abea7f0d751c7857b9be4d263f7dd78308cb259ee2a55354227b13",
+    "gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_ir.h": "0758f95a3b982ed82faef6389b551d5d35e25a60195c5026ba0b73f1d5f8d766",
+    "gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc": "0e1c337f47e7c81a7b8cfb0bba162aed066c2647412c5b8c6a2985fcb46260cf",
+    "gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.h": "7fb96203e0fd6e3fe59e2c14b2abdebf4a2bbfd3c537b11e8a17a43b003c1d9b",
+    "research/hopper-ptx/stage8/Makefile": "4711d0e6e279c651776835cf242ebbbae58b605e25f475480865c911ac57f24a",
+    "research/hopper-ptx/stage8/attention.cu": "d81d2114ee9499ecac74f7828ce489b9dc85fe987c025505372f887e2fdd4969",
+    "research/hopper-ptx/stage8/attention.ptx": "566ef2f121480f5f4844429c5aaab248f6eed83136e32347ff66f1a93f1bc432",
+    "research/hopper-ptx/stage8/attention_harness.cc": "19ffffeec0675602976e48595023d805e86f96193f65f492a23d2c98c392cf3e",
+    "research/hopper-ptx/stage8/check_ncu_csv.py": "7d32d86b31592ac349969ceff887c9f1d04b25340931226736d34dcde75ec276",
+    "research/hopper-ptx/stage8/param_layout_probe.cc": "817d70daa968e3f69e7073649c9df8757f6d80392e4ea7ef9f39a8618df9c05b",
+    "research/hopper-ptx/stage8/param_layout_probe.py": "20481b9d952dfd617c4cffdd5c5d04d7e4634723e3298c474c122c1017ba33db",
+    "research/hopper-ptx/stage8/probe_frozen.py": "e2df5664f70c1970bad484c7eadb14293508570981fb009887d4bcdace7b7978",
+    "research/hopper-ptx/stage8/reference.py": "edcbaf741437862a0a8f077ff45c0f6785e58dacaa0ea32af492cf2e6351e03c",
+    "research/hopper-ptx/stage8/run_a800.sh": "fcf24e92fc07579c935c73648156c811804df8160b15fc42086645299041942a",
+    "research/hopper-ptx/stage8/run_a800_counter_probe.sh": "4ec94ec64d8b73a302d9d6c55281912b055237570f17990c8d4eaaa8ed9c3c55",
+    "research/hopper-ptx/stage8/run_model.sh": "faed1c91a2d67a0d399d5e8a565d4d8f03bdad3d30ce00ece6bd5604c114ae96",
+    "research/hopper-ptx/stage8/run_param_regressions.sh": "fe00f184764f5e0eeae12c2dca115716e00f9d54cacc6d190290435426faf19d",
+    "research/hopper-ptx/stage8/sass_inventory.py": "2a7367d4e6e05886c00b4bd796550228c0701440e13a186c22b0b1d11bcbf2d7",
+    "research/hopper-ptx/stage8/sass_oracle.cc": "b792f1625511d67c32f29edecfd5a778c342f6c3da2f8b0ec8005b06f4858bd9",
+    "research/hopper-ptx/stage8/test_ncu_csv.py": "9922e779a62a3fd75fec1673b579260523bc75e3cd2d71d94fe221171074b229",
+    "research/hopper-ptx/stage8/trace_audit.cc": "b85d2e8f6be54ea3d950b015c0e8aef5090f91c45c7707371de2090d34aa0bac",
+    "research/hopper-ptx/stage8/verify_results.py": "cd6bf16330f2b7090b0f137924cda239f4df857b912d0d4cfbf08146b420c5d0"
+  }
+}

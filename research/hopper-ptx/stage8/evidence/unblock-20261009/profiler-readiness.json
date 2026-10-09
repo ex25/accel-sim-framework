@@ -1,0 +1,27 @@
+{
+  "csv": "/tmp/hopper-stage8-unblock-PRlrUlTr/a800/ncu128.csv",
+  "errors": [
+    "ERR_NVGPUCTRPERM",
+    "missing_or_nonfinite:gpu__time_duration.sum",
+    "missing_or_nonfinite:dram__bytes_read.sum",
+    "missing_or_nonfinite:dram__bytes_write.sum",
+    "missing_or_nonfinite:sm__warps_active.avg.pct_of_peak_sustained_active",
+    "missing_or_nonfinite:sm__throughput.avg.pct_of_peak_sustained_elapsed",
+    "missing_or_nonfinite:dram__throughput.avg.pct_of_peak_sustained_elapsed",
+    "missing_or_nonfinite:launch__registers_per_thread"
+  ],
+  "metrics": {},
+  "permission_error": true,
+  "required_metrics": [
+    "gpu__time_duration.sum",
+    "dram__bytes_read.sum",
+    "dram__bytes_write.sum",
+    "sm__warps_active.avg.pct_of_peak_sustained_active",
+    "sm__throughput.avg.pct_of_peak_sustained_elapsed",
+    "dram__throughput.avg.pct_of_peak_sustained_elapsed",
+    "launch__registers_per_thread"
+  ],
+  "scope": "hardware_counters",
+  "status": "BLOCKED",
+  "exit": 1
+}

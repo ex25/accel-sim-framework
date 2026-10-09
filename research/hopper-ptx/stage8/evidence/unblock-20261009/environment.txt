@@ -1,0 +1,22 @@
+COMMAND /home/wangjz/miniconda3/envs/in-switch/bin/python3 -c import sys,numpy;print(sys.executable);print(sys.version);print("numpy="+numpy.__version__)
+/home/wangjz/miniconda3/envs/in-switch/bin/python3
+3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]
+numpy=2.4.6
+
+COMMAND /usr/local/cuda/bin/ptxas --version
+ptxas: NVIDIA (R) Ptx optimizing assembler
+Copyright (c) 2005-2025 NVIDIA Corporation
+Built on Wed_Jan_15_19:17:38_PST_2025
+Cuda compilation tools, release 12.8, V12.8.61
+Build cuda_12.8.r12.8/compiler.35404655_0
+
+COMMAND /usr/local/cuda/bin/ncu --version
+NVIDIA (R) Nsight Compute Command Line Profiler
+Copyright (c) 2018-2024 NVIDIA Corporation
+Version 2025.1.0.0 (build 35237751) (public-release)
+
+COMMAND git rev-parse HEAD
+4cc2fa0ef50c271848494cdeed7ef31acb9ea610
+
+COMMAND git -C gpu-simulator/gpgpu-sim rev-parse HEAD
+a7d9951175826c586f6d9f7d67380beac5468ec2

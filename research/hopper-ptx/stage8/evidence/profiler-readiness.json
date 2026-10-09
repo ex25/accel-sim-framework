@@ -1,0 +1,6 @@
+{
+  "status": "BLOCKED",
+  "exit": 1,
+  "scope": "hardware_counters",
+  "permission_error": true
+}

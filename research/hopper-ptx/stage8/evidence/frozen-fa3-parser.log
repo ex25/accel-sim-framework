@@ -1,0 +1,6 @@
+-gpgpu_occupancy_sm_number                   90 # The SM number to pass to ptxas when getting register usage for computing GPU occupancy. This parameter is required in the config.
+-cdp_latency         7200,8000,100,12000,1600 # CDP API latency <cudaStreamCreateWithFlags, cudaGetParameterBufferV2_init_perWarp, cudaGetParameterBufferV2_perKernel, cudaLaunchDeviceV2_init_perWarp, cudaLaunchDevicV2_perKernel>Default 7200,8000,100,12000,1600
+-gpgpu_dram_timing_opt nbk=16:CCD=1:RRD=6:RCD=19:RAS=45:RP=19:RC=50:CL=19:WL=6:CDLR=8:WR=21:nbkgrp=4:CCDL=6:RTPL=8 # DRAM timing parameters = {nbk:tCCD:tRRD:tRCD:tRAS:tRP:tRC:CL:WL:tCDLR:tWR:nbkgrp:tCCDL:tRTPL}
+frontend_probe: /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:680: void ptx_recognizer::add_function_arg(): Assertion `alignment == 1 || alignment == 2 || alignment == 4 || alignment == 8 || alignment == 16' failed.
+=== CRASH: SIGABRT (signal 6) ===
+/tmp/hopper-stage3-build/libcudart.so(_ZN14ptx_recognizer16add_function_argEv+0x140)[0x7fa4d37447c0]
