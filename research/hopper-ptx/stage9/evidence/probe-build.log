@@ -1,0 +1,4 @@
+make: Entering directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage9'
+rm -f module_launch_probe
+/usr/bin/g++ -std=c++17 -O2 -I/usr/local/cuda/include -I/usr/local/cuda/targets/x86_64-linux/include module_launch_probe.cc -o module_launch_probe /tmp/hopper-stage3-build/libcudart.so -Wl,-rpath,/tmp/hopper-stage3-build/ -lpthread -ldl -lrt -lm
+make: Leaving directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage9'

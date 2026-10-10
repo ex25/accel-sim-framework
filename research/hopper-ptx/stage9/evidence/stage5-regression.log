@@ -1,0 +1,16 @@
+make: Entering directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage5'
+make: Nothing to be done for 'all'.
+make: Leaving directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage5'
+TMA index=0 opcode=cp.async.bulk.tensor.1d.shared::cluster.global.mbarrier::complete_tx::bytes kind=1 rank=1
+TMA index=1 opcode=cp.async.bulk.tensor.2d.shared::cluster.global.mbarrier::complete_tx::bytes.multicast::cluster kind=1 rank=2
+TMA index=2 opcode=cp.async.bulk.tensor.4d.shared::cluster.global.mbarrier::complete_tx::bytes.L2::cache_hint kind=1 rank=4
+TMA index=3 opcode=cp.async.bulk.prefetch.tensor.5d.L2.global kind=2 rank=5
+FRONTEND_RESULT status=PASS tma_instructions=4
+TMA_RESULT status=PASS tile=13,0,23,0 bytes=16 oob=8 wait_before=0 wait_after=1
+PTX_EVENT_RESULT status=PASS issue=1 completion=1 global_reads=2 shared_writes=1 wait_failure=32 wait_success=32 metadata=PASS
+REFERENCE_RESULT status=PASS one_d=1 two_d=1 padded=1 negative_oob=1 all_oob=1 multicast_mask=5
+EVENT_RESULT issue=1 global_reads=2 shared_writes=2 completion=2 wait_before=0 wait_after=1
+NEGATIVE_RESULT status=PASS file=tma_bad_rank.ptx
+NEGATIVE_RESULT status=PASS file=tma_bad_store.ptx
+NEGATIVE_RESULT status=PASS file=tma_bad_rank_operands.ptx
+NEGATIVE_RESULT status=PASS file=unregistered

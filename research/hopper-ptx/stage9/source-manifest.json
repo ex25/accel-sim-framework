@@ -1,0 +1,38 @@
+[
+  {
+    "repo": "https://raw.githubusercontent.com/triton-lang/triton/v3.3.0/third_party/nvidia/backend/driver.c",
+    "sha256": "6b511090fa756e70ba01b33200e61499e216cd4fb3ff0e7637fc89d4984c251e",
+    "local": "triton-driver.c",
+    "commit": "819e9c8c29ad2ae96cbd93a1d3b8a3a0f4c8f09c"
+  },
+  {
+    "repo": "https://raw.githubusercontent.com/triton-lang/triton/v3.3.0/third_party/nvidia/backend/driver.py",
+    "sha256": "f7c26e8ffdaf8cd2491de04217d32827b1a4f859f7f93ea56e26590c9f5e071a",
+    "local": "triton-driver.py",
+    "commit": "819e9c8c29ad2ae96cbd93a1d3b8a3a0f4c8f09c"
+  },
+  {
+    "repo": "https://raw.githubusercontent.com/pytorch/pytorch/v2.7.0/c10/cuda/driver_api.h",
+    "sha256": "1aa5c03d1cfbe2eccf8200612dee8d4e2b90e3ec9e5ea3fbfe7e8975a6f1b68c",
+    "local": "pytorch-driver_api.h",
+    "commit": "134179474539648ba7dee1317959529fbd0e7f89"
+  },
+  {
+    "repo": "https://raw.githubusercontent.com/pytorch/pytorch/v2.7.0/aten/src/ATen/cuda/CUDAContext.cpp",
+    "sha256": "598fb923b3ab639bee3751a4b95599b4d9fb61fc5b105a2f0a21931dd5582dd7",
+    "local": "pytorch-CUDAContext.cpp",
+    "commit": "134179474539648ba7dee1317959529fbd0e7f89"
+  },
+  {
+    "repo": "https://raw.githubusercontent.com/pytorch/pytorch/v2.7.0/aten/src/ATen/native/cuda/jit_utils.cpp",
+    "sha256": "6efe9a094c4c2acb1b3e9247085e40f63477c4bac59a2ffc1ca5ff95067c8e47",
+    "local": "pytorch-jit_utils.cpp",
+    "commit": "134179474539648ba7dee1317959529fbd0e7f89"
+  },
+  {
+    "repo": "https://raw.githubusercontent.com/pytorch/pytorch/v2.7.0/aten/src/ATen/cuda/nvrtc_stub/ATenNVRTC.h",
+    "sha256": "5e82bc78285ad6676fcf0f1a942ea03960946d19f76c8040db63dbca9d40c434",
+    "local": "pytorch-ATenNVRTC.h",
+    "commit": "134179474539648ba7dee1317959529fbd0e7f89"
+  }
+]

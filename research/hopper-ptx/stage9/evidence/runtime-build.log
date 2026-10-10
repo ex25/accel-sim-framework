@@ -1,0 +1,52 @@
+[  1%] Building CXX object libcuda/CMakeFiles/cuda.dir/cuda_runtime_api.cc.o
+[  6%] Built target gpgpusim_entrypoint
+[ 27%] Built target accelwattch
+In file included from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc:129:
+/usr/local/cuda/targets/x86_64-linux/include/host_defines.h:54:2: warning: #warning "host_defines.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+   54 | #warning "host_defines.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+      |  ^~~~~~~
+[ 28%] Built target gen_ptx_parser_decode
+[ 28%] Generating build string file to /tmp/hopper-stage3-build
+[ 28%] Built target gen_build_string
+[ 29%] Built target gen_instructions_h
+[ 43%] Built target gpgpusim
+[ 82%] Built target intersim
+[ 95%] Built target ptxsim
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc: In function ‘void __cudaRegisterFunctionSST(unsigned int, uint64_t, char*)’:
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc:4015:41: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+ 4015 |   cudaRegisterFunctionInternal((void **)fatCubinHandle, (const char *)hostFun,
+      |                                         ^~~~~~~~~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc:4016:57: warning: passing NULL to non-pointer argument 5 of ‘void cudaRegisterFunctionInternal(void**, const char*, char*, const char*, int, uint3*, uint3*, dim3*, dim3*, gpgpu_context*)’ [-Wconversion-null]
+ 4016 |                                (char *)deviceFun, NULL, NULL, NULL, NULL, NULL,
+      |                                                         ^~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc:811:39: note:   declared here
+  811 |                                   int thread_limit, uint3 *tid, uint3 *bid,
+      |                                   ~~~~^~~~~~~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc: In function ‘cudaError_t cudaSetDeviceFlagsSST(int)’:
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc:4193:72: warning: format ‘%p’ expects argument of type ‘void*’, but argument 3 has type ‘int’ [-Wformat=]
+ 4193 |       "GPGPU-Sim PTX: Execution warning: ignoring call to \"%s ( flag=%p)\"\n",
+      |                                                                       ~^
+      |                                                                        |
+      |                                                                        void*
+      |                                                                       %d
+ 4194 |       __my_func__, flags);
+      |                    ~~~~~                                                
+      |                    |
+      |                    int
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc: In member function ‘void cuda_runtime_api::extract_ptx_files_using_cuobjdump_internal(CUctx_st*, std::string&)’:
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc:3357:30: warning: ‘%s’ directive output may be truncated writing up to 1023 bytes into a region of size 922 [-Wformat-truncation=]
+ 3357 |            "awk '{$1=$1}1' > %s",
+      |                              ^~
+ 3358 |            app_binary.c_str(), ptx_list_file_name);
+      |                                ~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/stdio.h:867,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc:108:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:67:35: note: ‘__builtin___snprintf_chk’ output 79 or more bytes (assuming 1102) into a destination of size 1000
+   67 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   68 |        __bos (__s), __fmt, __va_arg_pack ());
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[ 95%] Linking CXX static library libcuda.a
+[ 98%] Built target cuda
+[100%] Linking CXX shared library libcudart.so
+[100%] Built target cudart

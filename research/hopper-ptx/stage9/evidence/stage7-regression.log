@@ -1,0 +1,68 @@
+make: Entering directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage7'
+make: Nothing to be done for 'all'.
+make: Leaving directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage7'
+CLUSTER_RESULT status=PASS mode=functional grid=1,1,1 cluster=1,1,1 explicit=0 values=480 barriers=0 wait_checks=0 cycles=0
+CLUSTER_RESULT status=PASS mode=functional grid=1,1,1 cluster=1,1,1 explicit=1 values=480 barriers=0 wait_checks=0 cycles=0
+CLUSTER_RESULT status=PASS mode=functional grid=2,1,1 cluster=2,1,1 explicit=1 values=960 barriers=0 wait_checks=0 cycles=0
+CLUSTER_RESULT status=PASS mode=functional grid=4,2,2 cluster=2,2,2 explicit=1 values=7680 barriers=0 wait_checks=0 cycles=0
+CLUSTER_RESULT status=PASS mode=detailed grid=1,1,1 cluster=1,1,1 explicit=0 values=480 barriers=0 wait_checks=0 cycles=17484
+CLUSTER_RESULT status=PASS mode=detailed grid=1,1,1 cluster=1,1,1 explicit=1 values=480 barriers=0 wait_checks=0 cycles=17484
+CLUSTER_RESULT status=PASS mode=detailed grid=2,1,1 cluster=2,1,1 explicit=1 values=960 barriers=0 wait_checks=0 cycles=17484
+CLUSTER_RESULT status=PASS mode=detailed grid=4,2,2 cluster=2,2,2 explicit=1 values=7680 barriers=0 wait_checks=0 cycles=17493
+CLUSTER_RESULT status=PASS mode=functional grid=1,1,1 cluster=1,1,1 explicit=0 values=640 barriers=96 wait_checks=0 cycles=0
+CLUSTER_RESULT status=PASS mode=functional grid=1,1,1 cluster=1,1,1 explicit=1 values=640 barriers=96 wait_checks=0 cycles=0
+CLUSTER_RESULT status=PASS mode=functional grid=2,1,1 cluster=2,1,1 explicit=1 values=1280 barriers=192 wait_checks=180 cycles=0
+CLUSTER_RESULT status=PASS mode=functional grid=4,1,1 cluster=4,1,1 explicit=1 values=2560 barriers=384 wait_checks=540 cycles=0
+CLUSTER_RESULT status=PASS mode=functional grid=2,2,1 cluster=2,2,1 explicit=1 values=2560 barriers=384 wait_checks=540 cycles=0
+CLUSTER_RESULT status=PASS mode=functional grid=2,2,2 cluster=2,2,2 explicit=1 values=5120 barriers=768 wait_checks=1260 cycles=0
+CLUSTER_RESULT status=PASS mode=functional grid=4,2,1 cluster=2,2,1 explicit=1 values=5120 barriers=768 wait_checks=1080 cycles=0
+/tmp/hopper-stage9-final-regressions/stage7/ptx/bad_modifier.ptx:55: Parse error: unsupported cluster opcode/modifier: mapa.shared::cta.u32 (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:1075)
+CLUSTER_NEGATIVE status=PASS mode=functional case=bad_modifier exit=1
+/tmp/hopper-stage9-final-regressions/stage7/ptx/bad_width.ptx:55: Parse error: cluster address requires registers of the declared width (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:288)
+CLUSTER_NEGATIVE status=PASS mode=functional case=bad_width exit=1
+/tmp/hopper-stage9-final-regressions/stage7/ptx/bad_operands.ptx:55: Parse error: cluster address operand count mismatch (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:279)
+CLUSTER_NEGATIVE status=PASS mode=functional case=bad_operands exit=1
+/tmp/hopper-stage9-final-regressions/stage7/ptx/bad_barrier.ptx:52: Parse error: unsupported cluster opcode/modifier: barrier.cluster.arrive.acquire.aligned (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:1075)
+CLUSTER_NEGATIVE status=PASS mode=functional case=bad_barrier exit=1
+/tmp/hopper-stage9-final-regressions/stage7/ptx/predicated_barrier.ptx:52: Parse error: aligned cluster barrier requires all threads and no operands (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:399)
+CLUSTER_NEGATIVE status=PASS mode=functional case=predicated_barrier exit=1
+/tmp/hopper-stage9-final-regressions/stage7/ptx/setmax_modifier.ptx:37: Parse error: unsupported cluster opcode/modifier: setmaxnreg.inc.sync.u32 (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:1075)
+CLUSTER_NEGATIVE status=PASS mode=functional case=setmax_modifier exit=1
+/tmp/hopper-stage9-final-regressions/stage7/ptx/setmax_count.ptx:37: Parse error: setmaxnreg count must be 24..256 and a multiple of 8 (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:299)
+CLUSTER_NEGATIVE status=PASS mode=functional case=setmax_count exit=1
+/tmp/hopper-stage9-final-regressions/stage7/ptx/bad_sreg.ptx:10: Parse error: cluster special register dimension modifier mismatch (/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_parser.cc:1346)
+CLUSTER_NEGATIVE status=PASS mode=functional case=bad_sreg exit=1
+CLUSTER_FAILURE /tmp/hopper-stage9-final-regressions/stage7/ptx/bad_rank.ptx:56: mapa rank/address outside supported cluster shared range
+CLUSTER_NEGATIVE status=PASS mode=functional case=bad_rank exit=3
+CLUSTER_FAILURE /tmp/hopper-stage9-final-regressions/stage7/ptx/bad_address.ptx:56: mapa rank/address outside supported cluster shared range
+CLUSTER_NEGATIVE status=PASS mode=functional case=bad_address exit=3
+CLUSTER_FAILURE /tmp/hopper-stage9-final-regressions/stage7/ptx/bad_access.ptx:58: DSMEM access exceeds declared shared memory or is misaligned
+CLUSTER_NEGATIVE status=PASS mode=functional case=bad_access exit=3
+CLUSTER_FAILURE /tmp/hopper-stage9-final-regressions/stage7/ptx/cta_access.ptx:57: mapped address requires ld.shared::cluster
+CLUSTER_NEGATIVE status=PASS mode=functional case=cta_access exit=3
+CLUSTER_FAILURE /tmp/hopper-stage9-final-regressions/stage7/ptx/wait_without_arrive.ptx:53: cluster barrier wait without arrive
+CLUSTER_NEGATIVE status=PASS mode=functional case=wait_without_arrive exit=3
+CLUSTER_FAILURE /tmp/hopper-stage9-final-regressions/stage7/ptx/duplicate_arrive.ptx:53: cluster barrier arrive before previous wait
+CLUSTER_NEGATIVE status=PASS mode=functional case=duplicate_arrive exit=3
+CLUSTER_FAILURE PTX functional cluster deadlock: missing arrival or divergent wait
+CLUSTER_NEGATIVE status=PASS mode=functional case=missing_arrival exit=3
+CLUSTER_FAILURE /tmp/hopper-stage9-final-regressions/stage7/ptx/divergent_barrier.ptx:54: aligned cluster barrier requires a full active warp
+CLUSTER_NEGATIVE status=PASS mode=functional case=divergent_barrier exit=3
+CLUSTER_FAILURE /tmp/hopper-stage9-final-regressions/stage7/ptx/setmax_inc.ptx:37: setmaxnreg register-pool redistribution/occupancy is not implemented
+CLUSTER_NEGATIVE status=PASS mode=functional case=setmax_inc exit=3
+CLUSTER_FAILURE /tmp/hopper-stage9-final-regressions/stage7/ptx/setmax_dec.ptx:37: setmaxnreg register-pool redistribution/occupancy is not implemented
+CLUSTER_NEGATIVE status=PASS mode=functional case=setmax_dec exit=3
+CLUSTER_FAILURE /tmp/hopper-stage9-final-regressions/stage7/ptx/setmax_inc.ptx:37: setmaxnreg register-pool redistribution/occupancy is not implemented
+CLUSTER_NEGATIVE status=PASS mode=detailed case=setmax_inc exit=3
+CLUSTER_FAILURE /tmp/hopper-stage9-final-regressions/stage7/ptx/setmax_dec.ptx:37: setmaxnreg register-pool redistribution/occupancy is not implemented
+CLUSTER_NEGATIVE status=PASS mode=detailed case=setmax_dec exit=3
+CLUSTER_FAILURE /tmp/hopper-stage9-final-regressions/stage7/ptx/remote_timing.ptx:53: PTX DSMEM remote timing is not implemented
+CLUSTER_NEGATIVE status=PASS mode=detailed case=remote_timing exit=3
+CLUSTER_FAILURE /tmp/hopper-stage9-final-regressions/stage7/ptx/barrier_timing.ptx:52: PTX cluster barrier timing is not implemented
+CLUSTER_NEGATIVE status=PASS mode=detailed case=barrier_timing exit=3
+CLUSTER_FAILURE invalid PTX cluster dimensions
+CLUSTER_NEGATIVE status=PASS mode=functional case=bad_launch exit=3
+CLUSTER_FAILURE PTX grid dimensions must be divisible by cluster dimensions
+CLUSTER_NEGATIVE status=PASS mode=functional case=bad_grid exit=3
+CLUSTER_FAILURE /tmp/hopper-stage9-final-regressions/stage7/ptx/fence_timing.ptx:37: PTX cluster proxy fence timing is not implemented
+CLUSTER_NEGATIVE status=PASS mode=detailed case=fence_timing exit=3

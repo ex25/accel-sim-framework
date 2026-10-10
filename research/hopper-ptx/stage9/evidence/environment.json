@@ -1,0 +1,19 @@
+{
+  "outer_revision": "this stage report commit",
+  "inner_revision": "f4fe783ac7fc4f1cdaa9efa72a3575537d4fba36",
+  "outer_base": "9ddf32f78f8c1ada328c076484e44bb437be79d5",
+  "inner_base": "d3494f34c75bea3edfbcace59dc1f31701597fb8",
+  "runtime_mode_tests": [
+    "functional",
+    "detailed"
+  ],
+  "torch_installed": false,
+  "triton_installed": false,
+  "sha256": {
+    "research/hopper-ptx/stage9/module_launch_probe.cc": "1762d438a54bf8801b3e26a902b95add6681bfb8a80e7ea6313a6f533f246af6",
+    "research/hopper-ptx/stage9/runtime_kernel.ptx": "7ac0942cf48e1b42582af038f77bdcfa70f702883b9e385e59a785d54442f8c3",
+    "research/hopper-ptx/stage9/runtime_numeric.ptx": "52a2c13cca147051e03bfb38a898f9746443d00e6e94085e84129460edede11d",
+    "/tmp/hopper-stage3-build/libcudart.so": "c70230dbe417d6f337ff1b7c57e080d7e7088202eeb84cf427d211ee1b73ff51",
+    "/usr/local/cuda/include/cuda.h": "4568cc9e7a321e47707cd6403980f21ac2e2e55170500d0e0a3f54feb03a9acb"
+  }
+}
