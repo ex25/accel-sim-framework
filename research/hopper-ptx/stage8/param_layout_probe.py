@@ -33,7 +33,8 @@ cases = {
 for name, text in cases.items():
     (OUT / f"{name}.ptx").write_text(text)
 
-env = {**os.environ, "LD_LIBRARY_PATH": "/tmp/hopper-stage3-build"}
+env = {**os.environ, "LD_LIBRARY_PATH": str(Path(os.environ.get(
+    "SIM_RUNTIME", "/tmp/hopper-stage3-build/libcudart.so")).resolve().parent)}
 for name, expected in [("align32_64", [0, 64]), ("scalar_vector", [0, 2, 16, 32]),
                        ("array_natural", [0, 8]), ("frozen_abi", [0])]:
     positive = subprocess.run([str(HERE / "param_layout_probe"), str(OUT / f"{name}.ptx"), "layout"],

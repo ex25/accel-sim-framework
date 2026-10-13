@@ -1,0 +1,855 @@
+{
+  "status": "PASS",
+  "counts": {
+    "numeric": 42,
+    "frontend-negative": 35,
+    "frontend": 12,
+    "negative": 8
+  },
+  "results": [
+    {
+      "case": "x1-t0-shared-compact",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 256,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x1-t0-shared-padded",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 256,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x1-t0-shared-boundary",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 256,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x1-t0-shared-cta-compact",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 256,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x1-t0-shared-cta-padded",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 256,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x1-t0-shared-cta-boundary",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 256,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x1-t1-shared-compact",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 256,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x1-t1-shared-padded",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 256,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x1-t1-shared-boundary",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 256,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x1-t1-shared-cta-compact",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 256,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x1-t1-shared-cta-padded",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 256,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x1-t1-shared-cta-boundary",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 256,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x2-t0-shared-compact",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x2-t0-shared-padded",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x2-t0-shared-boundary",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x2-t0-shared-cta-compact",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x2-t0-shared-cta-padded",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x2-t0-shared-cta-boundary",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x2-t1-shared-compact",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x2-t1-shared-padded",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x2-t1-shared-boundary",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x2-t1-shared-cta-compact",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x2-t1-shared-cta-padded",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x2-t1-shared-cta-boundary",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x4-t0-shared-compact",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 1024,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x4-t0-shared-padded",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 1024,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x4-t0-shared-boundary",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 1024,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x4-t0-shared-cta-compact",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 1024,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x4-t0-shared-cta-padded",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 1024,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x4-t0-shared-cta-boundary",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 1024,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x4-t1-shared-compact",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 1024,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x4-t1-shared-padded",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 1024,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x4-t1-shared-boundary",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 1024,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x4-t1-shared-cta-compact",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 1024,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x4-t1-shared-cta-padded",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 1024,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "x4-t1-shared-cta-boundary",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 1024,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "symbol-offset",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 1024,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "address-destination-alias",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 1024,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "address-u32",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "address-s32",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "address-u64",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "address-s64",
+      "kind": "numeric",
+      "exit": 0,
+      "words": 512,
+      "loaded_halfwords": 512,
+      "mismatches": 0,
+      "first_mismatch": [],
+      "max_abs_error": 0,
+      "rms_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case": "misaligned",
+      "kind": "negative",
+      "exit": 1,
+      "diagnostic": "16-byte aligned",
+      "status": "PASS"
+    },
+    {
+      "case": "oob",
+      "kind": "negative",
+      "exit": 1,
+      "diagnostic": "exceeds declared shared memory",
+      "status": "PASS"
+    },
+    {
+      "case": "last_provider_oob",
+      "kind": "negative",
+      "exit": 1,
+      "diagnostic": "exceeds declared shared memory",
+      "status": "PASS"
+    },
+    {
+      "case": "short_row",
+      "kind": "negative",
+      "exit": 1,
+      "diagnostic": "exceeds declared shared memory",
+      "status": "PASS"
+    },
+    {
+      "case": "high64",
+      "kind": "negative",
+      "exit": 1,
+      "diagnostic": "exceeds declared shared memory",
+      "status": "PASS"
+    },
+    {
+      "case": "divergent",
+      "kind": "negative",
+      "exit": 1,
+      "diagnostic": "full active warp",
+      "status": "PASS"
+    },
+    {
+      "case": "partial-warp",
+      "kind": "negative",
+      "exit": 1,
+      "diagnostic": "full active warp",
+      "status": "PASS"
+    },
+    {
+      "case": "legal-detailed-unsupported",
+      "kind": "negative",
+      "exit": 1,
+      "diagnostic": "timing is not implemented",
+      "status": "PASS"
+    },
+    {
+      "case": "mma-f16",
+      "kind": "frontend",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "case": "mma-bad-mod-f16",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "mma-bad-op-f16",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "mma-bf16",
+      "kind": "frontend",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "case": "mma-bad-mod-bf16",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "mma-bad-op-bf16",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "mma-tf32",
+      "kind": "frontend",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "case": "mma-bad-mod-tf32",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "mma-bad-op-tf32",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "mma-e4m3",
+      "kind": "frontend",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "case": "mma-bad-mod-e4m3",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "mma-bad-op-e4m3",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "mma-e5m2",
+      "kind": "frontend",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "case": "mma-bad-mod-e5m2",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "mma-bad-op-e5m2",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-128-ss",
+      "kind": "frontend",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-bad-mod-128-ss",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-bad-op-128-ss",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-128-rs",
+      "kind": "frontend",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-bad-mod-128-rs",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-bad-op-128-rs",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-176-ss",
+      "kind": "frontend",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-bad-mod-176-ss",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-bad-op-176-ss",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-176-rs",
+      "kind": "frontend",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-bad-mod-176-rs",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-bad-op-176-rs",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-fence",
+      "kind": "frontend",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-bad-op-fence",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-bad-mod-fence",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-commit_group",
+      "kind": "frontend",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-bad-op-commit_group",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-bad-mod-commit_group",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-wait_group",
+      "kind": "frontend",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-bad-op-wait_group",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "wgmma-bad-mod-wait_group",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "ld-bad-mod",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "ld-bad-count",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "ld-duplicate",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "ld-dest-width",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "ld-address-float",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "ld-address-narrow",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "ld-address-global",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "ld-arity",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "ld-predicated",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "ld-unsupported-generic",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "ld-unsupported-shape",
+      "kind": "frontend-negative",
+      "exit": 1,
+      "status": "PASS"
+    }
+  ],
+  "runtime": "/tmp/hopper-stage3-acceptance-build/libcudart.so",
+  "runtime_sha256": "7ce26b6fbec28ff680efcf1f18b846c35856cf82b1e66e4444d97614ffe3552c"
+}

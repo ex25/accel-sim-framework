@@ -1,0 +1,20 @@
+CHECK status=PASS name=python-version
+CHECK status=PASS name=compiler
+CHECK status=PASS name=cuda
+CHECK status=PASS name=ptxas
+CHECK status=PASS name=cmake
+CHECK status=PASS name=bison
+CHECK status=PASS name=flex
+CHECK status=PASS name=configure
+CHECK status=PASS name=build
+CHECK status=PASS name=harness-build
+CHECK status=PASS name=loaded-libraries
+CHECK status=PASS name=components
+CHECK status=PASS name=ordinary-build
+CHECK status=PASS name=ordinary
+CHECK status=PASS name=param-label-build
+CHECK status=PASS name=params
+CHECK status=PASS name=labels-frontend
+CHECK status=PASS name=wgmma-build
+CHECK status=PASS name=wgmma
+STAGE3_GATE status=PASS

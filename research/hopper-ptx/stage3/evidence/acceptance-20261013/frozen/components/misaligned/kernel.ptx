@@ -1,0 +1,52 @@
+.version 8.7
+.target sm_90a
+.address_size 64
+.visible .entry matrix_load(.param .u64 input, .param .u64 output) {
+.reg .pred %p;
+.reg .b32 %r<16>, %d<4>, %base32;
+.reg .b32 %a32;
+.reg .b64 %g64, %s64, %o64, %i64, %off64, %base64;
+.reg .b64 %a64;
+.shared .align 16 .b8 smem[4096];
+mov.u32 %r0, %tid.x;
+mov.u32 %r1, %ctaid.x;
+mov.u64 %base64, smem;
+cvt.u32.u64 %base32, %base64;
+ld.param.u64 %g64, [input];
+mul.wide.u32 %off64, %r1, 4096;
+add.u64 %g64, %g64, %off64;
+mul.lo.u32 %r2, %r0, 4;
+COPY:
+cvt.u64.u32 %off64, %r2;
+add.u64 %i64, %g64, %off64;
+ld.global.b32 %r3, [%i64];
+add.u64 %s64, %base64, %off64;
+st.shared.b32 [%s64], %r3;
+add.u32 %r2, %r2, 256;
+setp.lt.u32 %p, %r2, 4096;
+@%p bra COPY;
+bar.sync 0;
+and.b32 %r4, %r0, 31;
+shr.u32 %r5, %r0, 5;
+mul.lo.u32 %r6, %r5, 512;
+mul.lo.u32 %r7, %r4, 16;
+add.u32 %r7, %r7, %r6;
+mov.b32 %d0, 3735928559;
+mov.b32 %d1, 3735928559;
+mov.b32 %d2, 3735928559;
+mov.b32 %d3, 3735928559;
+add.u32 %a32, %base32, %r7;
+add.u32 %a32, %a32, 2;
+ldmatrix.sync.aligned.m8n8.x4.shared.b16 {%d0, %d1, %d2, %d3}, [%a32];
+ld.param.u64 %o64, [output];
+mul.lo.u32 %r9, %r1, 64;
+add.u32 %r9, %r9, %r0;
+mul.wide.u32 %off64, %r9, 16;
+add.u64 %o64, %o64, %off64;
+st.global.b32 [%o64+0], %d0;
+st.global.b32 [%o64+4], %d1;
+st.global.b32 [%o64+8], %d2;
+st.global.b32 [%o64+12], %d3;
+DONE:
+ret;
+}

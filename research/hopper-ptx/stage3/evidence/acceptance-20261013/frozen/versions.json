@@ -1,0 +1,17 @@
+{
+  "outer_head": "63d6e475d381308f1afd18cc1bdd3b163d07f4ef",
+  "inner_head": "eca83b30959381ee14bb26384a0c4f01c3d35c01",
+  "outer_branch": "research/hopper-ptx",
+  "inner_branch": "research/hopper-ptx",
+  "outer_dirty": " M .codex/docs/implementation/03-frontend-foundation.md\n M .codex/plans/single-card-dense.md\n M research/hopper-ptx/stage3/Makefile\n M research/hopper-ptx/stage3/frontend_probe.cc\n M research/hopper-ptx/stage6/run.sh\n M research/hopper-ptx/stage8/frontend_contracts.py\n M research/hopper-ptx/stage8/param_layout_probe.py\n?? experiments/\n?? research/hopper-ptx/stage3/.gitignore\n?? research/hopper-ptx/stage3/CHECKLIST.md\n?? research/hopper-ptx/stage3/evidence/\n?? research/hopper-ptx/stage3/ldmatrix_harness.cc\n?? research/hopper-ptx/stage3/run_acceptance.py\n?? research/hopper-ptx/stage3/run_suite.py\n",
+  "inner_dirty": "?? .serena/\n",
+  "python": "/home/wangjz/miniconda3/envs/in-switch/bin/python3",
+  "env_overrides": {
+    "SIM_RUNTIME": "/tmp/hopper-stage3-acceptance-build/libcudart.so",
+    "PYTHON_BIN": "/home/wangjz/miniconda3/envs/in-switch/bin/python3",
+    "LD_LIBRARY_PATH": "/tmp/hopper-stage3-acceptance-build",
+    "CUDA_INSTALL_PATH": "/usr/local/cuda"
+  },
+  "runtime_sha256": "7ce26b6fbec28ff680efcf1f18b846c35856cf82b1e66e4444d97614ffe3552c",
+  "runtime_size": 5196976
+}

@@ -10,28 +10,41 @@
 Driver module/launch 子集**。**尚无完整 Dense block 执行证据**；普通 attention
 也只有 functional 全输出及 detailed 单 CTA 诊断，不能当作全 grid 时序结果。
 
-阶段 **3–9 已撤下整体验收，恢复“进行中”**，每份报告首页均补了缺口、实现步骤
+此前审计将阶段 **3–9 撤下整体验收，恢复“进行中”**，每份报告首页均补了缺口、实现步骤
 和重新验收条件。阶段 **0–2 保留原窄范围验收**（基线、冻结输入、最小 harness）。
 已有 PASS 原始证据不改写，但不再由它们推导整阶段或完整应用完成。
+
+同日的阶段 3 实现已补真实执行并通过当前组件合同：**阶段 3 已验收，4–9 仍进行中**。
+42 个逐 lane ldmatrix 数值 case、前端/参数/label/普通 kernel/WGMMA 回归全部通过。
+[最终 gate](../../../research/hopper-ptx/stage3/evidence/acceptance-20261013/frozen/gate.json)
+和 [阶段 3 报告](03-frontend-foundation.md) 保存配对版本、完整输出和失败记录。
+ldmatrix detailed timing、mma.sync arithmetic 与完整 Dense 仍未完成；本会话不实施阶段 4。
 
 特别注意：阶段 8 的完整 FA3 **解析**成功，但多类指令**执行**仍明确报错；阶段 9
 的文本 PTX kernel 已经通过公开 Driver API 加载和运行，但原生框架集成没有完成。
 
-本次核对的代码版本：
+实现前静态审计的代码版本（历史）：
 
 - 外层 `research/hopper-ptx`：`f9faa73a4f7907db88db450e54000a502ecf39d2`。
 - 内层 `research/hopper-ptx`：`f4fe783ac7fc4f1cdaa9efa72a3575537d4fba36`。
 - Python 使用 Conda 环境 **`in-switch`**，不是把项目目录当成 Python 环境；已核对
   `/home/wangjz/miniconda3/envs/in-switch/bin/python3`，Python 3.11.16、NumPy 2.4.6。
-- 2026-10-13 仅做源码/报告/文件审计，没有运行模拟器或采集硬件；以下数值来自
+- 2026-10-13 的该次审计仅做源码/报告/文件检查，没有运行模拟器或采集硬件；旧数值来自
   已保存的旧结果，2026-10-10 的重新执行记录见后文，不是本轮重新执行。
+
+当前阶段 3 新证据为同日重新构建/执行：外层是本页所在阶段提交，内层
+`eca83b30959381ee14bb26384a0c4f01c3d35c01`，两仓库均为 `research/hopper-ptx`。
+runtime 为 `/tmp/hopper-stage3-acceptance-build/libcudart.so`，SHA256
+`7ce26b6fbec28ff680efcf1f18b846c35856cf82b1e66e4444d97614ffe3552c`。
+测试时外层入口 HEAD `63d6e475` 加本次修改，内层无代码 dirty；提交后只保留外层
+`experiments/` 和内层 `.serena/` 未跟踪。实际工具版本与 patch/hash 见阶段 3 报告。
 
 ## 当前阶段状态与缺口
 
 | 阶段 | 当前状态 | 还缺什么 / 验收入口 |
 | --- | --- | --- |
 | 0–2 | 已验收（仅原窄范围） | 不包括 Hopper 完整执行；新的 Dense 规格由阶段 10 冻结 |
-| [3](03-frontend-foundation.md) | 进行中 | ldmatrix 真实数值证据缺失；普通整数 harness 不能替代，补真实 Dense PTX 所需前端/矩阵语义 |
+| [3](03-frontend-foundation.md) | 已验收（当前组件合同） | 12 种 ldmatrix 形式/42 数值 case 全 lane 零误差；详细时序与 Dense 新需求仍分别归 12、10/11 |
 | [4](04-mbarrier-and-sync.md) | 进行中 | detailed 已有受限 TMA binding 路径；补多 barrier/phase 与真实 pipeline，修正旧“完全没有 timing”的描述 |
 | [5](05-tma.md) | 进行中 | logical descriptor 子集有效；补实际布局/descriptor 入口、多 tile 在途和所需 store/bulk 等 |
 | [6](06-wgmma.md) | 进行中 | 两种无 swizzle shape 有结果；补正式 GEMM 需求、多组/CTA/SM 并发和资源成本 |
@@ -45,11 +58,11 @@ Driver module/launch 子集**。**尚无完整 Dense block 执行证据**；普�
 | [14](14-dense-h100-validation.md) | 未开始 | H100 校准、独立验证与完整单卡 baseline |
 
 当前执行顺序为 [单卡 Dense 计划](../../plans/single-card-dense.md) 中的
-**3→4→5→6→7→8→9→10→11→12→13→14**。下一实现会话先完成阶段 3，验收后
-报告阶段 4 入口。组件与后续应用明确分工，不能跳过未验收阶段，也不能用尚未开始
+**3→4→5→6→7→8→9→10→11→12→13→14**。阶段 3 已完成并报告阶段 4 入口，下一
+实现会话从阶段 4 开始。组件与后续应用明确分工，不能跳过未验收阶段，也不能用尚未开始
 的完整应用结果作为前序组件的循环验收条件。
 
-## 2026-10-13 审计证据与局限
+## 2026-10-13 实现前审计证据与局限（历史）
 
 - [审计 JSON](evidence/single-card-audit-20261013.json)：阶段 8 的 32 个文件、阶段 9
   的 20 个文件、阶段 1 的 Q/K/V 与冻结 PTX 共 **56/56 hash 一致**。这证明保存
@@ -65,7 +78,8 @@ Driver module/launch 子集**。**尚无完整 Dense block 执行证据**；普�
 - `research/hopper-ptx/` 未找到 norm/RoPE/SwiGLU 完整 Dense 实现与结果；新的
   10–14 是本次新增的实施计划。`in-switch` Python 为 3.11.16，torch/triton 未安装。
 
-本次未重建 runtime、重跑历史 suite 或租用 H100；不把静态审计包装成动态验证。
+该次审计未重建 runtime、重跑历史 suite 或租用 H100；不把静态审计包装成动态验证。
+后续阶段 3 的新动态证据单独列于首页与其报告，不改写上述审计文件。
 
 ## 各阶段实际交付
 
@@ -76,7 +90,7 @@ Driver module/launch 子集**。**尚无完整 Dense block 执行证据**；普�
 | [0 基线](00-baseline-and-branches.md) | 配对分支、文档入口、阶段门控 | 报告中的 Git 基线 | 已有 Hopper 执行能力 |
 | [1 workload 冻结](01-workload-freeze.md) | FA3 PTX、Q/K/V、shape 和工具版本冻结；`sm_90a` PTX 由 ptxas 编译成功 | [输入清单](../../../research/hopper-ptx/stage1/artifacts/inputs/inputs.json)、[ptxas 输出](../../../research/hopper-ptx/stage1/artifacts/ptxas.log) | FA3 已被模拟器执行 |
 | [2 PTX harness](02-ptx-harness.md) | 最小 kernel 解析→执行→写回；`n=128 checksum=161408 first=1007 last=1515` | 阶段报告命令；[后续回归证据](../../../research/hopper-ptx/stage6/evidence/regressions.log) | 原生 CUDA/PyTorch 运行时完整支持 |
-| [3 前端](03-frontend-foundation.md) | `sm_90a`、矩阵指令 metadata、长 tuple 和类型入口；三个正例 target 检查通过 | [当前版本已有的前端回归](../../../research/hopper-ptx/stage9/evidence/regressions-summary.log)、阶段报告 | 所有识别的 opcode 都可执行，或所有类型都有数值实现 |
+| [3 前端](03-frontend-foundation.md) | `sm_90a`、矩阵 metadata/tuple/type；12 种 ldmatrix 实际执行，42 数值 case 全输出零误差 | [新 gate](../../../research/hopper-ptx/stage3/evidence/acceptance-20261013/frozen/gate.json)、[证据校验](../../../research/hopper-ptx/stage3/evidence/acceptance-20261013/verification.json)、阶段报告 | ldmatrix timing、mma.sync 算术、所有类型或完整 Dense 已实现 |
 | [4 mbarrier](04-mbarrier-and-sync.md) | CTA phase/arrival/transaction/token/parity 功能状态；32 线程输出 10，phase=2/pending=0/tx=0 | [阶段 9 保存的回归](../../../research/hopper-ptx/stage9/evidence/stage4-regression.log) | 全部 cluster-addressed barrier timing 完成 |
 | [5 TMA](05-tma.md) | 逻辑 descriptor、地址/OOB、LDST completion/shared 写回；四 CTA `mask=5` 产生 2 次目标写和 completion | [detailed](../../../research/hopper-ptx/stage5/artifacts/detailed.log)、[multicast](../../../research/hopper-ptx/stage5/artifacts/multicast.log)、[负例](../../../research/hopper-ptx/stage5/artifacts/negative.log) | 原生 CUtensorMap ABI、TMA store 或完整硬件时序已实现 |
 | [6 WGMMA](06-wgmma.md) | 128-thread 组、FP16→FP32、N=128/176、SS/RS、commit/wait；16 组矩阵检查零误差，36 个负例通过 | [验收](../../../research/hopper-ptx/stage6/evidence/acceptance.log)、[时序](../../../research/hopper-ptx/stage6/evidence/timing128.log) | swizzle、任意 shape/type、多 warpgroup 并发或硬件周期准确度 |
@@ -199,4 +213,5 @@ bash research/hopper-ptx/stage9/run.sh /tmp/hopper-status-audit-20261010-detaile
 
 主开发环境为 Conda `in-switch`。权限阻塞时 AI 编写可审阅脚本，由用户/管理员
 运行；H100 与 DGX 分别准备短租包，详见
-[短租测试手册](../h100-dgx-rental-runbook.md)。本次只整理和规划，没有开展新实现。
+[短租测试手册](../h100-dgx-rental-runbook.md)。以上后续目标来自实现前的计划整理；
+随后仅实施并验收阶段 3，未开始阶段 4 或 10–14。

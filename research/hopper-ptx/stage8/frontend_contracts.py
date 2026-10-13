@@ -61,7 +61,8 @@ negative = {
     'grid_modifier': ('griddepcontrol.invalid;', 'unsupported Hopper opcode/modifier'),
     'grid_operand': ('griddepcontrol.wait %r0;', 'griddepcontrol.wait takes no operands'),
 }
-env = {**os.environ, 'LD_LIBRARY_PATH': '/tmp/hopper-stage3-build'}
+env = {**os.environ, 'LD_LIBRARY_PATH': str(Path(os.environ.get(
+    'SIM_RUNTIME', '/tmp/hopper-stage3-build/libcudart.so')).resolve().parent)}
 
 
 def command(args, log):

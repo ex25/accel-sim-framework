@@ -1,0 +1,3 @@
+make: Entering directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3'
+/usr/bin/g++ -std=c++17 -O2 -I/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src -I/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim -I/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda -I/usr/local/cuda/include -I/usr/local/cuda/targets/x86_64-linux/include ldmatrix_harness.cc -o ldmatrix_harness /tmp/hopper-stage3-build/libcudart.so -Wl,-rpath,/tmp/hopper-stage3-build/ -lz -lGL -lpthread -ldl -lrt -lm
+make: Leaving directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3'

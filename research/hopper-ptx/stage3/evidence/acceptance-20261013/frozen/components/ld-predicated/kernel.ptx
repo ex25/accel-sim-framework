@@ -1,0 +1,9 @@
+.version 8.7
+.target sm_90a
+.address_size 64
+.visible .entry frontend() {
+.reg .pred %p;
+.reg .b32 %d<4>, %a;
+@%p ldmatrix.sync.aligned.m8n8.x4.shared.b16 {%d0,%d1,%d2,%d3}, [%a];
+ret;
+}

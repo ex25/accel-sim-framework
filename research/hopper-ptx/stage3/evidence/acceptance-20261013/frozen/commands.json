@@ -1,0 +1,190 @@
+[
+  {
+    "name": "python-version",
+    "argv": [
+      "/home/wangjz/miniconda3/envs/in-switch/bin/python3",
+      "-c",
+      "import sys,importlib.metadata as m; print(sys.executable); print(sys.version); print({p: next((x.version for x in m.distributions() if x.metadata[\"Name\"].lower()==p), \"absent\") for p in (\"numpy\",\"torch\",\"triton\")})"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "compiler",
+    "argv": [
+      "/usr/bin/g++",
+      "--version"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "cuda",
+    "argv": [
+      "/usr/local/cuda/bin/nvcc",
+      "--version"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "ptxas",
+    "argv": [
+      "/usr/local/cuda/bin/ptxas",
+      "--version"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "cmake",
+    "argv": [
+      "cmake",
+      "--version"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "bison",
+    "argv": [
+      "bison",
+      "--version"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "flex",
+    "argv": [
+      "flex",
+      "--version"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "configure",
+    "argv": [
+      "cmake",
+      "-S",
+      "/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim",
+      "-B",
+      "/tmp/hopper-stage3-acceptance-build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_CXX_COMPILER=/usr/bin/g++",
+      "-DCUDAToolkit_ROOT=/usr/local/cuda"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "build",
+    "argv": [
+      "cmake",
+      "--build",
+      "/tmp/hopper-stage3-acceptance-build",
+      "--target",
+      "cudart",
+      "-j2"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "harness-build",
+    "argv": [
+      "make",
+      "-C",
+      "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3",
+      "-B",
+      "all",
+      "SIM_RUNTIME=/tmp/hopper-stage3-acceptance-build/libcudart.so"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "loaded-libraries",
+    "argv": [
+      "ldd",
+      "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/ldmatrix_harness"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "components",
+    "argv": [
+      "/home/wangjz/miniconda3/envs/in-switch/bin/python3",
+      "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/run_acceptance.py",
+      "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/evidence/acceptance-20261013/frozen/components",
+      "/tmp/hopper-stage3-acceptance-build/libcudart.so"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "ordinary-build",
+    "argv": [
+      "make",
+      "-C",
+      "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage2",
+      "-B",
+      "all",
+      "CXX=/usr/bin/g++",
+      "SIM_RUNTIME=/tmp/hopper-stage3-acceptance-build/libcudart.so"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "ordinary",
+    "argv": [
+      "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage2/stage2_harness",
+      "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage2/stage2_kernel.ptx"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/evidence/acceptance-20261013/frozen"
+  },
+  {
+    "name": "param-label-build",
+    "argv": [
+      "make",
+      "-C",
+      "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage8",
+      "-B",
+      "param_layout_probe",
+      "readiness_execution_probe",
+      "SIM_RUNTIME=/tmp/hopper-stage3-acceptance-build/libcudart.so"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "params",
+    "argv": [
+      "/home/wangjz/miniconda3/envs/in-switch/bin/python3",
+      "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage8/param_layout_probe.py",
+      "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/evidence/acceptance-20261013/frozen/params"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "labels-frontend",
+    "argv": [
+      "/home/wangjz/miniconda3/envs/in-switch/bin/python3",
+      "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage8/frontend_contracts.py",
+      "/home/wangjz/in-switch/accel-sim-framework",
+      "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/evidence/acceptance-20261013/frozen/labels-frontend",
+      "/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/configs/tested-cfgs/SM90_H100"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "wgmma-build",
+    "argv": [
+      "make",
+      "-C",
+      "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage6",
+      "-B",
+      "all",
+      "SIM_RUNTIME=/tmp/hopper-stage3-acceptance-build/libcudart.so"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  },
+  {
+    "name": "wgmma",
+    "argv": [
+      "bash",
+      "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage6/run.sh",
+      "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/evidence/acceptance-20261013/frozen/wgmma"
+    ],
+    "cwd": "/home/wangjz/in-switch/accel-sim-framework"
+  }
+]

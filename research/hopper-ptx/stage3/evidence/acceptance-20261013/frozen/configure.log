@@ -1,0 +1,28 @@
+-- Found CUDAToolkit: /usr/local/cuda/targets/x86_64-linux/include;/usr/local/cuda/targets/x86_64-linux/include;/usr/local/cuda/targets/x86_64-linux/include;/usr/local/cuda/targets/x86_64-linux/include;/usr/local/cuda/targets/x86_64-linux/include (found version "12.8.61")
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+-- Additional settings for GPGPU-Sim
+--   Checking for OS
+--   Checking for OS - Linux
+--   Checking GPGPU-Sim version
+--   Checking GPGPU-Sim version - 4.2.0
+--   Checking git commit hash
+--   Checking git commit hash - eca83b30959381ee14bb26384a0c4f01c3d35c01
+--   Checking CXX compiler
+--   Checking CXX compiler - /usr/bin/g++
+--   Checking CXX compiler version
+--   Checking CXX compiler version - 9.4.0
+--   Checking CUDA compiler
+--   Checking CUDA compiler - /usr/local/cuda/bin/nvcc
+--   Checking CUDA compiler version
+--   Checking CUDA compiler version - 12.8.61
+--   Checking for GPGPU-Sim power model
+--   Checking for GPGPU-Sim power model - /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/accelwattch/
+--   Checking for CMAKE_BUILD_TYPE
+--   Checking for CMAKE_BUILD_TYPE - Release
+--   Setting binary directory to /tmp/hopper-stage3-acceptance-build
+-- Additional settings for GPGPU-Sim - done
+-- Be sure to run 'source setup' before you run CUDA program with GPGPU-Sim or building with external simulator like SST
+-- Writing setup commands to 'setup'
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /tmp/hopper-stage3-acceptance-build

@@ -5,7 +5,7 @@ ROOT=$(cd "$(dirname "$0")/../../.." && pwd)
 HERE=$(cd "$(dirname "$0")" && pwd)
 RUN_DIR=${1:-/tmp/hopper-stage6-run}
 mkdir -p "$RUN_DIR/functional" "$RUN_DIR/detailed" "$RUN_DIR/ptx"
-python3 "$HERE/generate.py" "$RUN_DIR/ptx"
+"${PYTHON_BIN:-python3}" "$HERE/generate.py" "$RUN_DIR/ptx"
 for mode in functional detailed; do
   cp "$ROOT/gpu-simulator/gpgpu-sim/configs/tested-cfgs/SM90_H100/gpgpusim.config" "$RUN_DIR/$mode/"
   cp "$ROOT/gpu-simulator/gpgpu-sim/configs/tested-cfgs/SM90_H100/config_hopper_islip.icnt" "$RUN_DIR/$mode/"
@@ -16,7 +16,7 @@ for mode in functional detailed; do
   rg '^-specialized_unit_[1-5] ' "$ROOT/gpu-simulator/configs/tested-cfgs/SM90_H100/trace.config" >> "$RUN_DIR/$mode/gpgpusim.config"
 done
 make -C "$HERE" all
-export LD_LIBRARY_PATH=/tmp/hopper-stage3-build
+export LD_LIBRARY_PATH="$(dirname "${SIM_RUNTIME:-/tmp/hopper-stage3-build/libcudart.so}")"
 for case in ss128 ss128_hex ss176 rs128 rs176 rs176_zero empty; do
   for mode in functional detailed; do
     (cd "$RUN_DIR/$mode"; timeout 45 "$HERE/wgmma_harness" "$RUN_DIR/ptx/$case.ptx" "$mode" "$case" > "$case.log" 2>&1)
@@ -27,7 +27,7 @@ for case in timing128 timing176; do
   (cd "$RUN_DIR/detailed"; timeout 45 "$HERE/wgmma_harness" "$RUN_DIR/ptx/$case.ptx" detailed "$case" > "$case.log" 2>&1)
   grep -E 'MATRIX_RESULT|TIMING_RESULT' "$RUN_DIR/detailed/$case.log"
 done
-python3 "$HERE/verify_timing.py" "$RUN_DIR/detailed/timing128.log" "$RUN_DIR/detailed/timing176.log"
+"${PYTHON_BIN:-python3}" "$HERE/verify_timing.py" "$RUN_DIR/detailed/timing128.log" "$RUN_DIR/detailed/timing176.log"
 negative() {
   local mode=$1 case=$2 pattern=$3 threads=${4:-128}
   local log="$RUN_DIR/$mode/negative-$case-$threads.log"

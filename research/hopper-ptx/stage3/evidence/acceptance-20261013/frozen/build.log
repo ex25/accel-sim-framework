@@ -1,0 +1,14 @@
+[  4%] Built target cuda
+[  9%] Built target gpgpusim_entrypoint
+[ 10%] Built target gen_ptx_parser_decode
+[ 10%] Generating build string file to /tmp/hopper-stage3-acceptance-build
+[ 31%] Built target accelwattch
+[ 31%] Built target gen_build_string
+[ 32%] Built target gen_instructions_h
+[ 46%] Built target gpgpusim
+[ 85%] Built target intersim
+[ 85%] Building CXX object src/cuda-sim/CMakeFiles/ptxsim.dir/cuda-sim.cc.o
+[ 86%] Linking CXX static library libptxsim.a
+[ 98%] Built target ptxsim
+[100%] Linking CXX shared library libcudart.so
+[100%] Built target cudart

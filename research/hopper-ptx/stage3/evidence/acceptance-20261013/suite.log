@@ -1,0 +1,19 @@
+CHECK status=PASS name=python-version
+CHECK status=PASS name=compiler
+CHECK status=PASS name=cuda
+CHECK status=PASS name=ptxas
+CHECK status=PASS name=cmake
+CHECK status=PASS name=bison
+CHECK status=PASS name=flex
+CHECK status=PASS name=configure
+CHECK status=PASS name=build
+CHECK status=PASS name=harness-build
+CHECK status=PASS name=loaded-libraries
+Traceback (most recent call last):
+  File "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/run_suite.py", line 105, in <module>
+    main()
+  File "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/run_suite.py", line 61, in main
+    run('components',[str(PYTHON),str(HERE/'run_acceptance.py'),str(out/'components'),str(runtime)],timeout=900)
+  File "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/run_suite.py", line 37, in run
+    raise RuntimeError(f'{name} exit={result.returncode}, see complete log')
+RuntimeError: components exit=1, see complete log

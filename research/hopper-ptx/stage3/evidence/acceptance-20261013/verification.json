@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "hashed_evidence_files": 932,
+  "source_files": 47,
+  "numeric_cases": 42,
+  "output_words": 21504,
+  "loaded_halfwords": 25600,
+  "max_abs_error": 0,
+  "rms_error": 0,
+  "runtime_sha256": "7ce26b6fbec28ff680efcf1f18b846c35856cf82b1e66e4444d97614ffe3552c",
+  "archive_sha256": "c0b42ee38ee9761bff85c369393b382a8a837112617e0153fc7252f9adafde8e"
+}

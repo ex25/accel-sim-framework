@@ -1,0 +1,7 @@
+.version 8.7
+.target sm_90a
+.address_size 64
+.visible .entry frontend() {
+wgmma.wait_group.sync.aligned 8;
+ret;
+}

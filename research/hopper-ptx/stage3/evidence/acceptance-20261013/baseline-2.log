@@ -1,0 +1,2 @@
+{"case": "old_high64", "kind": "negative", "exit": 1, "diagnostic": "exceeds declared shared memory", "status": "FAIL"}
+{"case": "old_oob", "kind": "negative", "exit": 1, "diagnostic": "exceeds declared shared memory", "status": "FAIL"}

@@ -5,6 +5,12 @@
 前置 gate：[阶段 11](11-dense-functional.md) 全部功能验收通过。
 实际命令/结果/证据：尚无。旧 attention detailed 的 1 row/1 head 不算本阶段运行。
 
+阶段 3 明确移交（未完成）：`ldmatrix.m8n8.b16` 的 12 种显式 shared 形式已有
+静态 shared 全 lane 功能证据，**没有 detailed timing/resource 实现**，仍严格拒绝。
+正式 Dense 若使用它，本阶段必须补 shared 访问、bank/端口、依赖及 latency/II
+计费，复用阶段 6 的矩阵/layout 组件检查，保存同 PTX 的全 grid 成功执行；
+不能用阶段 3 的零误差或合法指令预期失败作为此项完成证据。
+
 ## 实施步骤
 
 1. 用同一 PTX/输入/launch 切换详细模式，先逐算子，后完整 block。检查每条动态

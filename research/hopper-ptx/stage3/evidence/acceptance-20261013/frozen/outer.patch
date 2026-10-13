@@ -1,0 +1,274 @@
+diff --git a/.codex/docs/implementation/03-frontend-foundation.md b/.codex/docs/implementation/03-frontend-foundation.md
+index 277ce81..cd9ca50 100644
+--- a/.codex/docs/implementation/03-frontend-foundation.md
++++ b/.codex/docs/implementation/03-frontend-foundation.md
+@@ -1,25 +1,100 @@
+ # 阶段 3：PTX 前端基础
+ 
+-## 当前审计与执行入口（2026-10-13）
++## 当前实现与验收（2026-10-13）
++
++状态: 待验收（最终冻结版本全量 gate 运行中）
++
++本会话从阶段 3 开始，只实施本阶段；阶段 4 保持进行中，未开始其补齐实现。
++原撤销原因保留：旧 probe 只解析；阶段 2 整数 kernel 不执行 ldmatrix。
++本次真实执行进一步发现功能 fetch 时序门控及未初始化动态 warp ID 问题。
++BF16/TF32/FP8 token 仍不代表对应算术已实现。
++
++### 初始核查与实际修复
++
++[初始检查表与冻结合同](../../../research/hopper-ptx/stage3/CHECKLIST.md) 区分已有
++有效证据、实现但缺测试、缺失检查和后续能力；未删除原声明的任何矩阵加载形式。
++
++- 内层 `src/cuda-sim/cuda-sim.cc::ptx_fetch_inst`：只有详细模式检查 matrix timing；
++  功能模式可以进入原有 ldmatrix 实现，mma.sync 的执行仍严格失败。
++- `src/abstract_hardware_model.{h,cc}::core_t::getExecuteWarp`：功能 fetch 绑定动态
++  warp ID；原先直接复制静态指令，collective 线程索引使用未初始化值，实际触发崩溃。
++- `src/cuda-sim/instructions.cc::ldmatrix_impl`：保留完整 64 位地址及 offset，
++  先验证所有 provider 的 16 字节行在声明 shared 区内，再写寄存器。原来的 u32
++  截断和只查 alignment 均不足。所有 provider 先读完，支持地址与目的寄存器 alias。
++- `src/cuda-sim/ptx_parser.cc`：地址只接受 32/64 位整数/bit 寄存器或 shared 符号；
++  补全五种 MMA 的 m/n/k metadata。`ptx_exec_inst` 对不足 full warp 给出带位置诊断。
++- 外层 `stage3/ldmatrix_harness.cc` 实际写 simulator global→PTX shared→ldmatrix→
++  global→host 回读；host reference 只比较，不生成 simulator 输出。生命周期与
++  stream_manager 的 functional launch/finish 一致，详细 launch 先做 PDOM 分析。
++- `run_acceptance.py` 独立按矩阵元素 scatter 到 lane/halfword，严格核对 case 集合、
++  全输出及 ptxas。`run_suite.py` 串行构建/检查，以 runtime hash、ldd 和 source hash
++  固定版本；缺项、异常、timeout 不写 PASS gate。stage6/8 回归脚本允许指定同一
++  SIM_RUNTIME/PYTHON_BIN，避免重新加载历史 `/tmp/hopper-stage3-build`。
++
++### 当前支持矩阵（S=解析，F=功能执行，M=详细时序）
++
++| 形式 | S | F | M | 证据 / 边界 |
++| --- | --- | --- | --- | --- |
++| ldmatrix m8n8 x1/x2/x4 b16，normal/trans，shared/shared::cta（12 种） | 通过 | 通过 | 未实现，严格拒绝 | 42 数值 case；完整 32 lane；静态 shared/full warp |
++| 地址 b32/b64/u32/u64/s32/s64、offset、shared 符号、目的 alias | 通过 | 通过 | 同上 | 全输出；分散/permuted 行、最后合法行、未使用 provider、重复行 |
++| sm_90a 与参数 | 通过 | 地址参数/拷贝通过 | label/参数回归通过 | target_number=90，完整 target 字符串；2368 字节参数及 guard |
++| MMA m16n8：k16 f16/bf16、k8 tf32、k32 e4m3/e5m2 | 通过 | 未实现 | 未实现 | shape/type/tuple metadata 和正负例；不能当成算术结果 |
++| BF16/TF32/E4M3/E5M2 类型入口 | 通过 | 无单独算术验收 | 无单独算术验收 | 合法 bit 寄存器 tuple；不声明原生这些类型变量/算术均已支持 |
++| WGMMA m64n128/176k16 f32/f16/f16，SS/RS，fence/commit/wait | 通过 | 既有受限实现回归 | 既有受限模型回归 | 64/88 元素 tuple 完整；16 数值回归、36 负例；阶段 6 整体仍进行中 |
++| generic-address ldmatrix、其他 shape/type、predication、动态 shared | 未纳入当前支持合同 | 未实现/未验证 | 未实现 | 正确拒绝不算实现；按后续需求移交 |
++
++片段 reference 依据 [NVIDIA PTX ISA 8.7 ldmatrix](https://docs.nvidia.com/cuda/archive/12.8.0/parallel-thread-execution/index.html#warp-level-matrix-instructions-ldmatrix)。
++手写组件 PTX 经 CUDA 12.8 ptxas 编译，不冒称真实 Dense kernel/PTX 已导出或阶段 10 已完成。
++
++### 版本、运行环境与可复现命令
++
++入口外层 `63d6e475d381308f1afd18cc1bdd3b163d07f4ef`，内层
++`f4fe783ac7fc4f1cdaa9efa72a3575537d4fba36`，两者均为 `research/hopper-ptx`。
++最终配对版本及 runtime hash 在完成 gate 后填写；实际 dirty patch、source hash、
++ldd、工具输出和逐条 argv/cwd 保存在 evidence 的 versions/patch/commands JSON。
++用户已有 `experiments/` 与内层 `.serena/` 保留，不 reset、不覆盖。
++
++实际环境为 Conda `/home/wangjz/miniconda3/envs/in-switch/bin/python3`，Python 3.11.16、
++NumPy 2.4.6；torch/triton 未安装。编译器 `/usr/bin/g++` 9.4.0，CUDA nvcc 12.8.61、
++ptxas 12.8，CMake 3.31.8、Bison 3.8.2、Flex 2.6.4；未升级环境，未修改系统权限。
+ 
+-状态: 进行中
++```bash
++/home/wangjz/miniconda3/envs/in-switch/bin/python3 \
++  research/hopper-ptx/stage3/run_suite.py /tmp/stage3-reproduce \
++  --build /tmp/stage3-reproduce-build
++```
++
++该命令保存配置/日志并实际执行下列过程（完整参数见 commands.json）：
++
++```bash
++cmake -S gpu-simulator/gpgpu-sim -B /tmp/stage3-reproduce-build \
++  -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=/usr/bin/g++ \
++  -DCUDAToolkit_ROOT=/usr/local/cuda
++cmake --build /tmp/stage3-reproduce-build --target cudart -j2
++make -C research/hopper-ptx/stage3 -B all \
++  SIM_RUNTIME=/tmp/stage3-reproduce-build/libcudart.so
++```
++
++随后跑 stage3 数值/前端、stage2 整数、stage8 参数/label、stage6 WGMMA 回归。
++正式 evidence 目录及最终结果在全量 gate 完成后填写。
++
++### 失败与限制（不隐藏失败、不按历史 PASS 验收）
+ 
+-**下一实现会话从本阶段开始，完成后报告阶段 4 入口。** 撤下整体验收的直接原因：
+-parser/IR 正例有效，但 ldmatrix 的数值证据不足；报告引用的阶段 2 整数 kernel
+-没有执行 ldmatrix。BF16/TF32/FP8 token 也不等于对应算术已实现。
++`stage3/evidence/acceptance-20261013/` 保存完整开发记录：
+ 
+-### 本阶段如何补齐
++- 首次 harness 编译失败（gpu 基类没有 detailed cycle），已改用 gpgpu_sim。
++- 旧 runtime 在 ldmatrix 前因 timing guard 失败；此时没有验证高位地址或越界，
++  `baseline.json` 的 FAIL 不代表数值已执行。
++- 修复 fetch 后，harness 先补正确 functional lifecycle，随后暴露动态 warp ID 崩溃。
++- 首个 detailed harness 没有 PDOM 分析、未执行 kernel；gate 正确失败，已加 PDOM
++  和 kernel completion 检查。未把输出 sentinel 当作成功。
++- 首批 ptxas 拒绝 shared 符号直接作 add 操作数；改为 mov 地址到寄存器后相加。
++- `accepted/labels-frontend/store_coords-parser.log` 因重链接并行读库报 file too short；
++  该批次无效，后续 suite 串行且锁定同一构建目录，核对运行前后 source hash。
+ 
+-1. 先冻结当前支持清单及测试矩阵，核对 `ptx_parser.cc`、`instructions.cc` 与
+-   `stage3` fixture：明确 ldmatrix 形状/x1/x2/x4/transpose 的实际支持范围、
+-   类型/tuple/opcode 的前端能力。不能删除已有支持声明来绕过数值验证。
+-2. 在 stage3 增加真实执行 harness，使用非均匀 shared 输入，回读所有 lane 的
+-   完整 fragment，与独立 reference 逐项比较；覆盖受支持形式、地址/边界和负例。
+-3. 补 parser/operand/type/label/tuple 缺陷，并做 sm_90a、长 tuple、合法/非法
+-   modifier、参数和 label 回归。需要真实编译 PTX 时在本阶段最小导出并冻结版本，
+-   不要求先验收阶段 10。
+-4. 支持矩阵分别标 parser、functional、timing。保留普通 kernel 回归，但不能
+-   用它代替矩阵数值；WGMMA 当前已在阶段 6 有受限实现，不重复写成完全未实现。
++无 H100 数值或周期测量；ldmatrix timing/bank/resource 模型、动态 shared、通用
++generic 地址、mma.sync 算术等仍没有本阶段成功证据。详细拒绝合法 ldmatrix 仅证明
++边界被保护，不算 M 通过。
+ 
+ ### 本阶段可验收条件
+ 
+@@ -28,11 +103,18 @@ parser/IR 正例有效，但 ldmatrix 的数值证据不足；报告引用的阶
+ - [ ] 普通 kernel 回归通过；保存实际命令、配对版本、全部输出及持久证据。
+ - [ ] 支持矩阵明确每项 S/F/M 状态，未实现形式仍拒绝，不把 parser 当功能通过。
+ 
+-### 后续移交（未完成，不是本阶段的循环前置条件）
++### 后续移交与阶段 4 入口
+ 
+ 真实 Dense 新需求由阶段 10 盘点、11 补齐；mma.sync 若被使用，必须在阶段 11/12
+ 补功能/详细正例。WGMMA/layout 资源由阶段 6/12 验证。本阶段通过只证明前端及
+-上述矩阵加载组件，不证明全部 Tensor Core/完整 Dense。完成本阶段前不进入阶段 4。
++上述矩阵加载组件，不证明全部 Tensor Core/完整 Dense。
++
++阶段 4 下一会话先冻结多 barrier/phase/transaction 合同，核对
++`mbarrier_impl` 与 `get_ptx_tma_cta` 的单 binding/固定 offset 假设，再实现通用 CTA
++状态和 detailed issue/writeback/completion 的恰好一次记账。验证多地址/多 phase、
++延迟 producer、乱序 completion、wait/token/parity、drop/invalidate 和跨 launch 隔离；
++复用 stage4 功能及 stage5 TMA 回归。cluster-addressed 归 7，完整 Dense pipeline 归 12。
++本会话不开始这些实现，也不把已有 stage4/5 PASS 重新写为整阶段验收。
+ 
+ 当前执行顺序见 [单卡 Dense 计划](../../plans/single-card-dense.md)。
+ 
+diff --git a/.codex/plans/single-card-dense.md b/.codex/plans/single-card-dense.md
+index 7305189..585b81e 100644
+--- a/.codex/plans/single-card-dense.md
++++ b/.codex/plans/single-card-dense.md
+@@ -1,6 +1,7 @@
+ # 当前执行计划：补齐单卡完整 Dense block
+ 
+-更新：2026-10-13。按用户本次要求重新核查，**本轮只改文档，不实施代码**。
++更新：2026-10-13。此前执行顺序整理只改文档；同日的新实现会话从阶段 3 开始，
++实际结果以 [阶段 3 报告](../docs/implementation/03-frontend-foundation.md) 为准。
+ 本文件是下一次 Codex 实现的唯一当前执行顺序；替代旧文档中“阶段 0–9 全部完成，
+ 直接继续后面”的推断。长期目标保留在 [总路线](h100-ptx-dgx-roadmap.md)。
+ 
+@@ -91,8 +92,9 @@ layout/API 缺口在 11–13 实际修补、回归并更新组件报告，不能
+    sudo/驱动/计数器权限阻塞时，AI 写最小可审阅脚本（含 preflight/dry-run、日志、
+    失败退出及恢复说明），用户/管理员运行；继续不依赖权限的工作。
+ 6. 保留 `experiments/`、内层 `.serena/` 和已有修改，不重写旧实现提交来改变历史
+-   验收结论。新实现按阶段记录配对版本和完整报告。本轮经用户授权提交全部文档
+-   修订；旧实验构建产物不提交，不修改模拟器代码，不推送远端。
++   验收结论。新实现按阶段记录配对版本和完整报告。此前只提交文档的安排是历史
++   审计范围；本次实现会话按当前阶段修改源码、测试和报告，旧实验构建产物不提交，
++   不推送远端。
+ 
+ ## 全局验收合同
+ 
+diff --git a/research/hopper-ptx/stage3/Makefile b/research/hopper-ptx/stage3/Makefile
+index 3297767..406485a 100644
+--- a/research/hopper-ptx/stage3/Makefile
++++ b/research/hopper-ptx/stage3/Makefile
+@@ -5,10 +5,13 @@ CXX := /usr/bin/g++
+ CXXFLAGS := -std=c++17 -O2 -I$(SIM)/src -I$(SIM) -I$(SIM)/libcuda -I/usr/local/cuda/include -I/usr/local/cuda/targets/x86_64-linux/include
+ LIBS := $(SIM_RUNTIME) -Wl,-rpath,$(dir $(SIM_RUNTIME)) -lz -lGL -lpthread -ldl -lrt -lm
+ 
+-all: frontend_probe
++all: frontend_probe ldmatrix_harness
+ 
+-frontend_probe: frontend_probe.cc
++frontend_probe: frontend_probe.cc $(SIM_RUNTIME)
++	$(CXX) $(CXXFLAGS) $< -o $@ $(LIBS)
++
++ldmatrix_harness: ldmatrix_harness.cc $(SIM_RUNTIME)
+ 	$(CXX) $(CXXFLAGS) $< -o $@ $(LIBS)
+ 
+ clean:
+-	rm -f frontend_probe
++	rm -f frontend_probe ldmatrix_harness
+diff --git a/research/hopper-ptx/stage3/frontend_probe.cc b/research/hopper-ptx/stage3/frontend_probe.cc
+index 33febeb..d21da1c 100644
+--- a/research/hopper-ptx/stage3/frontend_probe.cc
++++ b/research/hopper-ptx/stage3/frontend_probe.cc
+@@ -29,6 +29,22 @@ int main(int argc, char **argv) {
+     std::printf("INSN index=%u opcode=%s operands=%u source=%s:%u\n", i,
+                 insn->get_opcode_cstr(), insn->get_num_operands(),
+                 insn->source_file(), insn->source_line());
++    if (insn->ptx_matrix.kind != ptx_matrix_metadata::NONE) {
++      const auto &m = insn->ptx_matrix;
++      std::printf("MATRIX opcode=%s m=%u n=%u k=%u matrices=%u trans=%u functional=%u timing=%u",
++                  m.opcode.c_str(), m.m, m.n, m.k, m.matrices,
++                  unsigned(m.transpose), unsigned(m.functional_supported),
++                  unsigned(m.timing_supported));
++      for (unsigned p = 0; p < insn->get_num_operands(); ++p) {
++        const auto &op = insn->operand_lookup(p);
++        if (op.is_vector()) {
++          std::printf(" tuple%u=%u", p, op.get_vect_nelem());
++          for (unsigned r = 0; r < op.get_vect_nelem(); ++r)
++            std::printf(" %s", op.vec_symbol(r)->name().c_str());
++        }
++      }
++      std::puts("");
++    }
+   }
+   return 0;
+ }
+diff --git a/research/hopper-ptx/stage6/run.sh b/research/hopper-ptx/stage6/run.sh
+index 8c84d1e..579ccbe 100755
+--- a/research/hopper-ptx/stage6/run.sh
++++ b/research/hopper-ptx/stage6/run.sh
+@@ -5,7 +5,7 @@ ROOT=$(cd "$(dirname "$0")/../../.." && pwd)
+ HERE=$(cd "$(dirname "$0")" && pwd)
+ RUN_DIR=${1:-/tmp/hopper-stage6-run}
+ mkdir -p "$RUN_DIR/functional" "$RUN_DIR/detailed" "$RUN_DIR/ptx"
+-python3 "$HERE/generate.py" "$RUN_DIR/ptx"
++"${PYTHON_BIN:-python3}" "$HERE/generate.py" "$RUN_DIR/ptx"
+ for mode in functional detailed; do
+   cp "$ROOT/gpu-simulator/gpgpu-sim/configs/tested-cfgs/SM90_H100/gpgpusim.config" "$RUN_DIR/$mode/"
+   cp "$ROOT/gpu-simulator/gpgpu-sim/configs/tested-cfgs/SM90_H100/config_hopper_islip.icnt" "$RUN_DIR/$mode/"
+@@ -16,7 +16,7 @@ for mode in functional detailed; do
+   rg '^-specialized_unit_[1-5] ' "$ROOT/gpu-simulator/configs/tested-cfgs/SM90_H100/trace.config" >> "$RUN_DIR/$mode/gpgpusim.config"
+ done
+ make -C "$HERE" all
+-export LD_LIBRARY_PATH=/tmp/hopper-stage3-build
++export LD_LIBRARY_PATH="$(dirname "${SIM_RUNTIME:-/tmp/hopper-stage3-build/libcudart.so}")"
+ for case in ss128 ss128_hex ss176 rs128 rs176 rs176_zero empty; do
+   for mode in functional detailed; do
+     (cd "$RUN_DIR/$mode"; timeout 45 "$HERE/wgmma_harness" "$RUN_DIR/ptx/$case.ptx" "$mode" "$case" > "$case.log" 2>&1)
+@@ -27,7 +27,7 @@ for case in timing128 timing176; do
+   (cd "$RUN_DIR/detailed"; timeout 45 "$HERE/wgmma_harness" "$RUN_DIR/ptx/$case.ptx" detailed "$case" > "$case.log" 2>&1)
+   grep -E 'MATRIX_RESULT|TIMING_RESULT' "$RUN_DIR/detailed/$case.log"
+ done
+-python3 "$HERE/verify_timing.py" "$RUN_DIR/detailed/timing128.log" "$RUN_DIR/detailed/timing176.log"
++"${PYTHON_BIN:-python3}" "$HERE/verify_timing.py" "$RUN_DIR/detailed/timing128.log" "$RUN_DIR/detailed/timing176.log"
+ negative() {
+   local mode=$1 case=$2 pattern=$3 threads=${4:-128}
+   local log="$RUN_DIR/$mode/negative-$case-$threads.log"
+diff --git a/research/hopper-ptx/stage8/frontend_contracts.py b/research/hopper-ptx/stage8/frontend_contracts.py
+index 4dd7c14..26f3818 100644
+--- a/research/hopper-ptx/stage8/frontend_contracts.py
++++ b/research/hopper-ptx/stage8/frontend_contracts.py
+@@ -61,7 +61,8 @@ negative = {
+     'grid_modifier': ('griddepcontrol.invalid;', 'unsupported Hopper opcode/modifier'),
+     'grid_operand': ('griddepcontrol.wait %r0;', 'griddepcontrol.wait takes no operands'),
+ }
+-env = {**os.environ, 'LD_LIBRARY_PATH': '/tmp/hopper-stage3-build'}
++env = {**os.environ, 'LD_LIBRARY_PATH': str(Path(os.environ.get(
++    'SIM_RUNTIME', '/tmp/hopper-stage3-build/libcudart.so')).resolve().parent)}
+ 
+ 
+ def command(args, log):
+diff --git a/research/hopper-ptx/stage8/param_layout_probe.py b/research/hopper-ptx/stage8/param_layout_probe.py
+index f02f806..384f3d4 100755
+--- a/research/hopper-ptx/stage8/param_layout_probe.py
++++ b/research/hopper-ptx/stage8/param_layout_probe.py
+@@ -33,7 +33,8 @@ cases = {
+ for name, text in cases.items():
+     (OUT / f"{name}.ptx").write_text(text)
+ 
+-env = {**os.environ, "LD_LIBRARY_PATH": "/tmp/hopper-stage3-build"}
++env = {**os.environ, "LD_LIBRARY_PATH": str(Path(os.environ.get(
++    "SIM_RUNTIME", "/tmp/hopper-stage3-build/libcudart.so")).resolve().parent)}
+ for name, expected in [("align32_64", [0, 64]), ("scalar_vector", [0, 2, 16, 32]),
+                        ("array_natural", [0, 8]), ("frozen_abi", [0])]:
+     positive = subprocess.run([str(HERE / "param_layout_probe"), str(OUT / f"{name}.ptx"), "layout"],

@@ -5,6 +5,11 @@
 前置 gate：[阶段 10](10-dense-contract.md) 已完成规格与真实 kernel 冻结。
 实际命令/结果/证据：尚无；旧阶段 8 attention PASS 不是本阶段结果。
 
+阶段 3 明确移交（未完成）：五种 `mma.sync` 目前只有 type/tuple/shape 前端
+metadata，算术仍拒绝；generic-address/其他形式的 ldmatrix、动态 shared 也未验收。
+阶段 10 盘点真实 PTX 后，本阶段必须实现实际使用的形式并保存独立成功数值用例；
+未使用能力继续登记，不把 parser/预期拒绝改写为执行通过。
+
 ## 工作项与实现顺序
 
 1. 在 `research/hopper-ptx/stage11/` 建立通用 tensor 分配、加载 PTX、参数打包、

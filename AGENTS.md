@@ -8,11 +8,13 @@ branches. Read these files before changing code:
 3. `.codex/plans/single-card-dense.md` (current execution order and gates)
 4. The current stage file under `.codex/docs/implementation/`
 
-The current entry point is stage 3. Complete and validate stages in order:
+Stage 3 has passed its current component contract; see its report and frozen
+2026-10-13 gate. The next session's entry point is stage 4. The stage order is:
 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14.
 Do not skip reopened stages or treat historical PASS summaries as acceptance.
-The next implementation session is scoped to stage 3; report its results and
-stage 4 readiness before starting further implementation.
+The stage 3 session stops after reporting its results and stage 4 readiness.
+The next implementation session is scoped to stage 4; do not begin it as part
+of the stage 3 session or restore other stages from historical PASS summaries.
 Each stage must satisfy its current component-level acceptance contract with
 commands, results, and durable evidence before advancing. Full Dense, Python
 block integration, H100 calibration, and original FA3 integration have explicit

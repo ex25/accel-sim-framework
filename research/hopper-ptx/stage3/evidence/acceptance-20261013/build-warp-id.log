@@ -1,0 +1,524 @@
+[  1%] Building CXX object src/CMakeFiles/gpgpusim_entrypoint.dir/abstract_hardware_model.cc.o
+[  2%] Building CXX object libcuda/CMakeFiles/cuda.dir/cuda_runtime_api.cc.o
+In file included from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc:129:
+/usr/local/cuda/targets/x86_64-linux/include/host_defines.h:54:2: warning: #warning "host_defines.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+   54 | #warning "host_defines.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+      |  ^~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc: In function ‘void __cudaRegisterFunctionSST(unsigned int, uint64_t, char*)’:
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc:4015:41: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+ 4015 |   cudaRegisterFunctionInternal((void **)fatCubinHandle, (const char *)hostFun,
+      |                                         ^~~~~~~~~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc:4016:57: warning: passing NULL to non-pointer argument 5 of ‘void cudaRegisterFunctionInternal(void**, const char*, char*, const char*, int, uint3*, uint3*, dim3*, dim3*, gpgpu_context*)’ [-Wconversion-null]
+ 4016 |                                (char *)deviceFun, NULL, NULL, NULL, NULL, NULL,
+      |                                                         ^~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc:811:39: note:   declared here
+  811 |                                   int thread_limit, uint3 *tid, uint3 *bid,
+      |                                   ~~~~^~~~~~~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc: In function ‘cudaError_t cudaSetDeviceFlagsSST(int)’:
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc:4193:72: warning: format ‘%p’ expects argument of type ‘void*’, but argument 3 has type ‘int’ [-Wformat=]
+ 4193 |       "GPGPU-Sim PTX: Execution warning: ignoring call to \"%s ( flag=%p)\"\n",
+      |                                                                       ~^
+      |                                                                        |
+      |                                                                        void*
+      |                                                                       %d
+ 4194 |       __my_func__, flags);
+      |                    ~~~~~                                                
+      |                    |
+      |                    int
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/abstract_hardware_model.cc: In member function ‘void PerfCounter::open_for_write()’:
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/abstract_hardware_model.cc:1397:10: warning: ignoring return value of ‘int symlink(const char*, const char*)’, declared with attribute warn_unused_result [-Wunused-result]
+ 1397 |   symlink(output_csv_name.c_str(), symlink_name);
+      |   ~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[  2%] Building CXX object src/CMakeFiles/gpgpusim_entrypoint.dir/debug.cc.o
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc: In member function ‘void cuda_runtime_api::extract_ptx_files_using_cuobjdump_internal(CUctx_st*, std::string&)’:
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc:3357:30: warning: ‘%s’ directive output may be truncated writing up to 1023 bytes into a region of size 922 [-Wformat-truncation=]
+ 3357 |            "awk '{$1=$1}1' > %s",
+      |                              ^~
+ 3358 |            app_binary.c_str(), ptx_list_file_name);
+      |                                ~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/stdio.h:867,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda/cuda_runtime_api.cc:108:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:67:35: note: ‘__builtin___snprintf_chk’ output 79 or more bytes (assuming 1102) into a destination of size 1000
+   67 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   68 |        __bos (__s), __fmt, __va_arg_pack ());
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[  2%] Linking CXX static library libcuda.a
+[  5%] Built target cuda
+[ 26%] Built target accelwattch
+[ 27%] Built target gen_ptx_parser_decode
+[ 27%] Generating build string file to /tmp/hopper-stage3-acceptance-build
+[ 27%] Built target gen_build_string
+[ 28%] Built target gen_instructions_h
+[ 29%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/addrdec.cc.o
+[ 30%] Building CXX object src/CMakeFiles/gpgpusim_entrypoint.dir/gpgpusim_entrypoint.cc.o
+[ 31%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/dram.cc.o
+[ 31%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/dram_sched.cc.o
+[ 32%] Building CXX object src/CMakeFiles/gpgpusim_entrypoint.dir/stream_manager.cc.o
+[ 33%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/gpu-cache.cc.o
+[ 35%] Built target gpgpusim_entrypoint
+[ 36%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/gpu-sim.cc.o
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/gpgpu-sim/gpu-sim.cc: In member function ‘void gpgpu_sim::gpu_print_stat(long long unsigned int)’:
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/gpgpu-sim/gpu-sim.cc:1730:34: warning: format ‘%lu’ expects argument of type ‘long unsigned int’, but argument 2 has type ‘long long unsigned int’ [-Wformat=]
+ 1730 |   printf("gpu_stall_dramfull = %lu\n", gpu_stall_icnt2mem);
+      |                                ~~^     ~~~~~~~~~~~~~~~~~~
+      |                                  |     |
+      |                                  |     long long unsigned int
+      |                                  long unsigned int
+      |                                %llu
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/gpgpu-sim/gpu-sim.cc:1731:36: warning: format ‘%lu’ expects argument of type ‘long unsigned int’, but argument 2 has type ‘long long unsigned int’ [-Wformat=]
+ 1731 |   printf("gpu_stall_icnt2sh    = %lu\n", gpu_stall_mem2icnt);
+      |                                  ~~^     ~~~~~~~~~~~~~~~~~~
+      |                                    |     |
+      |                                    |     long long unsigned int
+      |                                    long unsigned int
+      |                                  %llu
+[ 36%] Building CXX object src/intersim2/CMakeFiles/intersim.dir/interconnect_interface.cpp.o
+[ 37%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/hashing.cc.o
+[ 38%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/l2cache.cc.o
+[ 39%] Linking CXX static library libintersim.a
+[ 77%] Built target intersim
+[ 78%] Building CXX object src/cuda-sim/CMakeFiles/ptxsim.dir/cuda_device_printf.cc.o
+[ 79%] Building CXX object src/cuda-sim/CMakeFiles/ptxsim.dir/cuda_device_runtime.cc.o
+[ 79%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/local_interconnect.cc.o
+[ 80%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/mem_fetch.cc.o
+[ 80%] Building CXX object src/cuda-sim/CMakeFiles/ptxsim.dir/cuda-sim.cc.o
+[ 80%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/mem_latency_stat.cc.o
+[ 81%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/power_interface.cc.o
+[ 82%] Building CXX object src/cuda-sim/CMakeFiles/ptxsim.dir/instructions.cc.o
+In file included from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/cuda-math.h:354,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/instructions.cc:55:
+/usr/local/cuda/targets/x86_64-linux/include/math_functions.h:54:2: warning: #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead." [-Wcpp]
+   54 | #warning "math_functions.h is an internal header file and must not be used directly.  This file will be removed in a future CUDA release.  Please use cuda_runtime_api.h or cuda_runtime.h instead."
+      |  ^~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/instructions.cc: In member function ‘void ptx_thread_info::print_reg_thread(char*)’:
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/instructions.cc:657:19: warning: format ‘%llu’ expects argument of type ‘long long unsigned int’, but argument 4 has type ‘const ptx_reg_t’ [-Wformat=]
+  657 |       fprintf(fp, "%s %llu %s %d\n", name.c_str(), it->second, dec.c_str(),
+      |                   ^~~~~~~~~~~~~~~~~                ~~~~~~~~~~
+      |                                                        |
+      |                                                        const ptx_reg_t
+[ 83%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/power_stat.cc.o
+[ 83%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/scoreboard.cc.o
+[ 84%] Building CXX object src/cuda-sim/CMakeFiles/ptxsim.dir/memory.cc.o
+[ 85%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/shader.cc.o
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/gpgpu-sim/shader.cc: In member function ‘void shader_core_stats::print(FILE*) const’:
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/gpgpu-sim/shader.cc:740:25: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘long long unsigned int’ [-Wformat=]
+  740 |   fprintf(fout, "Stall:%d\t", shader_cycle_distro[2]);
+      |                        ~^     ~~~~~~~~~~~~~~~~~~~~~~
+      |                         |                          |
+      |                         int                        long long unsigned int
+      |                        %lld
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/gpgpu-sim/shader.cc:741:27: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘long long unsigned int’ [-Wformat=]
+  741 |   fprintf(fout, "W0_Idle:%d\t", shader_cycle_distro[0]);
+      |                          ~^     ~~~~~~~~~~~~~~~~~~~~~~
+      |                           |                          |
+      |                           int                        long long unsigned int
+      |                          %lld
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/gpgpu-sim/shader.cc:742:33: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘long long unsigned int’ [-Wformat=]
+  742 |   fprintf(fout, "W0_Scoreboard:%d", shader_cycle_distro[1]);
+      |                                ~^   ~~~~~~~~~~~~~~~~~~~~~~
+      |                                 |                        |
+      |                                 int                      long long unsigned int
+      |                                %lld
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/gpgpu-sim/shader.cc:744:27: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘long long unsigned int’ [-Wformat=]
+  744 |     fprintf(fout, "\tW%d:%d", i - 2, shader_cycle_distro[i]);
+      |                          ~^          ~~~~~~~~~~~~~~~~~~~~~~
+      |                           |                               |
+      |                           int                             long long unsigned int
+      |                          %lld
+[ 85%] Building CXX object src/cuda-sim/CMakeFiles/ptxsim.dir/ptx_ir.cc.o
+[ 86%] Building CXX object src/cuda-sim/CMakeFiles/ptxsim.dir/ptx_loader.cc.o
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc: In member function ‘void gpgpu_context::gpgpu_ptx_info_load_from_filename(const char*, unsigned int)’:
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:394:37: warning: ‘%s’ directive output may be truncated writing up to 1023 bytes into a region of size 995 [-Wformat-truncation=]
+  394 |       "$CUDA_INSTALL_PATH/bin/ptxas %s -v %s --output-file  /dev/null 2> %s",
+      |                                     ^~
+  395 |       extra_flags, filename, ptxas_filename.c_str());
+      |       ~~~~~~~~~~~                    
+In file included from /usr/include/stdio.h:867,
+                 from /usr/include/c++/9/cstdio:42,
+                 from /usr/include/c++/9/ext/string_conversions.h:43,
+                 from /usr/include/c++/9/bits/basic_string.h:6496,
+                 from /usr/include/c++/9/string:55,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.h:31,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:29:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:67:35: note: ‘__builtin___snprintf_chk’ output 63 or more bytes (assuming 1086) into a destination of size 1024
+   67 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   68 |        __bos (__s), __fmt, __va_arg_pack ());
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc: In member function ‘char* ptxinfo_data::gpgpu_ptx_sim_convert_ptx_and_sass_to_ptxplus(std::string, std::string, std::string)’:
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:125:43: warning: ‘%s’ directive output may be truncated writing up to 1023 bytes into a region of size 941 [-Wformat-truncation=]
+  125 |            "cuobjdump_to_ptxplus %s %s %s %s",
+      |                                           ^~
+  126 |            ptxfilename.c_str(), sassfilename.c_str(), elffilename.c_str(),
+  127 |            fname_ptxplus);
+      |            ~~~~~~~~~~~~~                   
+In file included from /usr/include/stdio.h:867,
+                 from /usr/include/c++/9/cstdio:42,
+                 from /usr/include/c++/9/ext/string_conversions.h:43,
+                 from /usr/include/c++/9/bits/basic_string.h:6496,
+                 from /usr/include/c++/9/string:55,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.h:31,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:29:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:67:35: note: ‘__builtin___snprintf_chk’ output 84 or more bytes (assuming 1107) into a destination of size 1024
+   67 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   68 |        __bos (__s), __fmt, __va_arg_pack ());
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:152:43: warning: ‘%s’ directive output may be truncated writing up to 1023 bytes into a region of size 1018 [-Wformat-truncation=]
+  152 |     snprintf(rm_commandline, 1024, "rm -f %s", fname_ptxplus);
+      |                                           ^~   ~~~~~~~~~~~~~
+In file included from /usr/include/stdio.h:867,
+                 from /usr/include/c++/9/cstdio:42,
+                 from /usr/include/c++/9/ext/string_conversions.h:43,
+                 from /usr/include/c++/9/bits/basic_string.h:6496,
+                 from /usr/include/c++/9/string:55,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.h:31,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:29:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:67:35: note: ‘__builtin___snprintf_chk’ output between 7 and 1030 bytes into a destination of size 1024
+   67 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   68 |        __bos (__s), __fmt, __va_arg_pack ());
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc: In function ‘void fix_duplicate_errors(char*)’:
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:254:38: warning: ‘%s’ directive output may be truncated writing up to 1023 bytes into a region of size 1020 [-Wformat-truncation=]
+  254 |   snprintf(commandline, 1024, "mv %s %s", fname2, tempfile);
+      |                                      ^~           ~~~~~~~~
+In file included from /usr/include/stdio.h:867,
+                 from /usr/include/c++/9/cstdio:42,
+                 from /usr/include/c++/9/ext/string_conversions.h:43,
+                 from /usr/include/c++/9/bits/basic_string.h:6496,
+                 from /usr/include/c++/9/string:55,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.h:31,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:29:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:67:35: note: ‘__builtin___snprintf_chk’ output 5 or more bytes (assuming 1028) into a destination of size 1024
+   67 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   68 |        __bos (__s), __fmt, __va_arg_pack ());
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:348:38: warning: ‘%s’ directive output may be truncated writing up to 1023 bytes into a region of size 1018 [-Wformat-truncation=]
+  348 |   snprintf(commandline, 1024, "rm -f %s", tempfile);
+      |                                      ^~   ~~~~~~~~
+In file included from /usr/include/stdio.h:867,
+                 from /usr/include/c++/9/cstdio:42,
+                 from /usr/include/c++/9/ext/string_conversions.h:43,
+                 from /usr/include/c++/9/bits/basic_string.h:6496,
+                 from /usr/include/c++/9/string:55,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.h:31,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:29:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:67:35: note: ‘__builtin___snprintf_chk’ output between 7 and 1030 bytes into a destination of size 1024
+   67 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   68 |        __bos (__s), __fmt, __va_arg_pack ());
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc: In member function ‘void gpgpu_context::gpgpu_ptxinfo_load_from_string(const char*, unsigned int, unsigned int, int)’:
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:458:41: warning: ‘info’ directive output may be truncated writing 4 bytes into a region of size between 1 and 1024 [-Wformat-truncation=]
+  458 |     snprintf(tempfile_ptxinfo, 1024, "%sinfo", fname);
+      |                                         ^~~~
+In file included from /usr/include/stdio.h:867,
+                 from /usr/include/c++/9/cstdio:42,
+                 from /usr/include/c++/9/ext/string_conversions.h:43,
+                 from /usr/include/c++/9/bits/basic_string.h:6496,
+                 from /usr/include/c++/9/string:55,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.h:31,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:29:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:67:35: note: ‘__builtin___snprintf_chk’ output between 5 and 1028 bytes into a destination of size 1024
+   67 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   68 |        __bos (__s), __fmt, __va_arg_pack ());
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:481:50: warning: ‘%s’ directive output may be truncated writing up to 1023 bytes into a region of size 989 [-Wformat-truncation=]
+  481 |              "$PTXAS_CUDA_INSTALL_PATH/bin/ptxas %s -v %s --output-file  "
+      |                                                  ^~
+  482 |              "/dev/null 2> %s",
+  483 |              extra_flags, fname2, tempfile_ptxinfo);
+      |              ~~~~~~~~~~~                          
+In file included from /usr/include/stdio.h:867,
+                 from /usr/include/c++/9/cstdio:42,
+                 from /usr/include/c++/9/ext/string_conversions.h:43,
+                 from /usr/include/c++/9/bits/basic_string.h:6496,
+                 from /usr/include/c++/9/string:55,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.h:31,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:29:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:67:35: note: ‘__builtin___snprintf_chk’ output between 69 and 3138 bytes into a destination of size 1024
+   67 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   68 |        __bos (__s), __fmt, __va_arg_pack ());
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:500:48: warning: ‘%s’ directive output may be truncated writing up to 1023 bytes into a region of size 995 [-Wformat-truncation=]
+  500 |                  "$CUDA_INSTALL_PATH/bin/ptxas %s -v %s --output-file  "
+      |                                                ^~
+  501 |                  "/dev/null 2> %s",
+  502 |                  extra_flags, fname2, tempfile_ptxinfo);
+      |                  ~~~~~~~~~~~                    
+In file included from /usr/include/stdio.h:867,
+                 from /usr/include/c++/9/cstdio:42,
+                 from /usr/include/c++/9/ext/string_conversions.h:43,
+                 from /usr/include/c++/9/bits/basic_string.h:6496,
+                 from /usr/include/c++/9/string:55,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.h:31,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:29:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:67:35: note: ‘__builtin___snprintf_chk’ output between 63 and 3132 bytes into a destination of size 1024
+   67 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   68 |        __bos (__s), __fmt, __va_arg_pack ());
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:549:41: warning: ‘info’ directive output may be truncated writing 4 bytes into a region of size between 1 and 1024 [-Wformat-truncation=]
+  549 |     snprintf(tempfile_ptxinfo, 1024, "%sinfo", fname);
+      |                                         ^~~~
+In file included from /usr/include/stdio.h:867,
+                 from /usr/include/c++/9/cstdio:42,
+                 from /usr/include/c++/9/ext/string_conversions.h:43,
+                 from /usr/include/c++/9/bits/basic_string.h:6496,
+                 from /usr/include/c++/9/string:55,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.h:31,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:29:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:67:35: note: ‘__builtin___snprintf_chk’ output between 5 and 1028 bytes into a destination of size 1024
+   67 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   68 |        __bos (__s), __fmt, __va_arg_pack ());
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:564:39: warning: ‘%s’ directive output may be truncated writing up to 1023 bytes into a region of size 995 [-Wformat-truncation=]
+  564 |         "$CUDA_INSTALL_PATH/bin/ptxas %s -v %s --output-file  /dev/null 2> %s",
+      |                                       ^~
+  565 |         extra_flags, fname2, tempfile_ptxinfo);
+      |         ~~~~~~~~~~~                    
+In file included from /usr/include/stdio.h:867,
+                 from /usr/include/c++/9/cstdio:42,
+                 from /usr/include/c++/9/ext/string_conversions.h:43,
+                 from /usr/include/c++/9/bits/basic_string.h:6496,
+                 from /usr/include/c++/9/string:55,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.h:31,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:29:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:67:35: note: ‘__builtin___snprintf_chk’ output between 63 and 3132 bytes into a destination of size 1024
+   67 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   68 |        __bos (__s), __fmt, __va_arg_pack ());
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:612:42: warning: ‘%s’ directive output may be truncated writing up to 1023 bytes into a region of size 1018 [-Wformat-truncation=]
+  612 |       snprintf(commandline, 1024, "rm -f %s %s %s", fname, fname2,
+      |                                          ^~         ~~~~~
+In file included from /usr/include/stdio.h:867,
+                 from /usr/include/c++/9/cstdio:42,
+                 from /usr/include/c++/9/ext/string_conversions.h:43,
+                 from /usr/include/c++/9/bits/basic_string.h:6496,
+                 from /usr/include/c++/9/string:55,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.h:31,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:29:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:67:35: note: ‘__builtin___snprintf_chk’ output between 9 and 3078 bytes into a destination of size 1024
+   67 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   68 |        __bos (__s), __fmt, __va_arg_pack ());
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:609:42: warning: ‘%s’ directive output may be truncated writing up to 1023 bytes into a region of size 1018 [-Wformat-truncation=]
+  609 |       snprintf(commandline, 1024, "rm -f %s %s %s", fname, fname2,
+      |                                          ^~         ~~~~~
+In file included from /usr/include/stdio.h:867,
+                 from /usr/include/c++/9/cstdio:42,
+                 from /usr/include/c++/9/ext/string_conversions.h:43,
+                 from /usr/include/c++/9/bits/basic_string.h:6496,
+                 from /usr/include/c++/9/string:55,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.h:31,
+                 from /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx_loader.cc:29:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:67:35: note: ‘__builtin___snprintf_chk’ output between 9 and 3078 bytes into a destination of size 1024
+   67 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   68 |        __bos (__s), __fmt, __va_arg_pack ());
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[ 86%] Building CXX object src/cuda-sim/CMakeFiles/ptxsim.dir/ptx_parser.cc.o
+[ 87%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/stack.cc.o
+[ 87%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/stat-tool.cc.o
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/gpgpu-sim/stat-tool.cc: In function ‘void shader_mem_lat_log(int, int)’:
+/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/gpgpu-sim/stat-tool.cc:331:25: warning: ISO C++17 does not allow ‘register’ storage class specifier [-Wregister]
+  331 |   register unsigned int shift;
+      |                         ^~~~~
+[ 88%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/traffic_breakdown.cc.o
+[ 89%] Building CXX object src/gpgpu-sim/CMakeFiles/gpgpusim.dir/visualizer.cc.o
+[ 90%] Building CXX object src/cuda-sim/CMakeFiles/ptxsim.dir/ptx_sim.cc.o
+[ 90%] Linking CXX static library libgpgpusim.a
+[ 91%] Built target gpgpusim
+[ 92%] Building CXX object src/cuda-sim/CMakeFiles/ptxsim.dir/ptx-stats.cc.o
+[ 93%] Building CXX object src/cuda-sim/CMakeFiles/ptxsim.dir/ptx.tab.c.o
+[ 94%] Building CXX object src/cuda-sim/CMakeFiles/ptxsim.dir/lex.ptx_.c.o
+[ 95%] Building CXX object src/cuda-sim/CMakeFiles/ptxsim.dir/lex.ptxinfo_.c.o
+In file included from /usr/include/string.h:495,
+                 from /tmp/hopper-stage3-acceptance-build/src/cuda-sim/lex.ptxinfo_.c:242:
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:91:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:90:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:89:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:88:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:87:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:86:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:85:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:84:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:83:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:82:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:80:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:79:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:77:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:76:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:75:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:74:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:73:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:72:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:71:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:70:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:69:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:68:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:67:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:66:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:65:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:64:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:63:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:62:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:61:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:60:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:59:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:58:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:57:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:56:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘char* strncpy(char*, const char*, size_t)’,
+    inlined from ‘int ptxinfo_lex(YYSTYPE*, yyscan_t, ptxinfo_data*)’ at /home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.l:55:1:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:34: warning: ‘char* __builtin_strncpy(char*, const char*, long unsigned int)’ specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[ 96%] Linking CXX static library libptxsim.a
+[ 98%] Built target ptxsim
+[100%] Linking CXX shared library libcudart.so
+[100%] Built target cudart

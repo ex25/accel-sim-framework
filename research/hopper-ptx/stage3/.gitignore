@@ -1,0 +1,12 @@
+/frontend_probe
+/ldmatrix_harness
+__pycache__/
+# Exploratory runs are preserved locally and durably in exploratory.tar.gz.
+/evidence/acceptance-20261013/baseline/
+/evidence/acceptance-20261013/components/
+/evidence/acceptance-20261013/components-final/
+/evidence/acceptance-20261013/components-verified/
+/evidence/acceptance-20261013/components-complete/
+/evidence/acceptance-20261013/final/
+/evidence/acceptance-20261013/accepted/
+/evidence/acceptance-20261013/release/

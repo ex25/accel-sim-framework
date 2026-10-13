@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "stage": 3,
+  "component": {
+    "numeric": 42,
+    "frontend-negative": 35,
+    "frontend": 12,
+    "negative": 8
+  },
+  "ordinary_values": 128,
+  "parameter_positive": 4,
+  "parameter_negative": 5,
+  "label_modes": 2,
+  "frontend_regression_positive": 12,
+  "frontend_regression_negative": 19,
+  "strict_unsupported_checks": 24,
+  "wgmma_numeric": 16,
+  "wgmma_negative": 36,
+  "runtime_sha256": "7ce26b6fbec28ff680efcf1f18b846c35856cf82b1e66e4444d97614ffe3552c",
+  "accepted_scope": "frontend and static-shared m8n8.b16 functional loads; no ldmatrix detailed timing or hardware validation"
+}

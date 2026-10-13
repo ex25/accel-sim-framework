@@ -1,0 +1,51 @@
+{"case": "x1-t0-shared-compact", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 256, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x1-t0-shared-padded", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 256, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x1-t0-shared-boundary", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 256, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x1-t0-shared-cta-compact", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 256, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x1-t0-shared-cta-padded", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 256, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x1-t0-shared-cta-boundary", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 256, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x1-t1-shared-compact", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 256, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x1-t1-shared-padded", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 256, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x1-t1-shared-boundary", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 256, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x1-t1-shared-cta-compact", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 256, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x1-t1-shared-cta-padded", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 256, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x1-t1-shared-cta-boundary", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 256, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x2-t0-shared-compact", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x2-t0-shared-padded", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x2-t0-shared-boundary", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x2-t0-shared-cta-compact", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x2-t0-shared-cta-padded", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x2-t0-shared-cta-boundary", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x2-t1-shared-compact", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x2-t1-shared-padded", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x2-t1-shared-boundary", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x2-t1-shared-cta-compact", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x2-t1-shared-cta-padded", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x2-t1-shared-cta-boundary", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x4-t0-shared-compact", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 1024, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x4-t0-shared-padded", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 1024, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x4-t0-shared-boundary", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 1024, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x4-t0-shared-cta-compact", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 1024, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x4-t0-shared-cta-padded", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 1024, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x4-t0-shared-cta-boundary", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 1024, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x4-t1-shared-compact", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 1024, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x4-t1-shared-padded", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 1024, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x4-t1-shared-boundary", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 1024, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x4-t1-shared-cta-compact", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 1024, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x4-t1-shared-cta-padded", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 1024, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "x4-t1-shared-cta-boundary", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 1024, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "symbol-offset", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 1024, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "address-destination-alias", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 1024, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "address-u32", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "address-s32", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "address-u64", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "address-s64", "kind": "numeric", "exit": 0, "words": 512, "loaded_halfwords": 512, "mismatches": 0, "first_mismatch": [], "max_abs_error": 0, "rms_error": 0.0, "status": "PASS"}
+{"case": "misaligned", "kind": "negative", "exit": 1, "diagnostic": "16-byte aligned", "status": "PASS"}
+{"case": "oob", "kind": "negative", "exit": 1, "diagnostic": "exceeds declared shared memory", "status": "PASS"}
+{"case": "last_provider_oob", "kind": "negative", "exit": 1, "diagnostic": "exceeds declared shared memory", "status": "PASS"}
+{"case": "short_row", "kind": "negative", "exit": 1, "diagnostic": "exceeds declared shared memory", "status": "PASS"}
+{"case": "high64", "kind": "negative", "exit": 1, "diagnostic": "exceeds declared shared memory", "status": "PASS"}
+{"case": "divergent", "kind": "negative", "exit": 1, "diagnostic": "full active warp", "status": "PASS"}
+{"case": "partial-warp", "kind": "negative", "exit": 1, "diagnostic": "full active warp", "status": "PASS"}
+{"case": "legal-detailed-unsupported", "kind": "negative", "exit": 1, "diagnostic": "timing is not implemented", "status": "PASS"}
+STAGE3_COMPONENT status=PASS {"numeric": 42, "frontend-negative": 35, "frontend": 12, "negative": 8}

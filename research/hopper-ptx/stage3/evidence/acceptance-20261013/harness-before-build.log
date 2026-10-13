@@ -1,0 +1,18 @@
+make: Entering directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3'
+/usr/bin/g++ -std=c++17 -O2 -I/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src -I/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim -I/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda -I/usr/local/cuda/include -I/usr/local/cuda/targets/x86_64-linux/include frontend_probe.cc -o frontend_probe /tmp/hopper-stage3-build/libcudart.so -Wl,-rpath,/tmp/hopper-stage3-build/ -lz -lGL -lpthread -ldl -lrt -lm
+/usr/bin/g++ -std=c++17 -O2 -I/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/src -I/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim -I/home/wangjz/in-switch/accel-sim-framework/gpu-simulator/gpgpu-sim/libcuda -I/usr/local/cuda/include -I/usr/local/cuda/targets/x86_64-linux/include ldmatrix_harness.cc -o ldmatrix_harness /tmp/hopper-stage3-build/libcudart.so -Wl,-rpath,/tmp/hopper-stage3-build/ -lz -lGL -lpthread -ldl -lrt -lm
+ldmatrix_harness.cc: In function ‘int main(int, char**)’:
+ldmatrix_harness.cc:40:10: error: ‘class gpgpu_t’ has no member named ‘init’
+   40 |     gpu->init();
+      |          ^~~~
+ldmatrix_harness.cc:41:10: error: ‘class gpgpu_t’ has no member named ‘launch’
+   41 |     gpu->launch(kernel);
+      |          ^~~~~~
+ldmatrix_harness.cc:42:17: error: ‘class gpgpu_t’ has no member named ‘active’
+   42 |     while (gpu->active()) gpu->cycle();
+      |                 ^~~~~~
+ldmatrix_harness.cc:42:32: error: ‘class gpgpu_t’ has no member named ‘cycle’
+   42 |     while (gpu->active()) gpu->cycle();
+      |                                ^~~~~
+make: *** [Makefile:14: ldmatrix_harness] Error 1
+make: Leaving directory '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3'

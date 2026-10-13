@@ -1,0 +1,9 @@
+{"case": "x1-t0-shared-compact", "kind": "numeric", "exit": 1, "words": 0, "loaded_halfwords": 256, "mismatches": 512, "first_mismatch": [0], "max_abs_error": null, "rms_error": null, "status": "FAIL"}
+Traceback (most recent call last):
+  File "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/run_acceptance.py", line 285, in <module>
+    main()
+  File "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/run_acceptance.py", line 204, in main
+    execute(f'x{n}-t{int(trans)}-{space.replace("::", "-")}-{layout}', n, trans, space, layout, address)
+  File "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/run_acceptance.py", line 194, in execute
+    raise RuntimeError(f'{name}: required case failed')
+RuntimeError: x1-t0-shared-compact: required case failed

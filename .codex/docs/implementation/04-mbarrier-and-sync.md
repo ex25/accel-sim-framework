@@ -8,6 +8,10 @@
 完成路径；旧“完全没有 timing”不代表当前状态。当前 `mbarrier_impl` detailed
 仍依赖 `get_ptx_tma_cta` 的预注册 binding/固定 barrier offset，通用同步证据不足。
 
+阶段 3 前置已由同日 [冻结 gate](../../../research/hopper-ptx/stage3/evidence/acceptance-20261013/frozen/gate.json)
+满足；配对内层 `eca83b30`，外层为阶段 3 报告所在提交。本次会话未实施本阶段，
+下一会话从以下组件合同开始，不能把既有 stage4/5 PASS 当作本阶段重新验收。
+
 ### 本阶段如何补齐
 
 1. 固定 CTA 级 barrier 支持清单与测试，按 kernel/CTA/地址隔离状态，解除单个

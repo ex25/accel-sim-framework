@@ -29,6 +29,22 @@ int main(int argc, char **argv) {
     std::printf("INSN index=%u opcode=%s operands=%u source=%s:%u\n", i,
                 insn->get_opcode_cstr(), insn->get_num_operands(),
                 insn->source_file(), insn->source_line());
+    if (insn->ptx_matrix.kind != ptx_matrix_metadata::NONE) {
+      const auto &m = insn->ptx_matrix;
+      std::printf("MATRIX opcode=%s m=%u n=%u k=%u matrices=%u trans=%u functional=%u timing=%u",
+                  m.opcode.c_str(), m.m, m.n, m.k, m.matrices,
+                  unsigned(m.transpose), unsigned(m.functional_supported),
+                  unsigned(m.timing_supported));
+      for (unsigned p = 0; p < insn->get_num_operands(); ++p) {
+        const auto &op = insn->operand_lookup(p);
+        if (op.is_vector()) {
+          std::printf(" tuple%u=%u", p, op.get_vect_nelem());
+          for (unsigned r = 0; r < op.get_vect_nelem(); ++r)
+            std::printf(" %s", op.vec_symbol(r)->name().c_str());
+        }
+      }
+      std::puts("");
+    }
   }
   return 0;
 }

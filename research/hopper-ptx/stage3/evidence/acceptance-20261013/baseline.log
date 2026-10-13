@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/run_acceptance.py", line 285, in <module>
+    main()
+  File "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/run_acceptance.py", line 197, in main
+    execute('old_high64', 4, False, 'shared', address='b64', fault='high64')
+  File "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/run_acceptance.py", line 171, in execute
+    code, log = invoke(name, [str(HERE / 'ldmatrix_harness'), str(ptx),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/run_acceptance.py", line 154, in invoke
+    run = subprocess.run(command, cwd=case, env=env, capture_output=True, timeout=60)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/wangjz/miniconda3/envs/in-switch/lib/python3.11/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/wangjz/miniconda3/envs/in-switch/lib/python3.11/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/home/wangjz/miniconda3/envs/in-switch/lib/python3.11/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/wangjz/in-switch/accel-sim-framework/research/hopper-ptx/stage3/ldmatrix_harness'
