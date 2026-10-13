@@ -1,10 +1,49 @@
 # 阶段 9：运行时集成
 
-状态: 已验收
+## 当前审计结论（2026-10-13）
+
+状态: 进行中
+
+前置：阶段 8 新版验收通过。文本 PTX module/launch 各模式 82 checks 有效，但
+context/stream/资源等接口不完整；in-switch 未安装 torch/triton，无真实 Python
+结果。本阶段补算子/短链 runtime，三个完整 Dense block 的验收由阶段 13 承接。
+
+### 本阶段如何补齐
+
+1. 在本阶段冻结 Python/PyTorch/Triton/compiler 版本和可复现算子清单，包含真实
+   生成的矩阵 kernel 与至少两个有数据依赖的 kernel 短链。不等阶段 10 先完成。
+2. 先 PTX/Triton adapter，后所需 Driver shim：context、分配/copy、module、
+   launch、资源属性、dynamic shared、stream/event、错误及同步。追踪真实 API，
+   不用静态 inventory 代替；保留阶段 3–7 组件支持范围的接口/导入用例。
+3. 接入阶段 5 descriptor 与阶段 7 cluster/occupancy 的公开接口或明确适配入口，
+   在 harness 与 API 两侧验证一致性。opaque ABI 不猜布局；所承诺公开 API 不能
+   只返回成功，register/shared/local memory 属性必须影响实际调度。
+4. 验证 JIT/cache、动态库加载、重复运行、在途卸载/内存释放及错误传播；非默认
+   stream/event 有真实顺序和并发正例，不只测试拒绝。
+
+### 本阶段可验收条件
+
+- [ ] 冻结 Python 算子/短链在 functional/detailed 真正执行，输出与 reference 一致。
+- [ ] 所需 API、descriptor/cluster 导入及资源模型贯通；非法/未支持调用明确错误。
+- [ ] adapter 与 shim 分别有证据；生命周期/cache/stream/资源测试及旧 probe 回归通过。
+- [ ] 完整保存环境、API/PTX/launch、输出/统计、配对版本和可复现命令，无 CPU 代算。
+
+任意 stock PyTorch/cuBLAS/cubin 兼容不在承诺范围。阶段 13 复用这里的能力，补
+完整 Dense 的新增需求并跑三个正式 shape；本阶段通过不等于完整 Dense 原生运行。
+
+当前执行顺序见 [单卡 Dense 计划](../../plans/single-card-dense.md)。
+
+<details>
+<summary>历史实现、测试结果和旧计划（不作为当前验收状态或执行顺序）</summary>
+
+验收范围：**文本 PTX Driver module/launch 子集**。functional/detailed 各
+`82 checks、128 numeric_values` 通过；PyTorch/Triton 原生应用与完整 FA3 执行
+尚未完成。先看[支持矩阵](#框架调用面和支持矩阵)、[结果证据](#验收命令结果和证据)
+及[实现总览](README.md)，不要把标题“运行时集成”理解为原生框架已全面可用。
 
 ## 目标、前置条件和执行计划
 
-阶段 8 已验收，两仓库均在 `research/hopper-ptx`。开始时外层 HEAD 为
+阶段 8 旧范围通过，两仓库均在 `research/hopper-ptx`。开始时外层 HEAD 为
 `9ddf32f78f8c1ada328c076484e44bb437be79d5`，内层 HEAD 为
 `d3494f34c75bea3edfbcace59dc1f31701597fb8`。
 
@@ -110,3 +149,5 @@ build 日志、失败开发日志、symbol exports 和 SHA256SUMS。失败开发
 
 外层 revision：本报告所在外层提交。
 配对内层 revision：`f4fe783ac7fc4f1cdaa9efa72a3575537d4fba36`。
+
+</details>

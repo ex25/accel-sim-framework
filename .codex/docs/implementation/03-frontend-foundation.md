@@ -1,8 +1,45 @@
 # 阶段 3：PTX 前端基础
 
-状态: 已验收
+## 当前审计与执行入口（2026-10-13）
 
-前置条件：阶段 1、2 已验收；两个仓库保持 `research/hopper-ptx`。本阶段先实现
+状态: 进行中
+
+**下一实现会话从本阶段开始，完成后报告阶段 4 入口。** 撤下整体验收的直接原因：
+parser/IR 正例有效，但 ldmatrix 的数值证据不足；报告引用的阶段 2 整数 kernel
+没有执行 ldmatrix。BF16/TF32/FP8 token 也不等于对应算术已实现。
+
+### 本阶段如何补齐
+
+1. 先冻结当前支持清单及测试矩阵，核对 `ptx_parser.cc`、`instructions.cc` 与
+   `stage3` fixture：明确 ldmatrix 形状/x1/x2/x4/transpose 的实际支持范围、
+   类型/tuple/opcode 的前端能力。不能删除已有支持声明来绕过数值验证。
+2. 在 stage3 增加真实执行 harness，使用非均匀 shared 输入，回读所有 lane 的
+   完整 fragment，与独立 reference 逐项比较；覆盖受支持形式、地址/边界和负例。
+3. 补 parser/operand/type/label/tuple 缺陷，并做 sm_90a、长 tuple、合法/非法
+   modifier、参数和 label 回归。需要真实编译 PTX 时在本阶段最小导出并冻结版本，
+   不要求先验收阶段 10。
+4. 支持矩阵分别标 parser、functional、timing。保留普通 kernel 回归，但不能
+   用它代替矩阵数值；WGMMA 当前已在阶段 6 有受限实现，不重复写成完全未实现。
+
+### 本阶段可验收条件
+
+- [ ] 已声明受支持的 ldmatrix 形式真正执行，所有 lane 输出满足独立 reference。
+- [ ] 新增前端形式有正例及非法 operand/modifier 负例，tuple/target/参数无截断。
+- [ ] 普通 kernel 回归通过；保存实际命令、配对版本、全部输出及持久证据。
+- [ ] 支持矩阵明确每项 S/F/M 状态，未实现形式仍拒绝，不把 parser 当功能通过。
+
+### 后续移交（未完成，不是本阶段的循环前置条件）
+
+真实 Dense 新需求由阶段 10 盘点、11 补齐；mma.sync 若被使用，必须在阶段 11/12
+补功能/详细正例。WGMMA/layout 资源由阶段 6/12 验证。本阶段通过只证明前端及
+上述矩阵加载组件，不证明全部 Tensor Core/完整 Dense。完成本阶段前不进入阶段 4。
+
+当前执行顺序见 [单卡 Dense 计划](../../plans/single-card-dense.md)。
+
+<details>
+<summary>历史实现、测试结果和旧计划（不作为当前验收状态或执行顺序）</summary>
+
+前置条件：阶段 1、2 旧范围通过；两个仓库保持 `research/hopper-ptx`。本阶段先实现
 矩阵指令前端和 `ldmatrix.m8n8.b16` 功能 reference，WGMMA 只提供校验后的 IR 入口，
 功能严格失败，完整执行留到阶段 6。预期结果为：正反例通过、64/88 个累加器 tuple
 不截断、`sm_90a` 完整保留、普通 kernel 和 shared matrix reference 通过。
@@ -113,3 +150,5 @@ stage2_harness stage2_kernel.ptx
 reference。`mma.sync` 与 WGMMA 仍为“功能未通过、时序未通过”；`ldmatrix` 只有
 shared-memory reference，尚未接入 Hopper shared layout/timing 统计。mbarrier、TMA、
 WGMMA synchronization 和 cluster 语义必须等待阶段 4-7，不能在前端阶段静默近似。
+
+</details>

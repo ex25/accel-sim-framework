@@ -1,12 +1,41 @@
 # 阶段 4：mbarrier 与同步
 
-状态: 已验收
+## 当前审计结论（2026-10-13）
+
+状态: 进行中
+
+前置：阶段 3 新版验收通过。已有 CTA 功能状态测试，阶段 5 也补了受限 detailed
+完成路径；旧“完全没有 timing”不代表当前状态。当前 `mbarrier_impl` detailed
+仍依赖 `get_ptx_tma_cta` 的预注册 binding/固定 barrier offset，通用同步证据不足。
+
+### 本阶段如何补齐
+
+1. 固定 CTA 级 barrier 支持清单与测试，按 kernel/CTA/地址隔离状态，解除单个
+   fixture barrier 的绑定假设。修改 ptx_sim、instructions.cc 和 SYNCS writeback。
+2. 统一 issue/writeback/transaction completion 的状态推进，避免功能与详细路径
+   重复记账。补多 barrier、多 phase、多缓冲重用、延迟 producer、乱序完成测试。
+3. 验证 expect/complete、wait/token/parity、drop/invalidate、非法 transaction、
+   状态销毁与跨 launch 隔离；复用现有 TMA 组件检查数据可见后才释放等待。
+
+### 本阶段可验收条件
+
+- [ ] CTA 支持清单的功能与 detailed 顺序一致，arrival/transaction 未齐不释放。
+- [ ] 多 barrier/phase 压力和非法状态用例通过，完成恰好一次，不跨 kernel/CTA 串扰。
+- [ ] 阶段 4 功能及现有阶段 5 TMA 回归通过，有事件、计数、输出和配对版本。
+
+cluster-addressed 同步由阶段 7 承接，完整 Dense pipeline 由阶段 12 集成。
+它们仍未完成，不作为阶段 4 的后向依赖；本阶段不能宣称全 cluster/Dense 同步通过。
+
+当前执行顺序见 [单卡 Dense 计划](../../plans/single-card-dense.md)。
+
+<details>
+<summary>历史实现、测试结果和旧计划（不作为当前验收状态或执行顺序）</summary>
 
 ## 前置条件与配对提交
 
 - 外层分支：`research/hopper-ptx`；本报告所在外层阶段提交记录本报告。
-- 内层分支：`research/hopper-ptx`；配对实现提交：`3bdfa94f236a5e14b1b4f418e3da92010c27d6`。
-- 阶段 3 已验收：外层 `0c929bbea1ad292b15170c2bd2b61058eeae029f`，内层 `16f592795466f13d82463daecbbc8ae2ba89828a`。
+- 内层分支：`research/hopper-ptx`；配对实现提交：`3bdfa94f236aee5f14b1b4f418e3da92010c27d6`。
+- 阶段 3 旧范围通过：外层 `0c929bbea1ad292b15170c2bd2b61058eeae029f`，内层 `16f592795466f13d82463daecbbc8ae2ba89828a`。
 - 外层 `experiments/` 与内层 `.serena/` 为用户已有未跟踪内容，未纳入本阶段。
 
 ## 目标
@@ -47,10 +76,12 @@ NEGATIVE_RESULT status=PASS file=mbarrier_cluster_wait.ptx
 - try-wait 成功和失败路径均有断言。
 - PTX 序列与现有 SASS `mbarrier_t` 的 pending/expected/tx/phase 规则一致。
 
-外层阶段提交已生成，内层配对提交为 `3bdfa94f236a5e14b1b4f418e3da92010c27d6`。
+外层阶段提交已生成，内层配对提交为 `3bdfa94f236aee5f14b1b4f418e3da92010c27d6`。
 
 ## 限制
 
 - 本阶段提供 CTA 功能语义和同步元数据；`timing_supported` 仍为 false，PTX 动态地址尚未自动灌入详细时序的 LDST cluster lookup。
 - cluster wait 明确拒绝；跨 CTA DSMEM、TMA 产生的 barrier 事件留给后续阶段。
 - 没有真实 H100/H200 测量，不作周期误差或硬件准确度结论。
+
+</details>

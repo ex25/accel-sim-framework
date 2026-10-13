@@ -1,0 +1,359 @@
+{
+  "date": "2026-10-13",
+  "scope": "read-only source/report/artifact audit; no simulator or hardware execution in this audit",
+  "outer_head": "f9faa73a4f7907db88db450e54000a502ecf39d2",
+  "inner_head": "f4fe783ac7fc4f1cdaa9efa72a3575537d4fba36",
+  "python": "/home/wangjz/miniconda3/envs/in-switch/bin/python3",
+  "python_version": "3.11.16",
+  "packages": {
+    "numpy": true,
+    "torch": false,
+    "triton": false
+  },
+  "checks": [
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/a800-128.log",
+      "expected": "23dd4e28b5f1bf16eca97ca0e65deb918fdf5692b2a8a4b4d2dc57d8916ca9fd",
+      "actual": "23dd4e28b5f1bf16eca97ca0e65deb918fdf5692b2a8a4b4d2dc57d8916ca9fd",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/a800-256.log",
+      "expected": "b005423d78514ae8d03151cb4e624a92a8119862b9637207b82eefbc04ab38ef",
+      "actual": "b005423d78514ae8d03151cb4e624a92a8119862b9637207b82eefbc04ab38ef",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/a800-64.log",
+      "expected": "0f6c8f62491a618866b7f7482359e50290517395289ec8bc34742b30c9924d5a",
+      "actual": "0f6c8f62491a618866b7f7482359e50290517395289ec8bc34742b30c9924d5a",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/a800-device.csv",
+      "expected": "61740b7dba4ad570228ebb8e16603fdef703dd7a1b2cb073d69fe63a849591de",
+      "actual": "61740b7dba4ad570228ebb8e16603fdef703dd7a1b2cb073d69fe63a849591de",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/a800-one-cta.traceg.gz",
+      "expected": "9fbaf33657ab8e7c55f3f52a7dca4d64d31b7791d2c24e1b7a067cdc97bbe188",
+      "actual": "9fbaf33657ab8e7c55f3f52a7dca4d64d31b7791d2c24e1b7a067cdc97bbe188",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/a800-sass-model.log",
+      "expected": "3b9abb2ef88ba1d688f8e65ef4d1c9fca437ca6d97737069737a7e32a8bbc739",
+      "actual": "3b9abb2ef88ba1d688f8e65ef4d1c9fca437ca6d97737069737a7e32a8bbc739",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/a800-trace-audit.log",
+      "expected": "448d6c6c992725f71480ce93283b0a07897043e10d7fbc24bf2f8b3f0dfdbe5b",
+      "actual": "448d6c6c992725f71480ce93283b0a07897043e10d7fbc24bf2f8b3f0dfdbe5b",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/build-source-manifest.json",
+      "expected": "d26b37f9dccb21dde0c74049ea159f35fe0f22c4ce4c85cb05ad0bac53193c86",
+      "actual": "d26b37f9dccb21dde0c74049ea159f35fe0f22c4ce4c85cb05ad0bac53193c86",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/compiler-version.log",
+      "expected": "c4b8cb27259b52465715c83277ca12c1fe007119e3add12623dd7a6ef0c959f6",
+      "actual": "c4b8cb27259b52465715c83277ca12c1fe007119e3add12623dd7a6ef0c959f6",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/counter-contracts.json",
+      "expected": "d7cce2b0f3ce90e0f9071aed03e96d151a2a56848e3f9e399c8e03fe82762479",
+      "actual": "d7cce2b0f3ce90e0f9071aed03e96d151a2a56848e3f9e399c8e03fe82762479",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/environment.log",
+      "expected": "5286ddf9c9c1647935fe305ac1be2ea489a2a0b760340bf7b6ef83cc930595bb",
+      "actual": "5286ddf9c9c1647935fe305ac1be2ea489a2a0b760340bf7b6ef83cc930595bb",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/frontend-contracts.json",
+      "expected": "25f6a6aa13b96e44bd1ab19224b038e29f935343c09ac33e24b6fd5c36ace5c6",
+      "actual": "25f6a6aa13b96e44bd1ab19224b038e29f935343c09ac33e24b6fd5c36ace5c6",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/frontend-contracts.log",
+      "expected": "94e5a0bc4f269d07b0de49f28c089835c65c8d19ff8b34c82da3171373786344",
+      "actual": "94e5a0bc4f269d07b0de49f28c089835c65c8d19ff8b34c82da3171373786344",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/frozen-fa3-parser.log",
+      "expected": "365417d2ce602d9b9a2c91993ae7783f089cc60a84184de8f4f371e29dc33f37",
+      "actual": "365417d2ce602d9b9a2c91993ae7783f089cc60a84184de8f4f371e29dc33f37",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/frozen-readiness.json",
+      "expected": "8501f60f2aebe9b6a687091fa76dbda5d7c1eb1006b468cf4a15b394deb7984d",
+      "actual": "8501f60f2aebe9b6a687091fa76dbda5d7c1eb1006b468cf4a15b394deb7984d",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/frozen-sass.json",
+      "expected": "e43628ca209fbe9211fe2d6ec4c0b17474aaf07a8dbd40c8c028aa79e84e44cc",
+      "actual": "e43628ca209fbe9211fe2d6ec4c0b17474aaf07a8dbd40c8c028aa79e84e44cc",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/iterations.json",
+      "expected": "712dfde2312beabea0617b428671be89b8a9aa770f17d2c525557225bad555cd",
+      "actual": "712dfde2312beabea0617b428671be89b8a9aa770f17d2c525557225bad555cd",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/ncu128.csv",
+      "expected": "8d4a89709ee2076a93f009374598733ec53da6e0eed4f66749ef2fd9a2c0d98b",
+      "actual": "8d4a89709ee2076a93f009374598733ec53da6e0eed4f66749ef2fd9a2c0d98b",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/parameter-layout.json",
+      "expected": "aceffb5d57c9ac244df212fb78c85bf8bca3ecfe65711a8c607ff6de631e2fc1",
+      "actual": "aceffb5d57c9ac244df212fb78c85bf8bca3ecfe65711a8c607ff6de631e2fc1",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/profile-recheck.log",
+      "expected": "469763f413bed8d2d980dd54c576e6ebffd6e04d508dd959d9535dffbc6f934c",
+      "actual": "469763f413bed8d2d980dd54c576e6ebffd6e04d508dd959d9535dffbc6f934c",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/profiler-csv-validation.json",
+      "expected": "a2e3a4992da50fca21b5179ebead71d59d07cdbd73469b61144e3af6d86e824a",
+      "actual": "a2e3a4992da50fca21b5179ebead71d59d07cdbd73469b61144e3af6d86e824a",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/profiler-readiness.json",
+      "expected": "1701e79ea234fce316ead43f7b01031cb3f5f3399bcaad48a28fe9218f5b22fb",
+      "actual": "1701e79ea234fce316ead43f7b01031cb3f5f3399bcaad48a28fe9218f5b22fb",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/provenance.json",
+      "expected": "2ab0768e0a2e85e2c8bc77797cf4f9858aad3537723fba77196731443f4373ab",
+      "actual": "2ab0768e0a2e85e2c8bc77797cf4f9858aad3537723fba77196731443f4373ab",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/ptxas-version.log",
+      "expected": "eff01e56381534a4d878e6807b66308fa75a8ce46fb28ab8dc1565c56d668874",
+      "actual": "eff01e56381534a4d878e6807b66308fa75a8ce46fb28ab8dc1565c56d668874",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/raw-validation-logs.tar.gz",
+      "expected": "d3d0c9288cc2857cee380d45e83e7124bcc17b1fb64faa7295ff94e88edaeabd",
+      "actual": "d3d0c9288cc2857cee380d45e83e7124bcc17b1fb64faa7295ff94e88edaeabd",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/regressions-final.log",
+      "expected": "8b67c2a2b95eff9e2c4f09d63dd1d0d4b34a476b2f7d4e34b8e5fdef75d18d5b",
+      "actual": "8b67c2a2b95eff9e2c4f09d63dd1d0d4b34a476b2f7d4e34b8e5fdef75d18d5b",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/results.json",
+      "expected": "81f8a2cd5db872093543bc3614ee6409a25c1dda934e05c241d43eb5c5d8c023",
+      "actual": "81f8a2cd5db872093543bc3614ee6409a25c1dda934e05c241d43eb5c5d8c023",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/sass-oracle128.log",
+      "expected": "746f0147092c64c87a3dd6f19b4ac3d57ff1cc7f204c647c69d2608c8448b335",
+      "actual": "746f0147092c64c87a3dd6f19b4ac3d57ff1cc7f204c647c69d2608c8448b335",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/sass-oracle176.log",
+      "expected": "40907b0498bf8b5c40906212718f5abe853f749648394917351cd9ae0510d608",
+      "actual": "40907b0498bf8b5c40906212718f5abe853f749648394917351cd9ae0510d608",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/tma.log",
+      "expected": "0a902515bda2fc868d3998ffb6ec5865ae61af20e525f5496fcf9597abeff871",
+      "actual": "0a902515bda2fc868d3998ffb6ec5865ae61af20e525f5496fcf9597abeff871",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/verification.log",
+      "expected": "0b1b4159d8e7dd8478b40771d89120137c6e5d1e268175d23377bb5fab8868f5",
+      "actual": "0b1b4159d8e7dd8478b40771d89120137c6e5d1e268175d23377bb5fab8868f5",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage8/evidence/acceptance-20261010/wgmma-timing-check.log",
+      "expected": "2a90fdfbeec2f32610684c51a432a72a8f5fe7a85841ba6dad2f03167f2fcc09",
+      "actual": "2a90fdfbeec2f32610684c51a432a72a8f5fe7a85841ba6dad2f03167f2fcc09",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/api-inventory.txt",
+      "expected": "2592078b1435d71c0c2dd5408e9a3fb4a2c8d23b0b0be78bf8f0ae8a80131936",
+      "actual": "2592078b1435d71c0c2dd5408e9a3fb4a2c8d23b0b0be78bf8f0ae8a80131936",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/config_hopper_islip.icnt",
+      "expected": "b7c9bdf97f2f389ab74904d1223a342ffa8752247ed56ebb60af1dc39259fae0",
+      "actual": "b7c9bdf97f2f389ab74904d1223a342ffa8752247ed56ebb60af1dc39259fae0",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/development-parser-config-failure.log",
+      "expected": "69554a967d482f4e08a80cf3cd0ce8a54eb84f1ffb612d3f1dcab3cfc4ae480f",
+      "actual": "69554a967d482f4e08a80cf3cd0ce8a54eb84f1ffb612d3f1dcab3cfc4ae480f",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/driver-exports.txt",
+      "expected": "60f47422b883224d68565da300e92dfb9d8b67f8303e6a46e0627fa94277185c",
+      "actual": "60f47422b883224d68565da300e92dfb9d8b67f8303e6a46e0627fa94277185c",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/driver-stub-audit.txt",
+      "expected": "59afd1e586311be6526c909dd4f6043d9b4855feb918b15acbd8eab71c9325f3",
+      "actual": "59afd1e586311be6526c909dd4f6043d9b4855feb918b15acbd8eab71c9325f3",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/environment.json",
+      "expected": "f0155cb3cd65dfa13d7fbbb7d65ffaf8d87cf75537fb5e3089a7c4c4091ceb3e",
+      "actual": "f0155cb3cd65dfa13d7fbbb7d65ffaf8d87cf75537fb5e3089a7c4c4091ceb3e",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/gpgpusim-detailed.config",
+      "expected": "e548738abe3bec4447095706ef9af7138602c0eeffba142f26f7e4fab821619d",
+      "actual": "e548738abe3bec4447095706ef9af7138602c0eeffba142f26f7e4fab821619d",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/gpgpusim-functional.config",
+      "expected": "1787acfa3b6942c0553f3a9aabff870db7bf3c3d6f3e51d7c77ff20ef84425f6",
+      "actual": "1787acfa3b6942c0553f3a9aabff870db7bf3c3d6f3e51d7c77ff20ef84425f6",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/layout-regression.log",
+      "expected": "da7478db631b37a11603f444a6c87691681243ee92594f7b01df49f099df3112",
+      "actual": "da7478db631b37a11603f444a6c87691681243ee92594f7b01df49f099df3112",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/probe-build.log",
+      "expected": "61c8088079ed9ce3f67c7d73fe89595c67abd3003d4fff33e02edcff7b19b1df",
+      "actual": "61c8088079ed9ce3f67c7d73fe89595c67abd3003d4fff33e02edcff7b19b1df",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/regressions-summary.log",
+      "expected": "8b67c2a2b95eff9e2c4f09d63dd1d0d4b34a476b2f7d4e34b8e5fdef75d18d5b",
+      "actual": "8b67c2a2b95eff9e2c4f09d63dd1d0d4b34a476b2f7d4e34b8e5fdef75d18d5b",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/regressions.tar.gz",
+      "expected": "9b7b3e6e4fe5b080df6117e8f9a7496ff5cff2dca609543964afe1906bdc3fbd",
+      "actual": "9b7b3e6e4fe5b080df6117e8f9a7496ff5cff2dca609543964afe1906bdc3fbd",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/runtime-build.log",
+      "expected": "ae97831f7888b4af1031c3783f5832b0a4f8c459d297f8de16bccb56427e4d79",
+      "actual": "ae97831f7888b4af1031c3783f5832b0a4f8c459d297f8de16bccb56427e4d79",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/runtime-configure.log",
+      "expected": "8fe6290fe87265588650c89cd083e9e2b0fbf00237756b4a0c800923e3508ca3",
+      "actual": "8fe6290fe87265588650c89cd083e9e2b0fbf00237756b4a0c800923e3508ca3",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/runtime-detailed.log",
+      "expected": "f0e4ba1285262e52cfcc3035b4d6f84896e8ebd98dcffffc1e96be52ebf9d5c4",
+      "actual": "f0e4ba1285262e52cfcc3035b4d6f84896e8ebd98dcffffc1e96be52ebf9d5c4",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/runtime-functional.log",
+      "expected": "c7a3106de468816665191d58e7c2de6dd4418792e17986066fa0cfefbb454065",
+      "actual": "c7a3106de468816665191d58e7c2de6dd4418792e17986066fa0cfefbb454065",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/stage4-regression.log",
+      "expected": "4ca892f311871f5735cd53da6c7d6c67392791f36f7b0fdf04d1e6ebc0ed0a0c",
+      "actual": "4ca892f311871f5735cd53da6c7d6c67392791f36f7b0fdf04d1e6ebc0ed0a0c",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/stage5-regression.log",
+      "expected": "b9dd7f8e15c9ea3fd5f056485e20faf26a6856575abbb83f1eee66371f57bcdc",
+      "actual": "b9dd7f8e15c9ea3fd5f056485e20faf26a6856575abbb83f1eee66371f57bcdc",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/stage6-regression.log",
+      "expected": "ff1f3b9171fc7e7c312bc0d161d6401dba09f6e9ec209b8351099592d5a70d65",
+      "actual": "ff1f3b9171fc7e7c312bc0d161d6401dba09f6e9ec209b8351099592d5a70d65",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage9/evidence/stage7-regression.log",
+      "expected": "c8b5d98708081c2d1f310ecf1e9976b15deb97022a583ca121a6f92ebfecef22",
+      "actual": "c8b5d98708081c2d1f310ecf1e9976b15deb97022a583ca121a6f92ebfecef22",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage1/artifacts/inputs/q.f16le",
+      "expected": "0b2b5855ce740e21ae738db3d4e65e9e484b3c0ce0f609ca2ea3ae1f002a8802",
+      "actual": "0b2b5855ce740e21ae738db3d4e65e9e484b3c0ce0f609ca2ea3ae1f002a8802",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage1/artifacts/inputs/k.f16le",
+      "expected": "34ad68b6385b7ff707837a8501da665cad18362ec6a846fadf858b97f229f630",
+      "actual": "34ad68b6385b7ff707837a8501da665cad18362ec6a846fadf858b97f229f630",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage1/artifacts/inputs/v.f16le",
+      "expected": "bed69ed7b44d86b4595df72fbf019aecdaab87e6b680262b34f1e1faf396fb3b",
+      "actual": "bed69ed7b44d86b4595df72fbf019aecdaab87e6b680262b34f1e1faf396fb3b",
+      "match": true
+    },
+    {
+      "path": "research/hopper-ptx/stage1/artifacts/frozen_fwd.ptx",
+      "expected": "0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76",
+      "actual": "0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76",
+      "match": true
+    }
+  ],
+  "hash_matches": 56,
+  "hash_total": 56,
+  "acceptance_status_changed": "03-09 reopened; 00-02 retained for original narrow scope",
+  "limitations": [
+    "Hash consistency does not establish test coverage or correctness.",
+    "Existing stage8/9 PASS applies to the saved test scopes only.",
+    "No complete Dense execution evidence found in research/hopper-ptx; stages10-14 implementation directories absent."
+  ]
+}

@@ -1,10 +1,48 @@
 # 阶段 5：TMA 与异步内存
 
-状态: 已验收
+## 当前审计结论（2026-10-13）
+
+状态: 进行中
+
+前置：阶段 4 新版验收通过。已有 logical descriptor 的 1D/2D load、OOB、LDST
+completion、四 CTA mask=5 multicast 正例；固定 tile/barrier/绑定的旧测试不足以
+覆盖并发与实际布局。原生 tensor-map、store/bulk 等不能据此声称完成。
+
+### 本阶段如何补齐
+
+1. 冻结本阶段 TMA 组件合同，至少保留现有 1D/2D load/OOB/multicast 支持；记录
+   rank、stride、box、swizzle、barrier 和 shared 地址。需要真实 PTX/布局时在
+   本阶段先做最小导出，不依赖阶段 10 完成；不猜 opaque descriptor 二进制布局。
+2. 在 tma.h/instructions.cc 补合同中所需地址/布局和 logical descriptor 导入，
+   逐元素对照独立 reference。校验生命周期、地址替换、越界及非法描述符。
+3. completion record 按 kernel/CTA/操作独立，支持多 tile、多 barrier 在途、
+   缓冲重用、OOB/tail 和 response 乱序；数据写入 shared 后再完成 transaction。
+4. multicast 覆盖多 mask、慢目标和计数守恒；复用实际 LDST 路径检查 issue、
+   response、数据可见、completion、wait 顺序，不用功能写入伪装详细完成。
+
+### 本阶段可验收条件
+
+- [ ] 冻结合同的所有 descriptor/layout 与 reference 一致，逻辑导入入口可复现。
+- [ ] 并发多 tile 无丢失/串扰，字节只计一次，wait 不早于数据可见。
+- [ ] local/detailed/mask=5 旧正例、多 mask/压力/非法输入回归通过，持久证据完整。
+
+公开 tensor-map API 归阶段 9，Dense 新增 TMA 形式归 11/12，原版 FA3 特有的
+高维/store/bulk/prefetch 等归阶段 15（如 Dense 提前需要，则由 11/12 补齐）。
+这些项单列未完成及成功用例，不因本阶段组件验收自动变为支持；H100 成本归 14。
+
+当前执行顺序见 [单卡 Dense 计划](../../plans/single-card-dense.md)。
+
+<details>
+<summary>历史实现、测试结果和旧计划（不作为当前验收状态或执行顺序）</summary>
+
+当前结果：单 CTA detailed LDST 完成路径及四 CTA `mask=5` multicast 已验证，
+目标写入/完成各 2 次；逻辑 descriptor 仍不是原生 CUtensorMap。
+先读[解阻结果与最终证据](#解阻结果与最终证据)和[当前总览](README.md)。
+下方“初版”记录及末尾原计划保留历史，不代表当前仍被阻塞。
 
 ## 前置条件与预期结果
 
-阶段 4 已验收；起点外层 `f5ccda3b7df7d74c3841a041fe63b0ed370647de`，内层实际 HEAD 为 `3bdfa94f236aee5f14b1b4f418e3da92010c27d6`（阶段 4 报告中的 SHA 存在转录错误，以 Git 为准）。本阶段先覆盖 tiled global-to-shared tensor load，验证 1D/2D 地址、越界零填充、shared 可见性、异步 completion 和 multicast 目标，并严格拒绝未知 descriptor 与未实现形式。
+阶段 4 旧范围通过；起点外层 `f5ccda3b7df7d74c3841a041fe63b0ed370647de`，内层实际 HEAD 为 `3bdfa94f236aee5f14b1b4f418e3da92010c27d6`（阶段 4 报告中的 SHA 存在转录错误，以 Git 为准）。本阶段先覆盖 tiled global-to-shared tensor load，验证 1D/2D 地址、越界零填充、shared 可见性、异步 completion 和 multicast 目标，并严格拒绝未知 descriptor 与未实现形式。
 
 CUDA tensor map 的二进制对象是 opaque；文本 harness 使用显式注册的逻辑 descriptor 字段，不假造 CUDA 二进制布局。是否可以验收，要分别记录功能、同步、动态元数据、实际时序路径验证的结果。
 
@@ -30,14 +68,14 @@ CUDA tensor map 的二进制对象是 opaque；文本 harness 使用显式注册
 - shared-memory 写入和 multicast 目标正确。
 - 发起、等待、完成和访存统计可以区分。
 
-## 实际实现与证据
+## 初版实现与证据（历史，详细路径后续已补齐）
 
 - 内层 `src/cuda-sim/ptx.l`、`ptx.y`、`ptx_parser.{h,cc}` 和 `opcodes.def` 严格识别 `cp.async.bulk.tensor.1d`--`.5d` 的 global-to-shared `mbarrier::complete_tx::bytes` 形式、multicast/cache hint 修饰符和 L2 prefetch；store、未知 rank、错误坐标元数和未注册 descriptor 均失败。
 - `src/cuda-sim/tma.h` 定义显式逻辑 descriptor：rank、element bytes、dimensions、byte strides、box。地址展开检查 rank、溢出、负坐标和每元素边界；OOB 元素填零，完成事件在 shared 写入后发布。
 - `instructions.cc` 按 PTX 发起线程提交 CTA 异步队列；harness 用 lane 0 的 predicate 限定一次发起。`try_wait` 推进队列，随后更新 mbarrier transaction。`cuda-sim.cc` 将实际地址、in-bounds/OOB byte count、mbarrier 地址和 mask 填入 `warp_inst_t` 的既有 TMA 字段。原功能版曾对详细模式严格报错；本次续做已接入实际 LDST issue/response/writeback，见后面的最终证据。
 - `research/hopper-ptx/stage5/tma_reference.cc` 验证 1D、二维带 padding、负坐标、全 OOB 和 mask=5 的两个目标；`tma_harness.cc` 验证二维 tile `[13,0,23,0]`、16 bytes、8 OOB bytes 和 wait 顺序；`tma_frontend.cc` 验证四条 TMA 元数据。
 
-## 命令与结果
+## 初版命令与结果（历史）
 
 ```text
 cmake --build /tmp/hopper-stage3-build --target cudart -j2
@@ -137,7 +175,7 @@ STATE_RESULT status=PASS phase=2 pending=0 tx=0 expected=0
 
 ## 解阻计划（阶段 5 续）
 
-执行结果：本节所有退出条件已经完成，三层验收与阶段4回归通过，状态从 `阻塞` 经 `待验收` 重新验收为 `已验收`。以下保留用户原计划作为实施和验收依据。
+执行结果：本节所有退出条件已经完成，三层验收与阶段4回归通过，状态从 `阻塞` 经 `待验收` 重新验收为 `旧范围通过`。以下保留用户原计划作为实施和验收依据。
 
 本计划只解决阶段 5 当前的两个阻塞项：PTX TMA 的详细 LDST 时序，以及 PTX
 跨 CTA multicast 的实际执行。阶段状态继续保持 `阻塞`；只有本节的所有退出条件
@@ -303,5 +341,7 @@ research/hopper-ptx/stage5/run_multicast.sh /tmp/hopper-stage5-multicast
 - 任一负例静默接受或在写入后才报错。
 
 所有验收项通过后，将本节结果补入“实际实现与证据”和“命令与结果”，把状态改为
-`待验收`，再由阶段验收把状态改为 `已验收`。在此之前，阶段 6 的 WGMMA 工作只可
+`待验收`，再由阶段验收把状态改为 `旧范围通过`。在此之前，阶段 6 的 WGMMA 工作只可
 作为独立设计讨论，不能修改阶段 6 实现代码或启动其验收。
+
+</details>

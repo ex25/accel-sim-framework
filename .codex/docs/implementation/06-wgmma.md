@@ -1,6 +1,39 @@
 # 阶段 6：WGMMA
 
-状态: 已验收
+## 当前审计结论（2026-10-13）
+
+状态: 进行中
+
+前置：阶段 5 新版验收通过。已有 FP16→FP32、N=128/176、SS/RS 的 16 组数值及
+commit/wait 测试；无 swizzle 限制、多 warpgroup/CTA/SM 并发未测、shared/寄存器
+成本不完整，使旧整体完成结论不足。后续完整 Dense 不作为本阶段验收前置。
+
+### 本阶段如何补齐
+
+1. 冻结矩阵组件的 shape/SS/RS/layout/transpose/swizzle/pipeline 清单，至少
+   覆盖已承诺形式，增加针对性真实 PTX 片段；未支持类型明确列出，不假称通用。
+2. 修正 fragment/descriptor 解码、组状态和生命周期；独立 reference 覆盖
+   一般 FP16 正负/随机输入、scale、tail、多 K 累加，不只用可精确表示的特殊值。
+3. 核查 shader/scoreboard/GMMA 的 warp/warpgroup 计费单位、RAW、寄存器所有权、
+   fence/commit/wait；补多组、CTA、SM 竞争和等待顺序，禁止状态相互覆盖。
+4. 明确 shared/bank/寄存器成本及统计；验证依赖延迟、吞吐、重叠和容量边界。
+   可使用明确的抽象模型，但不能漏计/重复计费，准确度在阶段 14 实测。
+
+### 本阶段可验收条件
+
+- [ ] 冻结形状/布局数值通过，旧 16 组及新随机/边界用例回归通过。
+- [ ] 多 warpgroup/CTA/SM 输出、资源与等待顺序通过，非法参与严格拒绝。
+- [ ] 支持合同内矩阵路径已接详细时序，shared/寄存器成本有模型说明与证据。
+- [ ] 持久记录实际命令、输出/误差、事件、统计与配对版本。
+
+Dense 所有 GEMM 新形状/布局在阶段 10 盘点、11/12 补齐并集成；如使用 mma.sync，
+它须单独有功能和 timing 正例，不能由 WGMMA 子集替代。完整 block 与硬件准确度
+仍未完成，不从本阶段组件通过推导。
+
+当前执行顺序见 [单卡 Dense 计划](../../plans/single-card-dense.md)。
+
+<details>
+<summary>历史实现、测试结果和旧计划（不作为当前验收状态或执行顺序）</summary>
 
 ## 目标
 
@@ -10,7 +43,7 @@ commit/wait timing。本阶段覆盖冻结的 `m64n128k16` 与 `m64n176k16.f32.f
 
 ## 前置条件与提交
 
-- 阶段 5 已验收；两仓库均在 `research/hopper-ptx`。
+- 阶段 5 旧范围通过；两仓库均在 `research/hopper-ptx`。
 - 外层起点：`dd9fb4bad043b371cea107399f6e25bc07136ec3`。
 - 内层起点：`a97a8639179dcdc8c7d46303a3b6f090e50f8ba2`。
 - 配对内层实现提交：`461bf037459153f101fdd1dcf8d1bbcf77989ca3`。
@@ -161,4 +194,6 @@ warpgroup、多 CTA、多 SM 的 WGMMA 并发，也未新增矩阵 shared 读取
 功能计算与寄存器保护在 128-thread 组上完成；没有 H100/H200 实测，不能宣称
 硬件周期准确度或完整 FA3 kernel 已运行。
 
-阶段 6 已验收，可进入阶段 7 的 cluster/DSMEM；本次未开始后续阶段。
+阶段 6 旧范围通过，可进入阶段 7 的 cluster/DSMEM；本次未开始后续阶段。
+
+</details>

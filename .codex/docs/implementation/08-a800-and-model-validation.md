@@ -1,19 +1,197 @@
 # 阶段 8：A800 与模型验证
 
-状态: 已验收
+## 当前审计结论（2026-10-13）
+
+状态: 进行中
+
+前置：阶段 7 新版验收通过。原 JSON PASS 仅覆盖普通 noncausal attention、A800
+对照与 FA3 parser；detailed rows=1/heads=1 只输出 128 元素，不能冒称完整 grid。
+本阶段补组件级全 grid 验证，不再依赖阶段 11–15 的完整应用结果才允许进入阶段 9。
+
+### 本阶段如何补齐
+
+1. 固定现有普通 noncausal attention 数学规格及 S=64/128/256、B=1、H=8、D=128
+   的完整 grid；functional/detailed 均输出所有 rows/heads，与冻结 reference
+   比较。保留单 CTA 诊断并单列，不改标签当作 causal Dense 或原版 FA3。
+2. 重跑受影响组件回归；聚合器检查必需 case 集合、mode、grid、元素数、kernel/
+   PTX/hash 和真实执行。missing/skip/timeout 或只 parser 通过不能汇总成功。
+3. 整理 A800 数值、trace/replay/counter 的来源与计时范围；比对相同 workload
+   才能谈趋势，工作量/实现不同不得计算硬件精度。需补采时按权限原则处理。
+4. 数值原文件从临时目录移入持久证据或可访问存储，保存原始输出、环境、命令与
+   hash；丢失则复跑，不能以 hash 清单代替结果。保留原始 JSON 和失败历史。
+
+### 本阶段可验收条件
+
+- [ ] 三个冻结普通 attention shape 全 grid 功能/详细输出通过，长度及误差可复核。
+- [ ] A800 数值、trace/replay/counter 证据可访问且来源完整，模型趋势边界明确。
+- [ ] 原 FA3 parser 状态单列；受影响 3–7 回归通过，聚合器拒绝缺项/错误 mode。
+- [ ] 持久输入/输出/统计、版本、命令与校验和完整，无仅 /tmp 的必需证据。
+
+### 移交的应用级缺口（继续未完成）
+
+完整 causal Dense 由 11/12、H100 校准及 ≤20% 微基准由 14、原版 FA3 functional/
+detailed 由 15 承接。它们不能成为本阶段循环前置，也不能因本阶段通过被标为完成。
+FA3 的 elect/prefetch/init fence/stmatrix/store/bulk/grid dependency/setmaxnreg
+等仍按实际动态路径补齐。新的验收结论必须写明“普通 attention/A800 组件验证”。
+
+当前执行顺序见 [单卡 Dense 计划](../../plans/single-card-dense.md)。
+
+<details>
+<summary>历史实现、测试结果和旧计划（不作为当前验收状态或执行顺序）</summary>
 
 当前结论（2026-10-10）：按本文件解阻计划完成验收，聚合
 `STAGE8_RESULT status=PASS numerical_cases=8 blockers=0`。原冻结 FA3 PTX 完整
 parser readiness、参数 ABI、阶段 3–7 回归、普通 attention 数值/时序对照、真实
-A800 trace/replay 和管理员 7 项 counters 均通过。最终结果与能力边界以本文末尾
-“最终验收”节为准，以下旧失败记录保留为历史证据。
+A800 trace/replay 和管理员 7 项 counters 均通过。最终结果与能力边界以紧接下方的
+“最终验收”节为准，旧失败记录折叠保留在文末。
 
 外层：本报告所在外层阶段 8 提交。配对内层：
 `d3494f34c75bea3edfbcace59dc1f31701597fb8`。两仓库各 amend 原阶段 8 提交。
 
+先读 [实现与结果总览](README.md)。最终结果文件是
+[`evidence/acceptance-20261010/results.json`](../../../research/hopper-ptx/stage8/evidence/acceptance-20261010/results.json)，
+不是 `evidence/results.json`（初次阻塞记录）。原 FA3 仅通过 parser readiness；
+普通 attention 的执行结果不能当作原 FA3 的执行结果。
+
+## 最终验收（2026-10-10）
+
+本次按用户的 2.3 节计划继续修复唯一剩余前端 blocker。A800 counters 使用用户在
+`/tmp/hopper-stage8-admin-counters` 采集的真实成功结果；AI 没有执行 sudo、修改
+驱动/module/capability。普通 A800 数值 sweep、NVBit trace 和当前模型 replay 则
+在新的 `/tmp/hopper-stage8-readiness-20261010/hardware` 重新运行。设备 UUID
+`GPU-32ca4776-99e3-43b4-2f9d-fd4f90a01a3d`、输入和 reference 与管理员采集逐文件
+一致，`attention.cu` 也与管理员采集时源码一致，因此复用 counters 有明确依据。
+当前普通用户仍不能访问 counters，新的权限失败日志另外保留在
+`hardware/user-counter-failure`，没有覆盖原管理员记录。
+
+### 冻结原文逐项解阻
+
+每次只处理原文首个失败类别并完整保存 build/parser 日志。先后结果如下：
+
+| 迭代 | 首个失败 | 修复后的下一项 |
+|---|---|---|
+| 00 基线 | 第 46 行 `elect.sync` | 01 后推进到第 65 行 |
+| 01 | `elect.sync` | `prefetch.tensormap` |
+| 02 | 第 65 行 `prefetch.tensormap` | 第 184 行 init fence |
+| 03 | `fence.mbarrier_init.release.cluster` | 第 4996 行 `stmatrix` |
+| 04 | `stmatrix.sync.aligned.x4.m8n8.shared.b16` | 第 5105 行 TMA store |
+| 05 | `cp.async.bulk.tensor.5d.global.shared::cta.bulk_group` | 第 5113 行 bulk group |
+| 06 | bulk commit/read-wait 语法 | 第 5154 行 `griddepcontrol.wait` |
+| 07 | grid dependency 语法 | inline asm 局部标签汇编断言 |
+| 08 | 嵌套作用域标签地址解析 | 完整 frontend PASS |
+
+内层 `src/cuda-sim/ptx.l`、`opcodes.def`、
+`ptx_parser.cc::{add_cluster_opcode,add_tma_opcode,add_instruction,finish_vector_operand}`
+仅为上述精确形式提供 lexer/operand/type/modifier 检查，保留原 opcode 字符串。
+TMA store 不生成 load/mbarrier 元数据；非支持 modifier 仍失败。新语法通过
+`instructions.cc::{elect_impl,prefetch_tensormap_impl,hopper_frontend_only_impl}`
+明确拒绝执行，并经现有 `ptx_thread_info::ptx_exec_inst` 加上源码位置。没有 no-op。
+`wait_group.read` 本阶段只接受原冻结使用的 immediate 0，其他值留待后续实现。
+`elect.sync` 支持冻结使用的 32-bit register|predicate destination，sink destination
+形式仍不支持；`stmatrix`、TMA store 仅支持表中冻结形式。
+
+局部标签问题在 `cuda-sim.cc::function_info::ptx_assemble` 和
+`ptx_ir.cc::symbol_table::set_label_address`：inline asm 标签属于子作用域，原来
+按名字在函数表查找会断言，也可能混淆同名标签。现在 label/CFG/reconvergence
+统一按 symbol identity 解析，直接写回 parser-owned label 的地址，instruction
+memory padding 初始化为 null；不存在的 label 仍拒绝，错误改写 stderr 防止 abort
+前缓冲丢失。这里属于实际汇编语义修复，已验证跳转结果。
+
+原 `stage1/artifacts/frozen_fwd.ptx` 未裁剪、未替换 alignment；SHA256 仍是
+`0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76`。
+最终 probe 读取完整入口，`target=sm_90a target_number=90 instructions=3025`，
+退出码 0。3025 是包含 label 的前端条目数，不能当作动态指令数。
+
+### 实际命令和结果
+
+以下工作目录均为外层仓库根目录；Python 固定为已有 `in-switch` 环境，Python
+3.11.16、NumPy 2.4.6，CUDA/ptxas 12.8.61、ncu 2025.1.0、driver 570.133.20。
+
+```bash
+cmake --build /tmp/hopper-stage3-build --target cudart -j2
+make -C research/hopper-ptx/stage8 clean all
+bash research/hopper-ptx/stage8/run_param_regressions.sh \
+  /tmp/hopper-stage8-readiness-20261010/regressions-final
+bash research/hopper-ptx/stage8/run_model.sh \
+  /tmp/hopper-stage8-readiness-20261010/model-final
+# 沙箱外运行普通测试；此脚本不调用 sudo。
+bash research/hopper-ptx/stage8/run_a800.sh \
+  /tmp/hopper-stage8-readiness-20261010/hardware
+# 核对 UUID、全部输入、kernel 源码；只在验证副本合入原管理员 counter CSV/输出。
+# actual ncu_exit=0 来自原 counter-probe.log；原始文件保持不变。
+/home/wangjz/miniconda3/envs/in-switch/bin/python3 \
+  research/hopper-ptx/stage8/verify_results.py \
+  /tmp/hopper-stage8-readiness-20261010/model-final \
+  /tmp/hopper-stage8-readiness-20261010/hardware \
+  /tmp/hopper-stage8-readiness-20261010/results.json
+```
+
+全部命令完成；聚合退出 0：
+
+```text
+FRONTEND_CONTRACTS status=PASS positive=12 negative=19 strict_execution=24
+PARAM_REGRESSIONS status=PASS stages=3,4,5,6,7
+FROZEN_FA3_RESULT status=PASS exit=0 first=None
+STAGE8_RESULT status=PASS numerical_cases=8 blockers=0
+```
+
+`frontend_contracts.py` 另运行两种模式的同名局部标签 fixture，得到 `value=3`，并
+验证未定义标签失败。12 个正向项包含 `setmaxnreg`；24 次 functional/detailed
+执行必须抛预期异常且 guard 不变，不能静默执行下一条 store。19 个负向项覆盖
+非法 modifier、mask/destination/address/source 宽度、vector/rank 和 group operands。
+参数 ABI 4 正向/5 负向及 copy guard、counter CSV 8 类契约也通过。
+
+最终完整 S=128、8 heads functional 最大绝对误差 `0.00024430074510806143`；
+八个 PTX/A800 数值场景、四个负向输出契约和 direct compare 全通过。direct compare
+最大差异 `0.00048828125`，26 元素有舍入差异。detailed S=64/128/256 cycles 仍为
+`218905/370567/708229`；新 A800 普通 CUDA event median 为
+`41.984001/141.311996/556.031982 us`，分别单调增加。
+
+新 NVBit trace 仍有 6206 warp instructions、134375 scalar instructions、65792
+read bytes、256 write bytes、17424 requested sectors、12 warp barrier events。
+当前 runtime 的 SM80 replay 同样退出成功，`gpu_tot_sim_insn=134375`、
+`gpu_tot_sim_cycle=32979`。配对内层 amend 后重建 trace_sim 并再次回放；其版本
+明确记录新的 inner SHA。7 项真实 counter 值见上节管理员表，CSV SHA256 与原
+管理员证据一致；profile 输出独立复验通过。WGMMA wait order、TMA detailed、
+synthetic SASS oracle 和冻结编译器 static SASS inventory 仍通过。
+
+### 验收证据、提交与后续边界
+
+最终证据：`research/hopper-ptx/stage8/evidence/acceptance-20261010/`。
+`results.json`、`verification.log`、`frozen-readiness.json`、前端/ABI/counter
+contracts、真实 CSV、A800 trace/replay、`iterations.json`、环境清单和 hash/provenance
+均随本阶段提交保存；`raw-validation-logs.tar.gz` 包含 771 个完整日志、fixture、
+配置/版本/patch 文件；新原始 trace 另保存 gzip。数值文件 hash 记录在 provenance，
+原文件仍在上述 /tmp 目录。原失败证据目录保持历史内容。
+
+配对内层提交：`d3494f34c75bea3edfbcace59dc1f31701597fb8`；外层为本报告所在阶段
+8 提交。构建时 HEAD 是 amend 前版本加当前工作树，provenance 用源码 SHA256 对照
+最终 inner commit；runtime SHA256 是
+`d75cc6330e416dad3e041834171e6586fcae18fc09bc774c12bed613f93944da`。
+外层与内层都 amend 原阶段 8 提交，完整正文记录问题、范围、测试、证据和限制。
+
+阶段 8 标记 **旧范围通过**，没有开始阶段 9。后续必须分别实现并验收 `elect.sync`
+warp rendezvous、真实 tensor-map descriptor/cache/runtime、init fence、`stmatrix`、
+TMA store/bulk completion、grid dependency 和 `setmaxnreg` register-pool 行为，才能
+声称完整冻结 FA3 functional/detailed execution；当前这些路径严格失败。本阶段
+没有 H100/H200 dynamic trace，不能声称 Hopper 硬件周期准确度。上述限制符合用户
+计划的 parser readiness 与 execution 分级，不作为本阶段隐藏 blocker。
+
+语法与操作数依据：[CUDA 12.8 PTX ISA 8.7 官方规范](https://docs.nvidia.com/cuda/archive/12.8.0/parallel-thread-execution/index.html)，
+参见 `elect.sync`、`prefetch`、`membar/fence`、`stmatrix`、`cp.async.bulk.tensor`、
+bulk commit/wait 和 `griddepcontrol` 各指令节。
+
+## 历史计划与解阻过程（不作为当前状态）
+
+<details>
+<summary>展开原始目标、失败证据、用户计划与中间执行记录</summary>
+
+以下原文按原顺序保留；“仍阻塞”、旧配对 SHA 和旧环境问题描述其记录时的状态。
+当前结果请回到上方最终验收；当前完整能力请看实现总览。
+
 ## 目标和实施前计划
 
-阶段 7 已验收。本阶段固定阶段 1 的非 causal attention workload：B=1、S_Q=S_K=128、H=8、D=D_V=128、FP16、BSHD；另生成 S=64/256 仅用于趋势检查。CPU reference 使用 FP64 计算 `softmax(QK^T/sqrt(128))V`，统一误差标准为逐元素 `abs_error <= 2e-3 + 2e-3*abs(reference)`，并拒绝 NaN、Inf、错误 shape 和错误长度。
+阶段 7 旧范围通过。本阶段固定阶段 1 的非 causal attention workload：B=1、S_Q=S_K=128、H=8、D=D_V=128、FP16、BSHD；另生成 S=64/256 仅用于趋势检查。CPU reference 使用 FP64 计算 `softmax(QK^T/sqrt(128))V`，统一误差标准为逐元素 `abs_error <= 2e-3 + 2e-3*abs(reference)`，并拒绝 NaN、Inf、错误 shape 和错误长度。
 
 对照分为四层：普通 CUDA kernel 在真实 A800 上计时；等数学问题的文本 PTX 在 Accel-Sim functional/detailed 路径执行；阶段 1 冻结 FA3 PTX 做 ptxas/SASS 静态 inventory 与 parser readiness 检查；A800 NVBit SASS trace 用现有 trace parser 和 SM80 model 回放。没有把 A800 比例换算成 Hopper 周期，也没有把静态 SASS 当动态 trace。
 
@@ -79,7 +257,7 @@ python3 research/hopper-ptx/stage8/verify_results.py \
 
 ## 首次验证：未通过项和失败证据（历史）
 
-本阶段不能标记 `已验收`，原因如下：
+本阶段不能标记 `旧范围通过`，原因如下：
 
 1. Nsight Compute 返回 `ERR_NVGPUCTRPERM`，当前用户没有访问 A800 performance counters 的权限；因此实际 DRAM bytes、achieved occupancy 和 SM/DRAM bottleneck 指标仍未验证。非交互 `sudo -n ncu` 同样报告需要密码；未修改驱动或权限。
 2. 冻结 FA3 PTX 可以由 `ptxas -arch=sm_90a` 编译，但当前文本 PTX parser 在 `.param .align 64` 处断言（`ptx_parser.cc::add_function_arg` 旧限制只允许 1/2/4/8/16）；因此完整 FA3 kernel 尚未通过 execution-driven parser/runtime。
@@ -363,7 +541,7 @@ python3 research/hopper-ptx/stage8/verify_results.py \
 
 当 parser readiness 和 A800 counter 均通过，且聚合验证返回 `STAGE8_RESULT
 status=PASS blockers=0` 后，补写“实际结果”和“验收结论”，将状态改为 `待验收`，
-再由阶段验收改为 `已验收`。在此之前不得开始阶段 9 的 runtime integration；若只有
+再由阶段验收改为 `旧范围通过`。在此之前不得开始阶段 9 的 runtime integration；若只有
 counter 已通过而冻结 FA3 parser 未通过，或反之，仍不能解除阶段门控。
 
 ## 解阻计划执行记录（2026-10-09）
@@ -481,7 +659,7 @@ STAGE8_RESULT status=BLOCKED numerical_cases=8 blockers=2
 `raw-logs.tar.gz`；新的真实 one-CTA trace 在 `a800-one-cta.traceg.gz`。归档保持原始
 字节，独立文本副本仅规范尾部空白；input/source/runtime/trace hash 同步记录。
 
-阶段 8 继续 **阻塞**，没有标为待验收或已验收。剩余工作是实现并验证实际冻结入口的
+阶段 8 继续 **阻塞**，没有标为待验收或旧范围通过。剩余工作是实现并验证实际冻结入口的
 `elect.sync` 等 frontend readiness 缺口，以及由有权限的用户/管理员采集 counter。
 按本计划“由用户运行”且“不能由 AI 自动调用”管理员操作的约束，用户可在有 profiling
 权限的终端运行：
@@ -588,131 +766,6 @@ result、provenance/hash；原始管理员日志另存 `raw-admin-logs.tar.gz`�
 `318094db33dbd1528a40452de5819984004b6a08`；外层为本报告所在阶段 8 提交，继续
 amend 单一阶段提交。历史证据和原始管理员目录都保留。
 
+</details>
 
-## 最终验收（2026-10-10）
-
-本次按用户的 2.3 节计划继续修复唯一剩余前端 blocker。A800 counters 使用用户在
-`/tmp/hopper-stage8-admin-counters` 采集的真实成功结果；AI 没有执行 sudo、修改
-驱动/module/capability。普通 A800 数值 sweep、NVBit trace 和当前模型 replay 则
-在新的 `/tmp/hopper-stage8-readiness-20261010/hardware` 重新运行。设备 UUID
-`GPU-32ca4776-99e3-43b4-2f9d-fd4f90a01a3d`、输入和 reference 与管理员采集逐文件
-一致，`attention.cu` 也与管理员采集时源码一致，因此复用 counters 有明确依据。
-当前普通用户仍不能访问 counters，新的权限失败日志另外保留在
-`hardware/user-counter-failure`，没有覆盖原管理员记录。
-
-### 冻结原文逐项解阻
-
-每次只处理原文首个失败类别并完整保存 build/parser 日志。先后结果如下：
-
-| 迭代 | 首个失败 | 修复后的下一项 |
-|---|---|---|
-| 00 基线 | 第 46 行 `elect.sync` | 01 后推进到第 65 行 |
-| 01 | `elect.sync` | `prefetch.tensormap` |
-| 02 | 第 65 行 `prefetch.tensormap` | 第 184 行 init fence |
-| 03 | `fence.mbarrier_init.release.cluster` | 第 4996 行 `stmatrix` |
-| 04 | `stmatrix.sync.aligned.x4.m8n8.shared.b16` | 第 5105 行 TMA store |
-| 05 | `cp.async.bulk.tensor.5d.global.shared::cta.bulk_group` | 第 5113 行 bulk group |
-| 06 | bulk commit/read-wait 语法 | 第 5154 行 `griddepcontrol.wait` |
-| 07 | grid dependency 语法 | inline asm 局部标签汇编断言 |
-| 08 | 嵌套作用域标签地址解析 | 完整 frontend PASS |
-
-内层 `src/cuda-sim/ptx.l`、`opcodes.def`、
-`ptx_parser.cc::{add_cluster_opcode,add_tma_opcode,add_instruction,finish_vector_operand}`
-仅为上述精确形式提供 lexer/operand/type/modifier 检查，保留原 opcode 字符串。
-TMA store 不生成 load/mbarrier 元数据；非支持 modifier 仍失败。新语法通过
-`instructions.cc::{elect_impl,prefetch_tensormap_impl,hopper_frontend_only_impl}`
-明确拒绝执行，并经现有 `ptx_thread_info::ptx_exec_inst` 加上源码位置。没有 no-op。
-`wait_group.read` 本阶段只接受原冻结使用的 immediate 0，其他值留待后续实现。
-`elect.sync` 支持冻结使用的 32-bit register|predicate destination，sink destination
-形式仍不支持；`stmatrix`、TMA store 仅支持表中冻结形式。
-
-局部标签问题在 `cuda-sim.cc::function_info::ptx_assemble` 和
-`ptx_ir.cc::symbol_table::set_label_address`：inline asm 标签属于子作用域，原来
-按名字在函数表查找会断言，也可能混淆同名标签。现在 label/CFG/reconvergence
-统一按 symbol identity 解析，直接写回 parser-owned label 的地址，instruction
-memory padding 初始化为 null；不存在的 label 仍拒绝，错误改写 stderr 防止 abort
-前缓冲丢失。这里属于实际汇编语义修复，已验证跳转结果。
-
-原 `stage1/artifacts/frozen_fwd.ptx` 未裁剪、未替换 alignment；SHA256 仍是
-`0ee436723623d4f2d3363b36cc4ed9d5ecdb96a6c449367a66356c705a351a76`。
-最终 probe 读取完整入口，`target=sm_90a target_number=90 instructions=3025`，
-退出码 0。3025 是包含 label 的前端条目数，不能当作动态指令数。
-
-### 实际命令和结果
-
-以下工作目录均为外层仓库根目录；Python 固定为已有 `in-switch` 环境，Python
-3.11.16、NumPy 2.4.6，CUDA/ptxas 12.8.61、ncu 2025.1.0、driver 570.133.20。
-
-```bash
-cmake --build /tmp/hopper-stage3-build --target cudart -j2
-make -C research/hopper-ptx/stage8 clean all
-bash research/hopper-ptx/stage8/run_param_regressions.sh \
-  /tmp/hopper-stage8-readiness-20261010/regressions-final
-bash research/hopper-ptx/stage8/run_model.sh \
-  /tmp/hopper-stage8-readiness-20261010/model-final
-# 沙箱外运行普通测试；此脚本不调用 sudo。
-bash research/hopper-ptx/stage8/run_a800.sh \
-  /tmp/hopper-stage8-readiness-20261010/hardware
-# 核对 UUID、全部输入、kernel 源码；只在验证副本合入原管理员 counter CSV/输出。
-# actual ncu_exit=0 来自原 counter-probe.log；原始文件保持不变。
-/home/wangjz/miniconda3/envs/in-switch/bin/python3 \
-  research/hopper-ptx/stage8/verify_results.py \
-  /tmp/hopper-stage8-readiness-20261010/model-final \
-  /tmp/hopper-stage8-readiness-20261010/hardware \
-  /tmp/hopper-stage8-readiness-20261010/results.json
-```
-
-全部命令完成；聚合退出 0：
-
-```text
-FRONTEND_CONTRACTS status=PASS positive=12 negative=19 strict_execution=24
-PARAM_REGRESSIONS status=PASS stages=3,4,5,6,7
-FROZEN_FA3_RESULT status=PASS exit=0 first=None
-STAGE8_RESULT status=PASS numerical_cases=8 blockers=0
-```
-
-`frontend_contracts.py` 另运行两种模式的同名局部标签 fixture，得到 `value=3`，并
-验证未定义标签失败。12 个正向项包含 `setmaxnreg`；24 次 functional/detailed
-执行必须抛预期异常且 guard 不变，不能静默执行下一条 store。19 个负向项覆盖
-非法 modifier、mask/destination/address/source 宽度、vector/rank 和 group operands。
-参数 ABI 4 正向/5 负向及 copy guard、counter CSV 8 类契约也通过。
-
-最终完整 S=128、8 heads functional 最大绝对误差 `0.00024430074510806143`；
-八个 PTX/A800 数值场景、四个负向输出契约和 direct compare 全通过。direct compare
-最大差异 `0.00048828125`，26 元素有舍入差异。detailed S=64/128/256 cycles 仍为
-`218905/370567/708229`；新 A800 普通 CUDA event median 为
-`41.984001/141.311996/556.031982 us`，分别单调增加。
-
-新 NVBit trace 仍有 6206 warp instructions、134375 scalar instructions、65792
-read bytes、256 write bytes、17424 requested sectors、12 warp barrier events。
-当前 runtime 的 SM80 replay 同样退出成功，`gpu_tot_sim_insn=134375`、
-`gpu_tot_sim_cycle=32979`。配对内层 amend 后重建 trace_sim 并再次回放；其版本
-明确记录新的 inner SHA。7 项真实 counter 值见上节管理员表，CSV SHA256 与原
-管理员证据一致；profile 输出独立复验通过。WGMMA wait order、TMA detailed、
-synthetic SASS oracle 和冻结编译器 static SASS inventory 仍通过。
-
-### 验收证据、提交与后续边界
-
-最终证据：`research/hopper-ptx/stage8/evidence/acceptance-20261010/`。
-`results.json`、`verification.log`、`frozen-readiness.json`、前端/ABI/counter
-contracts、真实 CSV、A800 trace/replay、`iterations.json`、环境清单和 hash/provenance
-均随本阶段提交保存；`raw-validation-logs.tar.gz` 包含 771 个完整日志、fixture、
-配置/版本/patch 文件；新原始 trace 另保存 gzip。数值文件 hash 记录在 provenance，
-原文件仍在上述 /tmp 目录。原失败证据目录保持历史内容。
-
-配对内层提交：`d3494f34c75bea3edfbcace59dc1f31701597fb8`；外层为本报告所在阶段
-8 提交。构建时 HEAD 是 amend 前版本加当前工作树，provenance 用源码 SHA256 对照
-最终 inner commit；runtime SHA256 是
-`d75cc6330e416dad3e041834171e6586fcae18fc09bc774c12bed613f93944da`。
-外层与内层都 amend 原阶段 8 提交，完整正文记录问题、范围、测试、证据和限制。
-
-阶段 8 标记 **已验收**，没有开始阶段 9。后续必须分别实现并验收 `elect.sync`
-warp rendezvous、真实 tensor-map descriptor/cache/runtime、init fence、`stmatrix`、
-TMA store/bulk completion、grid dependency 和 `setmaxnreg` register-pool 行为，才能
-声称完整冻结 FA3 functional/detailed execution；当前这些路径严格失败。本阶段
-没有 H100/H200 dynamic trace，不能声称 Hopper 硬件周期准确度。上述限制符合用户
-计划的 parser readiness 与 execution 分级，不作为本阶段隐藏 blocker。
-
-语法与操作数依据：[CUDA 12.8 PTX ISA 8.7 官方规范](https://docs.nvidia.com/cuda/archive/12.8.0/parallel-thread-execution/index.html)，
-参见 `elect.sync`、`prefetch`、`membar/fence`、`stmatrix`、`cp.async.bulk.tensor`、
-bulk commit/wait 和 `griddepcontrol` 各指令节。
+</details>

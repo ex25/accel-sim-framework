@@ -1,12 +1,44 @@
 # 阶段 7：Cluster、DSMEM 与寄存器配置
 
-状态: 已验收
+## 当前审计结论（2026-10-13）
+
+状态: 进行中
+
+前置：阶段 6 新版验收通过。functional cluster/DSMEM、detailed metadata 有
+结果；远程 DSMEM、cluster barrier/proxy fence detailed 和 setmaxnreg 仍抛错。
+按用户逐阶段要求，本阶段需补齐这些组件后再进入阶段 8，不能因 Dense 未使用而跳过。
+
+### 本阶段如何补齐
+
+1. 冻结 cluster/rank/address/资源组件清单；把 register/static/dynamic shared/
+   local memory 导入实际 CTA residency，metadata 绑定 compiler/PTX 版本。
+2. 补 setmaxnreg 的 warpgroup 寄存器池 inc/dec、等待/释放、守恒和 occupancy，
+   测资源不足、多个组竞争、容量临界与 kernel 结束释放，不用 no-op。
+3. 补 cluster launch 元数据与 CTA 同驻留、远程 shared 地址/请求/响应、可见性、
+   barrier generation/proxy fence，包括阶段 4 移交的 cluster-addressed barrier。
+4. 在组件 harness 真实执行，覆盖多 cluster 隔离、乱序、慢参与者、背压和死锁
+   检查。公开 Driver API 的导入由阶段 9 承接，不能要求它先通过。
+
+### 本阶段可验收条件
+
+- [ ] functional/metadata 原正例回归，setmaxnreg 成功执行、竞争/释放和调度验证通过。
+- [ ] 远程 DSMEM、cluster barrier/fence 有 detailed 正例，数据可见与完成顺序正确。
+- [ ] cluster-addressed barrier、地址隔离、容量/资源守恒和压力测试通过。
+- [ ] harness launch 元数据与模型贯通，输出/事件/统计及配对版本持久可查。
+
+公开 cluster/occupancy API 在阶段 9 集成，完整 Dense 资源路径在 12/13 验收；
+本阶段验收不代表 CUDA 原生接口、完整 FA3 或完整 block 已运行。
+
+当前执行顺序见 [单卡 Dense 计划](../../plans/single-card-dense.md)。
+
+<details>
+<summary>历史实现、测试结果和旧计划（不作为当前验收状态或执行顺序）</summary>
 
 本阶段完成了文本 PTX execution-driven 路径的 cluster 元数据、CTA rank、功能级远程 shared/DSMEM、cluster barrier/fence，以及资源指令的严格失败语义。真实 runtime launch API 与 detailed DSMEM/cluster barrier 时序仍属于后续 runtime/model 阶段。
 
 ## 目标和前置条件
 
-- 外层和内层均位于配对的 `research/hopper-ptx` 分支；阶段 6 已验收。
+- 外层和内层均位于配对的 `research/hopper-ptx` 分支；阶段 6 旧范围通过。
 - 用户已有的外层 `experiments/` 和内层 `.serena/` 未加入本阶段提交。
 - 参考 [NVIDIA PTX ISA cluster introduction](https://docs.nvidia.com/cuda/parallel-thread-execution/) 定义 cluster dimensions、`%clusterid`/`%nclusterid`、`%cluster_ctaid`/`%cluster_nctaid`、`%cluster_ctarank`/`%cluster_nctarank`、`%is_explicit_cluster`，并使用 `mapa` 与 `ld/st.shared::cluster` 访问远程 shared。
 
@@ -62,3 +94,5 @@ git -C gpu-simulator/gpgpu-sim diff --check
 - 本阶段只承诺 functional DSMEM/barrier 的确定性语义；detailed 远程 DSMEM、cluster barrier 和 cluster proxy fence 的 issue/response/occupancy 周期留给后续模型验证和 runtime integration。
 - `setmaxnreg` 的 register-pool redistribution、occupancy 变化和 warpgroup resource accounting 尚未实现，使用它的 kernel 会严格失败。
 - multicast target table 仍由阶段 5 TMA descriptor 语义管理，本阶段没有扩展 CUDA runtime cluster launch API。
+
+</details>
