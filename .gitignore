@@ -24,3 +24,6 @@ CLAUDE.md
 
 .serena/
 .serena/*
+
+# Independent-review evidence is reproducible local output, not Git content.
+/.codex/docs/implementation/evidence/review-*/
