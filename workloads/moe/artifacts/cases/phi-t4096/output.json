@@ -1,0 +1,18 @@
+{
+  "case": "phi-t4096",
+  "exit_code": 0,
+  "cuda_event_ms": 8.66208,
+  "cuda_event_ms_samples": [
+    8.66208
+  ],
+  "iterations": 1,
+  "warmup": 0,
+  "repeats": 1,
+  "framework_kernels": true,
+  "elements": 16777216,
+  "bitwise_equal": true,
+  "different_elements": 0,
+  "max_abs": 0.0,
+  "output_sha256": "1f12c24167c3556d45af44e2474c0aceff83e93be0242df3c0a6003ac67b30c3",
+  "mode": "cold"
+}

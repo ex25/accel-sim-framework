@@ -1,0 +1,18 @@
+{
+  "case": "phi-t128",
+  "exit_code": 0,
+  "cuda_event_ms": 9.10432,
+  "cuda_event_ms_samples": [
+    9.10432
+  ],
+  "iterations": 1,
+  "warmup": 0,
+  "repeats": 1,
+  "framework_kernels": true,
+  "elements": 524288,
+  "bitwise_equal": true,
+  "different_elements": 0,
+  "max_abs": 0.0,
+  "output_sha256": "0138914e38fa6a904aa9b22bf88f5bd270e1de2386740af084aa323beab7d8be",
+  "mode": "cold"
+}

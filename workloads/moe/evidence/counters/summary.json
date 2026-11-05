@@ -1,0 +1,817 @@
+{
+  "state": "passed",
+  "binary_sha256": "5ea9c21f75cd8bc92912c0125a48d0216e8e4b7181728e31e114cc20ca34a905",
+  "metrics": [
+    "gpu__time_duration.sum",
+    "sm__cycles_elapsed.avg",
+    "sm__cycles_elapsed.max",
+    "sm__cycles_elapsed.avg.per_second",
+    "dram__bytes_read.sum",
+    "dram__bytes_write.sum",
+    "lts__t_sectors_op_read.sum",
+    "lts__t_sectors_op_write.sum",
+    "lts__t_sector_hit_rate.pct",
+    "smsp__inst_executed.sum",
+    "sm__ops_path_tensor_src_bf16_dst_fp32.sum",
+    "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed"
+  ],
+  "replay_mode": "application",
+  "cache_control": "none",
+  "clock_control": "none",
+  "warmup": 0,
+  "iterations": 1,
+  "repeats": 1,
+  "cases": [
+    {
+      "case": "qwen64-t128",
+      "forward_sha256": "1449b327a7cab2cd674b9e8dcdb4e7f7126ee876c478e4a7e057a81e14c875ae",
+      "native": {
+        "command": [
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/qwen64-t128/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/qwen64-t128/native"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 2.4562730549999996
+      },
+      "native_output": {
+        "cuda_event_ms": 5.76746,
+        "cuda_event_ms_samples": [
+          5.76746
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "70427b4b99f307ad54ea03875c6dd6fe824460503ffa728f2cbd068422733397",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "ncu": {
+        "command": [
+          "ncu",
+          "--replay-mode",
+          "application",
+          "--app-replay-mode",
+          "strict",
+          "--clock-control",
+          "none",
+          "--cache-control",
+          "none",
+          "--kernel-name-base",
+          "function",
+          "--kernel-name",
+          "regex:moe_kernel_",
+          "--metrics",
+          "gpu__time_duration.sum,sm__cycles_elapsed.avg,sm__cycles_elapsed.max,sm__cycles_elapsed.avg.per_second,dram__bytes_read.sum,dram__bytes_write.sum,lts__t_sectors_op_read.sum,lts__t_sectors_op_write.sum,lts__t_sector_hit_rate.pct,smsp__inst_executed.sum,sm__ops_path_tensor_src_bf16_dst_fp32.sum,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed",
+          "--csv",
+          "--page",
+          "raw",
+          "--export",
+          "/results/counters/h100-counters-0z85clnn/qwen64-t128/kernels",
+          "--force-overwrite",
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/qwen64-t128/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/qwen64-t128/profiled"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 12.690005112999998
+      },
+      "profiled_output": {
+        "cuda_event_ms": 806.996,
+        "cuda_event_ms_samples": [
+          806.996
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "70427b4b99f307ad54ea03875c6dd6fe824460503ffa728f2cbd068422733397",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "expected_kernel_launches": 22,
+      "profiled_kernel_launches": 22
+    },
+    {
+      "case": "mixtral-t128",
+      "forward_sha256": "fbfd34366b99dbae592e995a0308fbe4be4e1ea78ef19081b588b2ae3a0d3a6e",
+      "native": {
+        "command": [
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/mixtral-t128/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/mixtral-t128/native"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 5.348256735000003
+      },
+      "native_output": {
+        "cuda_event_ms": 4.18323,
+        "cuda_event_ms_samples": [
+          4.18323
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "02cb7c8b1e800efa34e6930aceb2c3db26bd475b4677d67f6f0fe990d56cad71",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "ncu": {
+        "command": [
+          "ncu",
+          "--replay-mode",
+          "application",
+          "--app-replay-mode",
+          "strict",
+          "--clock-control",
+          "none",
+          "--cache-control",
+          "none",
+          "--kernel-name-base",
+          "function",
+          "--kernel-name",
+          "regex:moe_kernel_",
+          "--metrics",
+          "gpu__time_duration.sum,sm__cycles_elapsed.avg,sm__cycles_elapsed.max,sm__cycles_elapsed.avg.per_second,dram__bytes_read.sum,dram__bytes_write.sum,lts__t_sectors_op_read.sum,lts__t_sectors_op_write.sum,lts__t_sector_hit_rate.pct,smsp__inst_executed.sum,sm__ops_path_tensor_src_bf16_dst_fp32.sum,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed",
+          "--csv",
+          "--page",
+          "raw",
+          "--export",
+          "/results/counters/h100-counters-0z85clnn/mixtral-t128/kernels",
+          "--force-overwrite",
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/mixtral-t128/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/mixtral-t128/profiled"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 20.103084998000003
+      },
+      "profiled_output": {
+        "cuda_event_ms": 852.992,
+        "cuda_event_ms_samples": [
+          852.992
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "02cb7c8b1e800efa34e6930aceb2c3db26bd475b4677d67f6f0fe990d56cad71",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "expected_kernel_launches": 22,
+      "profiled_kernel_launches": 22
+    },
+    {
+      "case": "mixtral-t4096",
+      "forward_sha256": "375f091fefcdc6d05438118124968bbc87aa898cb1650f5f8dbe7677e1e63dec",
+      "native": {
+        "command": [
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/mixtral-t4096/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/mixtral-t4096/native"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 5.542428696999998
+      },
+      "native_output": {
+        "cuda_event_ms": 11.2803,
+        "cuda_event_ms_samples": [
+          11.2803
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "4aaffb4b5f6afb4cad42d4ee1ebed71e45d5fd7001dbebc1489dc13d2d05ca15",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "ncu": {
+        "command": [
+          "ncu",
+          "--replay-mode",
+          "application",
+          "--app-replay-mode",
+          "strict",
+          "--clock-control",
+          "none",
+          "--cache-control",
+          "none",
+          "--kernel-name-base",
+          "function",
+          "--kernel-name",
+          "regex:moe_kernel_",
+          "--metrics",
+          "gpu__time_duration.sum,sm__cycles_elapsed.avg,sm__cycles_elapsed.max,sm__cycles_elapsed.avg.per_second,dram__bytes_read.sum,dram__bytes_write.sum,lts__t_sectors_op_read.sum,lts__t_sectors_op_write.sum,lts__t_sector_hit_rate.pct,smsp__inst_executed.sum,sm__ops_path_tensor_src_bf16_dst_fp32.sum,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed",
+          "--csv",
+          "--page",
+          "raw",
+          "--export",
+          "/results/counters/h100-counters-0z85clnn/mixtral-t4096/kernels",
+          "--force-overwrite",
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/mixtral-t4096/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/mixtral-t4096/profiled"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 21.421923475999996
+      },
+      "profiled_output": {
+        "cuda_event_ms": 977.326,
+        "cuda_event_ms_samples": [
+          977.326
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "4aaffb4b5f6afb4cad42d4ee1ebed71e45d5fd7001dbebc1489dc13d2d05ca15",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "expected_kernel_launches": 23,
+      "profiled_kernel_launches": 23
+    },
+    {
+      "case": "mixtral-t8192",
+      "forward_sha256": "372049743575651e0d99254cfd75df6226b201da3bd26e55a5355e294595189a",
+      "native": {
+        "command": [
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/mixtral-t8192/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/mixtral-t8192/native"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 6.915134654999989
+      },
+      "native_output": {
+        "cuda_event_ms": 14.3904,
+        "cuda_event_ms_samples": [
+          14.3904
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "11cc83df949040a20e0bd7a2eee70d8a6e83620245b96d6642c02471a2e175b4",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "ncu": {
+        "command": [
+          "ncu",
+          "--replay-mode",
+          "application",
+          "--app-replay-mode",
+          "strict",
+          "--clock-control",
+          "none",
+          "--cache-control",
+          "none",
+          "--kernel-name-base",
+          "function",
+          "--kernel-name",
+          "regex:moe_kernel_",
+          "--metrics",
+          "gpu__time_duration.sum,sm__cycles_elapsed.avg,sm__cycles_elapsed.max,sm__cycles_elapsed.avg.per_second,dram__bytes_read.sum,dram__bytes_write.sum,lts__t_sectors_op_read.sum,lts__t_sectors_op_write.sum,lts__t_sector_hit_rate.pct,smsp__inst_executed.sum,sm__ops_path_tensor_src_bf16_dst_fp32.sum,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed",
+          "--csv",
+          "--page",
+          "raw",
+          "--export",
+          "/results/counters/h100-counters-0z85clnn/mixtral-t8192/kernels",
+          "--force-overwrite",
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/mixtral-t8192/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/mixtral-t8192/profiled"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 22.837250157
+      },
+      "profiled_output": {
+        "cuda_event_ms": 817.768,
+        "cuda_event_ms_samples": [
+          817.768
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "11cc83df949040a20e0bd7a2eee70d8a6e83620245b96d6642c02471a2e175b4",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "expected_kernel_launches": 23,
+      "profiled_kernel_launches": 23
+    },
+    {
+      "case": "phi-t128",
+      "forward_sha256": "bcf6c1892c479c3a62edc58f0e82c451a8841a3eac058fcffd7f9ebbec979ca9",
+      "native": {
+        "command": [
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/phi-t128/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/phi-t128/native"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 4.689197235999998
+      },
+      "native_output": {
+        "cuda_event_ms": 13.417,
+        "cuda_event_ms_samples": [
+          13.417
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "0138914e38fa6a904aa9b22bf88f5bd270e1de2386740af084aa323beab7d8be",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "ncu": {
+        "command": [
+          "ncu",
+          "--replay-mode",
+          "application",
+          "--app-replay-mode",
+          "strict",
+          "--clock-control",
+          "none",
+          "--cache-control",
+          "none",
+          "--kernel-name-base",
+          "function",
+          "--kernel-name",
+          "regex:moe_kernel_",
+          "--metrics",
+          "gpu__time_duration.sum,sm__cycles_elapsed.avg,sm__cycles_elapsed.max,sm__cycles_elapsed.avg.per_second,dram__bytes_read.sum,dram__bytes_write.sum,lts__t_sectors_op_read.sum,lts__t_sectors_op_write.sum,lts__t_sector_hit_rate.pct,smsp__inst_executed.sum,sm__ops_path_tensor_src_bf16_dst_fp32.sum,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed",
+          "--csv",
+          "--page",
+          "raw",
+          "--export",
+          "/results/counters/h100-counters-0z85clnn/phi-t128/kernels",
+          "--force-overwrite",
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/phi-t128/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/phi-t128/profiled"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 18.187748057000007
+      },
+      "profiled_output": {
+        "cuda_event_ms": 747.203,
+        "cuda_event_ms_samples": [
+          747.203
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "0138914e38fa6a904aa9b22bf88f5bd270e1de2386740af084aa323beab7d8be",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "expected_kernel_launches": 22,
+      "profiled_kernel_launches": 22
+    },
+    {
+      "case": "phi-t4096",
+      "forward_sha256": "381077649766d279e736788400e5f66e3773aa2d72e1be99e85ad281ad648df8",
+      "native": {
+        "command": [
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/phi-t4096/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/phi-t4096/native"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 4.881172969000005
+      },
+      "native_output": {
+        "cuda_event_ms": 8.36781,
+        "cuda_event_ms_samples": [
+          8.36781
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "1f12c24167c3556d45af44e2474c0aceff83e93be0242df3c0a6003ac67b30c3",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "ncu": {
+        "command": [
+          "ncu",
+          "--replay-mode",
+          "application",
+          "--app-replay-mode",
+          "strict",
+          "--clock-control",
+          "none",
+          "--cache-control",
+          "none",
+          "--kernel-name-base",
+          "function",
+          "--kernel-name",
+          "regex:moe_kernel_",
+          "--metrics",
+          "gpu__time_duration.sum,sm__cycles_elapsed.avg,sm__cycles_elapsed.max,sm__cycles_elapsed.avg.per_second,dram__bytes_read.sum,dram__bytes_write.sum,lts__t_sectors_op_read.sum,lts__t_sectors_op_write.sum,lts__t_sector_hit_rate.pct,smsp__inst_executed.sum,sm__ops_path_tensor_src_bf16_dst_fp32.sum,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed",
+          "--csv",
+          "--page",
+          "raw",
+          "--export",
+          "/results/counters/h100-counters-0z85clnn/phi-t4096/kernels",
+          "--force-overwrite",
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/phi-t4096/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/phi-t4096/profiled"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 18.657487677999995
+      },
+      "profiled_output": {
+        "cuda_event_ms": 946.904,
+        "cuda_event_ms_samples": [
+          946.904
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "1f12c24167c3556d45af44e2474c0aceff83e93be0242df3c0a6003ac67b30c3",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "expected_kernel_launches": 23,
+      "profiled_kernel_launches": 23
+    },
+    {
+      "case": "phi-t8192",
+      "forward_sha256": "8e5bce30889ff82dfee94fca9f2757ae7fe0fea03cc4614be3f79e3d53dee8dd",
+      "native": {
+        "command": [
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/phi-t8192/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/phi-t8192/native"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 5.081096658000007
+      },
+      "native_output": {
+        "cuda_event_ms": 10.9259,
+        "cuda_event_ms_samples": [
+          10.9259
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "7d279ee9fef920c0910547880b483b40a982025e7e33735fbb8929c16922ed48",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "ncu": {
+        "command": [
+          "ncu",
+          "--replay-mode",
+          "application",
+          "--app-replay-mode",
+          "strict",
+          "--clock-control",
+          "none",
+          "--cache-control",
+          "none",
+          "--kernel-name-base",
+          "function",
+          "--kernel-name",
+          "regex:moe_kernel_",
+          "--metrics",
+          "gpu__time_duration.sum,sm__cycles_elapsed.avg,sm__cycles_elapsed.max,sm__cycles_elapsed.avg.per_second,dram__bytes_read.sum,dram__bytes_write.sum,lts__t_sectors_op_read.sum,lts__t_sectors_op_write.sum,lts__t_sector_hit_rate.pct,smsp__inst_executed.sum,sm__ops_path_tensor_src_bf16_dst_fp32.sum,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed",
+          "--csv",
+          "--page",
+          "raw",
+          "--export",
+          "/results/counters/h100-counters-0z85clnn/phi-t8192/kernels",
+          "--force-overwrite",
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/phi-t8192/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/phi-t8192/profiled"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 19.525454771
+      },
+      "profiled_output": {
+        "cuda_event_ms": 707.462,
+        "cuda_event_ms_samples": [
+          707.462
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "7d279ee9fef920c0910547880b483b40a982025e7e33735fbb8929c16922ed48",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "expected_kernel_launches": 23,
+      "profiled_kernel_launches": 23
+    },
+    {
+      "case": "qwen64-t4096",
+      "forward_sha256": "d8448fbad88c3fa443ed977c5f5428531d9ec50ad4ed9205ab249bf25cf846c2",
+      "native": {
+        "command": [
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/qwen64-t4096/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/qwen64-t4096/native"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 2.2993006250000008
+      },
+      "native_output": {
+        "cuda_event_ms": 6.46275,
+        "cuda_event_ms_samples": [
+          6.46275
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "13981ad6470a44900ca9dfbe7f222151655a7cd4c743c4e0f034143bd67626ec",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "ncu": {
+        "command": [
+          "ncu",
+          "--replay-mode",
+          "application",
+          "--app-replay-mode",
+          "strict",
+          "--clock-control",
+          "none",
+          "--cache-control",
+          "none",
+          "--kernel-name-base",
+          "function",
+          "--kernel-name",
+          "regex:moe_kernel_",
+          "--metrics",
+          "gpu__time_duration.sum,sm__cycles_elapsed.avg,sm__cycles_elapsed.max,sm__cycles_elapsed.avg.per_second,dram__bytes_read.sum,dram__bytes_write.sum,lts__t_sectors_op_read.sum,lts__t_sectors_op_write.sum,lts__t_sector_hit_rate.pct,smsp__inst_executed.sum,sm__ops_path_tensor_src_bf16_dst_fp32.sum,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed",
+          "--csv",
+          "--page",
+          "raw",
+          "--export",
+          "/results/counters/h100-counters-0z85clnn/qwen64-t4096/kernels",
+          "--force-overwrite",
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/qwen64-t4096/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/qwen64-t4096/profiled"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 14.667850888999993
+      },
+      "profiled_output": {
+        "cuda_event_ms": 1021.26,
+        "cuda_event_ms_samples": [
+          1021.26
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "13981ad6470a44900ca9dfbe7f222151655a7cd4c743c4e0f034143bd67626ec",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "expected_kernel_launches": 24,
+      "profiled_kernel_launches": 24
+    },
+    {
+      "case": "qwen64-t8192",
+      "forward_sha256": "f4704ccf3de0ab768ce6b20910f21e91deedab2b14ade70841faeb7403852a01",
+      "native": {
+        "command": [
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/qwen64-t8192/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/qwen64-t8192/native"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 2.4008602650000057
+      },
+      "native_output": {
+        "cuda_event_ms": 5.15747,
+        "cuda_event_ms_samples": [
+          5.15747
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "513d71e3c28d02f4e81186a5b43f46f66320a5c2d51aea29b22c16756d3bc48b",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "ncu": {
+        "command": [
+          "ncu",
+          "--replay-mode",
+          "application",
+          "--app-replay-mode",
+          "strict",
+          "--clock-control",
+          "none",
+          "--cache-control",
+          "none",
+          "--kernel-name-base",
+          "function",
+          "--kernel-name",
+          "regex:moe_kernel_",
+          "--metrics",
+          "gpu__time_duration.sum,sm__cycles_elapsed.avg,sm__cycles_elapsed.max,sm__cycles_elapsed.avg.per_second,dram__bytes_read.sum,dram__bytes_write.sum,lts__t_sectors_op_read.sum,lts__t_sectors_op_write.sum,lts__t_sector_hit_rate.pct,smsp__inst_executed.sum,sm__ops_path_tensor_src_bf16_dst_fp32.sum,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed",
+          "--csv",
+          "--page",
+          "raw",
+          "--export",
+          "/results/counters/h100-counters-0z85clnn/qwen64-t8192/kernels",
+          "--force-overwrite",
+          "/tmp/tmp7xdab8h8/moe_layer",
+          "--input",
+          "/opt/moe/cases/qwen64-t8192/forward.bin",
+          "--warmup",
+          "0",
+          "--iterations",
+          "1",
+          "--repeats",
+          "1",
+          "--output",
+          "/results/counters/h100-counters-0z85clnn/qwen64-t8192/profiled"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 11.985649750999983
+      },
+      "profiled_output": {
+        "cuda_event_ms": 806.427,
+        "cuda_event_ms_samples": [
+          806.427
+        ],
+        "iterations": 1,
+        "warmup": 0,
+        "repeats": 1,
+        "framework_kernels": true,
+        "output_sha256": "513d71e3c28d02f4e81186a5b43f46f66320a5c2d51aea29b22c16756d3bc48b",
+        "bitwise_equal_to_validated_h100": true
+      },
+      "expected_kernel_launches": 24,
+      "profiled_kernel_launches": 24
+    }
+  ],
+  "run_name": "h100-counters-0z85clnn",
+  "hardware": {
+    "command": [
+      "nvidia-smi",
+      "-q"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 1.025717599
+  },
+  "ncu-version": {
+    "command": [
+      "ncu",
+      "--version"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 0.6231491259999999
+  },
+  "libraries": {
+    "command": [
+      "ldd",
+      "/tmp/tmp7xdab8h8/moe_layer"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 0.0691093089999999
+  },
+  "remote_wall_seconds": 223.329521337
+}

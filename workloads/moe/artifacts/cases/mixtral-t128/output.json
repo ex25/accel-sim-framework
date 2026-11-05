@@ -1,0 +1,18 @@
+{
+  "case": "mixtral-t128",
+  "exit_code": 0,
+  "cuda_event_ms": 4.40438,
+  "cuda_event_ms_samples": [
+    4.40438
+  ],
+  "iterations": 1,
+  "warmup": 0,
+  "repeats": 1,
+  "framework_kernels": true,
+  "elements": 524288,
+  "bitwise_equal": true,
+  "different_elements": 0,
+  "max_abs": 0.0,
+  "output_sha256": "02cb7c8b1e800efa34e6930aceb2c3db26bd475b4677d67f6f0fe990d56cad71",
+  "mode": "cold"
+}

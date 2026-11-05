@@ -1,0 +1,460 @@
+{
+  "binary_sha256": "5ea9c21f75cd8bc92912c0125a48d0216e8e4b7181728e31e114cc20ca34a905",
+  "scope": "Frozen standalone single-GPU MoE forward; initialization and output download excluded.",
+  "sources": [
+    "h100-validation.json",
+    "timelines/*.sqlite",
+    "hardware-counters.json"
+  ],
+  "definitions": {
+    "first_forward_cuda_event_ms": "One forward without software warmup; not a promise of empty hardware caches.",
+    "warm_cuda_event_ms": "Median of three group means, each ten forwards after three warmup forwards.",
+    "profiled_kernel_time_sum_ns": "Sum of CUDA kernel durations, excluding gaps and DMA.",
+    "profiled_device_span_ns": "First kernel start to final kernel end; includes intervening gaps/DMA.",
+    "dma_bytes": "Explicit CUDA copies inside the forward; not kernel DRAM/L2 traffic.",
+    "cycles_at_sim_clock": "Duration converted using configured simulator clock; not a measured H100 cycle count.",
+    "profiling_difference_pct": "Observed event difference across runs/iteration lengths; not a causal profiler overhead estimate.",
+    "device_allocation_bytes": "Sum of frozen launcher device buffers, retained throughout the forward. Excludes CUDA context, modules and driver allocations; not measured process peak VRAM."
+  },
+  "sim_clock_mhz": 1980,
+  "unmeasured_hardware_metrics": [
+    "L1/TEX traffic, achieved occupancy and stalls were not requested in the minimal collection."
+  ],
+  "cases": [
+    {
+      "case": "mixtral-t128",
+      "kernel_launches": 22,
+      "parameters": {
+        "name": "mixtral",
+        "description": "MoE-Hub Mixtral 8x7B single-layer profile",
+        "hidden": 4096,
+        "intermediate": 14336,
+        "experts": 8,
+        "top_k": 2,
+        "seed": 2026,
+        "tokens": 128
+      },
+      "first_forward_cuda_event_ms": 4.40438,
+      "warm_cuda_event_ms": 1.1751,
+      "warm_group_mean_samples_ms": [
+        1.1751,
+        1.17659,
+        1.17446
+      ],
+      "warm_group_iterations": 10,
+      "numerical_bitwise_equal": true,
+      "hardware_counters": {
+        "source": "hardware-counters.json",
+        "kernel_launches": 22,
+        "ncu_kernel_time_sum_ns": 1186720,
+        "dram_read_bytes": 2850894848,
+        "dram_write_bytes": 48790272,
+        "l2_read_sectors": 177835720,
+        "l2_write_sectors": 1594228,
+        "l2_read_bytes": 5690743040,
+        "l2_write_bytes": 51015296,
+        "sass_warp_instructions": 49406443,
+        "tensor_bf16_fp32_ops": 360777252864,
+        "sm_effective_frequency_hz_min": 1792534319.56,
+        "sm_effective_frequency_hz_max": 1979281960.38,
+        "replay_passes_unique": [
+          3
+        ]
+      },
+      "same_job_first_forward_cuda_event_ms": 4.18323,
+      "device_allocation_bytes": 3112173632
+    },
+    {
+      "case": "mixtral-t4096",
+      "kernel_launches": 23,
+      "parameters": {
+        "name": "mixtral",
+        "description": "MoE-Hub Mixtral 8x7B single-layer profile",
+        "hidden": 4096,
+        "intermediate": 14336,
+        "experts": 8,
+        "top_k": 2,
+        "seed": 2026,
+        "tokens": 4096
+      },
+      "first_forward_cuda_event_ms": 15.4334,
+      "warm_cuda_event_ms": 5.90113,
+      "warm_group_mean_samples_ms": [
+        5.88867,
+        5.90113,
+        5.90969
+      ],
+      "warm_group_iterations": 10,
+      "numerical_bitwise_equal": true,
+      "hardware_counters": {
+        "source": "hardware-counters.json",
+        "kernel_launches": 23,
+        "ncu_kernel_time_sum_ns": 5884672,
+        "dram_read_bytes": 10559239168,
+        "dram_write_bytes": 1079098112,
+        "l2_read_sectors": 1347794097,
+        "l2_write_sectors": 50620352,
+        "l2_read_bytes": 43129411104,
+        "l2_write_bytes": 1619851264,
+        "sass_warp_instructions": 480991627,
+        "tensor_bf16_fp32_ops": 3021509492736,
+        "sm_effective_frequency_hz_min": 1790808955.26,
+        "sm_effective_frequency_hz_max": 1978721967.8,
+        "replay_passes_unique": [
+          3
+        ]
+      },
+      "profiled_cuda_event_ms": 5.85283,
+      "profiled_kernel_time_sum_ns": 5810761,
+      "profiled_device_span_ns": 5848937,
+      "profiled_forward_dma": {
+        "CUDA_MEMCPY_KIND_DTOD": {
+          "requests": 1,
+          "bytes": 64,
+          "duration_ns": 1024
+        },
+        "CUDA_MEMCPY_KIND_HTOD": {
+          "requests": 2,
+          "bytes": 1792,
+          "duration_ns": 2368
+        }
+      },
+      "profiling_difference_pct": -0.8184873066683918,
+      "same_job_first_forward_cuda_event_ms": 11.2803,
+      "device_allocation_bytes": 4162846784
+    },
+    {
+      "case": "mixtral-t8192",
+      "kernel_launches": 23,
+      "parameters": {
+        "name": "mixtral",
+        "description": "MoE-Hub Mixtral 8x7B single-layer profile",
+        "hidden": 4096,
+        "intermediate": 14336,
+        "experts": 8,
+        "top_k": 2,
+        "seed": 2026,
+        "tokens": 8192
+      },
+      "first_forward_cuda_event_ms": 13.6724,
+      "warm_cuda_event_ms": 10.5513,
+      "warm_group_mean_samples_ms": [
+        10.5513,
+        10.5479,
+        10.6139
+      ],
+      "warm_group_iterations": 10,
+      "numerical_bitwise_equal": true,
+      "hardware_counters": {
+        "source": "hardware-counters.json",
+        "kernel_launches": 23,
+        "ncu_kernel_time_sum_ns": 10509216,
+        "dram_read_bytes": 17862546432,
+        "dram_write_bytes": 2155144704,
+        "l2_read_sectors": 2025597339,
+        "l2_write_sectors": 101240402,
+        "l2_read_bytes": 64819114848,
+        "l2_write_bytes": 3239692864,
+        "sass_warp_instructions": 952341908,
+        "tensor_bf16_fp32_ops": 5997921828864,
+        "sm_effective_frequency_hz_min": 1795413387.14,
+        "sm_effective_frequency_hz_max": 1993773674.24,
+        "replay_passes_unique": [
+          3
+        ]
+      },
+      "same_job_first_forward_cuda_event_ms": 14.3904,
+      "device_allocation_bytes": 4833935424
+    },
+    {
+      "case": "phi-t128",
+      "kernel_launches": 22,
+      "parameters": {
+        "name": "phi",
+        "description": "MoE-Hub Phi-3.5-MoE single-layer profile",
+        "hidden": 4096,
+        "intermediate": 6400,
+        "experts": 16,
+        "top_k": 2,
+        "seed": 2026,
+        "tokens": 128
+      },
+      "first_forward_cuda_event_ms": 9.10432,
+      "warm_cuda_event_ms": 1.07868,
+      "warm_group_mean_samples_ms": [
+        1.08022,
+        1.07868,
+        1.07856
+      ],
+      "warm_group_iterations": 10,
+      "numerical_bitwise_equal": true,
+      "hardware_counters": {
+        "source": "hardware-counters.json",
+        "kernel_launches": 22,
+        "ncu_kernel_time_sum_ns": 1089344,
+        "dram_read_bytes": 2535489536,
+        "dram_write_bytes": 37839872,
+        "l2_read_sectors": 158410147,
+        "l2_write_sectors": 1031851,
+        "l2_read_bytes": 5069124704,
+        "l2_write_bytes": 33019232,
+        "sass_warp_instructions": 44768540,
+        "tensor_bf16_fp32_ops": 322122547200,
+        "sm_effective_frequency_hz_min": 1793344141.2,
+        "sm_effective_frequency_hz_max": 1979339816.24,
+        "replay_passes_unique": [
+          3
+        ]
+      },
+      "same_job_first_forward_cuda_event_ms": 13.417,
+      "device_allocation_bytes": 2810183808
+    },
+    {
+      "case": "phi-t4096",
+      "kernel_launches": 23,
+      "parameters": {
+        "name": "phi",
+        "description": "MoE-Hub Phi-3.5-MoE single-layer profile",
+        "hidden": 4096,
+        "intermediate": 6400,
+        "experts": 16,
+        "top_k": 2,
+        "seed": 2026,
+        "tokens": 4096
+      },
+      "first_forward_cuda_event_ms": 8.66208,
+      "warm_cuda_event_ms": 3.05371,
+      "warm_group_mean_samples_ms": [
+        3.05371,
+        3.05063,
+        3.06428
+      ],
+      "warm_group_iterations": 10,
+      "numerical_bitwise_equal": true,
+      "hardware_counters": {
+        "source": "hardware-counters.json",
+        "kernel_launches": 23,
+        "ncu_kernel_time_sum_ns": 3078304,
+        "dram_read_bytes": 4959475456,
+        "dram_write_bytes": 691232256,
+        "l2_read_sectors": 674135861,
+        "l2_write_sectors": 32446604,
+        "l2_read_bytes": 21572347552,
+        "l2_write_bytes": 1038291328,
+        "sass_warp_instructions": 260184032,
+        "tensor_bf16_fp32_ops": 1469684121600,
+        "sm_effective_frequency_hz_min": 1775115607.27,
+        "sm_effective_frequency_hz_max": 1979311734.97,
+        "replay_passes_unique": [
+          3
+        ]
+      },
+      "profiled_cuda_event_ms": 3.06513,
+      "profiled_kernel_time_sum_ns": 3026606.6666666665,
+      "profiled_device_span_ns": 3061700,
+      "profiled_forward_dma": {
+        "CUDA_MEMCPY_KIND_DTOD": {
+          "requests": 1,
+          "bytes": 128,
+          "duration_ns": 1024
+        },
+        "CUDA_MEMCPY_KIND_HTOD": {
+          "requests": 2,
+          "bytes": 2048,
+          "duration_ns": 2464
+        }
+      },
+      "profiling_difference_pct": 0.37397133323071596,
+      "same_job_first_forward_cuda_event_ms": 8.36781,
+      "device_allocation_bytes": 3357540480
+    },
+    {
+      "case": "phi-t8192",
+      "kernel_launches": 23,
+      "parameters": {
+        "name": "phi",
+        "description": "MoE-Hub Phi-3.5-MoE single-layer profile",
+        "hidden": 4096,
+        "intermediate": 6400,
+        "experts": 16,
+        "top_k": 2,
+        "seed": 2026,
+        "tokens": 8192
+      },
+      "first_forward_cuda_event_ms": 25.7393,
+      "warm_cuda_event_ms": 5.6115,
+      "warm_group_mean_samples_ms": [
+        5.6115,
+        5.61304,
+        5.60358
+      ],
+      "warm_group_iterations": 10,
+      "numerical_bitwise_equal": true,
+      "hardware_counters": {
+        "source": "hardware-counters.json",
+        "kernel_launches": 23,
+        "ncu_kernel_time_sum_ns": 5569152,
+        "dram_read_bytes": 9198683904,
+        "dram_write_bytes": 1377326336,
+        "l2_read_sectors": 1223063858,
+        "l2_write_sectors": 64881880,
+        "l2_read_bytes": 39138043456,
+        "l2_write_bytes": 2076220160,
+        "sass_warp_instructions": 490951992,
+        "tensor_bf16_fp32_ops": 2738041651200,
+        "sm_effective_frequency_hz_min": 1789967894.67,
+        "sm_effective_frequency_hz_max": 1979091444.74,
+        "replay_passes_unique": [
+          3
+        ]
+      },
+      "same_job_first_forward_cuda_event_ms": 10.9259,
+      "device_allocation_bytes": 3888119936
+    },
+    {
+      "case": "qwen64-t128",
+      "kernel_launches": 22,
+      "parameters": {
+        "name": "qwen64",
+        "description": "MoE-Hub Qwen profile: 64 routed experts, no shared expert",
+        "hidden": 2048,
+        "intermediate": 1408,
+        "experts": 64,
+        "top_k": 4,
+        "seed": 2026,
+        "tokens": 128
+      },
+      "first_forward_cuda_event_ms": 6.28378,
+      "warm_cuda_event_ms": 0.559203,
+      "warm_group_mean_samples_ms": [
+        0.559677,
+        0.559203,
+        0.558278
+      ],
+      "warm_group_iterations": 10,
+      "numerical_bitwise_equal": true,
+      "hardware_counters": {
+        "source": "hardware-counters.json",
+        "kernel_launches": 22,
+        "ncu_kernel_time_sum_ns": 561952,
+        "dram_read_bytes": 1099500288,
+        "dram_write_bytes": 34407680,
+        "l2_read_sectors": 68904102,
+        "l2_write_sectors": 689798,
+        "l2_read_bytes": 2204931264,
+        "l2_write_bytes": 22073536,
+        "sass_warp_instructions": 27772341,
+        "tensor_bf16_fp32_ops": 139519328256,
+        "sm_effective_frequency_hz_min": 1805448222.06,
+        "sm_effective_frequency_hz_max": 1993949362.04,
+        "replay_passes_unique": [
+          3
+        ]
+      },
+      "same_job_first_forward_cuda_event_ms": 5.76746,
+      "device_allocation_bytes": 1537212928
+    },
+    {
+      "case": "qwen64-t4096",
+      "kernel_launches": 24,
+      "parameters": {
+        "name": "qwen64",
+        "description": "MoE-Hub Qwen profile: 64 routed experts, no shared expert",
+        "hidden": 2048,
+        "intermediate": 1408,
+        "experts": 64,
+        "top_k": 4,
+        "seed": 2026,
+        "tokens": 4096
+      },
+      "first_forward_cuda_event_ms": 6.68419,
+      "warm_cuda_event_ms": 1.15914,
+      "warm_group_mean_samples_ms": [
+        1.16293,
+        1.15896,
+        1.15914
+      ],
+      "warm_group_iterations": 10,
+      "numerical_bitwise_equal": true,
+      "hardware_counters": {
+        "source": "hardware-counters.json",
+        "kernel_launches": 24,
+        "ncu_kernel_time_sum_ns": 1186400,
+        "dram_read_bytes": 1575022336,
+        "dram_write_bytes": 472453120,
+        "l2_read_sectors": 179180171,
+        "l2_write_sectors": 22675164,
+        "l2_read_bytes": 5733765472,
+        "l2_write_bytes": 725605248,
+        "sass_warp_instructions": 148751573,
+        "tensor_bf16_fp32_ops": 352120209408,
+        "sm_effective_frequency_hz_min": 1730359228.07,
+        "sm_effective_frequency_hz_max": 1979553778.3,
+        "replay_passes_unique": [
+          3
+        ]
+      },
+      "profiled_cuda_event_ms": 1.16896,
+      "profiled_kernel_time_sum_ns": 1128616.3333333333,
+      "profiled_device_span_ns": 1165011,
+      "profiled_forward_dma": {
+        "CUDA_MEMCPY_KIND_DTOD": {
+          "requests": 1,
+          "bytes": 512,
+          "duration_ns": 1152
+        },
+        "CUDA_MEMCPY_KIND_HTOD": {
+          "requests": 2,
+          "bytes": 7680,
+          "duration_ns": 2720
+        }
+      },
+      "profiling_difference_pct": 0.8471798057180235,
+      "same_job_first_forward_cuda_event_ms": 6.46275,
+      "device_allocation_bytes": 1927283200
+    },
+    {
+      "case": "qwen64-t8192",
+      "kernel_launches": 24,
+      "parameters": {
+        "name": "qwen64",
+        "description": "MoE-Hub Qwen profile: 64 routed experts, no shared expert",
+        "hidden": 2048,
+        "intermediate": 1408,
+        "experts": 64,
+        "top_k": 4,
+        "seed": 2026,
+        "tokens": 8192
+      },
+      "first_forward_cuda_event_ms": 6.66995,
+      "warm_cuda_event_ms": 1.90363,
+      "warm_group_mean_samples_ms": [
+        1.90477,
+        1.89936,
+        1.90363
+      ],
+      "warm_group_iterations": 10,
+      "numerical_bitwise_equal": true,
+      "hardware_counters": {
+        "source": "hardware-counters.json",
+        "kernel_launches": 24,
+        "ncu_kernel_time_sum_ns": 1912480,
+        "dram_read_bytes": 2124863744,
+        "dram_write_bytes": 937696000,
+        "l2_read_sectors": 307456098,
+        "l2_write_sectors": 45352058,
+        "l2_read_bytes": 9838595136,
+        "l2_write_bytes": 1451265856,
+        "sass_warp_instructions": 282316346,
+        "tensor_bf16_fp32_ops": 631158865920,
+        "sm_effective_frequency_hz_min": 1750188696.73,
+        "sm_effective_frequency_hz_max": 1978787745.13,
+        "replay_passes_unique": [
+          3
+        ]
+      },
+      "same_job_first_forward_cuda_event_ms": 5.15747,
+      "device_allocation_bytes": 2308964864
+    }
+  ]
+}

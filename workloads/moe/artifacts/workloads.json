@@ -1,0 +1,3189 @@
+{
+  "modules": [
+    {
+      "index": 0,
+      "entry": "moe_kernel_b65747af61585f3b",
+      "ptx": "ptx/b65747af61585f3b.ptx",
+      "original_entry": "triton_poi_fused__to_copy_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "b65747af61585f3ba7b65648dd2d60996a6f2d64fdc1d486d34d2449bd7d75dd",
+      "stage": "输入与路由权重类型转换"
+    },
+    {
+      "index": 1,
+      "entry": "moe_kernel_97544f6266334931",
+      "ptx": "ptx/97544f6266334931.ptx",
+      "original_entry": "triton_poi_fused__to_copy_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "97544f62663349319cf7e10ef5220a37f70835fca05c78db812d40b912a8ca64",
+      "stage": "输入与路由权重类型转换"
+    },
+    {
+      "index": 2,
+      "entry": "moe_kernel_cf685bb5cf3652b7",
+      "ptx": "ptx/cf685bb5cf3652b7.ptx",
+      "original_entry": "triton_tem_fused_mm_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "cf685bb5cf3652b7da1534d4169e1326f9d87a177671b5e58762e34681469025",
+      "stage": "路由 gating GEMM"
+    },
+    {
+      "index": 3,
+      "entry": "moe_kernel_cd71bc5848a4af72",
+      "ptx": "ptx/cd71bc5848a4af72.ptx",
+      "original_entry": "_ZN2at6native6sbtopk10gatherTopKIfjLi2ELb0EEEvNS_4cuda6detail10TensorInfoIKT_T0_EES8_S8_bS8_S8_NS5_IS6_S8_EES8_NS5_IlS8_EES8_PS6_",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          8,
+          0
+        ]
+      ],
+      "original_version": "8.8",
+      "source_sha256": "90c5bfdb350e396715e81728a5f373dfdc6ab024d8fed78a568a5f4188a34369",
+      "stage": "top-k 与排序"
+    },
+    {
+      "index": 4,
+      "entry": "moe_kernel_7bd6f3b7131e7873",
+      "ptx": "ptx/7bd6f3b7131e7873.ptx",
+      "original_entry": "_ZN2at6native20bitonicSortKVInPlaceILi2ELin1ELi16ELi16EflNS0_4GTOpIfLb1EEEjEEvNS_4cuda6detail10TensorInfoIT3_T6_EES8_S8_S8_NS6_IT4_S8_EES8_T5_",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          4,
+          0
+        ]
+      ],
+      "original_version": "8.8",
+      "source_sha256": "278e5587ff03d7b6f4729961f790a85b76e24e4d7c23799225a3716be55a149f",
+      "stage": "top-k 与排序"
+    },
+    {
+      "index": 5,
+      "entry": "moe_kernel_faa9858a4443dd66",
+      "ptx": "ptx/faa9858a4443dd66.ptx",
+      "original_entry": "triton_poi_fused__softmax_scatter_zeros_like_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "faa9858a4443dd6671cf8e3b549074ac33e2f41971cd5d3086fcd604e6a15e98",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 6,
+      "entry": "moe_kernel_a71bc546f8276179",
+      "ptx": "ptx/a71bc546f8276179.ptx",
+      "original_entry": "triton_poi_fused__to_copy_scatter_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "a71bc546f8276179b99454b1782ba96b65e5d95be041a0b7836a030f99a065fd",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 7,
+      "entry": "moe_kernel_cabbd061a6da98db",
+      "ptx": "ptx/cabbd061a6da98db.ptx",
+      "original_entry": "triton_poi_fused__softmax__to_copy_scatter_zeros_like_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "cabbd061a6da98db99bf3715916e08493eb4f94c05d58f3008887d55ecfca238",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 8,
+      "entry": "moe_kernel_d4ed9819894b1289",
+      "ptx": "ptx/d4ed9819894b1289.ptx",
+      "original_entry": "triton_poi_fused__to_copy_3",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "d4ed9819894b1289c2715b54f6e33f1f717e25991693df98962c30428c8fe068",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 9,
+      "entry": "moe_kernel_9707f921bf7e6a8e",
+      "ptx": "ptx/9707f921bf7e6a8e.ptx",
+      "original_entry": "triton_red_fused_sum_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "9707f921bf7e6a8ed4fc08e1930504f2daaaa7adc000e22e92755c6f072dd8c0",
+      "stage": "专家 token 数统计"
+    },
+    {
+      "index": 10,
+      "entry": "moe_kernel_cc04e1548eb39807",
+      "ptx": "ptx/cc04e1548eb39807.ptx",
+      "original_entry": "_row_id_map_pass_1_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "cc04e1548eb39807bb1694d4a2010eca46df2267f8c87bfc7ebaefe84bfc618e",
+      "stage": "构造 token 行映射"
+    },
+    {
+      "index": 11,
+      "entry": "moe_kernel_6e714b8cf7f7be2e",
+      "ptx": "ptx/6e714b8cf7f7be2e.ptx",
+      "original_entry": "_row_id_map_pass_2_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "6e714b8cf7f7be2e0e616c1f587fbb656eaa8d25c5c54185113e6ee3a2901cb4",
+      "stage": "构造 token 行映射"
+    },
+    {
+      "index": 12,
+      "entry": "moe_kernel_756851cbac2894af",
+      "ptx": "ptx/756851cbac2894af.ptx",
+      "original_entry": "_row_id_map_pass_3_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "756851cbac2894af01cf7f5b85fda6d88f19747d147b7fa0a941f3c7906ca4d8",
+      "stage": "构造 token 行映射"
+    },
+    {
+      "index": 13,
+      "entry": "moe_kernel_a13a77f7ed02cf24",
+      "ptx": "ptx/a13a77f7ed02cf24.ptx",
+      "original_entry": "_permute_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "a13a77f7ed02cf24d3a2c4466f5132fa4362ca5322c9f36979b5be450da7e315",
+      "stage": "按专家重排 token"
+    },
+    {
+      "index": 14,
+      "entry": "moe_kernel_23ba58950db8f4f0",
+      "ptx": "ptx/23ba58950db8f4f0.ptx",
+      "original_entry": "_make_chunk_sort_map_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "23ba58950db8f4f0f88061905027cbb081fe2060cf6f7fce896beecaf6b55e36",
+      "stage": "chunk 映射与重排"
+    },
+    {
+      "index": 15,
+      "entry": "moe_kernel_d4f74cd8054a8aac",
+      "ptx": "ptx/d4f74cd8054a8aac.ptx",
+      "original_entry": "_sort_chunks_by_map_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "d4f74cd8054a8aac9037c84354a27d95db0109bd6b247eddd2d930cbe7ba4078",
+      "stage": "chunk 映射与重排"
+    },
+    {
+      "index": 16,
+      "entry": "moe_kernel_df3e0c49e4650c1f",
+      "ptx": "ptx/df3e0c49e4650c1f.ptx",
+      "original_entry": "_ZN7cutlass13device_kernelINS_4gemm6kernel13GemmUniversalINS1_17GroupProblemShapeIN4cute5tupleIJiiiEEEEENS1_10collective13CollectiveMmaINS1_39MainloopSm90ArrayTmaGmmaWarpSpecializedILi3ENS6_IJNS5_1CILi1EEENSC_ILi2EEESD_EEENS1_40KernelPtrArrayTmaWarpSpecializedPingpongEEENS6_IJNSC_ILi128EEESI_SI_EEENS_10bfloat16_tEPNS6_IJlSD_NSC_ILi0EEEEEESK_SN_NS5_8TiledMMAINS5_8MMA_AtomIJNS5_4SM904GMMA28MMA_64x128x16_F32BF16BF16_SSILNSR_5MajorE0ELST_0ELNSR_7ScaleInE1ELSU_1EEEEEENS5_6LayoutINS6_IJSD_SD_SD_EEENS6_IJSL_SL_SL_EEEEENS6_IJNS5_10UnderscoreES11_S11_EEEEENS5_23SM90_TMA_LOAD_MULTICASTENS5_14ComposedLayoutINS5_7SwizzleILi3ELi4ELi3EEENS5_18smem_ptr_flag_bitsILi16EEENSX_INS6_IJNSC_ILi8EEENSC_ILi64EEEEEENS6_IJS1B_SD_EEEEEEEvNS5_8identityENS5_13SM90_TMA_LOADES1F_vS1G_EENS_8epilogue10collective18CollectiveEpilogueINS1J_30Sm90PtrArrayTmaWarpSpecializedILi4ELi2ELi16ELb1ELb0ELi2EEEJSJ_NS6_IJS1B_NSC_ILi32EEEEEESK_SN_SK_SN_NS1J_6fusion15FusionCallbacksIS1N_NS1Q_17LinearCombinationISK_fSK_fLNS_15FloatRoundStyleE2EEESJ_S1P_JEEES1H_NS15_INS16_ILi2ELi4ELi3EEES19_NSX_INS6_IJS1A_S1O_EEENS6_IJS1O_SD_EEEEEEENS5_17SM75_U32x4_LDSM_NENS5_14SM90_TMA_STOREES20_NS5_17SM90_U32x4_STSM_NENS5_9Copy_AtomIJS23_NS_6half_tEEEEvEEEvvEEEEvNT_6ParamsE",
+      "parameter_words": [
+        [
+          0,
+          16
+        ],
+        [
+          0,
+          64
+        ],
+        [
+          0,
+          72
+        ],
+        [
+          0,
+          80
+        ],
+        [
+          0,
+          88
+        ],
+        [
+          0,
+          96
+        ],
+        [
+          0,
+          104
+        ],
+        [
+          0,
+          112
+        ],
+        [
+          0,
+          120
+        ],
+        [
+          0,
+          128
+        ],
+        [
+          0,
+          136
+        ],
+        [
+          0,
+          144
+        ],
+        [
+          0,
+          152
+        ],
+        [
+          0,
+          160
+        ],
+        [
+          0,
+          168
+        ],
+        [
+          0,
+          176
+        ],
+        [
+          0,
+          184
+        ],
+        [
+          0,
+          256
+        ],
+        [
+          0,
+          264
+        ],
+        [
+          0,
+          272
+        ],
+        [
+          0,
+          280
+        ],
+        [
+          0,
+          288
+        ],
+        [
+          0,
+          296
+        ],
+        [
+          0,
+          304
+        ],
+        [
+          0,
+          312
+        ],
+        [
+          0,
+          320
+        ],
+        [
+          0,
+          328
+        ],
+        [
+          0,
+          336
+        ],
+        [
+          0,
+          344
+        ],
+        [
+          0,
+          352
+        ],
+        [
+          0,
+          360
+        ],
+        [
+          0,
+          368
+        ],
+        [
+          0,
+          376
+        ],
+        [
+          0,
+          456
+        ],
+        [
+          0,
+          464
+        ],
+        [
+          0,
+          472
+        ],
+        [
+          0,
+          480
+        ],
+        [
+          0,
+          488
+        ],
+        [
+          0,
+          520
+        ],
+        [
+          0,
+          528
+        ],
+        [
+          0,
+          536
+        ],
+        [
+          0,
+          560
+        ],
+        [
+          0,
+          568
+        ],
+        [
+          0,
+          576
+        ],
+        [
+          0,
+          640
+        ],
+        [
+          0,
+          648
+        ],
+        [
+          0,
+          656
+        ],
+        [
+          0,
+          664
+        ],
+        [
+          0,
+          672
+        ],
+        [
+          0,
+          680
+        ],
+        [
+          0,
+          688
+        ],
+        [
+          0,
+          696
+        ],
+        [
+          0,
+          704
+        ],
+        [
+          0,
+          712
+        ],
+        [
+          0,
+          720
+        ],
+        [
+          0,
+          728
+        ],
+        [
+          0,
+          736
+        ],
+        [
+          0,
+          744
+        ],
+        [
+          0,
+          752
+        ],
+        [
+          0,
+          760
+        ],
+        [
+          0,
+          832
+        ],
+        [
+          0,
+          840
+        ],
+        [
+          0,
+          848
+        ],
+        [
+          0,
+          856
+        ],
+        [
+          0,
+          864
+        ],
+        [
+          0,
+          872
+        ],
+        [
+          0,
+          880
+        ],
+        [
+          0,
+          888
+        ],
+        [
+          0,
+          896
+        ],
+        [
+          0,
+          904
+        ],
+        [
+          0,
+          912
+        ],
+        [
+          0,
+          920
+        ],
+        [
+          0,
+          928
+        ],
+        [
+          0,
+          936
+        ],
+        [
+          0,
+          944
+        ],
+        [
+          0,
+          952
+        ],
+        [
+          0,
+          1024
+        ],
+        [
+          0,
+          1032
+        ],
+        [
+          0,
+          1040
+        ],
+        [
+          0,
+          1048
+        ],
+        [
+          0,
+          1056
+        ],
+        [
+          0,
+          1128
+        ],
+        [
+          0,
+          1144
+        ],
+        [
+          0,
+          1160
+        ],
+        [
+          0,
+          1168
+        ],
+        [
+          0,
+          1184
+        ],
+        [
+          0,
+          1192
+        ],
+        [
+          0,
+          1208
+        ],
+        [
+          0,
+          1240
+        ]
+      ],
+      "original_version": "8.8",
+      "source_sha256": "8ec37058176dacbe64f34e1d86d8d1b99a84c3e6dfed6ee97def71f75bf08f5e",
+      "stage": "专家 FC1 / FC2 grouped GEMM"
+    },
+    {
+      "index": 17,
+      "entry": "moe_kernel_715b6dbe87249da2",
+      "ptx": "ptx/715b6dbe87249da2.ptx",
+      "original_entry": "triton_poi_fused_mul_silu_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "715b6dbe87249da20b1f1f57b24348ec36534b469f408df38897258942b0e905",
+      "stage": "SwiGLU"
+    },
+    {
+      "index": 18,
+      "entry": "moe_kernel_870767fb7effb148",
+      "ptx": "ptx/870767fb7effb148.ptx",
+      "original_entry": "_unpermute_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "870767fb7effb148d4a211584d3bf12109dcf8e9227a8d3b246c987468521ce9",
+      "stage": "输出逆重排与加权合并"
+    },
+    {
+      "index": 19,
+      "entry": "moe_kernel_b74b5f15c8e2c3b4",
+      "ptx": "ptx/b74b5f15c8e2c3b4.ptx",
+      "original_entry": "triton_poi_fused__to_copy_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "b74b5f15c8e2c3b438753d1e58574e0a9e55056c5d49bc785d661d5ff72e63ae",
+      "stage": "输入与路由权重类型转换"
+    },
+    {
+      "index": 20,
+      "entry": "moe_kernel_a88b4a7815d52e51",
+      "ptx": "ptx/a88b4a7815d52e51.ptx",
+      "original_entry": "triton_tem_fused_mm_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "a88b4a7815d52e513af0f2f7a8a7423e019f6e8ad36d02fa8b15fb38424e5fec",
+      "stage": "路由 gating GEMM"
+    },
+    {
+      "index": 21,
+      "entry": "moe_kernel_86fe8f98bf3774eb",
+      "ptx": "ptx/86fe8f98bf3774eb.ptx",
+      "original_entry": "triton_poi_fused__softmax_scatter_zeros_like_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "86fe8f98bf3774ebf27da8c872077b7799c3596306e32e0c66dab57572005eef",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 22,
+      "entry": "moe_kernel_d6c5f6a1190928fa",
+      "ptx": "ptx/d6c5f6a1190928fa.ptx",
+      "original_entry": "triton_poi_fused__to_copy_scatter_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "d6c5f6a1190928fa82bc3811d57df3695d7f0c0c2a18302a9bbd576d25d19dcc",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 23,
+      "entry": "moe_kernel_122bb96c5c596523",
+      "ptx": "ptx/122bb96c5c596523.ptx",
+      "original_entry": "triton_poi_fused__softmax__to_copy_scatter_zeros_like_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "122bb96c5c5965236a32246e2b0532d1fc19a6a0e8847a913f764fa6ad3449a6",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 24,
+      "entry": "moe_kernel_e0d77c5d8dd6b50b",
+      "ptx": "ptx/e0d77c5d8dd6b50b.ptx",
+      "original_entry": "triton_poi_fused__to_copy_3",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "e0d77c5d8dd6b50baa95de9f96a47761cce665a39413e5a24ec55c4ac99e97e1",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 25,
+      "entry": "moe_kernel_365e2dfde690bf4e",
+      "ptx": "ptx/365e2dfde690bf4e.ptx",
+      "original_entry": "triton_red_fused_sum_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "365e2dfde690bf4ee67a3d6c1cfe91d28903fff28491d3d58cf24134d9a0f685",
+      "stage": "专家 token 数统计"
+    },
+    {
+      "index": 26,
+      "entry": "moe_kernel_cf534e147155fb1c",
+      "ptx": "ptx/cf534e147155fb1c.ptx",
+      "original_entry": "triton_per_fused_sum_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "cf534e147155fb1ca68f38906ed3fc4be27a982b03ba705881022782ed114849",
+      "stage": "专家 token 数统计"
+    },
+    {
+      "index": 27,
+      "entry": "moe_kernel_38835c0e85f7a649",
+      "ptx": "ptx/38835c0e85f7a649.ptx",
+      "original_entry": "_row_id_map_pass_2_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "38835c0e85f7a649ca44684ba3990cb7fab1ca48af8c1bb692db9032d0cc0baa",
+      "stage": "构造 token 行映射"
+    },
+    {
+      "index": 28,
+      "entry": "moe_kernel_8f707b8936157ea7",
+      "ptx": "ptx/8f707b8936157ea7.ptx",
+      "original_entry": "triton_poi_fused_mul_silu_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "8f707b8936157ea7ef42863677906fdbb602974d4e451383f64da1d160a06a51",
+      "stage": "SwiGLU"
+    },
+    {
+      "index": 29,
+      "entry": "moe_kernel_7aa653c851148185",
+      "ptx": "ptx/7aa653c851148185.ptx",
+      "original_entry": "_unpermute_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "7aa653c85114818508af3e6684f4434c1aff786728a61a64e9b328c442f57efc",
+      "stage": "输出逆重排与加权合并"
+    },
+    {
+      "index": 30,
+      "entry": "moe_kernel_0246c7163d0f0932",
+      "ptx": "ptx/0246c7163d0f0932.ptx",
+      "original_entry": "triton_poi_fused__to_copy_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "0246c7163d0f093244a20aa88829f2b2a1898a09f56320463edcbd520ed03f1d",
+      "stage": "输入与路由权重类型转换"
+    },
+    {
+      "index": 31,
+      "entry": "moe_kernel_f6916e7b59292f21",
+      "ptx": "ptx/f6916e7b59292f21.ptx",
+      "original_entry": "triton_tem_fused_mm_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "f6916e7b59292f21d06ee5f59c455d4c9f2474aca0aaddb4b1c63ce7283905be",
+      "stage": "路由 gating GEMM"
+    },
+    {
+      "index": 32,
+      "entry": "moe_kernel_81ec60dd179020bc",
+      "ptx": "ptx/81ec60dd179020bc.ptx",
+      "original_entry": "triton_poi_fused__softmax_scatter_zeros_like_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "81ec60dd179020bcc7b4b11a67ecf9bcfbdb6c7393901f68847a2043732e1091",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 33,
+      "entry": "moe_kernel_b49267d4e7cce730",
+      "ptx": "ptx/b49267d4e7cce730.ptx",
+      "original_entry": "triton_poi_fused__to_copy_scatter_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "b49267d4e7cce730c800629b99025ddb32dd35e62f41b1e3a87b8b3ed9d494a5",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 34,
+      "entry": "moe_kernel_1d77cfc1699759be",
+      "ptx": "ptx/1d77cfc1699759be.ptx",
+      "original_entry": "triton_poi_fused__softmax__to_copy_scatter_zeros_like_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "1d77cfc1699759bee22cb9ea68697ac17be92f97e0e09846cd47096ca4a46f89",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 35,
+      "entry": "moe_kernel_da5dec86fbcc324f",
+      "ptx": "ptx/da5dec86fbcc324f.ptx",
+      "original_entry": "triton_poi_fused__to_copy_3",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "da5dec86fbcc324f112aedaa97751b8d4c5e7273e46af0d04435224ae2e58d8f",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 36,
+      "entry": "moe_kernel_1091be054bcfc4d8",
+      "ptx": "ptx/1091be054bcfc4d8.ptx",
+      "original_entry": "triton_red_fused_sum_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "1091be054bcfc4d83393bc4f4d5ef2c9c1a96b1ffde1df0a40ca8214015703b7",
+      "stage": "专家 token 数统计"
+    },
+    {
+      "index": 37,
+      "entry": "moe_kernel_874e4acc280128b7",
+      "ptx": "ptx/874e4acc280128b7.ptx",
+      "original_entry": "triton_per_fused_sum_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "874e4acc280128b7bfd306f43ffc1c11d79d7c544a5b573d91137ac8616890a9",
+      "stage": "专家 token 数统计"
+    },
+    {
+      "index": 38,
+      "entry": "moe_kernel_8c94e68c337bf6e4",
+      "ptx": "ptx/8c94e68c337bf6e4.ptx",
+      "original_entry": "_row_id_map_pass_2_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "8c94e68c337bf6e414d1464fa99df20ea82abafdcd359cd66414c375e25da791",
+      "stage": "构造 token 行映射"
+    },
+    {
+      "index": 39,
+      "entry": "moe_kernel_f033468fc6f9ac55",
+      "ptx": "ptx/f033468fc6f9ac55.ptx",
+      "original_entry": "triton_poi_fused_mul_silu_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "f033468fc6f9ac552c2fbd2bd3b9fde9c41fd64c640757336ab7b956c76b5ed3",
+      "stage": "SwiGLU"
+    },
+    {
+      "index": 40,
+      "entry": "moe_kernel_eda9752c30f985cb",
+      "ptx": "ptx/eda9752c30f985cb.ptx",
+      "original_entry": "triton_poi_fused__to_copy_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "eda9752c30f985cb92704f2c760d192816c49cbe61095b27d03a4f7e698e4978",
+      "stage": "输入与路由权重类型转换"
+    },
+    {
+      "index": 41,
+      "entry": "moe_kernel_59145fe90344eeb3",
+      "ptx": "ptx/59145fe90344eeb3.ptx",
+      "original_entry": "triton_tem_fused_mm_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "59145fe90344eeb36c5c4173c4cde7d4fd536243b9eb897c689bcf15d4f42446",
+      "stage": "路由 gating GEMM"
+    },
+    {
+      "index": 42,
+      "entry": "moe_kernel_d567ba21db35de3a",
+      "ptx": "ptx/d567ba21db35de3a.ptx",
+      "original_entry": "triton_poi_fused__softmax_scatter_zeros_like_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "d567ba21db35de3a3b8a0740046c3d5376a76585883dffd3c4065e71084fcf40",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 43,
+      "entry": "moe_kernel_70c142261dbf7d42",
+      "ptx": "ptx/70c142261dbf7d42.ptx",
+      "original_entry": "triton_poi_fused__to_copy_scatter_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "70c142261dbf7d426f5f830760a340013e4e10d80768cc1aeaa9b93e1f869b84",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 44,
+      "entry": "moe_kernel_5564ce3faa31bd81",
+      "ptx": "ptx/5564ce3faa31bd81.ptx",
+      "original_entry": "triton_poi_fused__softmax__to_copy_scatter_zeros_like_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "5564ce3faa31bd8102d1f6b767bbc4909859f61bb4b6d7a6b15fbc7ad79ae36d",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 45,
+      "entry": "moe_kernel_b772016a040a6f6a",
+      "ptx": "ptx/b772016a040a6f6a.ptx",
+      "original_entry": "triton_poi_fused__to_copy_3",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "b772016a040a6f6a2544d76425956afe1766452bf6ddd9d236ce57d3e037e82c",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 46,
+      "entry": "moe_kernel_8ebc07636f7016e4",
+      "ptx": "ptx/8ebc07636f7016e4.ptx",
+      "original_entry": "triton_red_fused_sum_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "8ebc07636f7016e49dc467e39aa4918156a00e863fc3d5135afee72107f615b7",
+      "stage": "专家 token 数统计"
+    },
+    {
+      "index": 47,
+      "entry": "moe_kernel_d497513641746c2a",
+      "ptx": "ptx/d497513641746c2a.ptx",
+      "original_entry": "_row_id_map_pass_2_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "d497513641746c2a9d3a9cdc073ac8ea0d004b3ddcc69cf795318ad360e5469f",
+      "stage": "构造 token 行映射"
+    },
+    {
+      "index": 48,
+      "entry": "moe_kernel_7b049f3a13e0c926",
+      "ptx": "ptx/7b049f3a13e0c926.ptx",
+      "original_entry": "_row_id_map_pass_3_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "7b049f3a13e0c9266678f96ddd53aa7155479ce8cb15d7b1d85c98bc9c38234a",
+      "stage": "构造 token 行映射"
+    },
+    {
+      "index": 49,
+      "entry": "moe_kernel_f8a47d09b6c07489",
+      "ptx": "ptx/f8a47d09b6c07489.ptx",
+      "original_entry": "_permute_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "f8a47d09b6c07489bd58f539a93369dfeb82e307d03786acbbc3c18ac356c6f2",
+      "stage": "按专家重排 token"
+    },
+    {
+      "index": 50,
+      "entry": "moe_kernel_f382d362fada1d9b",
+      "ptx": "ptx/f382d362fada1d9b.ptx",
+      "original_entry": "_make_chunk_sort_map_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "f382d362fada1d9b55666959b4072576816d62925f9f8f0614f79d50b9e29c13",
+      "stage": "chunk 映射与重排"
+    },
+    {
+      "index": 51,
+      "entry": "moe_kernel_829bbe4de5f449bd",
+      "ptx": "ptx/829bbe4de5f449bd.ptx",
+      "original_entry": "_sort_chunks_by_map_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "829bbe4de5f449bd58fdc95bdf2cf58441ef8116a31362f7d271c839354528f5",
+      "stage": "chunk 映射与重排"
+    },
+    {
+      "index": 52,
+      "entry": "moe_kernel_c08a7242ae5027f5",
+      "ptx": "ptx/c08a7242ae5027f5.ptx",
+      "original_entry": "triton_poi_fused_mul_silu_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "c08a7242ae5027f5a9586a05bf4754b79260b57f11e2cd77f0ae7fd2319be7a4",
+      "stage": "SwiGLU"
+    },
+    {
+      "index": 53,
+      "entry": "moe_kernel_9dcc01672ee692a2",
+      "ptx": "ptx/9dcc01672ee692a2.ptx",
+      "original_entry": "_unpermute_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "9dcc01672ee692a257a5a0bd8ef6066bb101dd7269ce85e9208c8474b5097105",
+      "stage": "输出逆重排与加权合并"
+    },
+    {
+      "index": 54,
+      "entry": "moe_kernel_d617e177b975d79c",
+      "ptx": "ptx/d617e177b975d79c.ptx",
+      "original_entry": "triton_tem_fused_mm_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "d617e177b975d79cd1d36c52a1cd6386d900d1a3b3e8dc143ee7da369521d6da",
+      "stage": "路由 gating GEMM"
+    },
+    {
+      "index": 55,
+      "entry": "moe_kernel_36e18b6fa2ea8266",
+      "ptx": "ptx/36e18b6fa2ea8266.ptx",
+      "original_entry": "triton_poi_fused__softmax__to_copy_scatter_zeros_like_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "36e18b6fa2ea82662ffa3689713f2d9b83ecee3fe68766fcbf0553570724d21a",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 56,
+      "entry": "moe_kernel_43a057fefc3e1288",
+      "ptx": "ptx/43a057fefc3e1288.ptx",
+      "original_entry": "triton_red_fused_sum_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "43a057fefc3e12887bca63c7d0420e78749d348c8927c0c593cfb9960873158c",
+      "stage": "专家 token 数统计"
+    },
+    {
+      "index": 57,
+      "entry": "moe_kernel_e5ec00622ee3fc0f",
+      "ptx": "ptx/e5ec00622ee3fc0f.ptx",
+      "original_entry": "triton_per_fused_sum_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "e5ec00622ee3fc0f1000f95c96a33444792755e75d2e02d0a1780d55ae341f13",
+      "stage": "专家 token 数统计"
+    },
+    {
+      "index": 58,
+      "entry": "moe_kernel_1fe01d4c3326bbed",
+      "ptx": "ptx/1fe01d4c3326bbed.ptx",
+      "original_entry": "_permute_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "1fe01d4c3326bbed5bc54054266be2e0f2ba003bd81adc4d4c21238e7460614b",
+      "stage": "按专家重排 token"
+    },
+    {
+      "index": 59,
+      "entry": "moe_kernel_080eab9246a9e166",
+      "ptx": "ptx/080eab9246a9e166.ptx",
+      "original_entry": "triton_poi_fused_mul_silu_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "080eab9246a9e16698990ca60bed1533010f72bfb284107f81313a22105352df",
+      "stage": "SwiGLU"
+    },
+    {
+      "index": 60,
+      "entry": "moe_kernel_cf0a99e09ad4ce9f",
+      "ptx": "ptx/cf0a99e09ad4ce9f.ptx",
+      "original_entry": "_unpermute_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "cf0a99e09ad4ce9f764b21245bec63e8f56c61fd966d2e115c72cc70c694371f",
+      "stage": "输出逆重排与加权合并"
+    },
+    {
+      "index": 61,
+      "entry": "moe_kernel_ef7e959540882802",
+      "ptx": "ptx/ef7e959540882802.ptx",
+      "original_entry": "triton_tem_fused_mm_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "ef7e9595408828020e287bf013bd777131fe669e03f83251882d23023adab802",
+      "stage": "路由 gating GEMM"
+    },
+    {
+      "index": 62,
+      "entry": "moe_kernel_91044d15084671ab",
+      "ptx": "ptx/91044d15084671ab.ptx",
+      "original_entry": "triton_poi_fused__softmax_scatter_zeros_like_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "91044d15084671ab946d8f1024306857a8794d7dacc2db361a57a25edc3e89d4",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 63,
+      "entry": "moe_kernel_dd01ab1b60f96f5e",
+      "ptx": "ptx/dd01ab1b60f96f5e.ptx",
+      "original_entry": "triton_poi_fused__to_copy_scatter_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "dd01ab1b60f96f5e2c185a47a269f0c698476e0f05259d99ce0b179a376d2c06",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 64,
+      "entry": "moe_kernel_0f77e1c592ff33ce",
+      "ptx": "ptx/0f77e1c592ff33ce.ptx",
+      "original_entry": "triton_poi_fused__softmax__to_copy_scatter_zeros_like_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "0f77e1c592ff33ce53f3918ec05931a7e8600f7ba85091d4decf7cd02383aae0",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 65,
+      "entry": "moe_kernel_2c7e9cf01a701169",
+      "ptx": "ptx/2c7e9cf01a701169.ptx",
+      "original_entry": "triton_poi_fused__to_copy_3",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "2c7e9cf01a7011692d3d6a8098acc389a2ceb14e373bbee9faf2a3ca34935ced",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 66,
+      "entry": "moe_kernel_5ee83ea169c92aec",
+      "ptx": "ptx/5ee83ea169c92aec.ptx",
+      "original_entry": "triton_red_fused_sum_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "5ee83ea169c92aec6b2e202c838b4e3fc71434be443f6c2c204dc968bd828881",
+      "stage": "专家 token 数统计"
+    },
+    {
+      "index": 67,
+      "entry": "moe_kernel_c3a4de14a1cad51c",
+      "ptx": "ptx/c3a4de14a1cad51c.ptx",
+      "original_entry": "triton_per_fused_sum_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "c3a4de14a1cad51c8ba98e9cfefe15389e12f4986b3590497682c55760c48376",
+      "stage": "专家 token 数统计"
+    },
+    {
+      "index": 68,
+      "entry": "moe_kernel_c3a2dd5f1d7cde5d",
+      "ptx": "ptx/c3a2dd5f1d7cde5d.ptx",
+      "original_entry": "_row_id_map_pass_2_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "c3a2dd5f1d7cde5d9d46558c06e669cbf1675976089a8878e6be009f5c606d3d",
+      "stage": "构造 token 行映射"
+    },
+    {
+      "index": 69,
+      "entry": "moe_kernel_3d425d5a3ff8b88f",
+      "ptx": "ptx/3d425d5a3ff8b88f.ptx",
+      "original_entry": "triton_poi_fused_mul_silu_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "3d425d5a3ff8b88fdf9fd873452275f84ad9803c479ee89ae0e0e82bce0e3c2e",
+      "stage": "SwiGLU"
+    },
+    {
+      "index": 70,
+      "entry": "moe_kernel_9ca2fcdc351fed1c",
+      "ptx": "ptx/9ca2fcdc351fed1c.ptx",
+      "original_entry": "triton_poi_fused__to_copy_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "9ca2fcdc351fed1cf06cbcb7b7b4da9e6fe42c5fb2a804724815162ce2416f20",
+      "stage": "输入与路由权重类型转换"
+    },
+    {
+      "index": 71,
+      "entry": "moe_kernel_b4d06c15353157e5",
+      "ptx": "ptx/b4d06c15353157e5.ptx",
+      "original_entry": "triton_tem_fused__to_copy_mm_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "b4d06c15353157e5cb403bf97a7a567489081ad2e1b9ccc3252f6fae03128b2f",
+      "stage": "路由 gating GEMM"
+    },
+    {
+      "index": 72,
+      "entry": "moe_kernel_f505cf4dd5edb105",
+      "ptx": "ptx/f505cf4dd5edb105.ptx",
+      "original_entry": "triton_poi_fused__softmax_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "f505cf4dd5edb1058e110134170754696406ec01d89ea71bc81f99052485c5f3",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 73,
+      "entry": "moe_kernel_0c94b6d8d3481a80",
+      "ptx": "ptx/0c94b6d8d3481a80.ptx",
+      "original_entry": "triton_poi_fused__softmax_scatter_zeros_like_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "0c94b6d8d3481a80e84b9f48384175a01022d48cf8bfb252b877615836be77a3",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 74,
+      "entry": "moe_kernel_cfb8d989042ba5df",
+      "ptx": "ptx/cfb8d989042ba5df.ptx",
+      "original_entry": "triton_poi_fused__to_copy_scatter_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "cfb8d989042ba5df6169b9b63ef26e062026bdccf01726959aa216c4f5e6ae67",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 75,
+      "entry": "moe_kernel_45ff4fce81e9bcc8",
+      "ptx": "ptx/45ff4fce81e9bcc8.ptx",
+      "original_entry": "triton_poi_fused__softmax__to_copy_scatter_zeros_like_3",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "45ff4fce81e9bcc85ddd1f0ccd3e5b62a9279da982e857e58d91783230fb9077",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 76,
+      "entry": "moe_kernel_6783f479ece78566",
+      "ptx": "ptx/6783f479ece78566.ptx",
+      "original_entry": "triton_poi_fused__to_copy_4",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "6783f479ece7856663ac6e257cde85a8b01c8991865f69b2bc95136b206d728d",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 77,
+      "entry": "moe_kernel_01074d70bb53382e",
+      "ptx": "ptx/01074d70bb53382e.ptx",
+      "original_entry": "triton_red_fused_sum_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "01074d70bb53382e1596f778ca2b26a811786ac805181cd5799827218c64eea1",
+      "stage": "专家 token 数统计"
+    },
+    {
+      "index": 78,
+      "entry": "moe_kernel_cab47fdb58edf01c",
+      "ptx": "ptx/cab47fdb58edf01c.ptx",
+      "original_entry": "_row_id_map_pass_3_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "cab47fdb58edf01c1d641751f7ed29ef8db46a6680255f1e7046f02332a385a7",
+      "stage": "构造 token 行映射"
+    },
+    {
+      "index": 79,
+      "entry": "moe_kernel_335c53a52dd0b014",
+      "ptx": "ptx/335c53a52dd0b014.ptx",
+      "original_entry": "_permute_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "335c53a52dd0b014556605e9aa49d95601fadec0527edf98bb6a6b67962cabdb",
+      "stage": "按专家重排 token"
+    },
+    {
+      "index": 80,
+      "entry": "moe_kernel_c479f139e809aa8b",
+      "ptx": "ptx/c479f139e809aa8b.ptx",
+      "original_entry": "_make_chunk_sort_map_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "c479f139e809aa8b47829d145b060efda8d98735302f797e177bcd28d283f5bb",
+      "stage": "chunk 映射与重排"
+    },
+    {
+      "index": 81,
+      "entry": "moe_kernel_e9d85ad3f42fd8b0",
+      "ptx": "ptx/e9d85ad3f42fd8b0.ptx",
+      "original_entry": "_sort_chunks_by_map_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "e9d85ad3f42fd8b067216a3c5dff0f30a2570b0354e1887894efd000677181d5",
+      "stage": "chunk 映射与重排"
+    },
+    {
+      "index": 82,
+      "entry": "moe_kernel_69a51306a3621854",
+      "ptx": "ptx/69a51306a3621854.ptx",
+      "original_entry": "triton_poi_fused_mul_silu_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "69a51306a3621854500843f06f34b5ee86ffdbf81826d7452591d5922b34614c",
+      "stage": "SwiGLU"
+    },
+    {
+      "index": 83,
+      "entry": "moe_kernel_4d78f60e03b223a2",
+      "ptx": "ptx/4d78f60e03b223a2.ptx",
+      "original_entry": "_unpermute_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "4d78f60e03b223a2dcb2a716e36b06adef5efee96fe43d1334f3c8c98b289ee6",
+      "stage": "输出逆重排与加权合并"
+    },
+    {
+      "index": 84,
+      "entry": "moe_kernel_896ef1b80766f39a",
+      "ptx": "ptx/896ef1b80766f39a.ptx",
+      "original_entry": "triton_poi_fused__to_copy_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "896ef1b80766f39aa7500935683a617692750dac131e81f360cc01f4aa14f0d3",
+      "stage": "输入与路由权重类型转换"
+    },
+    {
+      "index": 85,
+      "entry": "moe_kernel_69cc84de97944264",
+      "ptx": "ptx/69cc84de97944264.ptx",
+      "original_entry": "triton_poi_fused__to_copy_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "69cc84de979442640e61da7ba72e0b549ab0d1e36e10107e657cea383f359759",
+      "stage": "输入与路由权重类型转换"
+    },
+    {
+      "index": 86,
+      "entry": "moe_kernel_838c032a7a88e7a0",
+      "ptx": "ptx/838c032a7a88e7a0.ptx",
+      "original_entry": "triton_tem_fused_mm_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "838c032a7a88e7a07be68322fcc2a41c4c8f033c8d946af043511a6cc5dbdff3",
+      "stage": "路由 gating GEMM"
+    },
+    {
+      "index": 87,
+      "entry": "moe_kernel_4dd08421cbd97ede",
+      "ptx": "ptx/4dd08421cbd97ede.ptx",
+      "original_entry": "triton_poi_fused__softmax_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "4dd08421cbd97ede6d14a1cb51290f76e3d2d5709622a7649598783e77695649",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 88,
+      "entry": "moe_kernel_53665f02e8884b48",
+      "ptx": "ptx/53665f02e8884b48.ptx",
+      "original_entry": "triton_poi_fused__softmax_scatter_zeros_like_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "53665f02e8884b48aa22f9aff171d6967ddeef8a29e836a4a5932749bfac5ad0",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 89,
+      "entry": "moe_kernel_1775a8b46491e582",
+      "ptx": "ptx/1775a8b46491e582.ptx",
+      "original_entry": "triton_poi_fused__to_copy_scatter_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "1775a8b46491e582b57548a351888f7abbbbe0d3c3f4d203135003cc84932ae4",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 90,
+      "entry": "moe_kernel_3e060b250c9c0eaa",
+      "ptx": "ptx/3e060b250c9c0eaa.ptx",
+      "original_entry": "triton_poi_fused__softmax__to_copy_scatter_zeros_like_3",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "3e060b250c9c0eaafcf368e9764371a485bd763bb42e6d70788fb5366e8e46a8",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 91,
+      "entry": "moe_kernel_0d3fa1d540e73560",
+      "ptx": "ptx/0d3fa1d540e73560.ptx",
+      "original_entry": "triton_poi_fused__to_copy_4",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "0d3fa1d540e73560c9f6875f409ea537b9b52e58c6ffb738cd10bf7478b09e37",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 92,
+      "entry": "moe_kernel_fccfe921542d9ceb",
+      "ptx": "ptx/fccfe921542d9ceb.ptx",
+      "original_entry": "triton_red_fused_sum_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "fccfe921542d9ceb4839da95c634ccc528f603ef3c221b6fbca9b900853d2bb6",
+      "stage": "专家 token 数统计"
+    },
+    {
+      "index": 93,
+      "entry": "moe_kernel_c77767d694ecf2ec",
+      "ptx": "ptx/c77767d694ecf2ec.ptx",
+      "original_entry": "triton_per_fused_sum_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "c77767d694ecf2ecd78e39dbae55db0e46890190e006454c204328b70d2b1bc3",
+      "stage": "专家 token 数统计"
+    },
+    {
+      "index": 94,
+      "entry": "moe_kernel_1fcdae4b81ca74a4",
+      "ptx": "ptx/1fcdae4b81ca74a4.ptx",
+      "original_entry": "_row_id_map_pass_2_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "1fcdae4b81ca74a48e2b35ede65380d0a5ac029d1c7dee9a06e233c5a277da8b",
+      "stage": "构造 token 行映射"
+    },
+    {
+      "index": 95,
+      "entry": "moe_kernel_25a9e0b60fb37228",
+      "ptx": "ptx/25a9e0b60fb37228.ptx",
+      "original_entry": "_permute_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "25a9e0b60fb372281e9246020b8c038cfc92601a9c69803bd6d70dadebd539b0",
+      "stage": "按专家重排 token"
+    },
+    {
+      "index": 96,
+      "entry": "moe_kernel_6111d03e4948ce2e",
+      "ptx": "ptx/6111d03e4948ce2e.ptx",
+      "original_entry": "_sort_chunks_by_map_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "6111d03e4948ce2e8db880c92474c5313eda7e6f8b7daf3c753796d1151ce8c9",
+      "stage": "chunk 映射与重排"
+    },
+    {
+      "index": 97,
+      "entry": "moe_kernel_8f7985f0f37e7b00",
+      "ptx": "ptx/8f7985f0f37e7b00.ptx",
+      "original_entry": "triton_poi_fused_mul_silu_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "8f7985f0f37e7b00976b86e4eb66f7dda246682a9e757078c98573f3933e0cbb",
+      "stage": "SwiGLU"
+    },
+    {
+      "index": 98,
+      "entry": "moe_kernel_ac10839130b06565",
+      "ptx": "ptx/ac10839130b06565.ptx",
+      "original_entry": "_unpermute_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "ac10839130b06565b35d3d56fb5d95d092d1dfb35eefceb14a75e56148d44e77",
+      "stage": "输出逆重排与加权合并"
+    },
+    {
+      "index": 99,
+      "entry": "moe_kernel_4ebef89fddede208",
+      "ptx": "ptx/4ebef89fddede208.ptx",
+      "original_entry": "triton_tem_fused_mm_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "4ebef89fddede20817ebf11082c84c2beba927adcf5d59df9a4307ab895a7db9",
+      "stage": "路由 gating GEMM"
+    },
+    {
+      "index": 100,
+      "entry": "moe_kernel_bfebfa6c25a1e9b9",
+      "ptx": "ptx/bfebfa6c25a1e9b9.ptx",
+      "original_entry": "triton_poi_fused__softmax_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "bfebfa6c25a1e9b95266800e0f7e20b0151ec7107d4d279c3319578cdc699f4d",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 101,
+      "entry": "moe_kernel_8c3498e8360725be",
+      "ptx": "ptx/8c3498e8360725be.ptx",
+      "original_entry": "triton_poi_fused__softmax_scatter_zeros_like_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "8c3498e8360725beab117c2e790baad7f70ddef7c6867d2d20b4458915710fac",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 102,
+      "entry": "moe_kernel_05c23589eb90845d",
+      "ptx": "ptx/05c23589eb90845d.ptx",
+      "original_entry": "triton_poi_fused__to_copy_scatter_2",
+      "parameter_words": [
+        [
+          0,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "05c23589eb90845d339f90e11bf8ef75c76f36399bdd1004464b72e4beb90f55",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 103,
+      "entry": "moe_kernel_13feaf4f46a3800d",
+      "ptx": "ptx/13feaf4f46a3800d.ptx",
+      "original_entry": "triton_poi_fused__softmax__to_copy_scatter_zeros_like_3",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "13feaf4f46a3800dbec5917f6813d898d596fb577c4f95c87d288ad28b52c811",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 104,
+      "entry": "moe_kernel_36846f3678feb0f8",
+      "ptx": "ptx/36846f3678feb0f8.ptx",
+      "original_entry": "triton_poi_fused__to_copy_4",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "36846f3678feb0f84e24a1e8afcf72df78508bc0b9979acbf814410c43d44169",
+      "stage": "softmax、稀疏路由及后处理转换"
+    },
+    {
+      "index": 105,
+      "entry": "moe_kernel_7327fa5c20c77d3a",
+      "ptx": "ptx/7327fa5c20c77d3a.ptx",
+      "original_entry": "triton_red_fused_sum_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "7327fa5c20c77d3a94793aeb3c17c52508cc6ea1640da0d85cd78d30cf4c01fa",
+      "stage": "专家 token 数统计"
+    },
+    {
+      "index": 106,
+      "entry": "moe_kernel_647c5fa6ac891eff",
+      "ptx": "ptx/647c5fa6ac891eff.ptx",
+      "original_entry": "triton_per_fused_sum_1",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "647c5fa6ac891eff49ecbd10a55692e71dcc40dc0caf6516b731ae033640fa46",
+      "stage": "专家 token 数统计"
+    },
+    {
+      "index": 107,
+      "entry": "moe_kernel_cdf2077a76c3d46b",
+      "ptx": "ptx/cdf2077a76c3d46b.ptx",
+      "original_entry": "_row_id_map_pass_2_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "cdf2077a76c3d46bb62d0a4cc162a8114a2c4e0d4983d0bc027b16ae34880ff6",
+      "stage": "构造 token 行映射"
+    },
+    {
+      "index": 108,
+      "entry": "moe_kernel_f0f55f7bdb6f17b7",
+      "ptx": "ptx/f0f55f7bdb6f17b7.ptx",
+      "original_entry": "_permute_kernel",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "f0f55f7bdb6f17b7f498345b8c65b855500af74e7ce81d59ea3f20fb5a8ce862",
+      "stage": "按专家重排 token"
+    },
+    {
+      "index": 109,
+      "entry": "moe_kernel_9cb3c7771ae8423a",
+      "ptx": "ptx/9cb3c7771ae8423a.ptx",
+      "original_entry": "triton_poi_fused_mul_silu_0",
+      "parameter_words": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "original_version": "8.4",
+      "source_sha256": "9cb3c7771ae8423a8e53d5323082d99cb72dc4109f8243c42980fed34ef2ad39",
+      "stage": "SwiGLU"
+    }
+  ],
+  "cases": [
+    {
+      "name": "mixtral-t128",
+      "framework": {
+        "case": "mixtral",
+        "parameters": {
+          "name": "mixtral",
+          "description": "MoE-Hub Mixtral 8x7B single-layer profile",
+          "hidden": 4096,
+          "intermediate": 14336,
+          "experts": 8,
+          "top_k": 2,
+          "seed": 2026,
+          "tokens": 128
+        },
+        "torch": "2.7.0a0+79aa17489c.nv25.04",
+        "cuda": "12.9",
+        "megatron_core": "0.12.0",
+        "transformer_engine": "2.9.0",
+        "cutlass_requested": true,
+        "compile_front_end": true,
+        "warmup": 3,
+        "iterations": 10,
+        "repeats": 3,
+        "cuda_event_ms_samples": [
+          1.3295840263366698,
+          1.3214400291442872,
+          1.3245023727416991
+        ],
+        "cuda_event_ms": 1.3245023727416991,
+        "framework_source_sha256": {
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/moe_layer.py": "344fa1ececfee30eb58a2354526d3ce4c7e3394a79a8a6d8de12589c1380b9dc",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/router.py": "aa2d5f3ec17f220388340c2df05dd41cc3e859320e3d4d1bd7611c414fef30a4",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/experts.py": "820b94d5b650af869892ce92a6eaaee1cc6e81d509812454a20f41248f2d1df6",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/token_dispatcher.py": "2a3f0654f56511480eae55772e472ecaab1665538b2973dd18a76025991b371a",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/extensions/transformer_engine.py": "1df9bf521bc56d55e515179c655b109fed252802781ecac669792d20cb0b5a7f"
+        }
+      },
+      "forward_sha256": "fbfd34366b99dbae592e995a0308fbe4be4e1ea78ef19081b588b2ae3a0d3a6e",
+      "reference_sha256": "5bff56ebcb5f87c5efb9afe0cba6e876b48e4e52ea13be9f7ff1c60fdbb08602",
+      "launches": 22,
+      "module_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        16,
+        14,
+        15,
+        18
+      ],
+      "allocation_bytes": 3112173632
+    },
+    {
+      "name": "mixtral-t4096",
+      "framework": {
+        "case": "mixtral",
+        "parameters": {
+          "name": "mixtral",
+          "description": "MoE-Hub Mixtral 8x7B single-layer profile",
+          "hidden": 4096,
+          "intermediate": 14336,
+          "experts": 8,
+          "top_k": 2,
+          "seed": 2026,
+          "tokens": 4096
+        },
+        "torch": "2.7.0a0+79aa17489c.nv25.04",
+        "cuda": "12.9",
+        "megatron_core": "0.12.0",
+        "transformer_engine": "2.9.0",
+        "cutlass_requested": true,
+        "compile_front_end": true,
+        "warmup": 3,
+        "iterations": 10,
+        "repeats": 3,
+        "cuda_event_ms_samples": [
+          5.979539108276367,
+          6.000976181030273,
+          6.004444885253906
+        ],
+        "cuda_event_ms": 6.000976181030273,
+        "framework_source_sha256": {
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/moe_layer.py": "344fa1ececfee30eb58a2354526d3ce4c7e3394a79a8a6d8de12589c1380b9dc",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/router.py": "aa2d5f3ec17f220388340c2df05dd41cc3e859320e3d4d1bd7611c414fef30a4",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/experts.py": "820b94d5b650af869892ce92a6eaaee1cc6e81d509812454a20f41248f2d1df6",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/token_dispatcher.py": "2a3f0654f56511480eae55772e472ecaab1665538b2973dd18a76025991b371a",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/extensions/transformer_engine.py": "1df9bf521bc56d55e515179c655b109fed252802781ecac669792d20cb0b5a7f"
+        }
+      },
+      "forward_sha256": "375f091fefcdc6d05438118124968bbc87aa898cb1650f5f8dbe7677e1e63dec",
+      "reference_sha256": "7bc2a560bde769c83621d10efb453e28d3a184796550850f17784aac74d9fc16",
+      "launches": 23,
+      "module_ids": [
+        19,
+        1,
+        20,
+        3,
+        4,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        10,
+        27,
+        12,
+        13,
+        14,
+        15,
+        16,
+        28,
+        16,
+        14,
+        15,
+        29
+      ],
+      "allocation_bytes": 4162846784
+    },
+    {
+      "name": "mixtral-t8192",
+      "framework": {
+        "case": "mixtral",
+        "parameters": {
+          "name": "mixtral",
+          "description": "MoE-Hub Mixtral 8x7B single-layer profile",
+          "hidden": 4096,
+          "intermediate": 14336,
+          "experts": 8,
+          "top_k": 2,
+          "seed": 2026,
+          "tokens": 8192
+        },
+        "torch": "2.7.0a0+79aa17489c.nv25.04",
+        "cuda": "12.9",
+        "megatron_core": "0.12.0",
+        "transformer_engine": "2.9.0",
+        "cutlass_requested": true,
+        "compile_front_end": true,
+        "warmup": 3,
+        "iterations": 10,
+        "repeats": 3,
+        "cuda_event_ms_samples": [
+          10.620611572265625,
+          10.545625305175781,
+          10.477164459228515
+        ],
+        "cuda_event_ms": 10.545625305175781,
+        "framework_source_sha256": {
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/moe_layer.py": "344fa1ececfee30eb58a2354526d3ce4c7e3394a79a8a6d8de12589c1380b9dc",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/router.py": "aa2d5f3ec17f220388340c2df05dd41cc3e859320e3d4d1bd7611c414fef30a4",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/experts.py": "820b94d5b650af869892ce92a6eaaee1cc6e81d509812454a20f41248f2d1df6",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/token_dispatcher.py": "2a3f0654f56511480eae55772e472ecaab1665538b2973dd18a76025991b371a",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/extensions/transformer_engine.py": "1df9bf521bc56d55e515179c655b109fed252802781ecac669792d20cb0b5a7f"
+        }
+      },
+      "forward_sha256": "372049743575651e0d99254cfd75df6226b201da3bd26e55a5355e294595189a",
+      "reference_sha256": "55078e96db9a438b0f031d9396d648d7d2068f92e579b7d8811c663e3f3496ab",
+      "launches": 23,
+      "module_ids": [
+        30,
+        1,
+        31,
+        3,
+        4,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        10,
+        38,
+        12,
+        13,
+        14,
+        15,
+        16,
+        39,
+        16,
+        14,
+        15,
+        29
+      ],
+      "allocation_bytes": 4833935424
+    },
+    {
+      "name": "phi-t128",
+      "framework": {
+        "case": "phi",
+        "parameters": {
+          "name": "phi",
+          "description": "MoE-Hub Phi-3.5-MoE single-layer profile",
+          "hidden": 4096,
+          "intermediate": 6400,
+          "experts": 16,
+          "top_k": 2,
+          "seed": 2026,
+          "tokens": 128
+        },
+        "torch": "2.7.0a0+79aa17489c.nv25.04",
+        "cuda": "12.9",
+        "megatron_core": "0.12.0",
+        "transformer_engine": "2.9.0",
+        "cutlass_requested": true,
+        "compile_front_end": true,
+        "warmup": 3,
+        "iterations": 10,
+        "repeats": 3,
+        "cuda_event_ms_samples": [
+          1.3467007637023927,
+          1.4161503791809082,
+          1.488105583190918
+        ],
+        "cuda_event_ms": 1.4161503791809082,
+        "framework_source_sha256": {
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/moe_layer.py": "344fa1ececfee30eb58a2354526d3ce4c7e3394a79a8a6d8de12589c1380b9dc",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/router.py": "aa2d5f3ec17f220388340c2df05dd41cc3e859320e3d4d1bd7611c414fef30a4",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/experts.py": "820b94d5b650af869892ce92a6eaaee1cc6e81d509812454a20f41248f2d1df6",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/token_dispatcher.py": "2a3f0654f56511480eae55772e472ecaab1665538b2973dd18a76025991b371a",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/extensions/transformer_engine.py": "1df9bf521bc56d55e515179c655b109fed252802781ecac669792d20cb0b5a7f"
+        }
+      },
+      "forward_sha256": "bcf6c1892c479c3a62edc58f0e82c451a8841a3eac058fcffd7f9ebbec979ca9",
+      "reference_sha256": "9fb2b82a743162355e9729c4e532b9be6457de3b279a2f2361e4e83c5ce2ca0d",
+      "launches": 22,
+      "module_ids": [
+        0,
+        40,
+        41,
+        3,
+        4,
+        42,
+        43,
+        44,
+        45,
+        46,
+        10,
+        47,
+        48,
+        49,
+        50,
+        51,
+        16,
+        52,
+        16,
+        50,
+        51,
+        53
+      ],
+      "allocation_bytes": 2810183808
+    },
+    {
+      "name": "phi-t4096",
+      "framework": {
+        "case": "phi",
+        "parameters": {
+          "name": "phi",
+          "description": "MoE-Hub Phi-3.5-MoE single-layer profile",
+          "hidden": 4096,
+          "intermediate": 6400,
+          "experts": 16,
+          "top_k": 2,
+          "seed": 2026,
+          "tokens": 4096
+        },
+        "torch": "2.7.0a0+79aa17489c.nv25.04",
+        "cuda": "12.9",
+        "megatron_core": "0.12.0",
+        "transformer_engine": "2.9.0",
+        "cutlass_requested": true,
+        "compile_front_end": true,
+        "warmup": 3,
+        "iterations": 10,
+        "repeats": 3,
+        "cuda_event_ms_samples": [
+          3.600777435302734,
+          3.1996223449707033,
+          3.203657531738281
+        ],
+        "cuda_event_ms": 3.203657531738281,
+        "framework_source_sha256": {
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/moe_layer.py": "344fa1ececfee30eb58a2354526d3ce4c7e3394a79a8a6d8de12589c1380b9dc",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/router.py": "aa2d5f3ec17f220388340c2df05dd41cc3e859320e3d4d1bd7611c414fef30a4",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/experts.py": "820b94d5b650af869892ce92a6eaaee1cc6e81d509812454a20f41248f2d1df6",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/token_dispatcher.py": "2a3f0654f56511480eae55772e472ecaab1665538b2973dd18a76025991b371a",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/extensions/transformer_engine.py": "1df9bf521bc56d55e515179c655b109fed252802781ecac669792d20cb0b5a7f"
+        }
+      },
+      "forward_sha256": "381077649766d279e736788400e5f66e3773aa2d72e1be99e85ad281ad648df8",
+      "reference_sha256": "cf8ba0617743e72320df6887fb804bd50e91ebab68e22fb8c1527446383a272d",
+      "launches": 23,
+      "module_ids": [
+        19,
+        40,
+        54,
+        3,
+        4,
+        32,
+        33,
+        55,
+        35,
+        56,
+        57,
+        10,
+        38,
+        48,
+        58,
+        50,
+        15,
+        16,
+        59,
+        16,
+        50,
+        15,
+        60
+      ],
+      "allocation_bytes": 3357540480
+    },
+    {
+      "name": "phi-t8192",
+      "framework": {
+        "case": "phi",
+        "parameters": {
+          "name": "phi",
+          "description": "MoE-Hub Phi-3.5-MoE single-layer profile",
+          "hidden": 4096,
+          "intermediate": 6400,
+          "experts": 16,
+          "top_k": 2,
+          "seed": 2026,
+          "tokens": 8192
+        },
+        "torch": "2.7.0a0+79aa17489c.nv25.04",
+        "cuda": "12.9",
+        "megatron_core": "0.12.0",
+        "transformer_engine": "2.9.0",
+        "cutlass_requested": true,
+        "compile_front_end": true,
+        "warmup": 3,
+        "iterations": 10,
+        "repeats": 3,
+        "cuda_event_ms_samples": [
+          5.693711853027343,
+          5.696310424804688,
+          5.6940673828125
+        ],
+        "cuda_event_ms": 5.6940673828125,
+        "framework_source_sha256": {
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/moe_layer.py": "344fa1ececfee30eb58a2354526d3ce4c7e3394a79a8a6d8de12589c1380b9dc",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/router.py": "aa2d5f3ec17f220388340c2df05dd41cc3e859320e3d4d1bd7611c414fef30a4",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/experts.py": "820b94d5b650af869892ce92a6eaaee1cc6e81d509812454a20f41248f2d1df6",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/token_dispatcher.py": "2a3f0654f56511480eae55772e472ecaab1665538b2973dd18a76025991b371a",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/extensions/transformer_engine.py": "1df9bf521bc56d55e515179c655b109fed252802781ecac669792d20cb0b5a7f"
+        }
+      },
+      "forward_sha256": "8e5bce30889ff82dfee94fca9f2757ae7fe0fea03cc4614be3f79e3d53dee8dd",
+      "reference_sha256": "fedef9123a1d8b34dd0dea76f72565895101dbe4ac1258174a9a2aaf7d22d25b",
+      "launches": 23,
+      "module_ids": [
+        30,
+        40,
+        61,
+        3,
+        4,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        10,
+        68,
+        48,
+        58,
+        50,
+        15,
+        16,
+        69,
+        16,
+        50,
+        15,
+        60
+      ],
+      "allocation_bytes": 3888119936
+    },
+    {
+      "name": "qwen64-t128",
+      "framework": {
+        "case": "qwen64",
+        "parameters": {
+          "name": "qwen64",
+          "description": "MoE-Hub Qwen profile: 64 routed experts, no shared expert",
+          "hidden": 2048,
+          "intermediate": 1408,
+          "experts": 64,
+          "top_k": 4,
+          "seed": 2026,
+          "tokens": 128
+        },
+        "torch": "2.7.0a0+79aa17489c.nv25.04",
+        "cuda": "12.9",
+        "megatron_core": "0.12.0",
+        "transformer_engine": "2.9.0",
+        "cutlass_requested": true,
+        "compile_front_end": true,
+        "warmup": 3,
+        "iterations": 10,
+        "repeats": 3,
+        "cuda_event_ms_samples": [
+          1.6513216018676757,
+          1.735968017578125,
+          1.742518424987793
+        ],
+        "cuda_event_ms": 1.735968017578125,
+        "framework_source_sha256": {
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/moe_layer.py": "344fa1ececfee30eb58a2354526d3ce4c7e3394a79a8a6d8de12589c1380b9dc",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/router.py": "aa2d5f3ec17f220388340c2df05dd41cc3e859320e3d4d1bd7611c414fef30a4",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/experts.py": "820b94d5b650af869892ce92a6eaaee1cc6e81d509812454a20f41248f2d1df6",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/token_dispatcher.py": "2a3f0654f56511480eae55772e472ecaab1665538b2973dd18a76025991b371a",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/extensions/transformer_engine.py": "1df9bf521bc56d55e515179c655b109fed252802781ecac669792d20cb0b5a7f"
+        }
+      },
+      "forward_sha256": "1449b327a7cab2cd674b9e8dcdb4e7f7126ee876c478e4a7e057a81e14c875ae",
+      "reference_sha256": "5c4477caa74a0bf5915e1dbcaa5c5996a357ec7bfa422ec8b36e3223517bb9f6",
+      "launches": 22,
+      "module_ids": [
+        70,
+        71,
+        3,
+        4,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        10,
+        38,
+        78,
+        79,
+        80,
+        81,
+        16,
+        82,
+        16,
+        80,
+        81,
+        83
+      ],
+      "allocation_bytes": 1537212928
+    },
+    {
+      "name": "qwen64-t4096",
+      "framework": {
+        "case": "qwen64",
+        "parameters": {
+          "name": "qwen64",
+          "description": "MoE-Hub Qwen profile: 64 routed experts, no shared expert",
+          "hidden": 2048,
+          "intermediate": 1408,
+          "experts": 64,
+          "top_k": 4,
+          "seed": 2026,
+          "tokens": 4096
+        },
+        "torch": "2.7.0a0+79aa17489c.nv25.04",
+        "cuda": "12.9",
+        "megatron_core": "0.12.0",
+        "transformer_engine": "2.9.0",
+        "cutlass_requested": true,
+        "compile_front_end": true,
+        "warmup": 3,
+        "iterations": 10,
+        "repeats": 3,
+        "cuda_event_ms_samples": [
+          1.771401596069336,
+          1.8682111740112304,
+          1.6929471969604493
+        ],
+        "cuda_event_ms": 1.771401596069336,
+        "framework_source_sha256": {
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/moe_layer.py": "344fa1ececfee30eb58a2354526d3ce4c7e3394a79a8a6d8de12589c1380b9dc",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/router.py": "aa2d5f3ec17f220388340c2df05dd41cc3e859320e3d4d1bd7611c414fef30a4",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/experts.py": "820b94d5b650af869892ce92a6eaaee1cc6e81d509812454a20f41248f2d1df6",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/token_dispatcher.py": "2a3f0654f56511480eae55772e472ecaab1665538b2973dd18a76025991b371a",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/extensions/transformer_engine.py": "1df9bf521bc56d55e515179c655b109fed252802781ecac669792d20cb0b5a7f"
+        }
+      },
+      "forward_sha256": "d8448fbad88c3fa443ed977c5f5428531d9ec50ad4ed9205ab249bf25cf846c2",
+      "reference_sha256": "41bb8c345a599c7edce2854bace52f43b6bbb488d1b0b1f8835b050e2e7a91a2",
+      "launches": 24,
+      "module_ids": [
+        84,
+        85,
+        86,
+        3,
+        4,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        10,
+        94,
+        78,
+        95,
+        80,
+        96,
+        16,
+        97,
+        16,
+        80,
+        96,
+        98
+      ],
+      "allocation_bytes": 1927283200
+    },
+    {
+      "name": "qwen64-t8192",
+      "framework": {
+        "case": "qwen64",
+        "parameters": {
+          "name": "qwen64",
+          "description": "MoE-Hub Qwen profile: 64 routed experts, no shared expert",
+          "hidden": 2048,
+          "intermediate": 1408,
+          "experts": 64,
+          "top_k": 4,
+          "seed": 2026,
+          "tokens": 8192
+        },
+        "torch": "2.7.0a0+79aa17489c.nv25.04",
+        "cuda": "12.9",
+        "megatron_core": "0.12.0",
+        "transformer_engine": "2.9.0",
+        "cutlass_requested": true,
+        "compile_front_end": true,
+        "warmup": 3,
+        "iterations": 10,
+        "repeats": 3,
+        "cuda_event_ms_samples": [
+          2.0760927200317383,
+          2.072870445251465,
+          2.073740768432617
+        ],
+        "cuda_event_ms": 2.073740768432617,
+        "framework_source_sha256": {
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/moe_layer.py": "344fa1ececfee30eb58a2354526d3ce4c7e3394a79a8a6d8de12589c1380b9dc",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/router.py": "aa2d5f3ec17f220388340c2df05dd41cc3e859320e3d4d1bd7611c414fef30a4",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/experts.py": "820b94d5b650af869892ce92a6eaaee1cc6e81d509812454a20f41248f2d1df6",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/transformer/moe/token_dispatcher.py": "2a3f0654f56511480eae55772e472ecaab1665538b2973dd18a76025991b371a",
+          "/usr/local/lib/python3.12/dist-packages/megatron/core/extensions/transformer_engine.py": "1df9bf521bc56d55e515179c655b109fed252802781ecac669792d20cb0b5a7f"
+        }
+      },
+      "forward_sha256": "f4704ccf3de0ab768ce6b20910f21e91deedab2b14ade70841faeb7403852a01",
+      "reference_sha256": "ef7b73c82943db714a05edaf3c62f67a2823dd80bfa81c259fc9edbba851dc86",
+      "launches": 24,
+      "module_ids": [
+        19,
+        85,
+        99,
+        3,
+        4,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        10,
+        107,
+        78,
+        108,
+        80,
+        96,
+        16,
+        109,
+        16,
+        80,
+        96,
+        98
+      ],
+      "allocation_bytes": 2308964864
+    }
+  ],
+  "mode": "execute original framework PTX on fixed input/routing; no SASS replay",
+  "binary_sha256": "5ea9c21f75cd8bc92912c0125a48d0216e8e4b7181728e31e114cc20ca34a905",
+  "original_manifest_sha256": "ec9f030e257ed7e782d9f95549542c2ff5cd221acbf3727f4d3da7cd8f30aa68"
+}

@@ -1,0 +1,18 @@
+{
+  "case": "mixtral-t8192",
+  "exit_code": 0,
+  "cuda_event_ms": 13.6724,
+  "cuda_event_ms_samples": [
+    13.6724
+  ],
+  "iterations": 1,
+  "warmup": 0,
+  "repeats": 1,
+  "framework_kernels": true,
+  "elements": 33554432,
+  "bitwise_equal": true,
+  "different_elements": 0,
+  "max_abs": 0.0,
+  "output_sha256": "11cc83df949040a20e0bd7a2eee70d8a6e83620245b96d6642c02471a2e175b4",
+  "mode": "cold"
+}

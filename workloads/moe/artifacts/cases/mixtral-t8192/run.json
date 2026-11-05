@@ -1,0 +1,23 @@
+{
+  "workload": "mixtral-t8192",
+  "mode": "native",
+  "state": "completed",
+  "exit_code": 0,
+  "parameters": {
+    "name": "mixtral",
+    "description": "MoE-Hub Mixtral 8x7B single-layer profile",
+    "hidden": 4096,
+    "intermediate": 14336,
+    "experts": 8,
+    "top_k": 2,
+    "seed": 2026,
+    "tokens": 8192
+  },
+  "warmup": 0,
+  "iterations": 1,
+  "repeats": 1,
+  "binary_sha256": "5ea9c21f75cd8bc92912c0125a48d0216e8e4b7181728e31e114cc20ca34a905",
+  "forward_sha256": "372049743575651e0d99254cfd75df6226b201da3bd26e55a5355e294595189a",
+  "source_summary": "evidence/h100-validation.json",
+  "reference_storage": "BF16; expanded F32 SHA256 equals measured H100 output"
+}

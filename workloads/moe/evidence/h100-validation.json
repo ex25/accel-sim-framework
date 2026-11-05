@@ -1,0 +1,409 @@
+{
+  "state": "passed",
+  "binary_sha256": "5ea9c21f75cd8bc92912c0125a48d0216e8e4b7181728e31e114cc20ca34a905",
+  "suite_source_sha256": "294c56d4d57cfff63368f10fd6fc123939940d9851eaf4240596053a01e72937",
+  "workloads_sha256": "ec9f030e257ed7e782d9f95549542c2ff5cd221acbf3727f4d3da7cd8f30aa68",
+  "device": "NVIDIA H100 80GB HBM3, 610.57.04, 81559 MiB",
+  "checks": [
+    {
+      "case": "mixtral-t128",
+      "exit_code": 0,
+      "cuda_event_ms": 4.40438,
+      "cuda_event_ms_samples": [
+        4.40438
+      ],
+      "iterations": 1,
+      "warmup": 0,
+      "repeats": 1,
+      "framework_kernels": true,
+      "elements": 524288,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "02cb7c8b1e800efa34e6930aceb2c3db26bd475b4677d67f6f0fe990d56cad71",
+      "mode": "cold"
+    },
+    {
+      "case": "mixtral-t128",
+      "exit_code": 0,
+      "cuda_event_ms": 1.1751,
+      "cuda_event_ms_samples": [
+        1.1751,
+        1.17659,
+        1.17446
+      ],
+      "iterations": 10,
+      "warmup": 3,
+      "repeats": 3,
+      "framework_kernels": true,
+      "elements": 524288,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "02cb7c8b1e800efa34e6930aceb2c3db26bd475b4677d67f6f0fe990d56cad71",
+      "mode": "warm"
+    },
+    {
+      "case": "mixtral-t4096",
+      "exit_code": 0,
+      "cuda_event_ms": 15.4334,
+      "cuda_event_ms_samples": [
+        15.4334
+      ],
+      "iterations": 1,
+      "warmup": 0,
+      "repeats": 1,
+      "framework_kernels": true,
+      "elements": 16777216,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "4aaffb4b5f6afb4cad42d4ee1ebed71e45d5fd7001dbebc1489dc13d2d05ca15",
+      "mode": "cold"
+    },
+    {
+      "case": "mixtral-t4096",
+      "exit_code": 0,
+      "cuda_event_ms": 5.90113,
+      "cuda_event_ms_samples": [
+        5.88867,
+        5.90113,
+        5.90969
+      ],
+      "iterations": 10,
+      "warmup": 3,
+      "repeats": 3,
+      "framework_kernels": true,
+      "elements": 16777216,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "4aaffb4b5f6afb4cad42d4ee1ebed71e45d5fd7001dbebc1489dc13d2d05ca15",
+      "mode": "warm"
+    },
+    {
+      "case": "mixtral-t8192",
+      "exit_code": 0,
+      "cuda_event_ms": 13.6724,
+      "cuda_event_ms_samples": [
+        13.6724
+      ],
+      "iterations": 1,
+      "warmup": 0,
+      "repeats": 1,
+      "framework_kernels": true,
+      "elements": 33554432,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "11cc83df949040a20e0bd7a2eee70d8a6e83620245b96d6642c02471a2e175b4",
+      "mode": "cold"
+    },
+    {
+      "case": "mixtral-t8192",
+      "exit_code": 0,
+      "cuda_event_ms": 10.5513,
+      "cuda_event_ms_samples": [
+        10.5513,
+        10.5479,
+        10.6139
+      ],
+      "iterations": 10,
+      "warmup": 3,
+      "repeats": 3,
+      "framework_kernels": true,
+      "elements": 33554432,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "11cc83df949040a20e0bd7a2eee70d8a6e83620245b96d6642c02471a2e175b4",
+      "mode": "warm"
+    },
+    {
+      "case": "phi-t128",
+      "exit_code": 0,
+      "cuda_event_ms": 9.10432,
+      "cuda_event_ms_samples": [
+        9.10432
+      ],
+      "iterations": 1,
+      "warmup": 0,
+      "repeats": 1,
+      "framework_kernels": true,
+      "elements": 524288,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "0138914e38fa6a904aa9b22bf88f5bd270e1de2386740af084aa323beab7d8be",
+      "mode": "cold"
+    },
+    {
+      "case": "phi-t128",
+      "exit_code": 0,
+      "cuda_event_ms": 1.07868,
+      "cuda_event_ms_samples": [
+        1.08022,
+        1.07868,
+        1.07856
+      ],
+      "iterations": 10,
+      "warmup": 3,
+      "repeats": 3,
+      "framework_kernels": true,
+      "elements": 524288,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "0138914e38fa6a904aa9b22bf88f5bd270e1de2386740af084aa323beab7d8be",
+      "mode": "warm"
+    },
+    {
+      "case": "phi-t4096",
+      "exit_code": 0,
+      "cuda_event_ms": 8.66208,
+      "cuda_event_ms_samples": [
+        8.66208
+      ],
+      "iterations": 1,
+      "warmup": 0,
+      "repeats": 1,
+      "framework_kernels": true,
+      "elements": 16777216,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "1f12c24167c3556d45af44e2474c0aceff83e93be0242df3c0a6003ac67b30c3",
+      "mode": "cold"
+    },
+    {
+      "case": "phi-t4096",
+      "exit_code": 0,
+      "cuda_event_ms": 3.05371,
+      "cuda_event_ms_samples": [
+        3.05371,
+        3.05063,
+        3.06428
+      ],
+      "iterations": 10,
+      "warmup": 3,
+      "repeats": 3,
+      "framework_kernels": true,
+      "elements": 16777216,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "1f12c24167c3556d45af44e2474c0aceff83e93be0242df3c0a6003ac67b30c3",
+      "mode": "warm"
+    },
+    {
+      "case": "phi-t8192",
+      "exit_code": 0,
+      "cuda_event_ms": 25.7393,
+      "cuda_event_ms_samples": [
+        25.7393
+      ],
+      "iterations": 1,
+      "warmup": 0,
+      "repeats": 1,
+      "framework_kernels": true,
+      "elements": 33554432,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "7d279ee9fef920c0910547880b483b40a982025e7e33735fbb8929c16922ed48",
+      "mode": "cold"
+    },
+    {
+      "case": "phi-t8192",
+      "exit_code": 0,
+      "cuda_event_ms": 5.6115,
+      "cuda_event_ms_samples": [
+        5.6115,
+        5.61304,
+        5.60358
+      ],
+      "iterations": 10,
+      "warmup": 3,
+      "repeats": 3,
+      "framework_kernels": true,
+      "elements": 33554432,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "7d279ee9fef920c0910547880b483b40a982025e7e33735fbb8929c16922ed48",
+      "mode": "warm"
+    },
+    {
+      "case": "qwen64-t128",
+      "exit_code": 0,
+      "cuda_event_ms": 6.28378,
+      "cuda_event_ms_samples": [
+        6.28378
+      ],
+      "iterations": 1,
+      "warmup": 0,
+      "repeats": 1,
+      "framework_kernels": true,
+      "elements": 262144,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "70427b4b99f307ad54ea03875c6dd6fe824460503ffa728f2cbd068422733397",
+      "mode": "cold"
+    },
+    {
+      "case": "qwen64-t128",
+      "exit_code": 0,
+      "cuda_event_ms": 0.559203,
+      "cuda_event_ms_samples": [
+        0.559677,
+        0.559203,
+        0.558278
+      ],
+      "iterations": 10,
+      "warmup": 3,
+      "repeats": 3,
+      "framework_kernels": true,
+      "elements": 262144,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "70427b4b99f307ad54ea03875c6dd6fe824460503ffa728f2cbd068422733397",
+      "mode": "warm"
+    },
+    {
+      "case": "qwen64-t4096",
+      "exit_code": 0,
+      "cuda_event_ms": 6.68419,
+      "cuda_event_ms_samples": [
+        6.68419
+      ],
+      "iterations": 1,
+      "warmup": 0,
+      "repeats": 1,
+      "framework_kernels": true,
+      "elements": 8388608,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "13981ad6470a44900ca9dfbe7f222151655a7cd4c743c4e0f034143bd67626ec",
+      "mode": "cold"
+    },
+    {
+      "case": "qwen64-t4096",
+      "exit_code": 0,
+      "cuda_event_ms": 1.15914,
+      "cuda_event_ms_samples": [
+        1.16293,
+        1.15896,
+        1.15914
+      ],
+      "iterations": 10,
+      "warmup": 3,
+      "repeats": 3,
+      "framework_kernels": true,
+      "elements": 8388608,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "13981ad6470a44900ca9dfbe7f222151655a7cd4c743c4e0f034143bd67626ec",
+      "mode": "warm"
+    },
+    {
+      "case": "qwen64-t8192",
+      "exit_code": 0,
+      "cuda_event_ms": 6.66995,
+      "cuda_event_ms_samples": [
+        6.66995
+      ],
+      "iterations": 1,
+      "warmup": 0,
+      "repeats": 1,
+      "framework_kernels": true,
+      "elements": 16777216,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "513d71e3c28d02f4e81186a5b43f46f66320a5c2d51aea29b22c16756d3bc48b",
+      "mode": "cold"
+    },
+    {
+      "case": "qwen64-t8192",
+      "exit_code": 0,
+      "cuda_event_ms": 1.90363,
+      "cuda_event_ms_samples": [
+        1.90477,
+        1.89936,
+        1.90363
+      ],
+      "iterations": 10,
+      "warmup": 3,
+      "repeats": 3,
+      "framework_kernels": true,
+      "elements": 16777216,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "513d71e3c28d02f4e81186a5b43f46f66320a5c2d51aea29b22c16756d3bc48b",
+      "mode": "warm"
+    }
+  ],
+  "profiles": [
+    {
+      "case": "mixtral-t4096",
+      "exit_code": 0,
+      "cuda_event_ms": 5.85283,
+      "cuda_event_ms_samples": [
+        5.85283
+      ],
+      "iterations": 3,
+      "warmup": 3,
+      "repeats": 1,
+      "framework_kernels": true,
+      "elements": 16777216,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "4aaffb4b5f6afb4cad42d4ee1ebed71e45d5fd7001dbebc1489dc13d2d05ca15",
+      "instrumented": true
+    },
+    {
+      "case": "qwen64-t4096",
+      "exit_code": 0,
+      "cuda_event_ms": 1.16896,
+      "cuda_event_ms_samples": [
+        1.16896
+      ],
+      "iterations": 3,
+      "warmup": 3,
+      "repeats": 1,
+      "framework_kernels": true,
+      "elements": 8388608,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "13981ad6470a44900ca9dfbe7f222151655a7cd4c743c4e0f034143bd67626ec",
+      "instrumented": true
+    },
+    {
+      "case": "phi-t4096",
+      "exit_code": 0,
+      "cuda_event_ms": 3.06513,
+      "cuda_event_ms_samples": [
+        3.06513
+      ],
+      "iterations": 3,
+      "warmup": 3,
+      "repeats": 1,
+      "framework_kernels": true,
+      "elements": 16777216,
+      "bitwise_equal": true,
+      "different_elements": 0,
+      "max_abs": 0.0,
+      "output_sha256": "1f12c24167c3556d45af44e2474c0aceff83e93be0242df3c0a6003ac67b30c3",
+      "instrumented": true
+    }
+  ],
+  "diagnostic": null,
+  "remote_wall_seconds": 192.19983992299998
+}

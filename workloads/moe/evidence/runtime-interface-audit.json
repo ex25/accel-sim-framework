@@ -1,0 +1,88 @@
+{
+  "binary_sha256": "5ea9c21f75cd8bc92912c0125a48d0216e8e4b7181728e31e114cc20ca34a905",
+  "simulator_library": "/home/wangjz/in-switch/accel-sim/gpu-simulator/gpgpu-sim/lib/gcc-13.4.0/cuda-12080/release/libcudart.so",
+  "simulator_library_sha256": "d27970fcb1650aa9993affe30f3a75a5f4d997c9dbfafd85b6fc2616ab4cad3a",
+  "method": "Read-only dynamic symbol audit; exported symbols do not certify functional correctness.",
+  "cuda_imports": [
+    {
+      "symbol": "__cudaPopCallConfiguration",
+      "exported": true
+    },
+    {
+      "symbol": "__cudaPushCallConfiguration",
+      "exported": true
+    },
+    {
+      "symbol": "__cudaRegisterFatBinary",
+      "exported": true
+    },
+    {
+      "symbol": "__cudaRegisterFatBinaryEnd",
+      "exported": true
+    },
+    {
+      "symbol": "__cudaRegisterFunction",
+      "exported": true
+    },
+    {
+      "symbol": "__cudaUnregisterFatBinary",
+      "exported": true
+    },
+    {
+      "symbol": "cudaDeviceSynchronize",
+      "exported": true
+    },
+    {
+      "symbol": "cudaEventCreate",
+      "exported": true
+    },
+    {
+      "symbol": "cudaEventElapsedTime",
+      "exported": true
+    },
+    {
+      "symbol": "cudaEventRecord",
+      "exported": true
+    },
+    {
+      "symbol": "cudaFuncSetAttribute",
+      "exported": true
+    },
+    {
+      "symbol": "cudaGetDriverEntryPointByVersion",
+      "exported": false
+    },
+    {
+      "symbol": "cudaGetErrorString",
+      "exported": true
+    },
+    {
+      "symbol": "cudaLaunchKernel",
+      "exported": true
+    },
+    {
+      "symbol": "cudaLaunchKernelExC",
+      "exported": false
+    },
+    {
+      "symbol": "cudaMalloc",
+      "exported": true
+    },
+    {
+      "symbol": "cudaMemcpy",
+      "exported": true
+    },
+    {
+      "symbol": "cudaMemcpyAsync",
+      "exported": true
+    },
+    {
+      "symbol": "cudaMemset",
+      "exported": true
+    },
+    {
+      "symbol": "cudaMemsetAsync",
+      "exported": true
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "workload": "qwen64-t128",
+  "mode": "native",
+  "state": "completed",
+  "exit_code": 0,
+  "parameters": {
+    "name": "qwen64",
+    "description": "MoE-Hub Qwen profile: 64 routed experts, no shared expert",
+    "hidden": 2048,
+    "intermediate": 1408,
+    "experts": 64,
+    "top_k": 4,
+    "seed": 2026,
+    "tokens": 128
+  },
+  "warmup": 0,
+  "iterations": 1,
+  "repeats": 1,
+  "binary_sha256": "5ea9c21f75cd8bc92912c0125a48d0216e8e4b7181728e31e114cc20ca34a905",
+  "forward_sha256": "1449b327a7cab2cd674b9e8dcdb4e7f7126ee876c478e4a7e057a81e14c875ae",
+  "source_summary": "evidence/h100-validation.json",
+  "reference_storage": "BF16; expanded F32 SHA256 equals measured H100 output"
+}

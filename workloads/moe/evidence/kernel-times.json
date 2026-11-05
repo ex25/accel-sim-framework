@@ -1,0 +1,2749 @@
+{
+  "binary_sha256": "5ea9c21f75cd8bc92912c0125a48d0216e8e4b7181728e31e114cc20ca34a905",
+  "method": "Nsight Systems/CUPTI activity timestamps, six forwards per case, first three warmup and last three measured. Kernel launch positions are retained separately.",
+  "cycle_conversion_note": "cycles_at_sim_clock uses 1980MHz from SM90_H100 configuration; not measured hardware cycles.",
+  "cases": [
+    {
+      "case": "mixtral-t4096",
+      "source": "timelines/mixtral-t4096-profile.sqlite",
+      "instrumented": true,
+      "device_properties": {
+        "name": "NVIDIA H100 80GB HBM3",
+        "clockRate": 1980000000,
+        "smCount": 132,
+        "threadsPerWarp": 32,
+        "l2CacheSize": 52428800,
+        "totalMemory": 85009367040,
+        "memoryBandwidth": 3352320000000
+      },
+      "forward_samples": [
+        {
+          "index": 0,
+          "phase": "warmup",
+          "kernel_time_sum_ns": 5859828,
+          "device_span_ns": 11497448,
+          "non_kernel_span_ns": 5637620,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 64,
+              "duration_ns": 1056
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 1792,
+              "duration_ns": 2048
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        },
+        {
+          "index": 1,
+          "phase": "warmup",
+          "kernel_time_sum_ns": 5802388,
+          "device_span_ns": 5840628,
+          "non_kernel_span_ns": 38240,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 64,
+              "duration_ns": 1088
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 1792,
+              "duration_ns": 2432
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        },
+        {
+          "index": 2,
+          "phase": "warmup",
+          "kernel_time_sum_ns": 5828916,
+          "device_span_ns": 5866516,
+          "non_kernel_span_ns": 37600,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 64,
+              "duration_ns": 1024
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 1792,
+              "duration_ns": 1664
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        },
+        {
+          "index": 3,
+          "phase": "measured",
+          "kernel_time_sum_ns": 5736148,
+          "device_span_ns": 5775924,
+          "non_kernel_span_ns": 39776,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 64,
+              "duration_ns": 1024
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 1792,
+              "duration_ns": 2368
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        },
+        {
+          "index": 4,
+          "phase": "measured",
+          "kernel_time_sum_ns": 5855507,
+          "device_span_ns": 5893875,
+          "non_kernel_span_ns": 38368,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 64,
+              "duration_ns": 1056
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 1792,
+              "duration_ns": 2368
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        },
+        {
+          "index": 5,
+          "phase": "measured",
+          "kernel_time_sum_ns": 5840628,
+          "device_span_ns": 5877012,
+          "non_kernel_span_ns": 36384,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 64,
+              "duration_ns": 1024
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 1792,
+              "duration_ns": 1664
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        }
+      ],
+      "launches": [
+        {
+          "launch_index": 0,
+          "module_index": 19,
+          "entry": "moe_kernel_b74b5f15c8e2c3b4",
+          "role": "输入与路由权重类型转换",
+          "duration_ns_samples": [
+            34528,
+            33056,
+            33056,
+            32736,
+            33055,
+            33280
+          ],
+          "first_observed_duration_ns": 34528,
+          "measured_mean_ns": 33023.666666666664,
+          "measured_min_ns": 32736,
+          "measured_max_ns": 33280,
+          "measured_cycles_at_sim_clock": 65386.85999999999,
+          "grid": [
+            16384,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 20,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 2048,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 1,
+          "module_index": 1,
+          "entry": "moe_kernel_97544f6266334931",
+          "role": "输入与路由权重类型转换",
+          "duration_ns_samples": [
+            1984,
+            1824,
+            1632,
+            1632,
+            1664,
+            1760
+          ],
+          "first_observed_duration_ns": 1984,
+          "measured_mean_ns": 1685.3333333333333,
+          "measured_min_ns": 1632,
+          "measured_max_ns": 1760,
+          "measured_cycles_at_sim_clock": 3336.96,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 16,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 2,
+          "module_index": 20,
+          "entry": "moe_kernel_a88b4a7815d52e51",
+          "role": "路由 gating GEMM",
+          "duration_ns_samples": [
+            101024,
+            101056,
+            101152,
+            102079,
+            101088,
+            100960
+          ],
+          "first_observed_duration_ns": 101024,
+          "measured_mean_ns": 101375.66666666667,
+          "measured_min_ns": 100960,
+          "measured_max_ns": 102079,
+          "measured_cycles_at_sim_clock": 200723.82,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            64,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 72,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 24576,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 3,
+          "module_index": 3,
+          "entry": "moe_kernel_cd71bc5848a4af72",
+          "role": "top-k 与排序",
+          "duration_ns_samples": [
+            10976,
+            10976,
+            10848,
+            10976,
+            11104,
+            10912
+          ],
+          "first_observed_duration_ns": 10976,
+          "measured_mean_ns": 10997.333333333334,
+          "measured_min_ns": 10912,
+          "measured_max_ns": 11104,
+          "measured_cycles_at_sim_clock": 21774.72,
+          "grid": [
+            4096,
+            1,
+            1
+          ],
+          "block": [
+            32,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 32,
+          "static_shared_bytes": 128,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 4,
+          "module_index": 4,
+          "entry": "moe_kernel_7bd6f3b7131e7873",
+          "role": "top-k 与排序",
+          "duration_ns_samples": [
+            6144,
+            6304,
+            6112,
+            6240,
+            6176,
+            6176
+          ],
+          "first_observed_duration_ns": 6144,
+          "measured_mean_ns": 6197.333333333333,
+          "measured_min_ns": 6176,
+          "measured_max_ns": 6240,
+          "measured_cycles_at_sim_clock": 12270.72,
+          "grid": [
+            820,
+            1,
+            1
+          ],
+          "block": [
+            16,
+            5,
+            1
+          ],
+          "registers_per_thread_reported": 39,
+          "static_shared_bytes": 6656,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 5,
+          "module_index": 21,
+          "entry": "moe_kernel_86fe8f98bf3774eb",
+          "role": "softmax、稀疏路由及后处理转换",
+          "duration_ns_samples": [
+            1056,
+            1056,
+            1056,
+            1024,
+            1024,
+            1024
+          ],
+          "first_observed_duration_ns": 1056,
+          "measured_mean_ns": 1024,
+          "measured_min_ns": 1024,
+          "measured_max_ns": 1024,
+          "measured_cycles_at_sim_clock": 2027.52,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 16,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 6,
+          "module_index": 22,
+          "entry": "moe_kernel_d6c5f6a1190928fa",
+          "role": "softmax、稀疏路由及后处理转换",
+          "duration_ns_samples": [
+            1056,
+            1024,
+            1024,
+            1024,
+            1024,
+            1056
+          ],
+          "first_observed_duration_ns": 1056,
+          "measured_mean_ns": 1034.6666666666667,
+          "measured_min_ns": 1024,
+          "measured_max_ns": 1056,
+          "measured_cycles_at_sim_clock": 2048.6400000000003,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 16,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 7,
+          "module_index": 23,
+          "entry": "moe_kernel_122bb96c5c596523",
+          "role": "softmax、稀疏路由及后处理转换",
+          "duration_ns_samples": [
+            1312,
+            1344,
+            1312,
+            1280,
+            1440,
+            1312
+          ],
+          "first_observed_duration_ns": 1312,
+          "measured_mean_ns": 1344,
+          "measured_min_ns": 1280,
+          "measured_max_ns": 1440,
+          "measured_cycles_at_sim_clock": 2661.12,
+          "grid": [
+            64,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 24,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 8,
+          "module_index": 24,
+          "entry": "moe_kernel_e0d77c5d8dd6b50b",
+          "role": "softmax、稀疏路由及后处理转换",
+          "duration_ns_samples": [
+            1280,
+            1280,
+            1376,
+            1280,
+            1280,
+            1280
+          ],
+          "first_observed_duration_ns": 1280,
+          "measured_mean_ns": 1280,
+          "measured_min_ns": 1280,
+          "measured_max_ns": 1280,
+          "measured_cycles_at_sim_clock": 2534.4,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 16,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 9,
+          "module_index": 25,
+          "entry": "moe_kernel_365e2dfde690bf4e",
+          "role": "专家 token 数统计",
+          "duration_ns_samples": [
+            1440,
+            1408,
+            1472,
+            1440,
+            1440,
+            1440
+          ],
+          "first_observed_duration_ns": 1440,
+          "measured_mean_ns": 1440,
+          "measured_min_ns": 1440,
+          "measured_max_ns": 1440,
+          "measured_cycles_at_sim_clock": 2851.2,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            64,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 18,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 16,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 10,
+          "module_index": 26,
+          "entry": "moe_kernel_cf534e147155fb1c",
+          "role": "专家 token 数统计",
+          "duration_ns_samples": [
+            1408,
+            1312,
+            1344,
+            1344,
+            1408,
+            1344
+          ],
+          "first_observed_duration_ns": 1408,
+          "measured_mean_ns": 1365.3333333333333,
+          "measured_min_ns": 1344,
+          "measured_max_ns": 1408,
+          "measured_cycles_at_sim_clock": 2703.3599999999997,
+          "grid": [
+            1,
+            1,
+            1
+          ],
+          "block": [
+            64,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 24,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 128,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 11,
+          "module_index": 10,
+          "entry": "moe_kernel_cc04e1548eb39807",
+          "role": "构造 token 行映射",
+          "duration_ns_samples": [
+            2592,
+            2656,
+            2624,
+            2880,
+            2624,
+            2592
+          ],
+          "first_observed_duration_ns": 2592,
+          "measured_mean_ns": 2698.6666666666665,
+          "measured_min_ns": 2592,
+          "measured_max_ns": 2880,
+          "measured_cycles_at_sim_clock": 5343.36,
+          "grid": [
+            8,
+            4,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 48,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 128,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 12,
+          "module_index": 27,
+          "entry": "moe_kernel_38835c0e85f7a649",
+          "role": "构造 token 行映射",
+          "duration_ns_samples": [
+            2496,
+            2400,
+            2400,
+            2464,
+            2432,
+            2368
+          ],
+          "first_observed_duration_ns": 2496,
+          "measured_mean_ns": 2421.3333333333335,
+          "measured_min_ns": 2368,
+          "measured_max_ns": 2464,
+          "measured_cycles_at_sim_clock": 4794.240000000001,
+          "grid": [
+            8,
+            4,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 30,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 13,
+          "module_index": 12,
+          "entry": "moe_kernel_756851cbac2894af",
+          "role": "构造 token 行映射",
+          "duration_ns_samples": [
+            4160,
+            4096,
+            4256,
+            4128,
+            4128,
+            4096
+          ],
+          "first_observed_duration_ns": 4160,
+          "measured_mean_ns": 4117.333333333333,
+          "measured_min_ns": 4096,
+          "measured_max_ns": 4128,
+          "measured_cycles_at_sim_clock": 8152.32,
+          "grid": [
+            4096,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 26,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 14,
+          "module_index": 13,
+          "entry": "moe_kernel_a13a77f7ed02cf24",
+          "role": "按专家重排 token",
+          "duration_ns_samples": [
+            32896,
+            31968,
+            32096,
+            32288,
+            32128,
+            31840
+          ],
+          "first_observed_duration_ns": 32896,
+          "measured_mean_ns": 32085.333333333332,
+          "measured_min_ns": 31840,
+          "measured_max_ns": 32288,
+          "measured_cycles_at_sim_clock": 63528.96,
+          "grid": [
+            4096,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 32,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 15,
+          "module_index": 14,
+          "entry": "moe_kernel_23ba58950db8f4f0",
+          "role": "chunk 映射与重排（专家计算前）",
+          "duration_ns_samples": [
+            6560,
+            6656,
+            6720,
+            6624,
+            6592,
+            6656
+          ],
+          "first_observed_duration_ns": 6560,
+          "measured_mean_ns": 6624,
+          "measured_min_ns": 6592,
+          "measured_max_ns": 6656,
+          "measured_cycles_at_sim_clock": 13115.52,
+          "grid": [
+            8192,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 17,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 16,
+          "module_index": 15,
+          "entry": "moe_kernel_d4f74cd8054a8aac",
+          "role": "chunk 映射与重排（专家计算前）",
+          "duration_ns_samples": [
+            44064,
+            43872,
+            44735,
+            44544,
+            45120,
+            43968
+          ],
+          "first_observed_duration_ns": 44064,
+          "measured_mean_ns": 44544,
+          "measured_min_ns": 43968,
+          "measured_max_ns": 45120,
+          "measured_cycles_at_sim_clock": 88197.12,
+          "grid": [
+            8192,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 26,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 17,
+          "module_index": 16,
+          "entry": "moe_kernel_df3e0c49e4650c1f",
+          "role": "专家 FC1 grouped GEMM",
+          "duration_ns_samples": [
+            3479897,
+            3431128,
+            3431545,
+            3410521,
+            3451961,
+            3435416
+          ],
+          "first_observed_duration_ns": 3479897,
+          "measured_mean_ns": 3432632.6666666665,
+          "measured_min_ns": 3410521,
+          "measured_max_ns": 3451961,
+          "measured_cycles_at_sim_clock": 6796612.68,
+          "grid": [
+            66,
+            2,
+            1
+          ],
+          "block": [
+            384,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 168,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 215040,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 18,
+          "module_index": 28,
+          "entry": "moe_kernel_8f707b8936157ea7",
+          "role": "SwiGLU",
+          "duration_ns_samples": [
+            223775,
+            223712,
+            223264,
+            224063,
+            223519,
+            223808
+          ],
+          "first_observed_duration_ns": 223775,
+          "measured_mean_ns": 223796.66666666666,
+          "measured_min_ns": 223519,
+          "measured_max_ns": 224063,
+          "measured_cycles_at_sim_clock": 443117.39999999997,
+          "grid": [
+            114688,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 30,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 19,
+          "module_index": 16,
+          "entry": "moe_kernel_df3e0c49e4650c1f",
+          "role": "专家 FC2 grouped GEMM",
+          "duration_ns_samples": [
+            1817661,
+            1812444,
+            1837948,
+            1764413,
+            1842364,
+            1846300
+          ],
+          "first_observed_duration_ns": 1817661,
+          "measured_mean_ns": 1817692.3333333333,
+          "measured_min_ns": 1764413,
+          "measured_max_ns": 1846300,
+          "measured_cycles_at_sim_clock": 3599030.82,
+          "grid": [
+            66,
+            2,
+            1
+          ],
+          "block": [
+            384,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 168,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 215040,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 20,
+          "module_index": 14,
+          "entry": "moe_kernel_23ba58950db8f4f0",
+          "role": "chunk 映射与重排（专家计算后）",
+          "duration_ns_samples": [
+            6592,
+            6592,
+            6592,
+            6272,
+            6592,
+            6720
+          ],
+          "first_observed_duration_ns": 6592,
+          "measured_mean_ns": 6528,
+          "measured_min_ns": 6272,
+          "measured_max_ns": 6720,
+          "measured_cycles_at_sim_clock": 12925.44,
+          "grid": [
+            8192,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 17,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 21,
+          "module_index": 15,
+          "entry": "moe_kernel_d4f74cd8054a8aac",
+          "role": "chunk 映射与重排（专家计算后）",
+          "duration_ns_samples": [
+            41535,
+            41344,
+            41376,
+            41248,
+            41056,
+            41408
+          ],
+          "first_observed_duration_ns": 41535,
+          "measured_mean_ns": 41237.333333333336,
+          "measured_min_ns": 41056,
+          "measured_max_ns": 41408,
+          "measured_cycles_at_sim_clock": 81649.92,
+          "grid": [
+            8192,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 26,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 22,
+          "module_index": 29,
+          "entry": "moe_kernel_7aa653c851148185",
+          "role": "输出逆重排与加权合并",
+          "duration_ns_samples": [
+            35392,
+            34880,
+            34976,
+            35648,
+            36288,
+            34912
+          ],
+          "first_observed_duration_ns": 35392,
+          "measured_mean_ns": 35616,
+          "measured_min_ns": 34912,
+          "measured_max_ns": 36288,
+          "measured_cycles_at_sim_clock": 70519.68,
+          "grid": [
+            4096,
+            2,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 32,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        }
+      ]
+    },
+    {
+      "case": "phi-t4096",
+      "source": "timelines/phi-t4096-profile.sqlite",
+      "instrumented": true,
+      "device_properties": {
+        "name": "NVIDIA H100 80GB HBM3",
+        "clockRate": 1980000000,
+        "smCount": 132,
+        "threadsPerWarp": 32,
+        "l2CacheSize": 52428800,
+        "totalMemory": 85009367040,
+        "memoryBandwidth": 3352320000000
+      },
+      "forward_samples": [
+        {
+          "index": 0,
+          "phase": "warmup",
+          "kernel_time_sum_ns": 3028346,
+          "device_span_ns": 8940621,
+          "non_kernel_span_ns": 5912275,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 128,
+              "duration_ns": 1024
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 2048,
+              "duration_ns": 2048
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        },
+        {
+          "index": 1,
+          "phase": "warmup",
+          "kernel_time_sum_ns": 3017753,
+          "device_span_ns": 3053273,
+          "non_kernel_span_ns": 35520,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 128,
+              "duration_ns": 1056
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 2048,
+              "duration_ns": 3040
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        },
+        {
+          "index": 2,
+          "phase": "warmup",
+          "kernel_time_sum_ns": 3013081,
+          "device_span_ns": 3048697,
+          "non_kernel_span_ns": 35616,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 128,
+              "duration_ns": 1024
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 2048,
+              "duration_ns": 1664
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        },
+        {
+          "index": 3,
+          "phase": "measured",
+          "kernel_time_sum_ns": 3022713,
+          "device_span_ns": 3057177,
+          "non_kernel_span_ns": 34464,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 128,
+              "duration_ns": 1024
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 2048,
+              "duration_ns": 2464
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        },
+        {
+          "index": 4,
+          "phase": "measured",
+          "kernel_time_sum_ns": 3031354,
+          "device_span_ns": 3066522,
+          "non_kernel_span_ns": 35168,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 128,
+              "duration_ns": 1024
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 2048,
+              "duration_ns": 2400
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        },
+        {
+          "index": 5,
+          "phase": "measured",
+          "kernel_time_sum_ns": 3025753,
+          "device_span_ns": 3061401,
+          "non_kernel_span_ns": 35648,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 128,
+              "duration_ns": 1088
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 2048,
+              "duration_ns": 1632
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        }
+      ],
+      "launches": [
+        {
+          "launch_index": 0,
+          "module_index": 19,
+          "entry": "moe_kernel_b74b5f15c8e2c3b4",
+          "role": "输入与路由权重类型转换",
+          "duration_ns_samples": [
+            35232,
+            33376,
+            32416,
+            32448,
+            32640,
+            33696
+          ],
+          "first_observed_duration_ns": 35232,
+          "measured_mean_ns": 32928,
+          "measured_min_ns": 32448,
+          "measured_max_ns": 33696,
+          "measured_cycles_at_sim_clock": 65197.44,
+          "grid": [
+            16384,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 20,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 2048,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 1,
+          "module_index": 40,
+          "entry": "moe_kernel_eda9752c30f985cb",
+          "role": "输入与路由权重类型转换",
+          "duration_ns_samples": [
+            1696,
+            1856,
+            1696,
+            2528,
+            1792,
+            1696
+          ],
+          "first_observed_duration_ns": 1696,
+          "measured_mean_ns": 2005.3333333333333,
+          "measured_min_ns": 1696,
+          "measured_max_ns": 2528,
+          "measured_cycles_at_sim_clock": 3970.56,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 16,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 2,
+          "module_index": 54,
+          "entry": "moe_kernel_d617e177b975d79c",
+          "role": "路由 gating GEMM",
+          "duration_ns_samples": [
+            105600,
+            105567,
+            105504,
+            105440,
+            105408,
+            105375
+          ],
+          "first_observed_duration_ns": 105600,
+          "measured_mean_ns": 105407.66666666667,
+          "measured_min_ns": 105375,
+          "measured_max_ns": 105440,
+          "measured_cycles_at_sim_clock": 208707.18000000002,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            64,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 72,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 24576,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 3,
+          "module_index": 3,
+          "entry": "moe_kernel_cd71bc5848a4af72",
+          "role": "top-k 与排序",
+          "duration_ns_samples": [
+            10944,
+            10976,
+            10976,
+            11008,
+            10944,
+            11136
+          ],
+          "first_observed_duration_ns": 10944,
+          "measured_mean_ns": 11029.333333333334,
+          "measured_min_ns": 10944,
+          "measured_max_ns": 11136,
+          "measured_cycles_at_sim_clock": 21838.08,
+          "grid": [
+            4096,
+            1,
+            1
+          ],
+          "block": [
+            32,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 32,
+          "static_shared_bytes": 128,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 4,
+          "module_index": 4,
+          "entry": "moe_kernel_7bd6f3b7131e7873",
+          "role": "top-k 与排序",
+          "duration_ns_samples": [
+            6112,
+            6208,
+            6080,
+            6112,
+            6144,
+            6112
+          ],
+          "first_observed_duration_ns": 6112,
+          "measured_mean_ns": 6122.666666666667,
+          "measured_min_ns": 6112,
+          "measured_max_ns": 6144,
+          "measured_cycles_at_sim_clock": 12122.880000000001,
+          "grid": [
+            820,
+            1,
+            1
+          ],
+          "block": [
+            16,
+            5,
+            1
+          ],
+          "registers_per_thread_reported": 39,
+          "static_shared_bytes": 6656,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 5,
+          "module_index": 32,
+          "entry": "moe_kernel_81ec60dd179020bc",
+          "role": "softmax、稀疏路由及后处理转换",
+          "duration_ns_samples": [
+            1056,
+            1056,
+            1024,
+            1056,
+            1024,
+            1024
+          ],
+          "first_observed_duration_ns": 1056,
+          "measured_mean_ns": 1034.6666666666667,
+          "measured_min_ns": 1024,
+          "measured_max_ns": 1056,
+          "measured_cycles_at_sim_clock": 2048.6400000000003,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 16,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 6,
+          "module_index": 33,
+          "entry": "moe_kernel_b49267d4e7cce730",
+          "role": "softmax、稀疏路由及后处理转换",
+          "duration_ns_samples": [
+            1056,
+            1056,
+            1024,
+            1024,
+            1120,
+            1152
+          ],
+          "first_observed_duration_ns": 1056,
+          "measured_mean_ns": 1098.6666666666667,
+          "measured_min_ns": 1024,
+          "measured_max_ns": 1152,
+          "measured_cycles_at_sim_clock": 2175.36,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 16,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 7,
+          "module_index": 55,
+          "entry": "moe_kernel_36e18b6fa2ea8266",
+          "role": "softmax、稀疏路由及后处理转换",
+          "duration_ns_samples": [
+            1376,
+            1344,
+            1344,
+            1472,
+            1376,
+            1344
+          ],
+          "first_observed_duration_ns": 1376,
+          "measured_mean_ns": 1397.3333333333333,
+          "measured_min_ns": 1344,
+          "measured_max_ns": 1472,
+          "measured_cycles_at_sim_clock": 2766.72,
+          "grid": [
+            64,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 24,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 8,
+          "module_index": 35,
+          "entry": "moe_kernel_da5dec86fbcc324f",
+          "role": "softmax、稀疏路由及后处理转换",
+          "duration_ns_samples": [
+            1312,
+            1280,
+            1312,
+            1248,
+            1280,
+            1280
+          ],
+          "first_observed_duration_ns": 1312,
+          "measured_mean_ns": 1269.3333333333333,
+          "measured_min_ns": 1248,
+          "measured_max_ns": 1280,
+          "measured_cycles_at_sim_clock": 2513.2799999999997,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 16,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 9,
+          "module_index": 56,
+          "entry": "moe_kernel_43a057fefc3e1288",
+          "role": "专家 token 数统计",
+          "duration_ns_samples": [
+            1568,
+            1568,
+            1568,
+            1568,
+            1600,
+            1632
+          ],
+          "first_observed_duration_ns": 1568,
+          "measured_mean_ns": 1600,
+          "measured_min_ns": 1568,
+          "measured_max_ns": 1632,
+          "measured_cycles_at_sim_clock": 3168.0,
+          "grid": [
+            512,
+            1,
+            1
+          ],
+          "block": [
+            64,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 18,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 16,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 10,
+          "module_index": 57,
+          "entry": "moe_kernel_e5ec00622ee3fc0f",
+          "role": "专家 token 数统计",
+          "duration_ns_samples": [
+            1344,
+            1344,
+            1376,
+            1344,
+            1344,
+            1344
+          ],
+          "first_observed_duration_ns": 1344,
+          "measured_mean_ns": 1344,
+          "measured_min_ns": 1344,
+          "measured_max_ns": 1344,
+          "measured_cycles_at_sim_clock": 2661.12,
+          "grid": [
+            1,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 26,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 512,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 11,
+          "module_index": 10,
+          "entry": "moe_kernel_cc04e1548eb39807",
+          "role": "构造 token 行映射",
+          "duration_ns_samples": [
+            3264,
+            3232,
+            3264,
+            3104,
+            3168,
+            3200
+          ],
+          "first_observed_duration_ns": 3264,
+          "measured_mean_ns": 3157.3333333333335,
+          "measured_min_ns": 3104,
+          "measured_max_ns": 3200,
+          "measured_cycles_at_sim_clock": 6251.52,
+          "grid": [
+            16,
+            4,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 48,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 128,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 12,
+          "module_index": 38,
+          "entry": "moe_kernel_8c94e68c337bf6e4",
+          "role": "构造 token 行映射",
+          "duration_ns_samples": [
+            3200,
+            3008,
+            3040,
+            2944,
+            2944,
+            3008
+          ],
+          "first_observed_duration_ns": 3200,
+          "measured_mean_ns": 2965.3333333333335,
+          "measured_min_ns": 2944,
+          "measured_max_ns": 3008,
+          "measured_cycles_at_sim_clock": 5871.360000000001,
+          "grid": [
+            16,
+            4,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 35,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 8,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 13,
+          "module_index": 48,
+          "entry": "moe_kernel_7b049f3a13e0c926",
+          "role": "构造 token 行映射",
+          "duration_ns_samples": [
+            5536,
+            5504,
+            5536,
+            5504,
+            5600,
+            5536
+          ],
+          "first_observed_duration_ns": 5536,
+          "measured_mean_ns": 5546.666666666667,
+          "measured_min_ns": 5504,
+          "measured_max_ns": 5600,
+          "measured_cycles_at_sim_clock": 10982.4,
+          "grid": [
+            4096,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 28,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 14,
+          "module_index": 58,
+          "entry": "moe_kernel_1fe01d4c3326bbed",
+          "role": "按专家重排 token",
+          "duration_ns_samples": [
+            32608,
+            32320,
+            32383,
+            32352,
+            32288,
+            32992
+          ],
+          "first_observed_duration_ns": 32608,
+          "measured_mean_ns": 32544,
+          "measured_min_ns": 32288,
+          "measured_max_ns": 32992,
+          "measured_cycles_at_sim_clock": 64437.12,
+          "grid": [
+            4096,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 32,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 15,
+          "module_index": 50,
+          "entry": "moe_kernel_f382d362fada1d9b",
+          "role": "chunk 映射与重排（专家计算前）",
+          "duration_ns_samples": [
+            6816,
+            6784,
+            6752,
+            6880,
+            6752,
+            6752
+          ],
+          "first_observed_duration_ns": 6816,
+          "measured_mean_ns": 6794.666666666667,
+          "measured_min_ns": 6752,
+          "measured_max_ns": 6880,
+          "measured_cycles_at_sim_clock": 13453.44,
+          "grid": [
+            8192,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 17,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 16,
+          "module_index": 15,
+          "entry": "moe_kernel_d4f74cd8054a8aac",
+          "role": "chunk 映射与重排（专家计算前）",
+          "duration_ns_samples": [
+            44832,
+            44608,
+            44768,
+            44544,
+            44256,
+            44224
+          ],
+          "first_observed_duration_ns": 44832,
+          "measured_mean_ns": 44341.333333333336,
+          "measured_min_ns": 44224,
+          "measured_max_ns": 44544,
+          "measured_cycles_at_sim_clock": 87795.84000000001,
+          "grid": [
+            8192,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 26,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 17,
+          "module_index": 16,
+          "entry": "moe_kernel_df3e0c49e4650c1f",
+          "role": "专家 FC1 grouped GEMM",
+          "duration_ns_samples": [
+            1704188,
+            1700284,
+            1704061,
+            1702076,
+            1713404,
+            1707932
+          ],
+          "first_observed_duration_ns": 1704188,
+          "measured_mean_ns": 1707804,
+          "measured_min_ns": 1702076,
+          "measured_max_ns": 1713404,
+          "measured_cycles_at_sim_clock": 3381451.92,
+          "grid": [
+            66,
+            2,
+            1
+          ],
+          "block": [
+            384,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 168,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 215040,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 18,
+          "module_index": 59,
+          "entry": "moe_kernel_080eab9246a9e166",
+          "role": "SwiGLU",
+          "duration_ns_samples": [
+            97312,
+            97056,
+            97567,
+            97344,
+            97376,
+            96896
+          ],
+          "first_observed_duration_ns": 97312,
+          "measured_mean_ns": 97205.33333333333,
+          "measured_min_ns": 96896,
+          "measured_max_ns": 97376,
+          "measured_cycles_at_sim_clock": 192466.56,
+          "grid": [
+            51200,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 31,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 19,
+          "module_index": 16,
+          "entry": "moe_kernel_df3e0c49e4650c1f",
+          "role": "专家 FC2 grouped GEMM",
+          "duration_ns_samples": [
+            877662,
+            874718,
+            867262,
+            877438,
+            876670,
+            875134
+          ],
+          "first_observed_duration_ns": 877662,
+          "measured_mean_ns": 876414,
+          "measured_min_ns": 875134,
+          "measured_max_ns": 877438,
+          "measured_cycles_at_sim_clock": 1735299.72,
+          "grid": [
+            66,
+            2,
+            1
+          ],
+          "block": [
+            384,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 168,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 215040,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 20,
+          "module_index": 50,
+          "entry": "moe_kernel_f382d362fada1d9b",
+          "role": "chunk 映射与重排（专家计算后）",
+          "duration_ns_samples": [
+            6880,
+            6720,
+            6720,
+            6368,
+            6880,
+            6400
+          ],
+          "first_observed_duration_ns": 6880,
+          "measured_mean_ns": 6549.333333333333,
+          "measured_min_ns": 6368,
+          "measured_max_ns": 6880,
+          "measured_cycles_at_sim_clock": 12967.679999999998,
+          "grid": [
+            8192,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 17,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 21,
+          "module_index": 15,
+          "entry": "moe_kernel_d4f74cd8054a8aac",
+          "role": "chunk 映射与重排（专家计算后）",
+          "duration_ns_samples": [
+            42176,
+            42304,
+            41728,
+            41920,
+            41536,
+            42176
+          ],
+          "first_observed_duration_ns": 42176,
+          "measured_mean_ns": 41877.333333333336,
+          "measured_min_ns": 41536,
+          "measured_max_ns": 42176,
+          "measured_cycles_at_sim_clock": 82917.12000000001,
+          "grid": [
+            8192,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 26,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 22,
+          "module_index": 60,
+          "entry": "moe_kernel_cf0a99e09ad4ce9f",
+          "role": "输出逆重排与加权合并",
+          "duration_ns_samples": [
+            36576,
+            35584,
+            35680,
+            36991,
+            35808,
+            35712
+          ],
+          "first_observed_duration_ns": 36576,
+          "measured_mean_ns": 36170.333333333336,
+          "measured_min_ns": 35712,
+          "measured_max_ns": 36991,
+          "measured_cycles_at_sim_clock": 71617.26000000001,
+          "grid": [
+            4096,
+            2,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 32,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        }
+      ]
+    },
+    {
+      "case": "qwen64-t4096",
+      "source": "timelines/qwen64-t4096-profile.sqlite",
+      "instrumented": true,
+      "device_properties": {
+        "name": "NVIDIA H100 80GB HBM3",
+        "clockRate": 1980000000,
+        "smCount": 132,
+        "threadsPerWarp": 32,
+        "l2CacheSize": 52428800,
+        "totalMemory": 85009367040,
+        "memoryBandwidth": 3352320000000
+      },
+      "forward_samples": [
+        {
+          "index": 0,
+          "phase": "warmup",
+          "kernel_time_sum_ns": 1126269,
+          "device_span_ns": 8528205,
+          "non_kernel_span_ns": 7401936,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 512,
+              "duration_ns": 1056
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 7680,
+              "duration_ns": 2208
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        },
+        {
+          "index": 1,
+          "phase": "warmup",
+          "kernel_time_sum_ns": 1120606,
+          "device_span_ns": 1157022,
+          "non_kernel_span_ns": 36416,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 512,
+              "duration_ns": 1024
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 7680,
+              "duration_ns": 2944
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        },
+        {
+          "index": 2,
+          "phase": "warmup",
+          "kernel_time_sum_ns": 1120381,
+          "device_span_ns": 1155645,
+          "non_kernel_span_ns": 35264,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 512,
+              "duration_ns": 1024
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 7680,
+              "duration_ns": 2176
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        },
+        {
+          "index": 3,
+          "phase": "measured",
+          "kernel_time_sum_ns": 1121598,
+          "device_span_ns": 1156190,
+          "non_kernel_span_ns": 34592,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 512,
+              "duration_ns": 1152
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 7680,
+              "duration_ns": 2720
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        },
+        {
+          "index": 4,
+          "phase": "measured",
+          "kernel_time_sum_ns": 1132477,
+          "device_span_ns": 1169885,
+          "non_kernel_span_ns": 37408,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 512,
+              "duration_ns": 1056
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 7680,
+              "duration_ns": 2688
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        },
+        {
+          "index": 5,
+          "phase": "measured",
+          "kernel_time_sum_ns": 1131774,
+          "device_span_ns": 1168958,
+          "non_kernel_span_ns": 37184,
+          "dma": {
+            "CUDA_MEMCPY_KIND_DTOD": {
+              "requests": 1,
+              "bytes": 512,
+              "duration_ns": 1024
+            },
+            "CUDA_MEMCPY_KIND_HTOD": {
+              "requests": 2,
+              "bytes": 7680,
+              "duration_ns": 2208
+            }
+          },
+          "memset_requests": 0,
+          "memset_bytes": 0
+        }
+      ],
+      "launches": [
+        {
+          "launch_index": 0,
+          "module_index": 84,
+          "entry": "moe_kernel_896ef1b80766f39a",
+          "role": "输入与路由权重类型转换",
+          "duration_ns_samples": [
+            18912,
+            14944,
+            15040,
+            15040,
+            15008,
+            15040
+          ],
+          "first_observed_duration_ns": 18912,
+          "measured_mean_ns": 15029.333333333334,
+          "measured_min_ns": 15008,
+          "measured_max_ns": 15040,
+          "measured_cycles_at_sim_clock": 29758.08,
+          "grid": [
+            8192,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 20,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 2048,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 1,
+          "module_index": 85,
+          "entry": "moe_kernel_69cc84de97944264",
+          "role": "输入与路由权重类型转换",
+          "duration_ns_samples": [
+            1952,
+            1792,
+            1984,
+            2112,
+            1728,
+            1824
+          ],
+          "first_observed_duration_ns": 1952,
+          "measured_mean_ns": 1888,
+          "measured_min_ns": 1728,
+          "measured_max_ns": 2112,
+          "measured_cycles_at_sim_clock": 3738.24,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 16,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 2,
+          "module_index": 86,
+          "entry": "moe_kernel_838c032a7a88e7a0",
+          "role": "路由 gating GEMM",
+          "duration_ns_samples": [
+            156992,
+            157728,
+            157727,
+            158688,
+            158559,
+            157600
+          ],
+          "first_observed_duration_ns": 156992,
+          "measured_mean_ns": 158282.33333333334,
+          "measured_min_ns": 157600,
+          "measured_max_ns": 158688,
+          "measured_cycles_at_sim_clock": 313399.02,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 136,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 196608,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 3,
+          "module_index": 3,
+          "entry": "moe_kernel_cd71bc5848a4af72",
+          "role": "top-k 与排序",
+          "duration_ns_samples": [
+            17632,
+            17504,
+            17728,
+            17504,
+            17696,
+            17728
+          ],
+          "first_observed_duration_ns": 17632,
+          "measured_mean_ns": 17642.666666666668,
+          "measured_min_ns": 17504,
+          "measured_max_ns": 17728,
+          "measured_cycles_at_sim_clock": 34932.48,
+          "grid": [
+            4096,
+            1,
+            1
+          ],
+          "block": [
+            64,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 32,
+          "static_shared_bytes": 128,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 4,
+          "module_index": 4,
+          "entry": "moe_kernel_7bd6f3b7131e7873",
+          "role": "top-k 与排序",
+          "duration_ns_samples": [
+            6080,
+            6208,
+            6208,
+            6240,
+            6176,
+            6208
+          ],
+          "first_observed_duration_ns": 6080,
+          "measured_mean_ns": 6208,
+          "measured_min_ns": 6176,
+          "measured_max_ns": 6240,
+          "measured_cycles_at_sim_clock": 12291.84,
+          "grid": [
+            820,
+            1,
+            1
+          ],
+          "block": [
+            16,
+            5,
+            1
+          ],
+          "registers_per_thread_reported": 39,
+          "static_shared_bytes": 6656,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 5,
+          "module_index": 87,
+          "entry": "moe_kernel_4dd08421cbd97ede",
+          "role": "softmax、稀疏路由及后处理转换",
+          "duration_ns_samples": [
+            1344,
+            1344,
+            1312,
+            1344,
+            1312,
+            1312
+          ],
+          "first_observed_duration_ns": 1344,
+          "measured_mean_ns": 1322.6666666666667,
+          "measured_min_ns": 1312,
+          "measured_max_ns": 1344,
+          "measured_cycles_at_sim_clock": 2618.88,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 16,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 6,
+          "module_index": 88,
+          "entry": "moe_kernel_53665f02e8884b48",
+          "role": "softmax、稀疏路由及后处理转换",
+          "duration_ns_samples": [
+            1120,
+            1184,
+            1120,
+            1152,
+            1152,
+            1120
+          ],
+          "first_observed_duration_ns": 1120,
+          "measured_mean_ns": 1141.3333333333333,
+          "measured_min_ns": 1120,
+          "measured_max_ns": 1152,
+          "measured_cycles_at_sim_clock": 2259.8399999999997,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 16,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 7,
+          "module_index": 89,
+          "entry": "moe_kernel_1775a8b46491e582",
+          "role": "softmax、稀疏路由及后处理转换",
+          "duration_ns_samples": [
+            1152,
+            1120,
+            1216,
+            1152,
+            1152,
+            1152
+          ],
+          "first_observed_duration_ns": 1152,
+          "measured_mean_ns": 1152,
+          "measured_min_ns": 1152,
+          "measured_max_ns": 1152,
+          "measured_cycles_at_sim_clock": 2280.96,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 16,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 8,
+          "module_index": 90,
+          "entry": "moe_kernel_3e060b250c9c0eaa",
+          "role": "softmax、稀疏路由及后处理转换",
+          "duration_ns_samples": [
+            1472,
+            1504,
+            1504,
+            1504,
+            1504,
+            1440
+          ],
+          "first_observed_duration_ns": 1472,
+          "measured_mean_ns": 1482.6666666666667,
+          "measured_min_ns": 1440,
+          "measured_max_ns": 1504,
+          "measured_cycles_at_sim_clock": 2935.6800000000003,
+          "grid": [
+            128,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 24,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 9,
+          "module_index": 91,
+          "entry": "moe_kernel_0d3fa1d540e73560",
+          "role": "softmax、稀疏路由及后处理转换",
+          "duration_ns_samples": [
+            1376,
+            1376,
+            1600,
+            1440,
+            1440,
+            1408
+          ],
+          "first_observed_duration_ns": 1376,
+          "measured_mean_ns": 1429.3333333333333,
+          "measured_min_ns": 1408,
+          "measured_max_ns": 1440,
+          "measured_cycles_at_sim_clock": 2830.08,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 18,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 10,
+          "module_index": 92,
+          "entry": "moe_kernel_fccfe921542d9ceb",
+          "role": "专家 token 数统计",
+          "duration_ns_samples": [
+            1856,
+            1856,
+            1888,
+            1888,
+            1856,
+            1952
+          ],
+          "first_observed_duration_ns": 1856,
+          "measured_mean_ns": 1898.6666666666667,
+          "measured_min_ns": 1856,
+          "measured_max_ns": 1952,
+          "measured_cycles_at_sim_clock": 3759.36,
+          "grid": [
+            256,
+            1,
+            1
+          ],
+          "block": [
+            256,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 24,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 512,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 11,
+          "module_index": 93,
+          "entry": "moe_kernel_c77767d694ecf2ec",
+          "role": "专家 token 数统计",
+          "duration_ns_samples": [
+            1376,
+            1376,
+            1376,
+            1376,
+            1376,
+            1376
+          ],
+          "first_observed_duration_ns": 1376,
+          "measured_mean_ns": 1376,
+          "measured_min_ns": 1376,
+          "measured_max_ns": 1376,
+          "measured_cycles_at_sim_clock": 2724.48,
+          "grid": [
+            4,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 22,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 512,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 12,
+          "module_index": 10,
+          "entry": "moe_kernel_cc04e1548eb39807",
+          "role": "构造 token 行映射",
+          "duration_ns_samples": [
+            6976,
+            6656,
+            6752,
+            6784,
+            6688,
+            6656
+          ],
+          "first_observed_duration_ns": 6976,
+          "measured_mean_ns": 6709.333333333333,
+          "measured_min_ns": 6656,
+          "measured_max_ns": 6784,
+          "measured_cycles_at_sim_clock": 13284.48,
+          "grid": [
+            64,
+            4,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 48,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 128,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 13,
+          "module_index": 94,
+          "entry": "moe_kernel_1fcdae4b81ca74a4",
+          "role": "构造 token 行映射",
+          "duration_ns_samples": [
+            7200,
+            7168,
+            6944,
+            6880,
+            6976,
+            7168
+          ],
+          "first_observed_duration_ns": 7200,
+          "measured_mean_ns": 7008,
+          "measured_min_ns": 6880,
+          "measured_max_ns": 7168,
+          "measured_cycles_at_sim_clock": 13875.84,
+          "grid": [
+            64,
+            4,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 35,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 16,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 14,
+          "module_index": 78,
+          "entry": "moe_kernel_cab47fdb58edf01c",
+          "role": "构造 token 行映射",
+          "duration_ns_samples": [
+            10784,
+            10816,
+            10816,
+            10976,
+            10880,
+            10912
+          ],
+          "first_observed_duration_ns": 10784,
+          "measured_mean_ns": 10922.666666666666,
+          "measured_min_ns": 10880,
+          "measured_max_ns": 10976,
+          "measured_cycles_at_sim_clock": 21626.879999999997,
+          "grid": [
+            4096,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 32,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 256,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 15,
+          "module_index": 95,
+          "entry": "moe_kernel_25a9e0b60fb37228",
+          "role": "按专家重排 token",
+          "duration_ns_samples": [
+            28096,
+            28416,
+            27424,
+            28672,
+            27840,
+            27200
+          ],
+          "first_observed_duration_ns": 28096,
+          "measured_mean_ns": 27904,
+          "measured_min_ns": 27200,
+          "measured_max_ns": 28672,
+          "measured_cycles_at_sim_clock": 55249.92,
+          "grid": [
+            4096,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 28,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 16,
+          "module_index": 80,
+          "entry": "moe_kernel_c479f139e809aa8b",
+          "role": "chunk 映射与重排（专家计算前）",
+          "duration_ns_samples": [
+            17087,
+            17120,
+            17056,
+            17216,
+            17152,
+            17120
+          ],
+          "first_observed_duration_ns": 17087,
+          "measured_mean_ns": 17162.666666666668,
+          "measured_min_ns": 17120,
+          "measured_max_ns": 17216,
+          "measured_cycles_at_sim_clock": 33982.08,
+          "grid": [
+            16384,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 22,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 16,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 17,
+          "module_index": 96,
+          "entry": "moe_kernel_6111d03e4948ce2e",
+          "role": "chunk 映射与重排（专家计算前）",
+          "duration_ns_samples": [
+            44160,
+            44000,
+            43904,
+            44127,
+            44864,
+            44063
+          ],
+          "first_observed_duration_ns": 44160,
+          "measured_mean_ns": 44351.333333333336,
+          "measured_min_ns": 44063,
+          "measured_max_ns": 44864,
+          "measured_cycles_at_sim_clock": 87815.64,
+          "grid": [
+            16384,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 26,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 18,
+          "module_index": 16,
+          "entry": "moe_kernel_df3e0c49e4650c1f",
+          "role": "专家 FC1 grouped GEMM",
+          "duration_ns_samples": [
+            436959,
+            436127,
+            436351,
+            437376,
+            447775,
+            449152
+          ],
+          "first_observed_duration_ns": 436959,
+          "measured_mean_ns": 444767.6666666667,
+          "measured_min_ns": 437376,
+          "measured_max_ns": 449152,
+          "measured_cycles_at_sim_clock": 880639.98,
+          "grid": [
+            66,
+            2,
+            1
+          ],
+          "block": [
+            384,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 168,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 215040,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 19,
+          "module_index": 97,
+          "entry": "moe_kernel_8f7985f0f37e7b00",
+          "role": "SwiGLU",
+          "duration_ns_samples": [
+            40928,
+            40640,
+            41856,
+            40479,
+            41696,
+            40639
+          ],
+          "first_observed_duration_ns": 40928,
+          "measured_mean_ns": 40938,
+          "measured_min_ns": 40479,
+          "measured_max_ns": 41696,
+          "measured_cycles_at_sim_clock": 81057.24,
+          "grid": [
+            22528,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 31,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 20,
+          "module_index": 16,
+          "entry": "moe_kernel_df3e0c49e4650c1f",
+          "role": "专家 FC2 grouped GEMM",
+          "duration_ns_samples": [
+            234208,
+            231903,
+            230688,
+            230368,
+            230335,
+            230880
+          ],
+          "first_observed_duration_ns": 234208,
+          "measured_mean_ns": 230527.66666666666,
+          "measured_min_ns": 230335,
+          "measured_max_ns": 230880,
+          "measured_cycles_at_sim_clock": 456444.77999999997,
+          "grid": [
+            66,
+            2,
+            1
+          ],
+          "block": [
+            384,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 168,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 215040,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 21,
+          "module_index": 80,
+          "entry": "moe_kernel_c479f139e809aa8b",
+          "role": "chunk 映射与重排（专家计算后）",
+          "duration_ns_samples": [
+            16928,
+            17024,
+            17120,
+            17088,
+            16960,
+            16992
+          ],
+          "first_observed_duration_ns": 16928,
+          "measured_mean_ns": 17013.333333333332,
+          "measured_min_ns": 16960,
+          "measured_max_ns": 17088,
+          "measured_cycles_at_sim_clock": 33686.399999999994,
+          "grid": [
+            16384,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 22,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 16,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 22,
+          "module_index": 96,
+          "entry": "moe_kernel_6111d03e4948ce2e",
+          "role": "chunk 映射与重排（专家计算后）",
+          "duration_ns_samples": [
+            41023,
+            41152,
+            41855,
+            41376,
+            41984,
+            41152
+          ],
+          "first_observed_duration_ns": 41023,
+          "measured_mean_ns": 41504,
+          "measured_min_ns": 41152,
+          "measured_max_ns": 41984,
+          "measured_cycles_at_sim_clock": 82177.92,
+          "grid": [
+            16384,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 26,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        },
+        {
+          "launch_index": 23,
+          "module_index": 98,
+          "entry": "moe_kernel_ac10839130b06565",
+          "role": "输出逆重排与加权合并",
+          "duration_ns_samples": [
+            30656,
+            31648,
+            30912,
+            30816,
+            30368,
+            31680
+          ],
+          "first_observed_duration_ns": 30656,
+          "measured_mean_ns": 30954.666666666668,
+          "measured_min_ns": 30368,
+          "measured_max_ns": 31680,
+          "measured_cycles_at_sim_clock": 61290.240000000005,
+          "grid": [
+            4096,
+            1,
+            1
+          ],
+          "block": [
+            128,
+            1,
+            1
+          ],
+          "registers_per_thread_reported": 32,
+          "static_shared_bytes": 0,
+          "dynamic_shared_bytes": 0,
+          "local_bytes_per_thread_reported": 0
+        }
+      ]
+    }
+  ]
+}
