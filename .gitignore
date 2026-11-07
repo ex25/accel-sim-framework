@@ -20,3 +20,9 @@ compile_commands.json
 .claude
 CLAUDE.md
 .cursor
+
+build/
+build*
+
+gpu-app-collection/
+gpu-app-collection*
