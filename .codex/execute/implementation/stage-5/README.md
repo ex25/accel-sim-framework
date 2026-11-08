@@ -1,8 +1,8 @@
 # 阶段5实际实现：tensor map 与 TMA
 
-状态：**阶段5实现及定向自测完成；独立搬运验收通过，整阶段尚未完全验收，TMA→WGMMA联测等待阶段6单次矩阵能力**。现在可以通过正式CUDA查询接口取得编码函数，把128B描述符传入PTX、修改和发布，再搬入shared、向两个CTA组播或写回global。输入在数据和零填交付后才通知mbarrier；输出读完shared后可以复用源，kernel退出仍等待写确认。
+状态：**阶段5实现及自测完成；2026-11-09已补齐TMA→WGMMA联测，独立验收通过（限阶段5范围）**。现在可以通过正式CUDA查询接口取得编码函数，把128B描述符传入PTX、修改和发布，再搬入shared、向两个CTA组播或写回global。输入在数据和零填交付后才通知mbarrier；输出读完shared后可以复用源，kernel退出仍等待写确认。
 
-独立验收结果为[部分通过](../../validation/stage-5/README.md)：搬运、屏障通知和输出双完成点通过，首次矩阵联测未运行。前置阶段3/4已独立验收。本轮从冻结 PTX 提取真实专家的地址指令，在微测内重放地址计算、TMA、屏障和普通shared读回；没有运行完整冻结专家，也没有声称完整流水通过。冻结 PTX 中的实际shared起点均对应swizzle phase 0，非零phase仍由人工地址测试覆盖。[首次TMA→WGMMA交叉测试](../../../validation/stage-5.md#early-integration)等待阶段6单次WGMMA通过。
+当前独立结论见[验收记录](../../validation/stage-5/README.md)，两阶段共同联测已补验；下文保留原实现与自测交付。前置阶段3/4已独立验收。本轮从冻结 PTX 提取真实专家的地址指令，在微测内重放地址计算、TMA、屏障和普通shared读回；没有运行完整冻结专家。冻结 PTX 中的实际shared起点均对应swizzle phase 0，非零phase仍由人工地址测试覆盖。
 
 [方案](../../../plans/stage-5.md) · [验收要求](../../../validation/stage-5.md) · [自测汇总](../../../../workloads/moe/runs/hopper-stage-5/summary.json) · [测试源码](../../../../workloads/moe/tests/hopper/stage-5/)
 
@@ -85,10 +85,10 @@ debug微测包含既有5000周期launch费用，不是专家性能或九例预�
 
 ## 未完成与交接
 
-1. 首次TMA→WGMMA→普通store联测是阶段5/6共同集成项，等待阶段6普通shared单次WGMMA通过。阶段6实现者交付单次WGMMA后，由集成负责人立即串联，用既有box、正式mbarrier及本阶段swizzle函数检查全部8192项和完成先后；不等阶段6全部完成。验证者独立复验，报告在阶段5索引、阶段6引用；发现TMA或WGMMA问题分别回所属阶段修复。
+1. 原待办首次TMA→WGMMA→普通store联测已于2026-11-09补验，报告在[阶段5验收记录](../../validation/stage-5/README.md)统一索引，阶段6引用同一份证据；当前未验的完整真实专家留阶段7。
 2. 冻结样本的shared起点均为swizzle phase 0，没有实际非零起点可采。人工base1280的phase 2测试继续覆盖非零相位；若后续冻结 PTX 出现非零起点，再增加真实地址采样。真实地址片段、屏障及shared读回应由阶段5实现者负责，本轮已完成。
 3. shared/远端交付量和顺序已建模，吞吐/端点延迟为上述近似，代表性专家具备后再判断主要耗时影响。未扩rank>2、其它dtype/interleave/swizzle、任意GPC、native编码；精细L2 hint暂缓。
-4. 独立验收已完成当前可运行项目，未复现实现错误；测试补强了128B编码独立预期及每轮输出哨兵。18项PTX测试、五项相关回归和写确认延迟隔离通过；完整结论、版本及证据见[验收记录](../../validation/stage-5/README.md)。首次TMA→WGMMA联测仍须补验，保留SASS trace未覆盖边界。
+4. 独立验收未复现实现错误；测试补强了128B编码独立预期及每轮输出哨兵，后续联测另修正了屏障位置、启动与输入。完整结论、版本及证据见[验收记录](../../validation/stage-5/README.md)，保留SASS trace未覆盖边界。
 
 ## 版本、命令与附件
 
