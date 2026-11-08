@@ -54,3 +54,9 @@ CUDA 6+环境使用 `extract_ptx_files_using_cuobjdump_internal` 逐文件提取
 - 交给验证 agent：先独立运行上述 `all` 入口；重点复核目标资源命令、参数内容及偏移、shared每CTA值/驻留7↔3/资源释放、Push/Pop与直接启动、预期失败状态和A→B→A映射。验证 agent 应填写独立验收记录，不把本表自测视为独立通过。
 
 只维护本阶段这份实际实现说明；原 plan 保留方案并链接到这里。独立验收结果以对应 validation README 为准。
+
+## 阶段 1 真实消费者发现的加载补充（2026-11-08）
+
+阶段 0 原验收范围没有包含 Triton 的 `.reqntid` 和尾部 DWARF 调试段。阶段 1 首次加载冻结模块 70 时发现：前者只有词法 token，没有函数头语法；后者进入了可执行语法并报错。现已在 `ptx.y` 接受并保留 `.reqntid x,y,z`，复用线程数资源元数据；在 `ptx.l` 跳过当前冻结 PTX 中单层花括号的 `.debug_*` 内容。执行代码、参数和 `.file/.loc` 保留。
+
+这是阶段 0 所属的前置修复，随阶段 1 提交交付；[阶段 1 实现记录](../stage-1/README.md)记录版本、真实消费者及证据。本轮阶段 0 八项自测回归全部通过，见 [stage0-regression/run.json](../../../../workloads/moe/runs/hopper-stage-1/stage0-regression/run.json)。这两处补充已随[阶段 1 独立验收](../../validation/stage-1/README.md)的真实模块运行和阶段 0 回归复核；阶段 0 原验收范围及历史版本保留。

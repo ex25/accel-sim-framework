@@ -1,4 +1,5 @@
 runs/
+tests/
 __pycache__/
 
 # The parent repository ignores CSV files; keep measured baselines.
