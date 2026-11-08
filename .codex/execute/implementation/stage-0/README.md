@@ -60,3 +60,7 @@ CUDA 6+环境使用 `extract_ptx_files_using_cuobjdump_internal` 逐文件提取
 阶段 0 原验收范围没有包含 Triton 的 `.reqntid` 和尾部 DWARF 调试段。阶段 1 首次加载冻结模块 70 时发现：前者只有词法 token，没有函数头语法；后者进入了可执行语法并报错。现已在 `ptx.y` 接受并保留 `.reqntid x,y,z`，复用线程数资源元数据；在 `ptx.l` 跳过当前冻结 PTX 中单层花括号的 `.debug_*` 内容。执行代码、参数和 `.file/.loc` 保留。
 
 这是阶段 0 所属的前置修复，随阶段 1 提交交付；[阶段 1 实现记录](../stage-1/README.md)记录版本、真实消费者及证据。本轮阶段 0 八项自测回归全部通过，见 [stage0-regression/run.json](../../../../workloads/moe/runs/hopper-stage-1/stage0-regression/run.json)。这两处补充已随[阶段 1 独立验收](../../validation/stage-1/README.md)的真实模块运行和阶段 0 回归复核；阶段 0 原验收范围及历史版本保留。
+
+## 阶段3发现的前置修复
+
+阶段3资源自测发现 `ptx_version::set_target` 对完整 `sm_90a` 字符串按 `%u` 读取，数值目标字段未正确赋值。阶段3已改为读取 `sm_%u`，保留完整目标字符串，并用sm90a/70组件与阶段0相关回归检查。具体源码、最终被测版本与证据见[阶段3实现记录](../stage-3/README.md)；不改写本阶段原独立验收结论。
