@@ -27,4 +27,12 @@
 | 详细交付文档 | 原plan/validation作为概览，plans/和validation/按阶段保存实现及验收；明确所需指令、实现方法、SASS复用、事实影响和未完成状态。 |
 | 当前范围优先 | 对当前九例影响低且实现繁琐的细节可记录暂缓；不加无依据防御代码/验证，不放宽数值、必要同步和主要时序要求。 |
 
+## 2026-11-08 执行交付约定
+
+| 决策 | 已确认内容 |
+| --- | --- |
+| 执行与验证分工 | 执行 agent 实现并自测；验证 agent 独立复现/报告实现问题，可补充或修正验收测试。模拟器修复交执行 agent，验证 agent 对修复版本复验。 |
+| 实际记录位置 | execute/implementation 和 execute/validation 各按 stage-0～7 分目录，每阶段一份 README。分别记录实际代码改动及其 plan 对应关系、实际验收结论和证据；原方案只保留要求及入口。 |
+| 阶段选择 | 用户在每次新任务指定当前进度和开始阶段；使用通用 prompt，不因前一阶段通过就自动实施下一阶段。 |
+
 阅读入口：[README](README.md)。原始规划输入：[hopper-planning-prompt.md](hopper-planning-prompt.md)。

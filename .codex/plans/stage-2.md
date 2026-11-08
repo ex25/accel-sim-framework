@@ -164,4 +164,4 @@ wait完成只确认执行该wait的线程所提交的相关copy。若lane0负责
 | [trace_driven.cc](../../gpu-simulator/trace-driven/trace_driven.cc) | `OP_LDGSTS/OP_LDGDEPBAR/OP_DEPBAR`分类和复用边界 |
 | [Qwen64/128 PTX](../../workloads/moe/artifacts/ptx/b4d06c15353157e5.ptx)、[Mixtral/128 PTX](../../workloads/moe/artifacts/ptx/cf685bb5cf3652b7.ptx)、[全部模块](../../workloads/moe/artifacts/workloads.json) | 实际copy长度、src_size来源、wait常量、循环/barrier与矩阵地址计算 |
 
-执行后列清三条指令实际实现/修复内容、完成回调粒度、真实gating数值/时序、受影响SASS回归和暂缓项，链接[验收报告](../validation/stage-2.md#results)。当前没有实现或运行结果。
+实际改动、指令/接口、复用及自测填写到 [阶段 2 实际实现记录](../execute/implementation/stage-2/README.md)；独立运行结论填写到 [实际验收记录](../execute/validation/stage-2/README.md)。本文件保留实现方案，不重复维护实际状态。

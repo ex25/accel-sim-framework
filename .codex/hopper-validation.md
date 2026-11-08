@@ -12,7 +12,7 @@
 
 ## 分阶段检查入口
 
-详细测试、输入构造、预期与实际结果表分别放在 [validation/](validation/README.md)。下列仅保留概览，全部状态仍为未运行。
+详细测试、输入构造与预期放在 [validation/](validation/README.md)，实际结果表迁至 [execute 的分阶段验收记录](execute/README.md)。下列仅保留概览，当前尚无运行验收结果。
 
 <a id="stage-0"></a>
 

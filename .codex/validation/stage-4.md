@@ -79,10 +79,4 @@
 
 ## 实际结果
 
-| 项目 | 当前状态 | 后续填写 |
-| --- | --- | --- |
-| init/本地arrive/try_wait | 未实现/未运行 | 指令、predicate和实际状态序列 |
-| expect、arrive.expect_tx及完成组件 | 待接通/未运行 | 固定序列、中间计数、转换次数 |
-| 远端arrive/初始化fence | 未实现/未运行 | 目标隔离、通知与可见顺序 |
-| 三轮phase/hint | 未验证 | 采用模型、轮询/暂停和结果依赖 |
-| SASS适配/真实TMA完成 | 未验证 | 前者回归，后者留阶段5复验 |
+实际状态与结果表已迁至 [阶段 4 实际验收记录](../execute/validation/stage-4/README.md)；改动说明见 [实际实现记录](../execute/implementation/stage-4/README.md)。这里保留验收要求，不重复填写结果。

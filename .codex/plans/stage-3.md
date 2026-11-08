@@ -110,4 +110,4 @@ shared对象按CTA创建并由当前cluster拥有；线程只引用所属对象�
 | [gpu-sim.cc](../../gpu-simulator/gpgpu-sim/src/gpgpu-sim/gpu-sim.cc)、[shader.cc](../../gpu-simulator/gpgpu-sim/src/gpgpu-sim/shader.cc) | CTA接纳、资源占用/退出和屏障等待 |
 | [kernel-times.json](../../workloads/moe/evidence/kernel-times.json)、[专家PTX](../../workloads/moe/artifacts/ptx/df3e0c49e4650c1f.ptx) | 物理资源记录、实际cluster/特殊寄存器/屏障形式 |
 
-实际实现/修复的接口与指令、地址布局、放置结果及通信近似填写到[验收记录](../validation/stage-3.md#results)。当前均未验证。
+实际改动、指令/接口、复用及自测填写到 [阶段 3 实际实现记录](../execute/implementation/stage-3/README.md)；独立运行结论填写到 [实际验收记录](../execute/validation/stage-3/README.md)。本文件保留实现方案，不重复维护实际状态。

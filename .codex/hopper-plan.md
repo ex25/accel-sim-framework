@@ -10,7 +10,7 @@ PTX 模式必须自己计算结果、地址和分支，并模拟搬运/计算何
 
 **本轮调整：**非组播 TMA 输入、mbarrier 和单次 WGMMA 分别通过后，立即做“搬入→等待→计算→普通写出”的首次联测，不等组播、TMA 输出和寄存器配额全部完成。从首个真实普通内核开始记录初始化/模拟墙钟及 RSS；有代表性尺寸的专家调用一旦可用就更新九例运行预算，不留到最终集成结束。
 
-实现细节见[分阶段计划](plans/README.md)，测试和结果记录见[分阶段验收](validation/README.md)。本文件只维护能力依赖和交付概览；[验证概览](hopper-validation.md)保留九例性能口径和基线，[决定文档](hopper-planning-decisions.md)保存已确认取舍，[调查依据](hopper-notes.md)保存事实与202条指令总映射。
+实现细节见[分阶段计划](plans/README.md)，测试要求见[分阶段验收](validation/README.md)，实际改动与运行结论见[执行记录](execute/README.md)。本文件只维护能力依赖和交付概览；[验证概览](hopper-validation.md)保留九例性能口径和基线，[决定文档](hopper-planning-decisions.md)保存已确认取舍，[调查依据](hopper-notes.md)保存事实与202条指令总映射。
 
 ## 开发依赖与首次联测
 

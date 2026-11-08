@@ -131,4 +131,4 @@ CPU 参考按块处理以控制内存；不调用模拟器 WGMMA/TMA 的布局�
 | [gpu-sim.cc](../../gpu-simulator/gpgpu-sim/src/gpgpu-sim/gpu-sim.cc)、[shader.cc](../../gpu-simulator/gpgpu-sim/src/gpgpu-sim/shader.cc) | 设备起止、实际完成及必要统计 |
 | [hardware-counters.json](../../workloads/moe/evidence/hardware-counters.json)、[kernel-times.json](../../workloads/moe/evidence/kernel-times.json) | ncu 九例与 nsys 三例、采集条件和逐调用参照 |
 
-实际记录填到[阶段 7 验收表](../validation/stage-7.md#results)：九例输出和时间、明确修复的指令/所属阶段、提交/配置、墙钟/RSS、近似及仍阻塞事项。当前不填写通过。
+实际改动、指令/接口、复用及自测填写到 [阶段 7 实际实现记录](../execute/implementation/stage-7/README.md)；独立运行结论填写到 [实际验收记录](../execute/validation/stage-7/README.md)。本文件保留实现方案，不重复维护实际状态。

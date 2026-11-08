@@ -228,4 +228,4 @@ PTX 中的 `.target sm_90a` 告诉工具链，这段代码使用哪种 GPU 架�
 | [ptx.l](../../gpu-simulator/gpgpu-sim/src/cuda-sim/ptx.l)、[ptx.y](../../gpu-simulator/gpgpu-sim/src/cuda-sim/ptx.y)、[instructions.cc](../../gpu-simulator/gpgpu-sim/src/cuda-sim/instructions.cc) | `.noreturn`声明后缀、`call_impl`、`trap_impl` |
 | [专家原始PTX](../../workloads/moe/artifacts/ptx/df3e0c49e4650c1f.ptx)、[断言声明实例](../../workloads/moe/artifacts/ptx/0f77e1c592ff33ce.ptx) | 1344B/align64参数，以及真实extern/noreturn声明形式 |
 
-执行 agent 完成后逐项填写：实际修改的声明/接口/指令、采用的最小改法、提交号、[对应验收报告](../validation/stage-0.md#results)、未完成项。当前全部待执行；不得把上文的拟改法填成“已经修复”。
+实际改动、指令/接口、复用及自测填写到 [阶段 0 实际实现记录](../execute/implementation/stage-0/README.md)；独立运行结论填写到 [实际验收记录](../execute/validation/stage-0/README.md)。本文件保留实现方案，不重复维护实际状态。

@@ -146,4 +146,4 @@ latency 是结果多久可用，initiation interval 是同一执行单元多久�
 | [H100 PTX配置](../../gpu-simulator/gpgpu-sim/configs/tested-cfgs/SM90_H100/gpgpusim.config)、[Hopper opcode表](../../gpu-simulator/ISA_Def/hopper_opcode.h)、[H100 trace配置](../../gpu-simulator/configs/tested-cfgs/SM90_H100/trace.config) | SHFL第六项及可复用流水映射；SASS初值的证据 |
 | [workloads.json](../../workloads/moe/artifacts/workloads.json)、[模块用途](../../workloads/moe/docs/ptx-modules.md) | 模块身份、entry、指针参数位置和真实消费者 |
 
-待执行后逐项填写“实现了哪些指令、修复了哪个问题、验证了哪些实际形式”，附提交与[验收报告](../validation/stage-1.md#results)。当前均未实现/未验证；不能把本方案的算法当成已有代码。
+实际改动、指令/接口、复用及自测填写到 [阶段 1 实际实现记录](../execute/implementation/stage-1/README.md)；独立运行结论填写到 [实际验收记录](../execute/validation/stage-1/README.md)。本文件保留实现方案，不重复维护实际状态。

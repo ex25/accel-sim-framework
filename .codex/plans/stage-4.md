@@ -102,4 +102,4 @@ PTX功能函数与性能模型都会经过一条指令；若两边各减一次�
 | [instructions.cc](../../gpu-simulator/gpgpu-sim/src/cuda-sim/instructions.cc)、[cuda-sim.cc](../../gpu-simulator/gpgpu-sim/src/cuda-sim/cuda-sim.cc) | 新语义求值、输入/输出依赖、动态操作数接线 |
 | [专家PTX](../../workloads/moe/artifacts/ptx/df3e0c49e4650c1f.ptx) | 初始化发布、远端到达、hint及先TMA后expect的实际消费者 |
 
-实际六种mbarrier及fence的实现/修复、hint模型与[验收记录](../validation/stage-4.md#results)分别填写。当前没有运行证据。
+实际改动、指令/接口、复用及自测填写到 [阶段 4 实际实现记录](../execute/implementation/stage-4/README.md)；独立运行结论填写到 [实际验收记录](../execute/validation/stage-4/README.md)。本文件保留实现方案，不重复维护实际状态。

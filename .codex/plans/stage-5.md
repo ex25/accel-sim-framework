@@ -145,4 +145,4 @@ TMA根据一个128B的tensor map搬矩阵小块。tensor map记录基址、形�
 | [shader.cc](../../gpu-simulator/gpgpu-sim/src/gpgpu-sim/shader.cc)、[shader.h](../../gpu-simulator/gpgpu-sim/src/gpgpu-sim/shader.h) | OOB、返回、组播通知、shared服务、bulk组与store ack |
 | [原指令说明](../../workloads/moe/docs/ptx-instructions.md)、[专家PTX](../../workloads/moe/artifacts/ptx/df3e0c49e4650c1f.ptx) | 各操作数单位、两种wait和实际描述符更新 |
 
-逐项记录哪些指令已实现、哪条完成条件已修正、哪些运行通过；见[结果表](../validation/stage-5.md#results)。当前没有实现或验收结果。
+实际改动、指令/接口、复用及自测填写到 [阶段 5 实际实现记录](../execute/implementation/stage-5/README.md)；独立运行结论填写到 [实际验收记录](../execute/validation/stage-5/README.md)。本文件保留实现方案，不重复维护实际状态。
