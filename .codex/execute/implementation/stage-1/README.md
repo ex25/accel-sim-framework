@@ -122,3 +122,8 @@ python3 workloads/moe/tests/hopper/stage-1/real.py \
 可换 `numeric`、`warp_full`、`warp_partial`；`STAGE1_OBSERVE_TIMING=1` 记录 `./micro throughput` 单元接收，`STAGE1_OBSERVE_KERNELS=1` 记录 `./real convert` 设备起止。本轮固定证据断言为 `python3 workloads/moe/tests/hopper/stage-1/summarize.py workloads/moe/runs/hopper-stage-1`。
 
 必要自测及独立验收已经完成，停止扩测。用户决定本次不开展硬件对照，也不启动阶段 2；后续需要时使用[硬件对照 prompt](../../hardware-baseline-prompt.md)。测试源码随本阶段提交；大型运行日志和输出保留本地，不纳入 Git。
+
+
+## 阶段7消费者发现的32位地址修复
+
+阶段7的原Qwen64/128暴露top-k shared读取错误：32位加法的内部高位进位被公共访存操作数求值当作64位地址，第四个入选专家覆盖已有结果。`instructions.cc`现在按地址寄存器声明宽度截断32位地址，保持64位地址行为。bits_loads新增64线程、32位shared地址读写64位数据的回归，debug/release均通过；相关算术、warp协作和矩阵访存回归也通过。完整原因、版本和证据见[阶段7实际记录](../stage-7/README.md#首个数值分歧32位地址读到了错误位置)。这是阶段7本轮实现自测，未改写本阶段历史独立验收结论。

@@ -31,8 +31,12 @@ def main():
     parser.add_argument("--iterations", type=int, default=1)
     parser.add_argument("--repeats", type=int, default=1)
     parser.add_argument("--run-dir", type=Path)
+    parser.add_argument("--sim-events", action="store_true",
+                        help="Record simulator CUDA-event device cycles through GDB")
     parser.add_argument("--list", action="store_true")
     args = parser.parse_args()
+    if args.sim_events and args.mode != "sim":
+        parser.error("--sim-events requires --mode sim")
     if args.warmup < 0 or args.iterations < 1 or args.repeats < 1:
         parser.error("--warmup must be nonnegative; --iterations/--repeats must be positive")
     if args.list:
@@ -70,18 +74,26 @@ def main():
     command = [str(binary), "--input", str(ARTIFACTS / "cases" / selected["name"] / "forward.bin"),
                "--output", str(directory / "output"), "--warmup", str(args.warmup),
                "--iterations", str(args.iterations), "--repeats", str(args.repeats)]
-    if args.mode == "sim":
+    if args.mode == "sim" and not args.sim_events:
         command.append("--simulation")
+    if args.sim_events:
+        observer = ROOT / "tests/hopper/stage-7/event_timing.py"
+        command = ["gdb", "--quiet", "--batch", "--return-child-result",
+                   "-ex", "source " + str(observer), "-ex", "run", "--args"] + command
     manifest = {"workload": selected["name"], "mode": args.mode,
                 "parameters": selected["framework"]["parameters"], "warmup": args.warmup,
                 "iterations": args.iterations, "repeats": args.repeats, "binary_sha256": digest,
                 "forward_sha256": selected["forward_sha256"],
-                "loaded_libraries": libraries, "command": command, "state": "running"}
+                "loaded_libraries": libraries, "command": command, "state": "running",
+                "simulator_event_observer": args.sim_events}
     path = directory / "run.json"
     path.write_text(json.dumps(manifest, indent=2) + "\n")
     with (directory / "stdout.log").open("w") as log:
         process = subprocess.run(command, cwd=directory, stdout=log, stderr=subprocess.STDOUT)
     manifest.update(exit_code=process.returncode, state="completed" if not process.returncode else "failed")
+    if args.sim_events and process.returncode == 0:
+        timing = json.loads((directory / "event-timing.json").read_text())
+        manifest["simulated_forward_event_ms"] = timing["device_elapsed_ms"]
     path.write_text(json.dumps(manifest, indent=2) + "\n")
     print("Results:", directory)
     print((directory / "stdout.log").read_text()[-3000:])

@@ -1,0 +1,4 @@
+﻿case,simulated_event_ms,h100_first_forward_ms,h100_warm_forward_ms,raw_vs_first_percent,raw_vs_warm_percent,start_cycle,end_cycle,elapsed_cycles,hardware_equivalent_end_to_end_accuracy
+qwen64-t128,0.5834631313131313,6.28378,0.559203,-90.71477468477363,4.338340694368825,5303,1160560,1155257,"not assessed: DMA, host gaps, cold/warm conditions differ"
+phi-t128,1.1143454545454545,9.10432,1.07868,-87.76025607024518,3.306398055535875,5303,2211707,2206404,"not assessed: DMA, host gaps, cold/warm conditions differ"
+mixtral-t128,1.1826540404040404,4.40438,1.1751,-73.14822879942146,0.6428423456761534,5303,2346958,2341655,"not assessed: DMA, host gaps, cold/warm conditions differ"

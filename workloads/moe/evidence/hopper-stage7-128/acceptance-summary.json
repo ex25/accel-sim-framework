@@ -1,0 +1,264 @@
+{
+  "status": "passed_scoped_three_128_single_gpu_closeout",
+  "simulator_commit": "9cff9650653fbf5420f5c3c7911eb3d78c46c16a",
+  "accepted_source_base": "b62607065669e4ffcf4d304d9959c29f9085c092",
+  "accepted_precommit_diff_sha256": "8e8211cd4d49bd1a3546aefed24bc427d49138eb8ebb126c3a0c71e87c373e49",
+  "accepted_library_sha256": "f223cd2c5ea7e9509a998be34afa5bb433508f23c50a58ece911e1488c9b7f25",
+  "build_note": "Library built before commit; its build banner names the accepted base plus modifications. This commit archives the exact accepted source tree, without rebuilding for a new banner.",
+  "outer_test_base": "a3719197c0eddacaf84d7f5e8217e0a996eb2e3e",
+  "source_files_sha256": {
+    "configs/tested-cfgs/SM90_H100/gpgpusim.config": "c12ba5e9d60ebe7170cc5619a9fe6363a6306615e620857fe48e8cbddc785d95",
+    "configs/tested-cfgs/SM90_H200/gpgpusim.config": "d1ca125fd64c6697d68b16305005cf4d977bbc211b01c52bcfcb33d8d66be4a6",
+    "libcuda/cuda_api_object.h": "8088566da1bac348fc318b1b34d9cc55f9f40264a50e1d221ea65cbd93cc6bab",
+    "libcuda/cuda_runtime_api.cc": "04e0a55456921cb995ec28b2d91da400e69d75014a071183757b6802e014dcc1",
+    "src/abstract_hardware_model.cc": "1797f95f37be55ded4deac7f031d03bebb11c1bfecc6901f966b66f5965ce27d",
+    "src/abstract_hardware_model.h": "f78b9e5606f6b2e5169ad01273632cbc623c67cce37c25f70c30b9a5228e2cf7",
+    "src/cuda-sim/cuda-sim.cc": "e4d26cae4e41d1596282cde84a42f595b32d4ca850901a4fc0724ecd258be464",
+    "src/cuda-sim/cuda_device_runtime.cc": "0363b903f316d3a46d94b0ffce932e8ac341e0be75d1d1b652de50b21fb2fc32",
+    "src/cuda-sim/hopper_math.h": "3d12a31a5a9a6289b4967fa050923ce3b278d47840862c1105d4dc78d56452af",
+    "src/cuda-sim/instructions.cc": "6bafe920a2650083559b56f485c1a5a5da4bf208119f3b894c4a5d11bc752f6b",
+    "src/cuda-sim/nvidia_math.h": "81a346ac5a4658958cbe6ae1691e4887d7bb41530355336535b4b67adb7cd359",
+    "src/cuda-sim/ptx.l": "a111bc5a2b9d5dacfe703b5d139ab298e1649c6124e7c28e171ec41b56fdcbf8",
+    "src/cuda-sim/ptx_ir.cc": "d6a28d14c941500277517e250f7802c52beb07b278ac1b442efad288798c4400",
+    "src/cuda-sim/ptx_ir.h": "54c17dc328ac220f2cf3c636d4ab84c11207e3c2450e6abc26c3833b498d34f2",
+    "src/gpgpu-sim/gpu-sim.cc": "5086bc7ffa961976ca5f52e162320931610b2b08079c6dacb32ecab6e7d3193c",
+    "src/gpgpu-sim/shader.cc": "b8723b4eae35ebddc6d51d626d5e508f3cc8cb023f6d020cfca2b5e7761a7442",
+    "src/gpgpu-sim/shader.h": "a487c980cd91c99f68c31154d00ce53240270c04ec5c6f4f5cc5b7e541b13c71"
+  },
+  "cases": [
+    {
+      "case": "qwen64-t128",
+      "completed_launches": 22,
+      "registered_entries": 110,
+      "numerical": {
+        "passed": true,
+        "elements": 262144,
+        "failed_elements": 0,
+        "different_elements": 13,
+        "nonfinite_elements": 0,
+        "non_bf16_elements": 0,
+        "max_absolute_error": 1.52587890625e-05,
+        "relative_l2_error": 2.6107743112063107e-06
+      },
+      "major_calls": [
+        {
+          "launch_index": 1,
+          "module": 71,
+          "role": "路由 gating GEMM",
+          "sim_ms": 0.08014696969696969,
+          "ncu_ms": 0.08512,
+          "relative_error": -0.0584237582592847,
+          "wgmma": 0,
+          "wall_seconds": 123.2231419980526
+        },
+        {
+          "launch_index": 16,
+          "module": 16,
+          "role": "专家 FC1 grouped GEMM",
+          "sim_ms": 0.27365656565656565,
+          "ncu_ms": 0.26768,
+          "relative_error": 0.02232727755740327,
+          "wgmma": 354816,
+          "wall_seconds": 8673.720458999276
+        },
+        {
+          "launch_index": 18,
+          "module": 16,
+          "role": "专家 FC2 grouped GEMM",
+          "sim_ms": 0.14579343434343434,
+          "ncu_ms": 0.137728,
+          "relative_error": 0.058560600193383605,
+          "wgmma": 177408,
+          "wall_seconds": 4610.477115999907
+        }
+      ],
+      "kernel_sum_sim_ms": 0.5278853535353536,
+      "kernel_sum_ncu_ms": 0.5619520000000001,
+      "kernel_sum_ncu_relative_error": -0.060621986334502775,
+      "expert_wgmma_counts": [
+        354816,
+        177408
+      ],
+      "process_wall_seconds": 14077.0,
+      "peak_rss_gib": 12.51593017578125,
+      "compare_seconds": 0.17,
+      "output_sha256": "94728658b356b6799b25984c7da9a4ad611b2d8669ff03c39e42177bed91005a",
+      "stdout_sha256": "3bbe83c629b1d910e0f27f8f27cb1c9459804dd1b9da623eb21e04a4af721c76",
+      "configuration_sha256": "c12ba5e9d60ebe7170cc5619a9fe6363a6306615e620857fe48e8cbddc785d95"
+    },
+    {
+      "case": "phi-t128",
+      "completed_launches": 22,
+      "registered_entries": 110,
+      "numerical": {
+        "passed": true,
+        "elements": 524288,
+        "failed_elements": 0,
+        "different_elements": 19,
+        "nonfinite_elements": 0,
+        "non_bf16_elements": 0,
+        "max_absolute_error": 0.00048828125,
+        "relative_l2_error": 1.2142592817650902e-05
+      },
+      "major_calls": [
+        {
+          "launch_index": 2,
+          "module": 41,
+          "role": "路由 gating GEMM",
+          "sim_ms": 0.11148888888888889,
+          "ncu_ms": 0.106144,
+          "relative_error": 0.050355073191973965,
+          "wgmma": 0,
+          "wall_seconds": 102.9101679995656
+        },
+        {
+          "launch_index": 16,
+          "module": 16,
+          "role": "专家 FC1 grouped GEMM",
+          "sim_ms": 0.615119191919192,
+          "ncu_ms": 0.616,
+          "relative_error": -0.0014298832480650336,
+          "wgmma": 819200,
+          "wall_seconds": 19557.215533997864
+        },
+        {
+          "launch_index": 18,
+          "module": 16,
+          "role": "专家 FC2 grouped GEMM",
+          "sim_ms": 0.3051979797979798,
+          "ncu_ms": 0.29552,
+          "relative_error": 0.03274898415667238,
+          "wgmma": 409600,
+          "wall_seconds": 9756.68917099759
+        }
+      ],
+      "kernel_sum_sim_ms": 1.058767676767677,
+      "kernel_sum_ncu_ms": 1.089344,
+      "kernel_sum_ncu_relative_error": -0.028068565331358153,
+      "expert_wgmma_counts": [
+        819200,
+        409600
+      ],
+      "process_wall_seconds": 30127.0,
+      "peak_rss_gib": 13.394336700439453,
+      "compare_seconds": 0.27,
+      "output_sha256": "b4c45dac0634a97876d896c1d52cb17825f436e2c12bd2ba48719d9c68e27f1a",
+      "stdout_sha256": "af4d5f9de25231e0011946a08ffb2a056ae462066aa87d23637024c6391f3da4",
+      "configuration_sha256": "c12ba5e9d60ebe7170cc5619a9fe6363a6306615e620857fe48e8cbddc785d95"
+    },
+    {
+      "case": "mixtral-t128",
+      "completed_launches": 22,
+      "registered_entries": 110,
+      "numerical": {
+        "passed": true,
+        "elements": 524288,
+        "failed_elements": 0,
+        "different_elements": 9,
+        "nonfinite_elements": 0,
+        "non_bf16_elements": 0,
+        "max_absolute_error": 6.103515625e-05,
+        "relative_l2_error": 1.03235685490021e-06
+      },
+      "major_calls": [
+        {
+          "launch_index": 2,
+          "module": 2,
+          "role": "路由 gating GEMM",
+          "sim_ms": 0.10610808080808082,
+          "ncu_ms": 0.100928,
+          "relative_error": 0.051324516567065714,
+          "wgmma": 0,
+          "wall_seconds": 103.63443999737501
+        },
+        {
+          "launch_index": 16,
+          "module": 16,
+          "role": "专家 FC1 grouped GEMM",
+          "sim_ms": 0.6606560606060605,
+          "ncu_ms": 0.679776,
+          "relative_error": -0.028126823238742604,
+          "wgmma": 917504,
+          "wall_seconds": 22321.1055219993
+        },
+        {
+          "launch_index": 18,
+          "module": 16,
+          "role": "专家 FC2 grouped GEMM",
+          "sim_ms": 0.33061414141414136,
+          "ncu_ms": 0.332384,
+          "relative_error": -0.005324740618858459,
+          "wgmma": 458752,
+          "wall_seconds": 10593.941476996988
+        }
+      ],
+      "kernel_sum_sim_ms": 1.1270762626262625,
+      "kernel_sum_ncu_ms": 1.18672,
+      "kernel_sum_ncu_relative_error": -0.05025931759280833,
+      "expert_wgmma_counts": [
+        917504,
+        458752
+      ],
+      "process_wall_seconds": 33909.0,
+      "peak_rss_gib": 14.217964172363281,
+      "compare_seconds": 0.27,
+      "output_sha256": "2a10d961a338a973bd709602f60f812fdf73ef4f8429efbfa53bea8a0ce7ddf7",
+      "stdout_sha256": "9bc35638c95296c8db6f657db9af5829928435174cb6fadd552863c4ebea21c4",
+      "configuration_sha256": "c12ba5e9d60ebe7170cc5619a9fe6363a6306615e620857fe48e8cbddc785d95"
+    }
+  ],
+  "endpoints": [
+    {
+      "case": "qwen64-t128",
+      "simulated_event_ms": 0.5834631313131313,
+      "h100_first_forward_ms": 6.28378,
+      "h100_warm_forward_ms": 0.559203,
+      "raw_vs_first_percent": -90.71477468477363,
+      "raw_vs_warm_percent": 4.338340694368825,
+      "start_cycle": 5303,
+      "end_cycle": 1160560,
+      "elapsed_cycles": 1155257,
+      "hardware_equivalent_end_to_end_accuracy": "not assessed: DMA, host gaps, cold/warm conditions differ"
+    },
+    {
+      "case": "phi-t128",
+      "simulated_event_ms": 1.1143454545454545,
+      "h100_first_forward_ms": 9.10432,
+      "h100_warm_forward_ms": 1.07868,
+      "raw_vs_first_percent": -87.76025607024518,
+      "raw_vs_warm_percent": 3.306398055535875,
+      "start_cycle": 5303,
+      "end_cycle": 2211707,
+      "elapsed_cycles": 2206404,
+      "hardware_equivalent_end_to_end_accuracy": "not assessed: DMA, host gaps, cold/warm conditions differ"
+    },
+    {
+      "case": "mixtral-t128",
+      "simulated_event_ms": 1.1826540404040404,
+      "h100_first_forward_ms": 4.40438,
+      "h100_warm_forward_ms": 1.1751,
+      "raw_vs_first_percent": -73.14822879942146,
+      "raw_vs_warm_percent": 0.6428423456761534,
+      "start_cycle": 5303,
+      "end_cycle": 2346958,
+      "elapsed_cycles": 2341655,
+      "hardware_equivalent_end_to_end_accuracy": "not assessed: DMA, host gaps, cold/warm conditions differ"
+    }
+  ],
+  "unrun_simulation_cases": [
+    "qwen64-t4096",
+    "qwen64-t8192",
+    "phi-t4096",
+    "phi-t8192",
+    "mixtral-t4096",
+    "mixtral-t8192"
+  ],
+  "remaining_limits": [
+    "Small-kernel timing deviations retained; no further single-GPU fine tuning per user instruction.",
+    "L2 hit/lookup counter approximations retained.",
+    "Event timing covers modeled forward; explicit DMA and real host submission gaps not fully modeled.",
+    "Six 4096/8192 cases untested; no multi-GPU validation performed."
+  ],
+  "raw_local_run_directory": "workloads/moe/runs/hopper-stage-7/full128-events-v13bkbds",
+  "large_artifacts": "Full logs, libraries, tensors and captured GPU data are local run artifacts and are not committed."
+}

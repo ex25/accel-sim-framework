@@ -106,6 +106,84 @@ def generate(run):
             0x3FC00000,
             1,
         ]
+    c, e = new("register_copies")
+    c += [
+        "mul.wide.u32 %rd3, %r0, 4;",
+        "add.u64 %rd3, %rd0, %rd3;",
+        "ld.global.b32 %r3, [%rd3];",
+        "cvt.rn.bf16.f32 %rs0, %r3;",
+        "cvt.f32.bf16 %r20, %rs0;",
+        "mov.b32 %f3, %r20;",
+        "mov.b32 %r4, %f3;",
+        "add.u32 %r21, %r0, 7;",
+        "mov.b32 %r5, %r21;",
+        "shl.b32 %r22, %r0, 2;",
+        "mov.b32 %r6, %r22;",
+        "mov.f32 %f0, 0f3fc00000;",
+        "mov.f32 %f1, 0f40000000;",
+        "fma.rn.f32 %f2, %f0, %f1, %f0;",
+        "mov.b32 %r7, %f2;",
+        "mov.u32 %r8, 11;",
+        "add.u32 %r23, %r8, 5;",
+        "mov.b32 %r8, %r23;",
+        "mov.u32 %r9, 0;",
+        "copy_loop:",
+        "add.u32 %r24, %r9, 1;",
+        "mov.b32 %r9, %r24;",
+        "setp.lt.u32 %p0, %r9, 3;",
+        "@%p0 bra copy_loop;",
+    ]
+    for slot, reg in enumerate(["%r4", "%r5", "%r6", "%r7", "%r8", "%r9"]):
+        store(c, reg, slot)
+    for i, row in enumerate(e):
+        row[:6] = [rounded[i % len(patterns)] << 16, i + 7, i << 2,
+                   0x40900000, 16, 3]
+
+    c, e = new("register_copy_live")
+    c += [
+        "add.u32 %r20, %r0, 7;",
+        "mov.b32 %r4, %r20;",
+        "add.u32 %r5, %r20, 1;",
+        ".shared .align 4 .b32 copy_shared;",
+        "setp.eq.u32 %p0, %r0, 0;",
+        "mov.u32 %r10, 17;",
+        "@%p0 st.shared.b32 [copy_shared], %r10;",
+        "bar.sync 0;",
+        "mov.u32 %r21, copy_shared;",
+        "mov.b32 %r6, %r21;",
+        "ld.shared.u32 %r7, [%r21];",
+        "add.u32 %r22, %r0, 3;",
+        "mov.b32 %r8, %r22;",
+        "st.global.v2.b32 [%rd2+16], {%r22, %r8};",
+        "add.u32 %r23, %r0, 4;",
+        "mov.b32 %r9, %r23;",
+        "add.u32 %r23, %r0, 5;",
+    ]
+    for slot, reg in [(0, "%r4"), (1, "%r5"), (2, "%r7"),
+                      (6, "%r9"), (7, "%r23")]:
+        store(c, reg, slot)
+    for i, row in enumerate(e):
+        row[:8] = [i + 7, i + 8, 17, SENTINEL, i + 3, i + 3, i + 4, i + 5]
+
+    c, e = new("register_copy_control")
+    c += [
+        "mov.u32 %r4, 99;",
+        "setp.eq.u32 %p0, %r1, 0;",
+        "add.u32 %r20, %r0, 7;",
+        "@%p0 mov.b32 %r4, %r20;",
+        "add.u32 %r21, %r0, 8;",
+        "copy_boundary:",
+        "mov.b32 %r5, %r21;",
+        "mov.u32 %r22, 17;",
+        "@%p0 add.u32 %r22, %r0, 9;",
+        "mov.b32 %r6, %r22;",
+    ]
+    for slot, reg in enumerate(["%r4", "%r5", "%r6"]):
+        store(c, reg, slot)
+    for i, row in enumerate(e):
+        row[:3] = [i + 7 if i % 32 == 0 else 99, i + 8,
+                   i + 9 if i % 32 == 0 else 17]
+
     c, e = new("collectives")
     c += [
         "setp.lt.u32 %p0, %r0, 32;",
@@ -197,6 +275,7 @@ def generate(run):
         if lane >= 16:
             row[17:24] = [v + 19, 1, 0x55550000, 392, 16, int(lane == 16), 16]
     c, e = new("bits_loads")
+    c.insert(0, ".shared .align 8 .b64 address_values[64];")
     c += ["mov.u32 %r3, %lanemask_le;"]
     store(c, "%r3", 0)
     for j, v in enumerate([0, 1, 8, 0x80000000]):
@@ -223,10 +302,135 @@ def generate(run):
         "@%p0 ld.global.L1::evict_first.b8 %r6, [%rd4];",
     ]
     store(c, "%r6", 11)
+    # A negative immediate leaves carry bits in the implementation's wide
+    # storage. A b32 address still denotes only the low 32 bits, including
+    # when the loaded/stored data itself is 64 bits wide.
+    c += [
+        "mov.u32 %r17, address_values;",
+        "mul.lo.u32 %r18, %r0, 8;",
+        "add.u32 %r17, %r17, %r18;",
+        "cvt.u64.u32 %rd6, %r0;",
+        "or.b64 %rd6, %rd6, 0x1234567800000000;",
+        "add.s32 %r18, %r17, 8;",
+        "add.s32 %r18, %r18, -8;",
+        "st.shared.u64 [%r18], %rd6;",
+        "ld.shared.u64 %rd7, [%r17];",
+        "mov.b64 {%r19, %r20}, %rd7;",
+    ]
+    store(c, "%r19", 12)
+    store(c, "%r20", 13)
+    c += ["ld.shared.u64 %rd7, [%r18];", "mov.b64 {%r19, %r20}, %rd7;"]
+    store(c, "%r19", 14)
+    store(c, "%r20", 15)
     for i, row in enumerate(e):
         row[:9] = [(1 << (i % 32 + 1)) - 1, 0xFFFFFFFF, 0xFFFFFFFF, 31, 0, 28, 3, 0, 31]
         if i % 32:
             row[9:12] = [inputs[i], inputs[i], [0, 0x7F, 0x80, 0xFF][i % 4]]
+        row[12:16] = [i, 0x12345678, i, 0x12345678]
+    for name in ("shared_aligned_loop", "shared_misaligned", "shared_branch"):
+        c, e = new(name)
+        c.insert(0, ".shared .align 16 .b32 aligned_values[1024];")
+        c += ["mov.u32 %r14, aligned_values;", "shl.b32 %r4, %r0, 6;",
+              "add.u32 %r3, %r14, %r4;"]
+        if name == "shared_misaligned":
+            c += ["add.u32 %r3, %r3, 4;"]
+        if name == "shared_branch":
+            c += ["and.b32 %r4, %r0, 1;", "setp.eq.u32 %p0, %r4, 0;",
+                  "@%p0 bra aligned_path;", "add.u32 %r3, %r3, 4;",
+                  "aligned_path:"]
+        c += ["mov.u32 %r6, 0;", "aligned_loop:",
+              "shl.b32 %r7, %r6, 4;", "add.u32 %r9, %r3, %r7;",
+              "add.u32 %r15, %r0, %r6;"]
+        for j in range(4):
+            c += [f"add.u32 %r8, %r15, {100+j};",
+                  f"st.shared.u32 [%r9+{4*j}], %r8;"]
+        for j in (3, 1, 0, 2):
+            c += [f"ld.shared.u32 %r{10+j}, [%r9+{4*j}];"]
+        for j in range(4):
+            store(c, f"%r{10+j}", j)
+        if name == "shared_aligned_loop":
+            c += ["add.u32 %r6, %r6, 1;", "setp.lt.u32 %p0, %r6, 2;",
+                  "@%p0 bra aligned_loop;"]
+        for i, row in enumerate(e):
+            row[:4] = [100+i+j+(name == "shared_aligned_loop") for j in range(4)]
+
+    c, e = new("shared_vector")
+    c.insert(0, ".shared .align 16 .b32 vector_values[512];")
+    c += [
+        "mov.u32 %r3, vector_values;",
+        "mul.lo.u32 %r4, %r0, 32;",
+        "add.u32 %r3, %r3, %r4;",
+        "mul.lo.u32 %r4, %r0, 10;",
+        "add.u32 %r4, %r4, 1000;",
+    ]
+    for j in range(8):
+        c += [f"add.u32 %r5, %r4, {j};", f"st.shared.u32 [%r3+{j*4}], %r5;"]
+    c += [
+        # The v4 read proves alignment; the following scalar reads are out of
+        # address order. All eight destinations must retain their own word.
+        "ld.shared.v4.u32 {%r4,%r5,%r6,%r7}, [%r3+16];",
+        "ld.shared.u32 %r10, [%r3+8];",
+        "ld.shared.u32 %r8, [%r3];",
+        "ld.shared.u32 %r11, [%r3+12];",
+        "ld.shared.u32 %r9, [%r3+4];",
+    ]
+    for j in range(8):
+        store(c, f"%r{8+j}" if j < 4 else f"%r{j}", j)
+    c += [
+        "ld.shared.v4.u32 {%r4,%r5,%r6,%r7}, [%r3+16];",
+        "ld.shared.v2.u32 {%r10,%r11}, [%r3+8];",
+        "ld.shared.u32 %r8, [%r3];",
+        "ld.shared.u32 %r9, [%r3+4];",
+    ]
+    for j in range(4):
+        store(c, f"%r{8+j}", 8+j)
+    c += [
+        # Repeated destinations and incomplete words cannot form a v4 read.
+        "ld.shared.v4.u32 {%r4,%r5,%r6,%r7}, [%r3+16];",
+        "ld.shared.u32 %r8, [%r3];",
+        "ld.shared.u32 %r8, [%r3+4];",
+        "ld.shared.u32 %r9, [%r3+8];",
+        "ld.shared.u32 %r10, [%r3+12];",
+    ]
+    for j in range(3):
+        store(c, f"%r{8+j}", 12+j)
+    c += [
+        "add.u32 %r3, %r3, 4;",
+        # Four scalar reads alone do not prove 16-byte alignment.
+        "ld.shared.u32 %r8, [%r3];",
+        "ld.shared.u32 %r9, [%r3+4];",
+        "ld.shared.u32 %r10, [%r3+8];",
+        "ld.shared.u32 %r11, [%r3+12];",
+    ]
+    for j in range(4):
+        store(c, f"%r{8+j}", 15+j)
+    c += [
+        "add.u32 %r3, %r3, -4;",
+        "mov.u32 %r8, 777;",
+        "setp.lt.u32 %p0, %r1, 16;",
+        "ld.shared.v4.u32 {%r4,%r5,%r6,%r7}, [%r3+16];",
+        "@%p0 ld.shared.u32 %r8, [%r3];",
+        "ld.shared.u32 %r9, [%r3+4];",
+    ]
+    store(c, "%r8", 19)
+    c += [
+        # A load that overwrites its base changes subsequent addresses.
+        "add.u32 %r8, %r3, 16;",
+        "st.shared.u32 [%r3], %r8;",
+        "ld.shared.v4.u32 {%r4,%r5,%r6,%r7}, [%r3+16];",
+        "ld.shared.u32 %r3, [%r3];",
+        "ld.shared.v2.u32 {%r8,%r9}, [%r3];",
+    ]
+    store(c, "%r8", 20)
+    store(c, "%r9", 21)
+    for i, row in enumerate(e):
+        v = 1000 + i * 10
+        row[:8] = [v+j for j in range(8)]
+        row[8:12] = [v+j for j in range(4)]
+        row[12:15] = [v+1, v+2, v+3]
+        row[15:19] = [v+j for j in range(1, 5)]
+        row[19:22] = [v if i % 32 < 16 else 777, v+4, v+5]
+
     for partial in [False, True]:
         name = "warp_partial" if partial else "warp_full"
         c, e = new(name)

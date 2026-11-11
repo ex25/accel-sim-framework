@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run unmodified Qwen64/128 and Mixtral/128 gating with synthetic CPU references."""
+"""Run frozen gating alone, optionally restricting it to one CTA/K tile."""
 
 import argparse
 import hashlib
@@ -16,13 +16,17 @@ SIM = ROOT / "gpu-simulator/gpgpu-sim"
 ART = ROOT / "workloads/moe/artifacts"
 case_launches = {
     name: load(ART / "cases" / name / "forward.bin")
-    for name in ["qwen64-t128", "mixtral-t128"]
+    for name in ["qwen64-t128", "phi-t128", "mixtral-t128"]
 }
 launches = [x for v in case_launches.values() for x in v]
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument("--run-dir", type=Path, required=True)
 p.add_argument("--test", default="all")
 p.add_argument("--full-config", action="store_true")
+p.add_argument("--qwen-blocks", type=int, choices=[1, 8], default=8)
+p.add_argument("--qwen-iterations", type=int, choices=[1, 16], default=16)
+p.add_argument("--single-cta", action="store_true")
+p.add_argument("--single-iteration", action="store_true")
 a = p.parse_args()
 run = a.run_dir.resolve()
 run.mkdir(parents=True, exist_ok=True)
@@ -36,19 +40,41 @@ def call(cmd, **kw):
 
 
 modules = json.loads((ART / "workloads.json").read_text())["modules"]
-selected = [71, 2]
+selected = [71, 41, 2]
 inc = []
 asm = []
 meta = []
+embedded_ptx = {}
 for index in selected:
     module = modules[index]
     spec = next(x for x in launches if x["module"] == index)
+    ptx = ART / module["ptx"]
+    if index == 71 and (a.qwen_iterations == 1 or a.single_iteration):
+        # Keep matrix strides and shared access patterns; execute only the
+        # first K=128 tile. This copy is diagnostic, not a hardware baseline.
+        text = ptx.read_text()
+        assert text.count("%rd93, 7680;") == text.count("%rd93, 8192;") == 1
+        text = text.replace("%rd93, 7680;", "%rd93, 0;")
+        text = text.replace("%rd93, 8192;", "%rd93, 512;")
+        ptx = run / "qwen-one-loop.ptx"
+        ptx.write_text(text)
+    elif index in (2, 41) and a.single_iteration:
+        # Preserve all strides, pipeline setup and shared address expressions.
+        text = ptx.read_text()
+        assert text.count(", 16384;") == 2
+        # The other 16384 immediate is the shared weight-buffer base.
+        import re
+        text, n = re.subn(r"(setp.ne.s64[^\n]*), 16384;", r"\1, 128;", text)
+        assert n == 1
+        ptx = run / f"{index}-one-loop.ptx"
+        ptx.write_text(text)
+    embedded_ptx[str(index)] = hashlib.sha256(ptx.read_bytes()).hexdigest()
     call(
         [
             cuda / "bin/fatbinary",
             "--64",
             "--create=" + str(run / f"{index}.fatbin"),
-            "--image=profile=compute_90a,file=" + str(ART / module["ptx"]),
+            "--image=profile=compute_90a,file=" + str(ptx),
         ]
     )
     asm.append(
@@ -134,7 +160,7 @@ library_path = Path(
 )
 library_sha256 = hashlib.sha256(library_path.read_bytes()).hexdigest()
 records = []
-for test in (["qwen", "mixtral"] if a.test == "all" else a.test.split(",")):
+for test in (["qwen", "phi", "mixtral"] if a.test == "all" else a.test.split(",")):
     cmd = [
         "/usr/bin/time",
         "-v",
@@ -142,6 +168,10 @@ for test in (["qwen", "mixtral"] if a.test == "all" else a.test.split(",")):
         str(run / (test + ".time")),
         str(run / "real"),
         test,
+        str(a.qwen_blocks),
+        str(a.qwen_iterations),
+        str(int(a.single_cta)),
+        str(int(a.single_iteration)),
     ]
     commands.append(cmd)
     with (run / (test + ".log")).open("w") as log:
@@ -161,6 +191,11 @@ metadata = dict(
     libraries=libraries,
     tests=records,
     full_config=a.full_config,
+    qwen_blocks=a.qwen_blocks,
+    qwen_iterations=a.qwen_iterations,
+    single_cta=a.single_cta,
+    single_iteration=a.single_iteration,
+    embedded_ptx_sha256=embedded_ptx,
     config_sha256=hashlib.sha256((run / "gpgpusim.config").read_bytes()).hexdigest(),
     ptx_sha256={
         str(i): hashlib.sha256((ART / modules[i]["ptx"]).read_bytes()).hexdigest()

@@ -1,0 +1,53 @@
+// Stage 7 scoped label and unsigned literal regression
+.version 8.7
+.target sm_90a
+.address_size 64
+.visible .entry loading(.param .u64 output) {
+  .reg .b64 %out, %addr;
+  .reg .b32 %thread, %sum, %literal;
+  .reg .pred %invalid;
+  ld.param.u64 %out, [output];
+  mov.u32 %thread, %tid.x;
+  setp.ge.u32 %invalid, %thread, 32;
+  @%invalid bra FAILURE;
+  mov.u32 %sum, 0;
+  mov.u32 %literal, 0x3340U;
+  {
+    .reg .pred %done;
+    .reg .b32 %i;
+    mov.u32 %i, 0;
+  LAB_WAIT:
+    setp.ge.u32 %done, %i, %thread;
+    @%done bra DONE;
+    add.u32 %sum, %sum, 1;
+    add.u32 %i, %i, 1;
+    bra LAB_WAIT;
+  DONE:
+    add.u32 %sum, %sum, %literal;
+  }
+  {
+    .reg .pred %done;
+    .reg .b32 %i, %bound;
+    mov.u32 %i, 0;
+    add.u32 %bound, %thread, 1U;
+  LAB_WAIT:
+    setp.ge.u32 %done, %i, %bound;
+    @%done bra DONE;
+    add.u32 %sum, %sum, 2;
+    add.u32 %i, %i, 1;
+    bra LAB_WAIT;
+  DONE:
+    add.u32 %sum, %sum, 5U;
+  }
+  bra TAIL_BACK;
+STORE:
+  mul.wide.u32 %addr, %thread, 4;
+  add.u64 %addr, %out, %addr;
+  st.global.u32 [%addr], %sum;
+  ret;
+FAILURE:
+  trap;
+TRAILING_DEBUG_LABEL:
+TAIL_BACK:
+  bra STORE;
+}

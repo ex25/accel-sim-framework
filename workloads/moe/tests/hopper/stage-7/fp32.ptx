@@ -1,0 +1,68 @@
+// Four warp schedulers, sixteen independent FMA accumulators per thread.
+.version 8.7
+.target sm_90a
+.address_size 64
+.visible .entry fp32(.param .u64 output) {
+.reg .b32 %r<4>;
+.reg .b64 %rd<3>;
+.reg .f32 %f<16>;
+.reg .pred %p;
+ld.param.u64 %rd0, [output];
+mov.u32 %r0, %tid.x;
+mul.wide.u32 %rd1, %r0, 64;
+add.u64 %rd2, %rd0, %rd1;
+mov.u32 %r1, 128;
+mov.f32 %f0, 0f00000000;
+mov.f32 %f1, 0f00000000;
+mov.f32 %f2, 0f00000000;
+mov.f32 %f3, 0f00000000;
+mov.f32 %f4, 0f00000000;
+mov.f32 %f5, 0f00000000;
+mov.f32 %f6, 0f00000000;
+mov.f32 %f7, 0f00000000;
+mov.f32 %f8, 0f00000000;
+mov.f32 %f9, 0f00000000;
+mov.f32 %f10, 0f00000000;
+mov.f32 %f11, 0f00000000;
+mov.f32 %f12, 0f00000000;
+mov.f32 %f13, 0f00000000;
+mov.f32 %f14, 0f00000000;
+mov.f32 %f15, 0f00000000;
+LOOP:
+fma.rn.f32 %f0, 0f3f800000, 0f3f800000, %f0;
+fma.rn.f32 %f1, 0f3f800000, 0f3f800000, %f1;
+fma.rn.f32 %f2, 0f3f800000, 0f3f800000, %f2;
+fma.rn.f32 %f3, 0f3f800000, 0f3f800000, %f3;
+fma.rn.f32 %f4, 0f3f800000, 0f3f800000, %f4;
+fma.rn.f32 %f5, 0f3f800000, 0f3f800000, %f5;
+fma.rn.f32 %f6, 0f3f800000, 0f3f800000, %f6;
+fma.rn.f32 %f7, 0f3f800000, 0f3f800000, %f7;
+fma.rn.f32 %f8, 0f3f800000, 0f3f800000, %f8;
+fma.rn.f32 %f9, 0f3f800000, 0f3f800000, %f9;
+fma.rn.f32 %f10, 0f3f800000, 0f3f800000, %f10;
+fma.rn.f32 %f11, 0f3f800000, 0f3f800000, %f11;
+fma.rn.f32 %f12, 0f3f800000, 0f3f800000, %f12;
+fma.rn.f32 %f13, 0f3f800000, 0f3f800000, %f13;
+fma.rn.f32 %f14, 0f3f800000, 0f3f800000, %f14;
+fma.rn.f32 %f15, 0f3f800000, 0f3f800000, %f15;
+add.u32 %r1, %r1, -1;
+setp.ne.u32 %p, %r1, 0;
+@%p bra LOOP;
+st.global.f32 [%rd2+0], %f0;
+st.global.f32 [%rd2+4], %f1;
+st.global.f32 [%rd2+8], %f2;
+st.global.f32 [%rd2+12], %f3;
+st.global.f32 [%rd2+16], %f4;
+st.global.f32 [%rd2+20], %f5;
+st.global.f32 [%rd2+24], %f6;
+st.global.f32 [%rd2+28], %f7;
+st.global.f32 [%rd2+32], %f8;
+st.global.f32 [%rd2+36], %f9;
+st.global.f32 [%rd2+40], %f10;
+st.global.f32 [%rd2+44], %f11;
+st.global.f32 [%rd2+48], %f12;
+st.global.f32 [%rd2+52], %f13;
+st.global.f32 [%rd2+56], %f14;
+st.global.f32 [%rd2+60], %f15;
+ret;
+}

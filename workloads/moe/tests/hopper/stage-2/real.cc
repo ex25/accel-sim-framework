@@ -13,8 +13,14 @@ struct Launch {
 };
 #include "real_launches.inc"
 static char markers[110];
+static unsigned qwen_blocks = 8;
+static bool single_cta = false;
 static void run(unsigned module, std::initializer_list<const void *> ptrs) {
   auto spec = specs.at(module);
+  if (module == 71)
+    spec.shape[0] = qwen_blocks;
+  if (single_cta)
+    spec.shape[0] = 1;
   Wrapper wrapper{0x466243b1, 1, spec.fatbin, nullptr};
   void **h = __cudaRegisterFatBinary(&wrapper);
   __cudaRegisterFunction(h, &markers[module], const_cast<char *>(spec.name),
@@ -89,7 +95,15 @@ static unsigned short round_bf16(float f) {
 int main(int argc, char **argv) {
   stamp("main");
   bool qwen = !strcmp(argv[1], "qwen");
-  unsigned h = qwen ? 2048 : 4096, experts = qwen ? 64 : 8;
+  bool phi = !strcmp(argv[1], "phi");
+  qwen_blocks = argc > 2 ? std::stoul(argv[2]) : 8;
+  unsigned qwen_iterations = argc > 3 ? std::stoul(argv[3]) : 16;
+  single_cta = argc > 4 && std::stoul(argv[4]);
+  bool single_iteration = argc > 5 && std::stoul(argv[5]);
+  unsigned h = qwen ? 2048 : 4096, experts = qwen ? 64 : phi ? 16 : 8;
+  unsigned reduction = qwen ? qwen_iterations * 128 : h;
+  if (single_iteration)
+    reduction = qwen ? 128 : 32;
   std::vector<float> x(128 * h), w(experts * h), want(128 * experts);
   for (unsigned t = 0; t < 128; ++t)
     for (unsigned k = 0; k < h; ++k)
@@ -100,9 +114,12 @@ int main(int argc, char **argv) {
   for (unsigned t = 0; t < 128; ++t)
     for (unsigned e = 0; e < experts; ++e) {
       int sum = 0;
-      for (unsigned k = 0; k < h; ++k)
+      for (unsigned k = 0; k < reduction; ++k)
         sum += int(x[t * h + k]) * int(w[e * h + k]);
-      want[t * experts + e] = sum;
+      want[t * experts + e] =
+          ((qwen && (qwen_blocks == 1 || single_cta) &&
+            (t >= 32 || e >= 32)) || (!qwen && single_cta && t >= 32))
+              ? -99999.f : sum;
     }
   std::vector<unsigned short> bf(x.size());
   for (size_t i = 0; i < x.size(); ++i)
@@ -116,7 +133,7 @@ int main(int argc, char **argv) {
   if (qwen)
     run(71, {wp, xp, yp});
   else
-    run(2, {xp, wp, yp});
+    run(phi ? 41 : 2, {xp, wp, yp});
   auto actual = download(yp, want.size(), argv[1]);
   unsigned errors = compare(actual, want, "real gating");
   float max_error = 0;
