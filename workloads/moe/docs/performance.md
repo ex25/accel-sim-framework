@@ -1,5 +1,7 @@
 # Megatron-TE workload 的性能与验证
 
+模拟器最新范围见[Qwen三规模限定验收附件](../evidence/hopper-stage7-qwen/README.md)：128/4096/8192全量数值通过，主要时序修复完成，8192完整event仍缺有效测量；Phi/Mixtral四个大例未运行。以下九例表格是实机基线，不能当九例模拟验收。
+
 **已替换自写 MoE，九个用例在 H100 上的首次与重复前向均与框架参考逐位一致。**当前独立程序复用框架内核定义和 JIT 产物；TE/PyTorch CUDA 内核重新编译，Triton PTX 直接导出。它用于固定输入下的模拟器验证，原生框架仍用于框架层性能结论。
 
 ## 当前实测
@@ -42,7 +44,15 @@ Mixtral/Phi 的 4096/8192 token 耗时与框架相差约 0%～5%；Qwen 对应�
 
 PTX 模拟时，[模拟显存](../../../gpu-simulator/gpgpu-sim/src/cuda-sim/memory.h)保存在主机 RAM 中。本程序会先将全部缓冲区清零，因此这些页面都会建立存储；此外还要保存 PTX、线程寄存器和时序模型状态。专家 GEMM 声明了 10803 个 PTX 虚拟寄存器，模拟器[按线程保存实际写入的寄存器值](../../../gpu-simulator/gpgpu-sim/src/cuda-sim/instructions.cc)，不能用 H100 的物理寄存器数估计这部分 RAM，也不表示每个线程都会用完所有声明。
 
-**模拟器完整运行的主机内存峰值尚未实测。**按当前数据量与寄存器存储方式，单进程按 **64 GiB RAM** 规划是容量估计，不是实测最低要求；32 GiB 是否足够仍未知。九例各用独立进程依次执行，无需把九份占用相加。实现完成后，可在 `workloads/moe` 用下面命令记录峰值 RSS（进程实际驻留的主机内存）；`Maximum resident set size` 的单位为 KiB：
+Qwen最新联合完整运行已记录time-v峰值RSS，三个独立进程并行、各一次不预热。它是主机RAM，不是GPU显存，也不是所有模型的容量保证：
+
+| Qwen token | 主机墙钟 | 峰值RSS / GiB |
+| --- | --- | ---: |
+| 128 | 3:46:21 | 12.74 |
+| 4096 | 14:30:15 | 13.75 |
+| 8192 | 25:56:57 | 13.53 |
+
+Phi/Mixtral大规模的主机峰值仍未实测，不能将Qwen结果外推为九例内存要求。可在 `workloads/moe` 用下面命令记录新任务的峰值RSS；`Maximum resident set size` 的单位为KiB：
 
 ```bash
 /usr/bin/time -v python3 run.py --case mixtral --tokens 8192 --mode sim
@@ -100,4 +110,4 @@ ncu 为不同指标可能重放内核并保存/恢复内存，也会受缓存清
 
 这里固定的是可导出 PTX 的 Megatron-TE 版本/后端，**不是论文原版软件栈的逐版本复现**。CUDA 来源模块的 PTX header 从 8.8 降为 8.7 后，均通过 CUDA 12.8 ptxas；计算指令未改写，entry 只改为唯一名称。
 
-框架前向包括路由、重排、专家两次 GEMM、SwiGLU 和加权合并。独立程序保留这些设备工作与必要复制，固定输入对应的主机元数据；它不是通用 PyTorch 运行时。其他 Transformer 模块仍需单独实测后外推；模拟器的周期准确度尚未验收。
+框架前向包括路由、重排、专家两次 GEMM、SwiGLU 和加权合并。独立程序保留这些设备工作与必要复制，固定输入对应的主机元数据；它不是通用 PyTorch 运行时。当前模拟时序只按附件中的Qwen限定范围验收，保留小核、L2及端到端覆盖边界；其他模型新版本、Transformer模块和多卡均需独立验证。

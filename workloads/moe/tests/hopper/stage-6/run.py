@@ -15,6 +15,8 @@ ROOT = HERE.parents[4]
 SIM = ROOT / "gpu-simulator/gpgpu-sim"
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument("--run-dir", type=Path, required=True)
+p.add_argument("--sim-root", type=Path, default=SIM,
+               help="Simulator source/build root for provenance")
 p.add_argument("--test", default="all")
 p.add_argument("--trace", action="store_true")
 p.add_argument("--banks", type=int, default=64)
@@ -24,6 +26,7 @@ p.add_argument("--gmma-init", type=int, default=64)
 p.add_argument("--sms", type=int, default=2)
 p.add_argument("--smem-latency", type=int, default=29)
 a = p.parse_args()
+SIM = a.sim_root.resolve()
 run = a.run_dir.resolve()
 run.mkdir(parents=True, exist_ok=True)
 commands = []
@@ -46,6 +49,9 @@ entries.update({name:(32,1,32768,1) for name in ('ldmatrix','stmatrix')})
 entries.update({name:(128,1,65536,1) for name in ('pipeline','serial')})
 entries['quota'] = (384,1,32768,1)
 entries['legacy8'] = (32,1,32768,1)
+for count in (16, 64):
+    for groups in (1, 2):
+        entries[f'readpipe{count}_wg{groups}'] = (128*groups,1,49152,1)
 
 asm = []
 for name, target, symbol in [
@@ -159,7 +165,7 @@ for test in entries if a.test == "all" else a.test.split(","):
 
 call(["g++", "-std=c++17", "-g", "-I"+str(SIM), "-I"+str(SIM/"src"),
       "-I"+str(cuda/"include"), run/"sources/state_component.cc",
-      "-L"+str(library_path.parent), "-lcudart", "-o", run/"state_component"])
+      "-L"+str(library_path.parent), "-lcudart", "-lz", "-o", run/"state_component"])
 with (run/"state_component.log").open("w") as log:
     call([run/"state_component"], stdout=log)
 shutil.copy2(SIM/"src/cuda-sim/ptx_matrix.h", run/"ptx_matrix.h")

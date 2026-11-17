@@ -14,10 +14,11 @@ struct Launch {
 #include "real_launches.inc"
 static char markers[110];
 static unsigned qwen_blocks = 8;
+static unsigned qwen_module = 71;
 static bool single_cta = false;
 static void run(unsigned module, std::initializer_list<const void *> ptrs) {
   auto spec = specs.at(module);
-  if (module == 71)
+  if (module == 71 || module == 86)
     spec.shape[0] = qwen_blocks;
   if (single_cta)
     spec.shape[0] = 1;
@@ -27,6 +28,10 @@ static void run(unsigned module, std::initializer_list<const void *> ptrs) {
                          spec.name, -1, nullptr, nullptr, nullptr, nullptr,
                          nullptr);
   __cudaRegisterFatBinaryEnd(h);
+  if (spec.shape[9] > 49152)
+    CHECK(cudaFuncSetAttribute(&markers[module],
+                               cudaFuncAttributeMaxDynamicSharedMemorySize,
+                               spec.shape[9]));
   auto it = ptrs.begin();
   for (auto where : spec.pointers) {
     const void *p = *it++;
@@ -100,6 +105,7 @@ int main(int argc, char **argv) {
   unsigned qwen_iterations = argc > 3 ? std::stoul(argv[3]) : 16;
   single_cta = argc > 4 && std::stoul(argv[4]);
   bool single_iteration = argc > 5 && std::stoul(argv[5]);
+  qwen_module = argc > 6 ? std::stoul(argv[6]) : 71;
   unsigned h = qwen ? 2048 : 4096, experts = qwen ? 64 : phi ? 16 : 8;
   unsigned reduction = qwen ? qwen_iterations * 128 : h;
   if (single_iteration)
@@ -118,22 +124,28 @@ int main(int argc, char **argv) {
         sum += int(x[t * h + k]) * int(w[e * h + k]);
       want[t * experts + e] =
           ((qwen && (qwen_blocks == 1 || single_cta) &&
-            (t >= 32 || e >= 32)) || (!qwen && single_cta && t >= 32))
+            (t >= (qwen_module == 86 ? 64u : 32u) || e >= 32)) ||
+           (!qwen && single_cta && t >= 32))
               ? -99999.f : sum;
     }
   std::vector<unsigned short> bf(x.size());
   for (size_t i = 0; i < x.size(); ++i)
     bf[i] = round_bf16(x[i]);
-  // Module 71 reads FP32 weights first, BF16 tokens second. Module 2 reads
-  // FP32 tokens first, FP32 weights second; the output of both is token-major.
-  const void *xp = qwen ? (const void *)upload(bf) : (const void *)upload(x);
+  // Module 71 reads FP32 weights first, BF16 tokens second. Module 86 reads
+  // FP32 tokens first, FP32 weights second; outputs are token-major.
+  const void *xp = qwen && qwen_module == 71 ? (const void *)upload(bf)
+                                               : (const void *)upload(x);
   auto wp = upload(w);
   auto yp = upload(std::vector<float>(want.size(), -99999.f));
   stamp("inputs_ready");
-  if (qwen)
-    run(71, {wp, xp, yp});
-  else
+  if (qwen) {
+    if (qwen_module == 86)
+      run(qwen_module, {xp, wp, yp});
+    else
+      run(qwen_module, {wp, xp, yp});
+  } else {
     run(phi ? 41 : 2, {xp, wp, yp});
+  }
   auto actual = download(yp, want.size(), argv[1]);
   unsigned errors = compare(actual, want, "real gating");
   float max_error = 0;

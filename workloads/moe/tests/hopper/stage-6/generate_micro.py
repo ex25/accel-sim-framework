@@ -99,6 +99,26 @@ wgmma.fence.sync.aligned;
                 body+='add.u32 %r8, %r8, 1; setp.lt.u32 %p1, %r8, 2; @%p1 bra ITER;\n'
             body+=dump(regs)
         text+=entry(name,body)
+    # All A/B data is resident before the first GMMA. The accumulator chain
+    # checks forwarding; ordinary consumers after wait_group check retirement.
+    for count in (16, 64):
+        for groups in (1, 2):
+            body = prep.replace('add.u32 %r1, %r1, 128;',
+                                f'add.u32 %r1, %r1, {128*groups};')
+            body += f'mov.u64 %rd2, {(1<<62)|(64<<32)|(7<<16)};\n'
+            body += f'mov.u64 %rd3, {(1<<62)|(64<<32)|(7<<16)|(16384//16)};\n'
+            body += 'setp.eq.u32 %p0, %r0, 9999; wgmma.fence.sync.aligned;\n'
+            for i in range(count):
+                body += mma()
+                if i == 0:
+                    body += 'setp.eq.u32 %p0, %r0, %r0;\n'
+                if i % 8 == 7:
+                    body += 'wgmma.commit_group.sync.aligned;\n'
+            body += 'wgmma.wait_group.sync.aligned 0;\n'
+            for r in regs:
+                body += f'add.f32 %f{r}, %f{r}, 1.0;\n'
+            body += dump(regs)
+            text += entry(f'readpipe{count}_wg{groups}', body, 128*groups)
     for name in ['ldmatrix','stmatrix']:
         body='''and.b32 %r1, %r0, 31; mul.lo.u32 %r2, %r1, 16;
 '''

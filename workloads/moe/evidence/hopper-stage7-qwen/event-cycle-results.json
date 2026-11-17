@@ -1,0 +1,604 @@
+{
+  "validation": {
+    "passed": true,
+    "changed_source_files": [
+      "src/stream_manager.cc"
+    ],
+    "changed_objects": [
+      "stream_manager.o"
+    ],
+    "tests": [
+      {
+        "mode": "default",
+        "unchanged_kernel_intervals": true,
+        "baseline": {
+          "event_cycles": [
+            11224,
+            11224,
+            11224
+          ],
+          "recorded_cycle_matches_current": true,
+          "numerical_passed": true
+        },
+        "candidate": {
+          "event_cycles": [
+            11224,
+            11224,
+            11224
+          ],
+          "recorded_cycle_matches_current": true,
+          "numerical_passed": true
+        }
+      },
+      {
+        "mode": "explicit",
+        "unchanged_kernel_intervals": true,
+        "baseline": {
+          "event_cycles": [
+            5612,
+            5612,
+            5612
+          ],
+          "recorded_cycle_matches_current": false,
+          "numerical_passed": true
+        },
+        "candidate": {
+          "event_cycles": [
+            11224,
+            11224,
+            11224
+          ],
+          "recorded_cycle_matches_current": true,
+          "numerical_passed": true
+        }
+      }
+    ],
+    "baseline_library_sha256": "818c97ceaa0e5bc5489c98e9f6c8a52efae2c3e52868a10224ca4c54316ff0d8",
+    "candidate_library_sha256": "4816c388f61385e57b0958a9880f0d3d6efc82e9727e7ae7c5cb29126be4fb18",
+    "configuration_sha256": {
+      "gpgpusim.config": "b67f7d49dc53eda4a3e12de5cfa98d7ac179544d139fd2af9c3f66531a0b5ce1",
+      "config_hopper_islip.icnt": "b7c9bdf97f2f389ab74904d1223a342ffa8752247ed56ebb60af1dc39259fae0"
+    },
+    "probe_sha256": "321d7ed4c80fa5aee43f60579f9e17085ebb11e1c44db46dbf2b8c4c77fe3132",
+    "scope": "Only stream event timestamp capture changed. Legacy cudaEventElapsedTime still returns host wall time; use existing cycle observer for simulation timing. No new full MoE forward or hardware experiment.",
+    "official_reference": "https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__EVENT.html"
+  },
+  "cases": [
+    {
+      "version": "baseline",
+      "stream": "default",
+      "observed": {
+        "updates": [
+          {
+            "total": 5612,
+            "current": 0
+          },
+          {
+            "total": 16836,
+            "current": 0
+          },
+          {
+            "total": 16836,
+            "current": 0
+          },
+          {
+            "total": 28060,
+            "current": 0
+          },
+          {
+            "total": 28060,
+            "current": 0
+          },
+          {
+            "total": 39284,
+            "current": 0
+          }
+        ],
+        "samples": [
+          {
+            "start": 5612,
+            "end": 16836
+          },
+          {
+            "start": 16836,
+            "end": 28060
+          },
+          {
+            "start": 28060,
+            "end": 39284
+          }
+        ]
+      },
+      "kernel_intervals": [
+        {
+          "uid": "1",
+          "entry": "_Z7add_onePi",
+          "start": "5001",
+          "end": "5611",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "2",
+          "entry": "_Z7add_onePi",
+          "start": "10613",
+          "end": "11223",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "3",
+          "entry": "_Z7add_onePi",
+          "start": "16225",
+          "end": "16835",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "4",
+          "entry": "_Z7add_onePi",
+          "start": "21837",
+          "end": "22447",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "5",
+          "entry": "_Z7add_onePi",
+          "start": "27449",
+          "end": "28059",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "6",
+          "entry": "_Z7add_onePi",
+          "start": "33061",
+          "end": "33671",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "7",
+          "entry": "_Z7add_onePi",
+          "start": "38673",
+          "end": "39283",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        }
+      ],
+      "stdout_sha256": "3b47af7738905d7a0332be5b1779f0430c514030366e5fe29baab846d4ec7e8c",
+      "final_value": 7
+    },
+    {
+      "version": "baseline",
+      "stream": "explicit",
+      "observed": {
+        "updates": [
+          {
+            "total": 5612,
+            "current": 0
+          },
+          {
+            "total": 11224,
+            "current": 5612
+          },
+          {
+            "total": 16836,
+            "current": 0
+          },
+          {
+            "total": 22448,
+            "current": 5612
+          },
+          {
+            "total": 28060,
+            "current": 0
+          },
+          {
+            "total": 33672,
+            "current": 5612
+          }
+        ],
+        "samples": [
+          {
+            "start": 5612,
+            "end": 11224
+          },
+          {
+            "start": 16836,
+            "end": 22448
+          },
+          {
+            "start": 28060,
+            "end": 33672
+          }
+        ]
+      },
+      "kernel_intervals": [
+        {
+          "uid": "1",
+          "entry": "_Z7add_onePi",
+          "start": "5001",
+          "end": "5611",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "2",
+          "entry": "_Z7add_onePi",
+          "start": "10613",
+          "end": "11223",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "3",
+          "entry": "_Z7add_onePi",
+          "start": "16225",
+          "end": "16835",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "4",
+          "entry": "_Z7add_onePi",
+          "start": "21837",
+          "end": "22447",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "5",
+          "entry": "_Z7add_onePi",
+          "start": "27449",
+          "end": "28059",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "6",
+          "entry": "_Z7add_onePi",
+          "start": "33061",
+          "end": "33671",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "7",
+          "entry": "_Z7add_onePi",
+          "start": "38673",
+          "end": "39283",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        }
+      ],
+      "stdout_sha256": "20e205a354e26a4386ad92fc5c3d8177a2231db69e57367523b92dc0f3dd79d7",
+      "final_value": 7
+    },
+    {
+      "version": "candidate",
+      "stream": "default",
+      "observed": {
+        "updates": [
+          {
+            "total": 5612,
+            "current": 0
+          },
+          {
+            "total": 16836,
+            "current": 0
+          },
+          {
+            "total": 16836,
+            "current": 0
+          },
+          {
+            "total": 28060,
+            "current": 0
+          },
+          {
+            "total": 28060,
+            "current": 0
+          },
+          {
+            "total": 39284,
+            "current": 0
+          }
+        ],
+        "samples": [
+          {
+            "start": 5612,
+            "end": 16836
+          },
+          {
+            "start": 16836,
+            "end": 28060
+          },
+          {
+            "start": 28060,
+            "end": 39284
+          }
+        ]
+      },
+      "kernel_intervals": [
+        {
+          "uid": "1",
+          "entry": "_Z7add_onePi",
+          "start": "5001",
+          "end": "5611",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "2",
+          "entry": "_Z7add_onePi",
+          "start": "10613",
+          "end": "11223",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "3",
+          "entry": "_Z7add_onePi",
+          "start": "16225",
+          "end": "16835",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "4",
+          "entry": "_Z7add_onePi",
+          "start": "21837",
+          "end": "22447",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "5",
+          "entry": "_Z7add_onePi",
+          "start": "27449",
+          "end": "28059",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "6",
+          "entry": "_Z7add_onePi",
+          "start": "33061",
+          "end": "33671",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "7",
+          "entry": "_Z7add_onePi",
+          "start": "38673",
+          "end": "39283",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        }
+      ],
+      "stdout_sha256": "052fe4e92aee918e286764a112c2dd3e9f80f99514bbd77fd7cedae426287f66",
+      "final_value": 7
+    },
+    {
+      "version": "candidate",
+      "stream": "explicit",
+      "observed": {
+        "updates": [
+          {
+            "total": 5612,
+            "current": 0
+          },
+          {
+            "total": 11224,
+            "current": 5612
+          },
+          {
+            "total": 16836,
+            "current": 0
+          },
+          {
+            "total": 22448,
+            "current": 5612
+          },
+          {
+            "total": 28060,
+            "current": 0
+          },
+          {
+            "total": 33672,
+            "current": 5612
+          }
+        ],
+        "samples": [
+          {
+            "start": 5612,
+            "end": 16836
+          },
+          {
+            "start": 16836,
+            "end": 28060
+          },
+          {
+            "start": 28060,
+            "end": 39284
+          }
+        ]
+      },
+      "kernel_intervals": [
+        {
+          "uid": "1",
+          "entry": "_Z7add_onePi",
+          "start": "5001",
+          "end": "5611",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "2",
+          "entry": "_Z7add_onePi",
+          "start": "10613",
+          "end": "11223",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "3",
+          "entry": "_Z7add_onePi",
+          "start": "16225",
+          "end": "16835",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "4",
+          "entry": "_Z7add_onePi",
+          "start": "21837",
+          "end": "22447",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "5",
+          "entry": "_Z7add_onePi",
+          "start": "27449",
+          "end": "28059",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "6",
+          "entry": "_Z7add_onePi",
+          "start": "33061",
+          "end": "33671",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        },
+        {
+          "uid": "7",
+          "entry": "_Z7add_onePi",
+          "start": "38673",
+          "end": "39283",
+          "core_MHz": "1980.000000",
+          "grid": "1,1,1",
+          "block": "32,1,1",
+          "cluster": "1,1,1",
+          "shared": "1024",
+          "wgmma": "0"
+        }
+      ],
+      "stdout_sha256": "df9840afb824e8b81a03fa47cf487476a7548b2268e56c99adedf9f7bc30ffb2",
+      "final_value": 7
+    }
+  ]
+}

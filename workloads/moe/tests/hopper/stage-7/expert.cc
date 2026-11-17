@@ -36,6 +36,7 @@ int main(int argc, char **argv) {
   const bool real = std::string(argv[2]) == "real";
   const unsigned tile_rounds = argc > 3 ? std::stoul(argv[3]) : 1;
   const int active_group = argc > 4 ? std::stoi(argv[4]) : -1;
+  const int max_n_tiles = argc > 5 ? std::stoi(argv[5]) : 0;
   stamp("main");
   Wrapper wrapper{0x466243b1, 1, expert_module, nullptr};
   auto handle = __cudaRegisterFatBinary(&wrapper);
@@ -132,6 +133,7 @@ int main(int argc, char **argv) {
   memcpy(shapes.data(), shape_bytes.data(), shape_bytes.size());
   std::vector<uint16_t *> ap, bp, cp;
   std::vector<uint64_t> as, bs, cs;
+  std::vector<int> scheduled_n;
   std::vector<std::vector<uint16_t>> expected;
   for (unsigned e = 0; e < shapes.size(); ++e) {
     auto &s = shapes[e];
@@ -139,6 +141,9 @@ int main(int argc, char **argv) {
       s.n = (test == "fc1" ? 256 : 128) * tile_rounds;
       s.k = test == "fc1" ? 128 : 256;
     }
+    const int run_n = max_n_tiles > 0 && s.n > max_n_tiles * 256
+                          ? max_n_tiles * 256
+                          : s.n;
     std::vector<uint16_t> a(s.m * s.k), b(s.n * s.k),
         c(s.m * s.n + 128, 0x7f7f);
     for (int m = 0; m < s.m; ++m)
@@ -150,7 +155,7 @@ int main(int argc, char **argv) {
     std::vector<uint16_t> ref(s.m * s.n, 0x7f7f);
     if (active_group < 0 || int(e) == active_group) {
       for (int m = 0; m < s.m; ++m)
-        for (int n = 0; n < s.n; ++n) {
+        for (int n = 0; n < run_n; ++n) {
           int sum = 0;
           for (int k = 0; k < s.k; ++k)
             sum += av(e, m, k) * bv(e, n, k);
@@ -164,12 +169,15 @@ int main(int argc, char **argv) {
     as.push_back(s.k);
     bs.push_back(s.k);
     cs.push_back(s.n);
+    scheduled_n.push_back(run_n);
   }
-  // Keep real N/K and the full group table, but restrict this diagnostic's
-  // work. Inactive outputs retain their original allocation and sentinel.
-  if (active_group >= 0)
-    for (unsigned e = 0; e < shapes.size(); ++e)
-      if (int(e) != active_group) shapes[e].m = 0;
+  // Limit scheduler work while retaining the original C row stride and
+  // allocation. Unscheduled columns remain sentinel-checked.
+  for (unsigned e = 0; e < shapes.size(); ++e) {
+    shapes[e].n = scheduled_n[e];
+    if (active_group >= 0 && int(e) != active_group)
+      shapes[e].m = 0;
+  }
   auto problem = device(shapes);
   uint64_t tiles = 0;
   for (const auto &s : shapes)
@@ -257,16 +265,18 @@ int main(int argc, char **argv) {
       guard_failed += c[j] != 0x7f7f;
     count += expected[e].size();
     if (active_group < 0 || int(e) == active_group)
-      active_count += expected[e].size();
+      active_count += size_t(shapes[e].m) * shapes[e].n;
     actual.write(reinterpret_cast<char *>(c.data()), expected[e].size() * 2);
     ref.write(reinterpret_cast<char *>(expected[e].data()),
               expected[e].size() * 2);
   }
   stamp("compare_end");
   printf("%s expert %s real=%u elements=%zu active_group=%d "
+         "max_n_tiles=%d "
          "active_elements=%zu inactive_elements=%zu failed=%zu "
          "guard_failed=%zu\n",
          failed || guard_failed ? "FAIL" : "PASS", test.c_str(), real, count,
-         active_group, active_count, count - active_count, failed, guard_failed);
+         active_group, max_n_tiles, active_count, count - active_count, failed,
+         guard_failed);
   return failed || guard_failed ? 1 : 0;
 }

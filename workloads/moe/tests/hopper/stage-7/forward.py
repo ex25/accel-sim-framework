@@ -20,9 +20,24 @@ ORDER = ['qwen64-t128', 'qwen64-t4096', 'phi-t128', 'mixtral-t128',
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--run-dir', type=Path, required=True)
+    p.add_argument('--sim-root', type=Path, default=SIM,
+                   help='Simulator source/build root for provenance')
+    p.add_argument('--config-dir', type=Path,
+                   help='Simulator configuration directory (default: sim-root SM90_H100)')
     p.add_argument('--cases', nargs='+', choices=ORDER, default=ORDER)
-    p.add_argument('--sim-events', action='store_true')
+    p.add_argument('--warmup', type=int, default=0,
+                   help='Warmup forwards, recorded separately from measured samples')
+    p.add_argument('--repeats', type=int, default=1,
+                   help='Individually timed measured forwards in the same process')
+    p.add_argument('--sim-events', action=argparse.BooleanOptionalAction,
+                   default=True,
+                   help='Record complete-forward CUDA-event device cycles '
+                        '(enabled by default)')
     a = p.parse_args()
+    if a.warmup < 0 or a.repeats < 1:
+        p.error('--warmup must be nonnegative and --repeats positive')
+    sim = a.sim_root.resolve()
+    config = (a.config_dir or sim/'configs/tested-cfgs/SM90_H100').resolve()
     run = a.run_dir.resolve()
     run.mkdir(parents=True, exist_ok=False)
     env = os.environ.copy()
@@ -38,22 +53,26 @@ def main():
     results = []
     for name in (name for name in ORDER if name in a.cases):
         case, tokens = name.split('-t')
-        diff = subprocess.check_output(['git', 'diff', '--binary'], cwd=SIM)
+        diff = subprocess.check_output(['git', 'diff', '--binary', 'HEAD'], cwd=sim)
         (run/(name+'.inner.diff')).write_bytes(diff)
         build = dict(
             outer=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
-            inner=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=SIM, text=True).strip(),
+            inner=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=sim, text=True).strip(),
+            simulator_root=str(sim), configuration_source=str(config),
+            library_path=str(library),
             library_sha256=hashlib.sha256(library.read_bytes()).hexdigest(),
             source_diff_sha256=hashlib.sha256(diff).hexdigest(),
-            configuration_sha256=hashlib.sha256((SIM/'configs/tested-cfgs/SM90_H100/gpgpusim.config').read_bytes()).hexdigest(),
+            configuration_sha256=hashlib.sha256((config/'gpgpusim.config').read_bytes()).hexdigest(),
+            interconnect_configuration_sha256=hashlib.sha256((config/'config_hopper_islip.icnt').read_bytes()).hexdigest(),
             driver_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
             libraries=libraries, ptx_mode=0)
         (run/(name+'.build.json')).write_text(json.dumps(build, indent=2)+'\n')
         commands = [
             ['/usr/bin/time', '-v', '-o', str(run/(name+'.time')),
              sys.executable, str(MOE/'run.py'), '--case', case, '--tokens', tokens,
-             '--mode', 'sim', '--warmup', '0', '--iterations', '1', '--repeats', '1',
-             '--run-dir', str(run/name)],
+             '--mode', 'sim', '--warmup', str(a.warmup), '--iterations', '1',
+             '--repeats', str(a.repeats),
+             '--run-dir', str(run/name), '--config-dir', str(config)],
             ['/usr/bin/time', '-v', '-o', str(run/(name+'.compare.time')),
              sys.executable, str(MOE/'compare.py'), str(MOE/'artifacts/cases'/name),
              str(run/name)],
@@ -61,6 +80,8 @@ def main():
         ]
         if a.sim_events:
             commands[0].append('--sim-events')
+        else:
+            commands[0].append('--no-sim-events')
         row = dict(case=name, commands=commands, state='running')
         results.append(row)
         (run/'results.json').write_text(json.dumps(results, indent=2)+'\n')

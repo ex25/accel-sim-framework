@@ -14,6 +14,7 @@ gdb.execute("set breakpoint pending on")
 gdb.execute("set pagination off")
 gdb.execute("set print thread-events off")
 started = {}
+samples = []
 
 
 class Record(gdb.Breakpoint):
@@ -31,8 +32,10 @@ class Elapsed(gdb.Breakpoint):
         begin, end = int(first["m_gpu_tot_sim_cycle"]), int(last["m_gpu_tot_sim_cycle"])
         config = Path("gpgpusim.config").read_text()
         mhz = float(re.search(r"^-gpgpu_clock_domains\s+([\d.]+)", config, re.M)[1])
-        assert end >= begin and int(first["m_updates"]) == int(last["m_updates"]) == 1
+        assert end >= begin
+        assert int(first["m_updates"]) == int(last["m_updates"]) == len(samples) + 1
         result = {
+            "forward_index": len(samples),
             "method": "Existing CUDA-event stream timestamps, observed through GDB; no kernel-duration summation.",
             "start_cycle": begin,
             "end_cycle": end,
@@ -43,7 +46,12 @@ class Elapsed(gdb.Breakpoint):
             "scope": "Events bracket the frozen forward, excluding initialization and final output download. Includes modeled launch/inter-kernel waits. Explicit DMA duration and host submission gaps are not modeled.",
             "runtime_elapsed_time_note": "output.json cuda_event_ms is the legacy simulator host wall timer; use this file for modeled device time.",
         }
-        Path("event-timing.json").write_text(json.dumps(result, indent=2) + "\n")
+        samples.append(result)
+        # Keep the original single-forward fields for existing consumers. Multiple
+        # forwards have no implicit aggregate: every device interval is retained.
+        report = dict(result) if len(samples) == 1 else {}
+        report["samples"] = samples
+        Path("event-timing.json").write_text(json.dumps(report, indent=2) + "\n")
         gdb.write("SIM_EVENT_TIMING " + json.dumps(result) + "\n")
         return False
 

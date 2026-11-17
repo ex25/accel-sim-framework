@@ -35,10 +35,10 @@ def fields(raw):
             for off, fmt, name in names]
 
 
-def prepare(run):
+def prepare(run, case):
     # Read the host-written problem table before each expert call. Its pointer
     # arrays are reconstructed by expert.cc, independently of simulator layouts.
-    source = ART / 'cases/qwen64-t128/forward.bin'
+    source = ART / 'cases' / case / 'forward.bin'
     launches = load(source)
     tables = []
     maps = []
@@ -60,7 +60,10 @@ def prepare(run):
                 args = [blob() for _ in range(rd('I')[0])]
                 if module == 16:
                     address = struct.unpack_from('<Q', args[0], 16)[0]
-                    tables.append(writes[address][:63 * 12])
+                    group_count = struct.unpack_from('<I', args[0], 1232)[0]
+                    table = writes[address]
+                    assert len(table) >= group_count * 12
+                    tables.append(table[:group_count * 12])
             elif tag in (3, 10):
                 address = rd('Q')[0]
                 writes[address] = blob()
@@ -115,11 +118,18 @@ def prepare(run):
         scheduler='Tile M=128, cluster tile N=256 with two CTAs; ceil(M/128)*ceil(N/256)*2 per group.',
         reference='Independent signed integer dot product, then one nearest-even BF16 conversion.',
     ), indent=2) + '\n')
+    return [len(table) // 12 for table in tables]
 
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--run-dir', type=Path, required=True)
+    p.add_argument('--sim-root', type=Path, default=SIM,
+                   help='Simulator source/build root for provenance')
+    p.add_argument('--config-dir', type=Path,
+                   help='Simulator configuration directory (default: sim-root SM90_H100)')
+    p.add_argument('--case', choices=['qwen64-t128', 'qwen64-t4096'],
+                   default='qwen64-t128', help='Frozen expert input case')
     p.add_argument('--test', choices=['fc1', 'fc2', 'loading', 'streams', 'normalize', 'fp32'], default='fc1')
     p.add_argument('--real-shape', action='store_true')
     p.add_argument('--trace', action='store_true')
@@ -127,12 +137,19 @@ def main():
                    help='Small-shape N multiplier to exercise persistent tile reuse')
     p.add_argument('--active-group', type=int,
                    help='Keep only this group nonempty, preserving real N/K and launch resources')
+    p.add_argument('--max-n-tiles', type=int,
+                   help='Limit each group to this many N tiles; keep original N strides')
     a = p.parse_args()
+    sim = a.sim_root.resolve()
+    config = (a.config_dir or sim/'configs/tested-cfgs/SM90_H100').resolve()
     if a.active_group is not None:
         if not a.real_shape or a.test not in ('fc1', 'fc2'):
             p.error('--active-group requires --real-shape and --test fc1 or fc2')
-        if not 0 <= a.active_group < 63:
-            p.error('--active-group must select one of the 63 frozen groups')
+        if a.active_group < 0:
+            p.error('--active-group must be nonnegative')
+    if a.max_n_tiles is not None and (a.max_n_tiles < 1 or not a.real_shape
+                                    or a.test not in ('fc1', 'fc2')):
+        p.error('--max-n-tiles requires a positive count, --real-shape and fc1/fc2')
     run = a.run_dir.resolve()
     run.mkdir(parents=True, exist_ok=False)
     (run / 'sources').mkdir()
@@ -140,7 +157,10 @@ def main():
         if s.suffix in ('.py', '.cc', '.ptx'):
             shutil.copy2(s, run / 'sources')
     if a.test in ('fc1', 'fc2'):
-        prepare(run)
+        group_counts = prepare(run, a.case)
+        group_count = group_counts[0 if a.test == 'fc1' else 1]
+        if a.active_group is not None and a.active_group >= group_count:
+            p.error(f'--active-group must be below {group_count} for {a.case}')
     cuda = Path(os.environ.get('CUDA_INSTALL_PATH', '/usr/local/cuda'))
     commands = []
     def call(cmd, **kw):
@@ -166,7 +186,7 @@ def main():
                         for x in libraries.splitlines() if 'libcudart' in x))
     assert 'gpgpu-sim' in str(library)
     for name in ('gpgpusim.config', 'config_hopper_islip.icnt'):
-        shutil.copy2(SIM / 'configs/tested-cfgs/SM90_H100' / name, run)
+        shutil.copy2(config / name, run)
     if a.trace:
         with (run/'gpgpusim.config').open('a') as f:
             f.write('\n-trace_enabled 1\n-trace_components PTX_TMA\n')
@@ -175,28 +195,35 @@ def main():
               'MOE_TRACE_LAUNCHES'):
         env.pop(k, None)
     env['PTX_SIM_MODE_FUNC'] = '0'
-    diff = subprocess.check_output(['git', 'diff', '--binary'], cwd=SIM)
+    diff = subprocess.check_output(['git', 'diff', '--binary', 'HEAD'], cwd=sim)
     (run / 'inner.diff').write_bytes(diff)
     test_diff = subprocess.check_output(
         ['git', 'diff', '--binary', '--',
          str(HERE / 'expert.py'), str(HERE / 'expert.cc')], cwd=ROOT)
     (run / 'test.diff').write_bytes(test_diff)
     metadata = dict(commands=commands, libraries=libraries,
+                    simulator_root=str(sim), configuration_source=str(config),
+                    library_path=str(library),
                     library_sha256=hashlib.sha256(library.read_bytes()).hexdigest(),
                     outer=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
-                    inner=subprocess.check_output(['git','rev-parse','HEAD'],cwd=SIM,text=True).strip(),
+                    inner=subprocess.check_output(['git','rev-parse','HEAD'],cwd=sim,text=True).strip(),
+                    source_diff_sha256=hashlib.sha256(diff).hexdigest(),
                     ptx_sha256=hashlib.sha256(ptx.read_bytes()).hexdigest(),
-                    real_shape=a.real_shape, test=a.test, tile_rounds=a.tile_rounds,
-                    active_group=a.active_group,
+                    case=a.case, real_shape=a.real_shape, test=a.test,
+                    tile_rounds=a.tile_rounds,
+                    active_group=a.active_group, max_n_tiles=a.max_n_tiles,
                     test_diff_sha256=hashlib.sha256(test_diff).hexdigest(),
                     test_sources_sha256={name: hashlib.sha256((HERE / name).read_bytes()).hexdigest()
                                          for name in ('expert.py', 'expert.cc')},
-                    config_sha256=hashlib.sha256((run/'gpgpusim.config').read_bytes()).hexdigest())
+                    config_sha256=hashlib.sha256((run/'gpgpusim.config').read_bytes()).hexdigest(),
+                    interconnect_config_sha256=hashlib.sha256((run/'config_hopper_islip.icnt').read_bytes()).hexdigest())
     (run/'run.json').write_text(json.dumps(metadata, indent=2)+'\n')
     cmd = ['/usr/bin/time', '-v', '-o', str(run/'expert.time'),
            str(run/'expert'), a.test, 'real' if a.real_shape else 'small', str(a.tile_rounds)]
-    if a.active_group is not None:
-        cmd.append(str(a.active_group))
+    if a.active_group is not None or a.max_n_tiles is not None:
+        cmd.append(str(a.active_group if a.active_group is not None else -1))
+    if a.max_n_tiles is not None:
+        cmd.append(str(a.max_n_tiles))
     commands.append(cmd)
     with (run/'expert.log').open('w') as log:
         result = subprocess.run(cmd, cwd=run, env=env, stdout=log, stderr=subprocess.STDOUT)

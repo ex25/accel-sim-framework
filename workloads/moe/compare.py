@@ -5,7 +5,6 @@ import array
 import json
 import math
 from pathlib import Path
-import re
 
 
 def values(directory):
@@ -32,18 +31,15 @@ def timing(directory):
     run = json.loads(path.read_text())
     if run["mode"] == "native":
         return json.loads((directory / "output.json").read_text())["cuda_event_ms"]
-    text = (directory / "stdout.log").read_text()
-    if text.count("MOE_ROI_BEGIN") != 1 or text.count("MOE_ROI_END") != 1:
-        raise ValueError("Expected one complete simulation ROI")
-    before, body = text.split("MOE_ROI_BEGIN")
-    body = body.split("MOE_ROI_END")[0]
-    pattern = r"gpu_tot_sim_cycle\s*=\s*(\d+)"
-    first, last = re.findall(pattern, before), re.findall(pattern, body)
-    if not first or not last:
-        raise ValueError("Missing cumulative cycle checkpoints")
-    config = (directory / "gpgpusim.config").read_text()
-    mhz = float(re.search(r"-gpgpu_clock_domains\s+([\d.]+)", config)[1])
-    return (int(last[-1]) - int(first[-1])) / mhz / 1000
+    # Missing device events remain unmeasured. ROI cycle checkpoints are a
+    # different measurement and must not stand in for CUDA-event E2E.
+    event_path = directory / "event-timing.json"
+    if not event_path.exists():
+        return None
+    event = json.loads(event_path.read_text())
+    samples = event.get("samples", [event])
+    assert len(samples) == run["warmup"] + run["repeats"]
+    return sum(s["device_elapsed_ms"] for s in samples[run["warmup"]:]) / run["repeats"]
 
 
 def main():
@@ -58,9 +54,8 @@ def main():
     if all(runs) and any(r["mode"] == "sim" for r in runs):
         if (runs[0]["binary_sha256"] != runs[1]["binary_sha256"] or
                 runs[0]["forward_sha256"] != runs[1]["forward_sha256"] or
-                runs[0]["parameters"] != runs[1]["parameters"] or
-                any(r["warmup"] != 0 or r["iterations"] != 1 or r["repeats"] != 1 for r in runs)):
-            parser.error("Simulator comparison requires the same binary/input and one cold forward")
+                runs[0]["parameters"] != runs[1]["parameters"]):
+            parser.error("Simulator comparison requires the same binary, input and parameters")
     expected, actual = values(args.reference), values(args.candidate)
     if len(expected) != len(actual):
         raise ValueError("Output shapes differ")
@@ -78,7 +73,13 @@ def main():
               "failed_elements": failed, "max_absolute_error": maximum,
               "relative_l2_error": math.sqrt(error / max(norm, 1e-30)),
               "reference_ms": timing(args.reference), "candidate_ms": timing(args.candidate)}
-    if result["reference_ms"] and result["candidate_ms"] is not None:
+    matched_protocol = all(runs) and all(
+        runs[0][key] == runs[1][key] for key in ("warmup", "iterations"))
+    result["timing_protocol_matches"] = bool(matched_protocol)
+    result["timing_scope"] = (
+        "CUDA-event timing only. Simulator DMA duration and host submission gaps "
+        "remain unmodeled. Final-output numerical comparison is independent of warmup count.")
+    if matched_protocol and result["reference_ms"] and result["candidate_ms"] is not None:
         result["roi_time_relative_difference"] = (result["candidate_ms"] / result["reference_ms"]) - 1
     (args.candidate / "comparison.json").write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, indent=2))

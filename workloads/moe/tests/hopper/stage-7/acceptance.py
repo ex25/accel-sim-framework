@@ -32,16 +32,26 @@ def audit(run):
     assert actual_run["forward_sha256"] == frozen["forward_sha256"]
     assert actual_run["parameters"] == frozen["framework"]["parameters"]
     assert actual_run["mode"] == "sim"
-    assert (actual_run["warmup"], actual_run["iterations"],
-            actual_run["repeats"]) == (0, 1, 1)
+    assert actual_run["iterations"] == 1
+    forwards = actual_run["warmup"] + actual_run["repeats"]
+    assert actual_run["warmup"] >= 0 and actual_run["repeats"] > 0
     assert actual_run["state"] == "completed" and actual_run["exit_code"] == 0
     assert "gpgpu-sim" in actual_run["loaded_libraries"]
     build = json.loads((run.parent / (name + ".build.json")).read_text())
     assert sha(run / "gpgpusim.config") == build["configuration_sha256"]
+    if "interconnect_configuration_sha256" in build:
+        assert sha(run / "config_hopper_islip.icnt") == build["interconnect_configuration_sha256"]
+        assert actual_run["configuration_source"] == build["configuration_source"]
+        assert actual_run["configuration_sha256"] == {
+            "gpgpusim.config": build["configuration_sha256"],
+            "config_hopper_islip.icnt": build["interconnect_configuration_sha256"]}
+        assert actual_run["runtime_library"] == build["library_path"]
+        assert actual_run["runtime_library_sha256"] == build["library_sha256"]
+        assert sha(Path(build["library_path"])) == build["library_sha256"]
     log = (run / "stdout.log").read_text()
     assert "mode=performance simulation" in log
     assert re.search(r"simulation mode 0\b", log)
-    assert log.count("MOE_ROI_BEGIN") == log.count("MOE_ROI_END") == 1
+    assert log.count("MOE_ROI_BEGIN") == log.count("MOE_ROI_END") == forwards
     registered = set(re.findall(r"__cudaRegisterFunction (moe_kernel_\w+)", log))
     assert registered == {m["entry"] for m in manifest["modules"]}
     # The frozen sm_90a modules have no ptxas system-shared allocation.
@@ -54,18 +64,24 @@ def audit(run):
             assert "system" not in text.lower()
             smem = re.search(r"(\d+) bytes smem", text)
             static_shared[entry[1]] = int(smem[1]) if smem else 0
-    roi = log.split("MOE_ROI_BEGIN", 1)[1].split("MOE_ROI_END", 1)[0]
+    rois = re.findall(r"MOE_ROI_BEGIN(.*?)MOE_ROI_END", log, re.S)
+    assert len(rois) == forwards
+    roi = "\n".join(rois)
     events = [dict(token.split("=", 1) for token in line.split())
               for line in re.findall(r"^SIM_KERNEL (.*)$", roi, re.M)]
     launches = load(reference / "forward.bin")
     hardware = json.loads((MOE / "evidence/hardware-counters.json").read_text())
     hardware_case = next(c for c in hardware["cases"] if c["case"] == name)
-    assert len(events) == len(launches) == len(hardware_case["launches"])
+    assert len(events) == forwards * len(launches)
+    assert len(launches) == len(hardware_case["launches"])
+    assert all(len(re.findall(r"^SIM_KERNEL ", body, re.M)) == len(launches)
+               for body in rois)
     assert [x["module"] for x in launches] == frozen["module_ids"]
     rows = []
     previous_end = -1
-    for i, (event, launch, hw) in enumerate(zip(events, launches,
-                                              hardware_case["launches"])):
+    for ordinal, event in enumerate(events):
+        forward_index, i = divmod(ordinal, len(launches))
+        launch, hw = launches[i], hardware_case["launches"][i]
         assert event["entry"] == manifest["modules"][launch["module"]]["entry"]
         assert event["entry"] == hw["entry"]
         for key, dimensions in (("grid", launch["shape"][:3]),
@@ -79,14 +95,27 @@ def audit(run):
         previous_end = end
         milliseconds = (end - start) / float(event["core_MHz"]) / 1000
         hw_ms = hw["metrics"]["gpu__time_duration.sum"] / 1e6
-        rows.append(dict(launch_index=i, module=launch["module"],
+        rows.append(dict(forward_index=forward_index,
+                         phase="warmup" if forward_index < actual_run["warmup"] else "measured",
+                         launch_index=i, module=launch["module"],
                          role=hw["role"], sim_ms=milliseconds, ncu_ms=hw_ms,
                          relative_error=milliseconds / hw_ms - 1,
                          wgmma=int(event["wgmma"]),
                          wall_seconds=float(event["wall_end"]) -
                          float(event["wall_start"])))
     expert_calls = [r for r in rows if r["module"] == 16]
-    assert len(expert_calls) == 2 and all(r["wgmma"] > 0 for r in expert_calls)
+    assert len(expert_calls) == 2 * forwards and all(r["wgmma"] > 0 for r in expert_calls)
+    if actual_run.get("simulator_event_observer"):
+        timing = json.loads((run / "event-timing.json").read_text())
+        samples = timing.get("samples", [timing])
+        assert len(samples) == forwards
+        previous_end = -1
+        for index, sample in enumerate(samples):
+            assert previous_end <= sample["start_cycle"] <= int(events[index*len(launches)]["start"])
+            assert sample["end_cycle"] >= int(events[(index+1)*len(launches)-1]["end"])
+            assert sample["elapsed_cycles"] == sample["end_cycle"] - sample["start_cycle"]
+            assert sample["device_elapsed_ms"] == sample["elapsed_cycles"] / sample["core_MHz"] / 1000
+            previous_end = sample["end_cycle"]
     expected_count = actual_run["parameters"]["tokens"] * actual_run["parameters"]["hidden"]
     raw_reference = (reference / "reference.bf16").read_bytes()
     raw_actual = (run / "output.f32").read_bytes()
@@ -129,9 +158,11 @@ def audit(run):
     assert not not_bf16
     sim_sum, ref_sum = sum(r["sim_ms"] for r in rows), sum(r["ncu_ms"] for r in rows)
     major = [r for r in rows if r["module"] == 16 or "gating" in r["role"]
-             or r["ncu_ms"] >= .05 * ref_sum]
+             or r["ncu_ms"] >= .05 * ref_sum / forwards]
     result = dict(case=name, execution_checks_passed=True, registered_entries=len(registered),
-                  launches=len(events), numerical=numerical,
+                  launches=len(events), forwards=forwards,
+                  warmup=actual_run["warmup"], repeats=actual_run["repeats"],
+                  numerical=numerical, numerical_scope="Final forward output only",
                   kernel_sum_sim_ms=sim_sum, kernel_sum_ncu_ms=ref_sum,
                   kernel_sum_relative_error=sim_sum / ref_sum - 1,
                   major_calls=major, rows=rows,

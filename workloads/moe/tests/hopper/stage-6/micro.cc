@@ -40,8 +40,11 @@ int main(int argc, char **argv) {
   __cudaRegisterFatBinaryEnd(h);
   stamp("registration_done");
   bool pipeline = name == "pipeline" || name == "serial";
+  bool read_pipeline = name.find("readpipe") == 0;
   bool io = name == "ldmatrix" || name == "stmatrix";
-  unsigned width = name.find("64") != std::string::npos ? 64 : 128;
+  unsigned width = !read_pipeline && name.find("64") != std::string::npos
+                       ? 64
+                       : 128;
   unsigned base = name.find("offset") == 0
                       ? (name.find("low") != std::string::npos ? 1296 : 1280)
                       : 0;
@@ -86,7 +89,8 @@ int main(int argc, char **argv) {
   void *in, *out, *ma = nullptr, *mb = nullptr, *mc = nullptr, *gc = nullptr;
   void *ga = nullptr, *gb = nullptr;
   CHECK(cudaMalloc(&in, input.size()));
-  CHECK(cudaMalloc(&out, 65536));
+  unsigned output_bytes = 65536 + (read_pipeline ? 512 : 0);
+  CHECK(cudaMalloc(&out, output_bytes));
   CHECK(cudaMemcpy(in, input.data(), input.size(), cudaMemcpyHostToDevice));
   if (name == "integration" || pipeline) {
     Encode encode = nullptr;
@@ -165,12 +169,12 @@ int main(int argc, char **argv) {
       CHECK(cudaMemcpy(ga, a.data(), a.size() * 2, cudaMemcpyHostToDevice));
       CHECK(cudaMemcpy(gb, b.data(), b.size() * 2, cudaMemcpyHostToDevice));
     }
-    std::vector<float> output(16384, NAN);
+    std::vector<float> output(output_bytes / 4, NAN);
     if (pipeline) {
       std::vector<uint16_t> sentinel(16384, 0xabcd);
       CHECK(cudaMemcpy(gc, sentinel.data(), 32768, cudaMemcpyHostToDevice));
     }
-    CHECK(cudaMemcpy(out, output.data(), 65536, cudaMemcpyHostToDevice));
+    CHECK(cudaMemcpy(out, output.data(), output_bytes, cudaMemcpyHostToDevice));
     void *args[] = {&in, &out, &ma, &mb, &mc};
     stamp("kernel_begin");
     if (name == "integration") {
@@ -190,7 +194,7 @@ int main(int argc, char **argv) {
     }
     CHECK(cudaDeviceSynchronize());
     stamp("kernel_end");
-    CHECK(cudaMemcpy(output.data(), out, 65536, cudaMemcpyDeviceToHost));
+    CHECK(cudaMemcpy(output.data(), out, output_bytes, cudaMemcpyDeviceToHost));
     stamp("compare_begin");
     auto check = [&](unsigned i, float expected) {
       if (output[i] != expected) {
@@ -246,6 +250,22 @@ int main(int argc, char **argv) {
             if (bits[i] != 1000 * q + 10 * r + c + 1)
               ++errors;
           }
+    } else if (read_pipeline) {
+      unsigned count = name.find("64") != std::string::npos ? 64 : 16;
+      for (unsigned t = 0; t < threads; ++t)
+        for (unsigned j = 0; j < 64; ++j) {
+          unsigned lane = t % 128;
+          unsigned row = (lane / 32) * 16 + (lane % 32) / 4 +
+                         (j / 2 % 2) * 8;
+          unsigned col = (j / 4) * 8 + (lane % 4) * 2 + j % 2;
+          float expected = 0;
+          for (unsigned k = 0; k < 16; ++k)
+            expected += (int(row % 7) - 3 + int(k % 3)) *
+                        (int(col % 11) - 5 - int(k % 2));
+          check(t * 64 + j, count * expected + 1);
+        }
+      for (unsigned i = threads * 64; i < output.size(); ++i)
+        if (!std::isnan(output[i])) ++errors;
     } else
       for (unsigned t = 0; t < 128; ++t)
         for (unsigned j = 0; j < 64; ++j) {
@@ -268,7 +288,7 @@ int main(int argc, char **argv) {
         }
     std::ofstream file(name + "-" + std::to_string(rep) + ".bin",
                        std::ios::binary);
-    file.write((char *)output.data(), 65536);
+    file.write((char *)output.data(), output_bytes);
     stamp("compare_end");
   }
   printf("%s errors=%u %s\n", name.c_str(), errors, errors ? "FAIL" : "PASS");

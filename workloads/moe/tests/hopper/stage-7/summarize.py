@@ -15,14 +15,14 @@ sys.path.insert(0, str(HERE.parent / 'stage-2'))
 from read_forward import load
 
 
-def write_timing_table(run, result):
+def write_timing_table(run, result, prefix=''):
     """Keep the two kernel intervals visibly separate in the human table."""
     fields = ['case', 'launch_index', 'role', 'module', 'start_cycle',
               'end_cycle', 'execution_cycles', 'execution_us',
               'simulation_interval_cycles', 'simulation_interval_us',
               'outside_cta_interval_cycles', 'ncu_us',
               'execution_vs_ncu_percent', 'host_kernel_wall_seconds']
-    with (run/'kernel-times.csv').open('w', newline='') as f:
+    with (run/(prefix+'kernel-times.csv')).open('w', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=fields)
         writer.writeheader()
         for row in result['rows']:
@@ -64,12 +64,14 @@ def write_timing_table(run, result):
         lines += [f"单核执行时间求和：{result['kernel_sum_sim_ms']:.6f} ms；"
                   f"含启动等待的单核区间求和：{result['kernel_sum_simulation_interval_ms']:.6f} ms。"
                   '两项均保留为求和值，不命名为端到端时间。']
-    (run/'timing.md').write_text('\n'.join(lines) + '\n')
+    (run/(prefix+'timing.md')).write_text('\n'.join(lines) + '\n')
 
 
-def summarize(run):
+def summarize_forward(run, forward_index=0):
     manifest = json.loads((run / 'run.json').read_text())
     name = manifest['workload']
+    total_forwards = manifest['warmup'] + manifest['repeats']
+    phase = 'warmup' if forward_index < manifest['warmup'] else 'measured'
     log = (run / 'stdout.log').read_text()
     modules = json.loads((MOE/'artifacts/workloads.json').read_text())['modules']
     forward = load(MOE/'artifacts/cases'/name/'forward.bin')
@@ -132,6 +134,8 @@ def summarize(run):
         previous_dram = dram
         if 'setup_anchor' not in e['entry']:
             events.append(e)
+    assert len(events) <= total_forwards * len(forward)
+    events = events[forward_index*len(forward):(forward_index+1)*len(forward)]
     rows = []
     for i, (e, launch, ref) in enumerate(zip(events, forward, reference['launches'])):
         assert e['entry'] == modules[launch['module']]['entry'] == ref['entry']
@@ -169,8 +173,10 @@ def summarize(run):
         rows.append(row)
     expected = len(forward)
     assert len(events) <= expected
-    completed = len(events) == expected and manifest.get('exit_code') == 0 and 'MOE_ROI_END' in log
+    rois = list(re.finditer(r'MOE_ROI_BEGIN(.*?)MOE_ROI_END', log, re.S))
+    completed = len(events) == expected and len(rois) > forward_index
     result = dict(case=name, completed=completed, launches_completed=len(events),
+                  forward_index=forward_index, phase=phase,
                   summarizer_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                   launches_expected=expected, rows=rows,
                   registered_frozen_entries=sorted(set(re.findall(r'__cudaRegisterFunction (moe_kernel_\w+)', log))),
@@ -181,14 +187,14 @@ def summarize(run):
                       hardware_warm_cuda_event_ms=baseline['warm_cuda_event_ms'],
                       hardware_scope='CUDA events around the complete frozen forward; initialization and final output download excluded. Warm result is the median of three ten-forward group means after three warmup forwards.',
                       simulation_end_to_end_ms=None,
-                      simulation_end_to_end_status='Not measured: the frozen launcher disables CUDA events in simulation mode. Host gaps and explicit DMA duration are not modeled.'),
+                      simulation_end_to_end_status='CUDA-event device interval not collected for this forward. Host gaps and explicit DMA duration remain unmodeled.'),
                   timing_scope='First CTA admission to kernel completion; excludes host and launch queue gaps. Explicit DMA duration is not modeled.',
                   simulation_interval_scope='Per-kernel gpu_sim_cycle in these sequential runs; includes configured pre-CTA launch delay and interval boundaries. Hardware timestamp alignment is not established.',
                   traffic_scope='Sequential kernels: global DRAM totals differenced per completion, times configured burst bytes. L2 GLOBAL/CHIPLET data read/write sector totals differenced against the previous checkpoint with the same printed kernel_stream_id, including setup_anchor. UINT64_MAX prints all keys, so its kernel L2 increment is null with an attribution error and does not advance individual stream histories. Raw cumulative totals and stream keys are retained. Auxiliary miss bookkeeping and instruction fetches excluded.',
                   ncu_conditions=json.loads((MOE/'evidence/hardware-counters.json').read_text())['conditions'])
     if completed:
-        before, roi = log.split('MOE_ROI_BEGIN', 1)
-        roi = roi.split('MOE_ROI_END', 1)[0]
+        before = log[:rois[forward_index].start()]
+        roi = rois[forward_index][1]
         checkpoints = r'^gpu_tot_sim_cycle\s*=\s*(\d+)'
         roi_cycles = (int(re.findall(checkpoints, roi, re.M)[-1]) -
                       int(re.findall(checkpoints, before, re.M)[-1]))
@@ -210,7 +216,12 @@ def summarize(run):
             ref = sum(r['nsys_ms'] for r in rows)
             result.update(kernel_sum_nsys_ms=ref, kernel_sum_nsys_relative_error=sim/ref-1)
     if (run/'event-timing.json').exists():
-        event = json.loads((run/'event-timing.json').read_text())
+        recorded = json.loads((run/'event-timing.json').read_text())
+        samples = recorded.get('samples', [recorded])
+    else:
+        samples = []
+    if forward_index < len(samples):
+        event = samples[forward_index]
         assert completed
         assert event['start_cycle'] <= rows[0]['start_cycle']
         assert event['end_cycle'] >= rows[-1]['end_cycle']
@@ -225,9 +236,42 @@ def summarize(run):
             event_vs_hardware_first_percent=(event['device_elapsed_ms']/baseline['first_forward_cuda_event_ms']-1)*100,
             event_vs_hardware_warm_percent=(event['device_elapsed_ms']/baseline['warm_cuda_event_ms']-1)*100,
             comparison_scope='Raw timing differences, including scope differences: simulator does not model explicit DMA duration or real host submission gaps. Hardware first and warm baselines have different cache/warmup conditions; neither ratio alone establishes timing-model accuracy.')
+    prefix = f'forward-{forward_index}-' if total_forwards > 1 else ''
+    (run/(prefix+'stage7-summary.json')).write_text(json.dumps(result, indent=2, ensure_ascii=False)+'\n')
+    write_timing_table(run, result, prefix)
+    print(name, forward_index, phase, 'complete' if completed else 'partial', len(events), '/', expected)
+    return result
+
+
+def summarize(run):
+    manifest = json.loads((run/'run.json').read_text())
+    count = manifest['warmup'] + manifest['repeats']
+    if count == 1:
+        return summarize_forward(run)
+    forwards = [summarize_forward(run, i) for i in range(count)]
+    completed = all(f['completed'] for f in forwards) and manifest.get('exit_code') == 0
+    measured = [f['forward_timing']['simulation_end_to_end_ms']
+                for f in forwards if f['phase'] == 'measured']
+    mean_ms = (sum(measured)/len(measured) if all(t is not None for t in measured)
+               else None)
+    result = dict(case=manifest['workload'], completed=completed,
+                  warmup=manifest['warmup'], repeats=manifest['repeats'],
+                  forwards=forwards, measured_event_mean_ms=mean_ms,
+                  numerical_scope='Only the final output is downloaded and checked; every forward has independent execution and event checks.')
     (run/'stage7-summary.json').write_text(json.dumps(result, indent=2, ensure_ascii=False)+'\n')
-    write_timing_table(run, result)
-    print(name, 'complete' if completed else 'partial', len(events), '/', expected)
+    lines = [f"# {manifest['workload']} 逐轮计时", '',
+             '每轮沿用同一进程与缓存策略；首轮预热单列，正式轮取算术平均。', '',
+             '| 轮次（0起始） | 阶段 | 完成kernel | 直接event ms |',
+             '| --- | --- | ---: | ---: |']
+    for f in forwards:
+        ms = f['forward_timing']['simulation_end_to_end_ms']
+        value = f'{ms:.9f}' if ms is not None else '未采集'
+        lines.append(f"| {f['forward_index']} | {f['phase']} | {f['launches_completed']} | {value} |")
+    lines += ['', f'正式轮event均值：{mean_ms} ms。',
+              '每轮逐kernel数据在forward-N-kernel-times.csv与forward-N-timing.md；核时间和不替代event。',
+              '最终输出数值仅检查最后一轮，不声称逐轮独立数值验收。',
+              '模拟未建模显式DMA耗时与真实主机提交间隙；历史首次/预热硬件参照不构成同口径性能通过。']
+    (run/'timing.md').write_text('\n'.join(lines)+'\n')
     return result
 
 if __name__ == '__main__':

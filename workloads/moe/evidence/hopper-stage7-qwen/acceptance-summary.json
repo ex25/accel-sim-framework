@@ -1,0 +1,139 @@
+{
+  "status": "Accepted within the Qwen64 single-GPU scope, with documented timing residuals and missing valid 8192 E2E measurement.",
+  "simulator_base_commit": "9cff9650653fbf5420f5c3c7911eb3d78c46c16a",
+  "full_forward_library_sha256": "818c97ceaa0e5bc5489c98e9f6c8a52efae2c3e52868a10224ca4c54316ff0d8",
+  "current_event_fix_library_sha256": "4816c388f61385e57b0958a9880f0d3d6efc82e9727e7ae7c5cb29126be4fb18",
+  "current_source_sha256": {
+    "configs/tested-cfgs/SM90_H100/gpgpusim.config": "b67f7d49dc53eda4a3e12de5cfa98d7ac179544d139fd2af9c3f66531a0b5ce1",
+    "src/abstract_hardware_model.cc": "e913dfa03b1076c54897c81faf7661ba769b20af6b326aa1d94a3d0fb10202cf",
+    "src/abstract_hardware_model.h": "23854653f59f036ebffaaf7df4d62895a0724da05e98e053deeee633152988ad",
+    "src/cuda-sim/cuda-sim.cc": "af38854ce7e123193d552220b2eb5b483dca5ed737a08d437a490153b5bfe6a4",
+    "src/gpgpu-sim/l2cache.cc": "efe06c5912e434f5df05ab2c91884e90bbb53549511aa85f352bc0263215af63",
+    "src/gpgpu-sim/l2cache.h": "8598614aa068a2b61a722add7ae949777f9e15c9b263071e2fd2aadbd23ecdbb",
+    "src/gpgpu-sim/shader.cc": "fccc903f3962531cf7a1a5c73c218b406594745fa60e6b307bf72a6bbefffead",
+    "src/gpgpu-sim/shader.h": "4e67954a80a89a3ae3ceb6f8cc45d83493e79cab9443253cfa345b2e462fcfdd",
+    "src/stream_manager.cc": "bef24bf3a52d8c55c6e749ecbd51e1d1c48125971ec5764dc6d5630f9af13575"
+  },
+  "configuration_sha256": {
+    "gpgpusim.config": "b67f7d49dc53eda4a3e12de5cfa98d7ac179544d139fd2af9c3f66531a0b5ce1",
+    "config_hopper_islip.icnt": "b7c9bdf97f2f389ab74904d1223a342ffa8752247ed56ebb60af1dc39259fae0"
+  },
+  "numerical_tolerance": {
+    "atol": 1e-05,
+    "rtol": 0.02
+  },
+  "simulation_protocol": {
+    "warmup": 0,
+    "iterations": 1,
+    "repeats": 1,
+    "mode": "PTX performance simulation"
+  },
+  "hardware_kernel_reference": "H100 W1 measured: three independent groups, ten forwards per group; per-launch nsys mean of all 30 samples. Simulation has no warmup.",
+  "acceptance_policy": "Approximately 20% for comparable major kernels and kernel sums. Small boundary excesses are retained; small kernels are not individually required to meet 20%.",
+  "cases": [
+    {
+      "case": "qwen64-t128",
+      "launches": 22,
+      "numerical": {
+        "passed": true,
+        "elements": 262144,
+        "failed_elements": 0,
+        "different_elements": 13,
+        "max_absolute_error": 1.52587890625e-05,
+        "relative_l2_error": 2.6107743112063107e-06,
+        "nonfinite_elements": 0,
+        "non_bf16_elements": 0
+      },
+      "output_sha256": "94728658b356b6799b25984c7da9a4ad611b2d8669ff03c39e42177bed91005a",
+      "execution_audit": "All saved output elements independently decoded and checked; raw SIM_KERNEL durations and per-launch references independently recomputed without rerunning simulation.",
+      "event_start_cycle": 5398,
+      "event_end_cycle": 1112298,
+      "event_measurement_valid": true,
+      "sim_event_ms": 0.559040404040404,
+      "kernel_sum_relative_error_percent": -4.349321091390001,
+      "forward_sha256": "1449b327a7cab2cd674b9e8dcdb4e7f7126ee876c478e4a7e057a81e14c875ae",
+      "reference_sha256": "5c4477caa74a0bf5915e1dbcaa5c5996a357ec7bfa422ec8b36e3223517bb9f6"
+    },
+    {
+      "case": "qwen64-t4096",
+      "launches": 24,
+      "numerical": {
+        "passed": true,
+        "elements": 8388608,
+        "failed_elements": 0,
+        "different_elements": 360,
+        "max_absolute_error": 0.000244140625,
+        "relative_l2_error": 1.3905287500055775e-05,
+        "nonfinite_elements": 0,
+        "non_bf16_elements": 0
+      },
+      "output_sha256": "2b4899648955592ff2dbcc35f1c5c4907edee9468003904e629329936f6fc64b",
+      "execution_audit": "All saved output elements independently decoded and checked; raw SIM_KERNEL durations and per-launch references independently recomputed without rerunning simulation.",
+      "event_start_cycle": 5398,
+      "event_end_cycle": 2457795,
+      "event_measurement_valid": true,
+      "sim_event_ms": 1.2385843434343435,
+      "kernel_sum_relative_error_percent": 4.857992236099085,
+      "forward_sha256": "d8448fbad88c3fa443ed977c5f5428531d9ec50ad4ed9205ab249bf25cf846c2",
+      "reference_sha256": "41bb8c345a599c7edce2854bace52f43b6bbb488d1b0b1f8835b050e2e7a91a2"
+    },
+    {
+      "case": "qwen64-t8192",
+      "launches": 24,
+      "numerical": {
+        "passed": true,
+        "elements": 16777216,
+        "failed_elements": 0,
+        "different_elements": 705,
+        "max_absolute_error": 0.000244140625,
+        "relative_l2_error": 1.3667073483051537e-05,
+        "nonfinite_elements": 0,
+        "non_bf16_elements": 0
+      },
+      "output_sha256": "b4ec55ac89b0358aa2723126830b95d99f78c6eddb9dcf4462da48ddfb8f9fe7",
+      "execution_audit": "All saved output elements independently decoded and checked; raw SIM_KERNEL durations and per-launch references independently recomputed without rerunning simulation.",
+      "event_start_cycle": 5398,
+      "event_end_cycle": 3822738,
+      "event_measurement_valid": false,
+      "sim_event_ms": null,
+      "kernel_sum_relative_error_percent": 8.055848847853863,
+      "forward_sha256": "f4704ccf3de0ab768ce6b20910f21e91deedab2b14ade70841faeb7403852a01",
+      "reference_sha256": "ef7b73c82943db714a05edaf3c62f67a2823dd80bfa81c259fc9edbba851dc86"
+    }
+  ],
+  "uncovered": [
+    "Phi/4096",
+    "Phi/8192",
+    "Mixtral/4096",
+    "Mixtral/8192",
+    "New-library full-forward Phi/128 and Mixtral/128",
+    "Eight-GPU communication",
+    "Hardware-equivalent end-to-end accuracy"
+  ],
+  "known_limits": [
+    "Qwen128 gating +20.02% and Qwen8192 FC2 +21.37% versus warm nsys remain.",
+    "The saved Qwen8192 full-run event ends before the last two kernels; its elapsed value is invalid. The one-line event fix has short-test evidence only.",
+    "Explicit DMA duration and real host submission gaps remain unmodeled.",
+    "Very small L2 stress configurations retain known peer-progress failures; acceptance uses the default H100 configuration."
+  ],
+  "raw_run_directory": "workloads/moe/runs/hopper-stage-7/ordinary-fix-20261115/combined-full-20261115",
+  "event_fix_directory": "workloads/moe/runs/hopper-stage-7/event-cycle-fix-20261117",
+  "total_output_elements": 25427968,
+  "binary_sha256": "5ea9c21f75cd8bc92912c0125a48d0216e8e4b7181728e31e114cc20ca34a905",
+  "host_costs": {
+    "qwen64-t128": {
+      "wall_clock": "3:46:21",
+      "max_rss_kib": 13353368
+    },
+    "qwen64-t4096": {
+      "wall_clock": "14:30:15",
+      "max_rss_kib": 14417240
+    },
+    "qwen64-t8192": {
+      "wall_clock": "25:56:57",
+      "max_rss_kib": 14186560
+    }
+  },
+  "simulator_commit": "2faee7aa6a695c87d0a2f59897f987db86283b20",
+  "outer_base_commit": "a2982c1432b1cc7928e507bef82cc1b71db502ca"
+}

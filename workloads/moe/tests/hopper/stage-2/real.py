@@ -16,7 +16,7 @@ SIM = ROOT / "gpu-simulator/gpgpu-sim"
 ART = ROOT / "workloads/moe/artifacts"
 case_launches = {
     name: load(ART / "cases" / name / "forward.bin")
-    for name in ["qwen64-t128", "phi-t128", "mixtral-t128"]
+    for name in ["qwen64-t128", "qwen64-t4096", "phi-t128", "mixtral-t128"]
 }
 launches = [x for v in case_launches.values() for x in v]
 p = argparse.ArgumentParser(description=__doc__)
@@ -25,6 +25,8 @@ p.add_argument("--test", default="all")
 p.add_argument("--full-config", action="store_true")
 p.add_argument("--qwen-blocks", type=int, choices=[1, 8], default=8)
 p.add_argument("--qwen-iterations", type=int, choices=[1, 16], default=16)
+p.add_argument("--qwen-tokens", type=int, choices=[128, 4096], default=128)
+p.add_argument("--config", type=Path)
 p.add_argument("--single-cta", action="store_true")
 p.add_argument("--single-iteration", action="store_true")
 a = p.parse_args()
@@ -40,7 +42,7 @@ def call(cmd, **kw):
 
 
 modules = json.loads((ART / "workloads.json").read_text())["modules"]
-selected = [71, 41, 2]
+selected = [71 if a.qwen_tokens == 128 else 86, 41, 2]
 inc = []
 asm = []
 meta = []
@@ -57,6 +59,13 @@ for index in selected:
         text = text.replace("%rd93, 7680;", "%rd93, 0;")
         text = text.replace("%rd93, 8192;", "%rd93, 512;")
         ptx = run / "qwen-one-loop.ptx"
+        ptx.write_text(text)
+    elif index == 86 and (a.qwen_iterations == 1 or a.single_iteration):
+        text = ptx.read_text()
+        old = "setp.ne.s64 \t%p124, %rd355, 8192;"
+        assert text.count(old) == 1
+        text = text.replace(old, "setp.ne.s64 \t%p124, %rd355, 512;")
+        ptx = run / "qwen4096-one-loop.ptx"
         ptx.write_text(text)
     elif index in (2, 41) and a.single_iteration:
         # Preserve all strides, pipeline setup and shared address expressions.
@@ -138,7 +147,8 @@ call(
 libraries = subprocess.check_output(["ldd", run / "real"], text=True)
 if not any("libcudart" in x and "gpgpu-sim" in x for x in libraries.splitlines()):
     raise RuntimeError(libraries)
-config = (SIM / "configs/tested-cfgs/SM90_H100/gpgpusim.config").read_text()
+config_source = a.config or SIM / "configs/tested-cfgs/SM90_H100/gpgpusim.config"
+config = config_source.read_text()
 if not a.full_config:
     config = config.replace("-gpgpu_n_clusters 132", "-gpgpu_n_clusters 1").replace(
         "-gpgpu_n_chiplet_partition 2", "-gpgpu_n_chiplet_partition 1"
@@ -172,6 +182,7 @@ for test in (["qwen", "phi", "mixtral"] if a.test == "all" else a.test.split(","
         str(a.qwen_iterations),
         str(int(a.single_cta)),
         str(int(a.single_iteration)),
+        str(selected[0]),
     ]
     commands.append(cmd)
     with (run / (test + ".log")).open("w") as log:
@@ -193,10 +204,12 @@ metadata = dict(
     full_config=a.full_config,
     qwen_blocks=a.qwen_blocks,
     qwen_iterations=a.qwen_iterations,
+    qwen_tokens=a.qwen_tokens,
     single_cta=a.single_cta,
     single_iteration=a.single_iteration,
     embedded_ptx_sha256=embedded_ptx,
     config_sha256=hashlib.sha256((run / "gpgpusim.config").read_bytes()).hexdigest(),
+    config_source=str(config_source.resolve()),
     ptx_sha256={
         str(i): hashlib.sha256((ART / modules[i]["ptx"]).read_bytes()).hexdigest()
         for i in selected
